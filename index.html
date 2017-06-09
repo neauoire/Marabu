@@ -50,6 +50,7 @@
 
 <!-- Sequencer -->
 <div class='sequencer'>
+  <h1>Sequencer</h1>
   <div class='vu'>
     <canvas id="playGfxCanvas" width="220" height="65"></canvas>
   </div>
@@ -63,171 +64,133 @@
     <img id="sequencerPatUp" class="smallButton" title="Pattern up" src="gui/plus-one.png" width="24" height="24" alt="+1" />
   </div>
 </div>
-<!-- Pattern -->
 
-<div id="content">
+<!-- Pattern -->
+<div class='pattern'>
+  <h1>Pattern</h1>
+  <div id="pattern">
+    <table class="tracks" id="pattern-table" title="Use the piano or keyboard to enter notes"></table>
+  </div>
+  <div style="height: 32px">
+    <img id="patternCopy" class="smallButton" title="Copy" src="gui/edit-copy.png" width="24" height="24" alt="Copy" />
+    <img id="patternPaste" class="smallButton" title="Paste" src="gui/edit-paste.png" width="24" height="24" alt="Paste" />
+  </div>
+  <div style="height: 32px">
+    <img id="patternNoteDown" class="smallButton" title="Note down" src="gui/minus-one.png" width="24" height="24" alt="-1" />
+    <img id="patternNoteUp" class="smallButton" title="Note up" src="gui/plus-one.png" width="24" height="24" alt="+1" />
+    <img id="patternOctaveDown" class="smallButton" title="Octave down" src="gui/minus-twelve.png" width="24" height="24" alt="-12" />
+    <img id="patternOctaveUp" class="smallButton" title="Octave up" src="gui/plus-twelve.png" width="24" height="24" alt="+12" />
+  </div>
+  <!-- Status (debug etc) -->
+  <div id="statusText"></div>
+</div>
+
+<div class='effects'>
+  <h1>Effects</h1>
+  <div id="fxtrack">
+    <table class="tracks" id="fxtrack-table" title="Use instrument and effect controls to edit"></table>
+  </div>
+  <div style="height: 32px"><img id="fxCopy" class="smallButton" title="Copy" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /></div>
+  <div style="height: 32px"><img id="fxPaste" class="smallButton" title="Paste" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>
+</div>
+
+<div class='instrument'>
+  <h1>Instrument</h1>
+  <select id="instrPreset" title="Select an instrument preset">
+    <option value="">(select a preset)</option>
+  </select>
+  <select id="midiInput" title="Select a MIDI source" style="margin-left: 10px; display: none">
+    <option value="">(select MIDI)</option>
+  </select>
+  <!-- OSC1 -->
+  <h3>Oscillator 1</h3>
+  <table class="subui">
+    <tr><td>Wave</td><td>
+      <img id="osc1_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
+      <img id="osc1_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
+      <img id="osc1_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
+      <img id="osc1_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
+    </td></tr>
+    <tr><td>Vol</td><td title="Volume"><div class="slider"><img id="osc1_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>Semi</td><td title="Semitune"><div class="slider"><img id="osc1_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>X-Env</td><td title="Envelope modulates frequency"><img id="osc1_xenv" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
+  </table>
+  <!-- OSC2 -->
+  <h3>Oscillator 2</h3>
+  <table class="subui">
+  <tr><td>Wave</td><td>
+    <img id="osc2_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
+    <img id="osc2_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
+    <img id="osc2_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
+    <img id="osc2_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
+  </td></tr>
+  <tr><td>Vol</td><td title="Volume"><div class="slider"><img id="osc2_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Semi</td><td title="Semitune"><div class="slider"><img id="osc2_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Det</td><td title="Detune"><div class="slider"><img id="osc2_det" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>X-Env</td><td title="Envelope modulates frequency"><img id="osc2_xenv" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
+  </table>
+  <!-- NOISE -->
+  <h3>Noise</h3>
+  <table class="subui">
+  <tr><td>Vol</td><td title="Volume"><div class="slider"><img id="noise_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  </table>
+  <!-- ENV -->
+  <h3>Envelope</h3>
+  <table class="subui">
+  <tr><td>Att</td><td title="Attack"><div class="slider"><img id="env_att" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Sust</td><td title="Sustain"><div class="slider"><img id="env_sust" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Rel</td><td title="Release"><div class="slider"><img id="env_rel" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  </table>
+  <!-- ARP -->
+  <h3>Arpeggio</h3>
+  <table class="subui">
+  <tr><td>Note 1</td><td title="Note 1"><div class="slider"><img id="arp_note1" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Note 2</td><td title="Note 2"><div class="slider"><img id="arp_note2" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Speed</td><td title="Arpeggio speed"><div class="slider"><img id="arp_speed" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  </table>
+  <!-- EFX -->
+  <h3>FX</h3>
+  <table class="subui">
+  <tr><td>Filt</td><td>
+    <img id="fx_filt_lp" title="Low pass" src="gui/filt-lp.png" alt="LP" style="margin-right: 10px" />
+    <img id="fx_filt_hp" title="High pass" src="gui/filt-hp.png" alt="HP" style="margin-right: 10px" />
+    <img id="fx_filt_bp" title="Band pass" src="gui/filt-bp.png" alt="BP" style="margin-right: 10px" />
+  </td></tr>
+  <tr><td>Freq</td><td title="Filter frequency"><div class="slider"><img id="fx_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>&nbsp;Res</td><td title="Filter resonance"><div class="slider"><img id="fx_res" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Dist</td><td title="Distortion"><div class="slider"><img id="fx_dist" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Drive</td><td title="Volume drive"><div class="slider"><img id="fx_drive" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Pan</td><td title="Pan amount"><div class="slider"><img id="fx_pan_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>&nbsp;Freq</td><td title="Pan frequency"><div class="slider"><img id="fx_pan_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Delay</td><td title="Delay amount"><div class="slider"><img id="fx_dly_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>&nbsp;Time</td><td title="Delay time"><div class="slider"><img id="fx_dly_time" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  </table>
+  <!-- LFO -->
+  <h3>LFO</h3>
+  <table class="subui">
+  <tr><td>Wave</td><td>
+    <img id="lfo_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
+    <img id="lfo_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
+    <img id="lfo_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
+    <img id="lfo_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
+  </td></tr>
+  <tr><td>Amt</td><td title="Amount"><div class="slider"><img id="lfo_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>Freq</td><td title="Frequency"><div class="slider"><img id="lfo_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+  <tr><td>FXFreq</td><td title="FX frequency modulation"><img id="lfo_fxfreq" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
+  </table>
+  <!-- COPY -->
+  <div style="height: 32px; margin-top: 4px"><img id="instrCopy" class="smallButton" title="Copy instrument" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /><img id="instrPaste" class="smallButton" title="Paste instrument" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>
+  <!-- PIANO -->
+  <div class="keyboard">
+    <div class="octaveSelector">
+    Octave: <span id="keyboardOctave" title="Octave">5</span>
+    </div>
+    <img id="octaveDown" title="Octave down" alt="&lt;" src="gui/button-prev.png" width="23" height="20" />&nbsp;<img id="keyboard" src="gui/keyboard.jpg" width="421" height="112" alt="Keyboard" />&nbsp;<img id="octaveUp" title="Octave up" alt="&gt;" src="gui/button-next.png" width="23" height="20" />
+  </div>
+</div>
+
 <div id="cover"><div id="dialog"></div></div>
 
-<table id="guiMaster" class="ui"><tr>
-
-<td>
-<div id="pattern">
-<table class="tracks" id="pattern-table" title="Use the piano or keyboard to enter notes"></table>
-</div>
-<div style="height: 32px"><img id="patternCopy" class="smallButton" title="Copy" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /><img id="patternPaste" class="smallButton" title="Paste" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>
-<div style="height: 32px"><img id="patternNoteDown" class="smallButton" title="Note down" src="gui/minus-one.png" width="24" height="24" alt="-1" /><img id="patternNoteUp" class="smallButton" title="Note up" src="gui/plus-one.png" width="24" height="24" alt="+1" /><img id="patternOctaveDown" class="smallButton" title="Octave down" src="gui/minus-twelve.png" width="24" height="24" alt="-12" /><img id="patternOctaveUp" class="smallButton" title="Octave up" src="gui/plus-twelve.png" width="24" height="24" alt="+12" /></div>
-
-<!-- Status (debug etc) -->
-<div id="statusText"></div>
-
-</td>
-
-<!-- Effects track -->
-<td>
-<div id="fxtrack">
-<table class="tracks" id="fxtrack-table" title="Use instrument and effect controls to edit"></table>
-</div>
-<div style="height: 32px"><img id="fxCopy" class="smallButton" title="Copy" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /></div>
-<div style="height: 32px"><img id="fxPaste" class="smallButton" title="Paste" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>
-
-</td>
-
-
-<!-- Instrument control -->
-<td>
-<select id="instrPreset" title="Select an instrument preset">
-<option value="">(select a preset)</option>
-</select>
-<select id="midiInput" title="Select a MIDI source" style="margin-left: 10px; display: none">
-<option value="">(select MIDI)</option>
-</select>
-
-<table class="ui">
-
-<!-- Oscillator 1 -->
-<tr>
-<td>
-<h3>Oscillator 1</h3>
-<table class="subui">
-<tr><td>Wave</td><td>
-  <img id="osc1_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
-  <img id="osc1_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
-  <img id="osc1_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
-  <img id="osc1_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
-</td></tr>
-<tr><td>Vol</td><td title="Volume"><div class="slider"><img id="osc1_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Semi</td><td title="Semitune"><div class="slider"><img id="osc1_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>X-Env</td><td title="Envelope modulates frequency"><img id="osc1_xenv" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
-</table>
-</td>
-
-<!-- Oscillator 2 -->
-<td>
-<h3>Oscillator 2</h3>
-<table class="subui">
-<tr><td>Wave</td><td>
-  <img id="osc2_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
-  <img id="osc2_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
-  <img id="osc2_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
-  <img id="osc2_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
-</td></tr>
-<tr><td>Vol</td><td title="Volume"><div class="slider"><img id="osc2_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Semi</td><td title="Semitune"><div class="slider"><img id="osc2_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Det</td><td title="Detune"><div class="slider"><img id="osc2_det" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>X-Env</td><td title="Envelope modulates frequency"><img id="osc2_xenv" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
-</table>
-</td>
-</tr>
-
-<!-- Noise -->
-<tr>
-<td>
-<h3>Noise</h3>
-<table class="subui">
-<tr><td>Vol</td><td title="Volume"><div class="slider"><img id="noise_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-</table>
-</td>
-
-<!-- Envelope -->
-<td>
-<h3>Envelope</h3>
-<table class="subui">
-<tr><td>Att</td><td title="Attack"><div class="slider"><img id="env_att" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Sust</td><td title="Sustain"><div class="slider"><img id="env_sust" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Rel</td><td title="Release"><div class="slider"><img id="env_rel" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-</table>
-</td>
-</tr>
-
-<!-- Arpeggio -->
-<tr>
-<td>
-<h3>Arpeggio</h3>
-<table class="subui">
-<tr><td>Note 1</td><td title="Note 1"><div class="slider"><img id="arp_note1" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Note 2</td><td title="Note 2"><div class="slider"><img id="arp_note2" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Speed</td><td title="Arpeggio speed"><div class="slider"><img id="arp_speed" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-</table>
-</td>
-
-<!-- FX -->
-<td rowspan="2">
-<h3>FX</h3>
-<table class="subui">
-<tr><td>Filt</td><td>
-  <img id="fx_filt_lp" title="Low pass" src="gui/filt-lp.png" alt="LP" style="margin-right: 10px" />
-  <img id="fx_filt_hp" title="High pass" src="gui/filt-hp.png" alt="HP" style="margin-right: 10px" />
-  <img id="fx_filt_bp" title="Band pass" src="gui/filt-bp.png" alt="BP" style="margin-right: 10px" />
-</td></tr>
-<tr><td>Freq</td><td title="Filter frequency"><div class="slider"><img id="fx_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>&nbsp;Res</td><td title="Filter resonance"><div class="slider"><img id="fx_res" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Dist</td><td title="Distortion"><div class="slider"><img id="fx_dist" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Drive</td><td title="Volume drive"><div class="slider"><img id="fx_drive" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Pan</td><td title="Pan amount"><div class="slider"><img id="fx_pan_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>&nbsp;Freq</td><td title="Pan frequency"><div class="slider"><img id="fx_pan_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Delay</td><td title="Delay amount"><div class="slider"><img id="fx_dly_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>&nbsp;Time</td><td title="Delay time"><div class="slider"><img id="fx_dly_time" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-</table>
-</td>
-</tr>
-
-<!-- LFO -->
-<tr>
-<td>
-<h3>LFO</h3>
-<table class="subui">
-<tr><td>Wave</td><td>
-  <img id="lfo_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
-  <img id="lfo_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
-  <img id="lfo_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
-  <img id="lfo_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
-</td></tr>
-<tr><td>Amt</td><td title="Amount"><div class="slider"><img id="lfo_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>Freq</td><td title="Frequency"><div class="slider"><img id="lfo_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-<tr><td>FXFreq</td><td title="FX frequency modulation"><img id="lfo_fxfreq" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
-</table>
-</td>
-
-</tr>
-
-
-</table>
-
-<div style="height: 32px; margin-top: 4px"><img id="instrCopy" class="smallButton" title="Copy instrument" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /><img id="instrPaste" class="smallButton" title="Paste instrument" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>
-
-<!-- Keyboard -->
-<div class="keyboard">
-<div class="octaveSelector">
-Octave: <span id="keyboardOctave" title="Octave">5</span>
-</div>
-<img id="octaveDown" title="Octave down" alt="&lt;" src="gui/button-prev.png" width="23" height="20" />&nbsp;<img id="keyboard" src="gui/keyboard.jpg" width="421" height="112" alt="Keyboard" />&nbsp;<img id="octaveUp" title="Octave up" alt="&gt;" src="gui/button-next.png" width="23" height="20" />
-</div>
-
-</td>
-</tr>
-
-</table>
-</div>
 </body>
 </html>
 

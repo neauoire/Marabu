@@ -313,11 +313,22 @@ body {
 
 .sequencer { position:absolute; left:30px; top:30px; z-index:9000; }
 .sequencer #sequencer { border:0px; height:calc(100vh - 90px);}
+
 .sequencer .vu { display:none;}
+
+.pattern { position:absolute; left:275px; top:30px; z-index:9000; }
+.pattern #pattern { border:0px; height:calc(100vh - 90px);}
+
+.effects { position:absolute; left:450px; top:30px; z-index:9000; }
+.effects #fxtrack { border:0px; height:calc(100vh - 90px);}
+
+.instrument { position:absolute; left:550px; top:30px; z-index:9000; }
+
+h1 { font-family:'input_mono_medium'; font-size:12px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px}
 
 #content { left:500px;}
 
-table.tracks { background:#000;}
+table.tracks { background:#000;font-family:'input_mono_medium'; }
 
 table.tracks, table.tracks td, table.tracks th {
   border-bottom: 1px solid #333;
