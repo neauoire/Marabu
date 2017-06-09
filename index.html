@@ -27,51 +27,49 @@
   <meta name="robots" content="noindex" />
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
   <script type="text/javascript" src="common.js"></script>
-  <script type="text/javascript" src="gui.js"></script>
+  <script type="text/javascript" src="gui.js?v=11"></script>
+  <link rel="stylesheet" type="text/css" href="links/fonts.css" />
   <link rel="stylesheet" type="text/css" href="screen.css" />
   <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body onload="gui_init()">
-<div id="content">
-<div id="cover"><div id="dialog"></div></div>
-<table id="guiMaster" class="ui"><tr>
-
-<!-- Song -->
-<td id="UItable">
-<!-- Logo -->
-<div class="sboxLogo">
-<img id="logo" src="gui/logo.png" width="130" height="32" alt="SoundBox" title="About SoundBox" />
+  
+<!-- MAIN MENU -->
+<div id='main_menu'>
+  <div id="newSong" class="option" title="New song">New</div>
+  <div id="openSong" class="option" title="Open demo song">Open</div>
+  <div id="saveSong" class="option" title="Save song">Save</div>
+  <div id="exportJS" class="option" title="Export song as JavaScript">JavaScript</div>
+  <div id="exportWAV" class="option" title="Export song as WAV">Export WAV</div>
+  <div id="playSong" class="option" title="Play song">Song</div>
+  <div id="playRange" class="option" title="Play selected range (SPACE)">Range</div>
+  <div id="stopPlaying" class="option" title="Stop playing">Stop</div>
+  <input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" placeholder="BPM"/>
+  <input id="rpp" type="text" size="3" value="" title="Rows per pattern" placeholder="RPP" />
 </div>
-
-<div id="newSong" class="button" title="New song"><img src="gui/new.png" width="32" height="32" alt="" />&nbsp;New</div>
-<div id="openSong" class="button" title="Open demo song"><img src="gui/open.png" width="32" height="32" alt="" />&nbsp;Open</div>
-<div id="saveSong" class="button" title="Save song"><img src="gui/save.png" width="32" height="32" alt="" />&nbsp;Save</div>
-<div id="exportJS" class="button" title="Export song as JavaScript"><img src="gui/export-js.png" width="32" height="32" alt="" />&nbsp;JavaScript</div>
-<div id="exportWAV" class="button" title="Export song as WAV"><img src="gui/export-wav.png" width="32" height="32" alt="" />&nbsp;Export WAV</div>
-<br />
-<div id="playSong" class="button" title="Play song"><img src="gui/play.png" width="32" height="32" alt="" />&nbsp;Song</div>
-<div id="playRange" class="button" title="Play selected range (SPACE)"><img src="gui/play-range.png" width="32" height="32" alt="" />&nbsp;Range</div>
-<div id="stopPlaying" class="button" title="Stop playing"><img src="gui/stop.png" width="32" height="32" alt="" />&nbsp;Stop</div>
-<br />
-<div id="about" class="button" title="About"><img src="gui/help.png" width="32" height="32" alt="" />&nbsp;About</div>
-<br />
-<div style="text-align: center">
-<input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" />&nbsp;BPM<br />
-<input id="rpp" type="text" size="3" value="" title="Rows per pattern" />&nbsp;RPP
-</div>
-
-</td>
 
 <!-- Sequencer -->
-<td>
-<div><canvas id="playGfxCanvas" width="220" height="65" /></div>
-<div id="sequencer" title="Enter pattern numbers, 0-9">
-<table class="tracks" id="sequencer-table"></table>
+<div class='sequencer'>
+  <div class='vu'>
+    <canvas id="playGfxCanvas" width="220" height="65"></canvas>
+  </div>
+  <div id="sequencer" title="Enter pattern numbers, 0-9">
+    <table class="tracks" id="sequencer-table"></table>
+  </div>
+  <div style="height: 32px">
+    <img id="sequencerCopy" class="smallButton" title="Copy" src="gui/edit-copy.png" width="24" height="24" alt="Copy" />
+    <img id="sequencerPaste" class="smallButton" title="Paste" src="gui/edit-paste.png" width="24" height="24" alt="Paste" />
+    <img id="sequencerPatDown" class="smallButton" title="Pattern down" src="gui/minus-one.png" width="24" height="24" alt="-1" />
+    <img id="sequencerPatUp" class="smallButton" title="Pattern up" src="gui/plus-one.png" width="24" height="24" alt="+1" />
+  </div>
 </div>
-<div style="height: 32px"><img id="sequencerCopy" class="smallButton" title="Copy" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /><img id="sequencerPaste" class="smallButton" title="Paste" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /><img id="sequencerPatDown" class="smallButton" title="Pattern down" src="gui/minus-one.png" width="24" height="24" alt="-1" /><img id="sequencerPatUp" class="smallButton" title="Pattern up" src="gui/plus-one.png" width="24" height="24" alt="+1" /></div>
-</td>
-
 <!-- Pattern -->
+
+<div id="content">
+<div id="cover"><div id="dialog"></div></div>
+
+<table id="guiMaster" class="ui"><tr>
+
 <td>
 <div id="pattern">
 <table class="tracks" id="pattern-table" title="Use the piano or keyboard to enter notes"></table>

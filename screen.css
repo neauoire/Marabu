@@ -86,7 +86,6 @@ h1 {
 
 table.ui, table.ui td {
   vertical-align: top;
-  border: 1px solid #333;
   border-collapse: collapse;
   padding: 4px 4px 8px 8px;
   font-family: "DejaVu Sans Mono",monospace;
@@ -146,58 +145,6 @@ table.subui, table.subui td {
   margin-top: 10px;
   font-size: 9px;
   text-align: center;
-}
-
-table.tracks, table.tracks td, table.tracks th {
-  border: 1px solid #333;
-  border-collapse: collapse;
-  padding: 0px 2px;
-  font-family: "DejaVu Sans Mono",monospace;
-  font-size: 10px;
-  text-align: center;
-  cursor: default;
-}
-
-table.tracks th {
-  width: 18px;
-  color: #ffe;
-  background: #112;
-}
-
-table.tracks td {
-  color: #dda;
-  background: #447;
-}
-
-table.tracks tr.beat td {
-  background: #559;
-}
-
-table.tracks th.playpos {
-  background: #667;
-  color: #fff;
-}
-
-table.tracks td:hover, table.tracks tr.beat td:hover {
-  color: #ddd;
-  background: #77d;
-}
-
-table.tracks td.selected, table.tracks tr.beat td.selected {
-  color: #fff;
-  background: #88f;
-}
-
-#sequencer table.tracks td {
-  width: 18px;
-}
-
-#pattern table.tracks td {
-  width: 24px;
-}
-
-#fxtrack table.tracks td {
-  width: 34px;
 }
 
 .slider {
@@ -305,6 +252,7 @@ table.tracks td.selected, table.tracks tr.beat td.selected {
   width: 100%;
   height: 100%;
   z-index: 99;
+  display:none;
 }
 
 #cover #dialog {
@@ -338,18 +286,69 @@ table.tracks td.selected, table.tracks tr.beat td.selected {
 /*** Theme: Metal blue ********************************************************/
 
 #guiMaster {
- background: #9ab;
+ background: #666;
 }
 
 table.ui td > table.ui td {
-  background: #79b;
+  background: #888;
 }
 
 body {
-  background: rgb(29,37,45);
+  background: #888;
 }
 
 #cover {
-  background: rgba(29,37,45,0.6);
+  background: #888;
 }
 
+
+
+/* NEW */
+
+#main_menu { background:#000; font-family:'input_mono_medium'; padding:0px 30px;}
+#main_menu > * { line-height:30px;}
+#main_menu .option { display:inline-block; color:white; padding:0px 5px; font-size:12px; margin-right:15px; }
+#main_menu .option:hover { color:grey; cursor:pointer;}
+#main_menu input { display:inline-block; color:white; padding:0px 15px; font-size:12px; border:0px; background:#222; font-family:'input_mono_regular';}
+
+.sequencer { position:absolute; left:30px; top:30px; z-index:9000; }
+.sequencer #sequencer { border:0px; height:calc(100vh - 90px);}
+.sequencer .vu { display:none;}
+
+#content { left:500px;}
+
+table.tracks { background:#000;}
+
+table.tracks, table.tracks td, table.tracks th {
+  border-bottom: 1px solid #333;
+  border-right:1px solid #222;
+  border-collapse: collapse;
+  padding: 0px 2px;
+  font-size: 12px;
+  text-align: center;
+  cursor: default;
+  line-height:20px;
+}
+
+table.tracks th {width: 30px;color: #666;}
+table.tracks td { color: #f00; }
+table.tracks tr.beat td {border-bottom:1px solid #555;}
+table.tracks th.playpos {background: #999;color: #fff;}
+table.tracks td:hover, table.tracks tr.beat td:hover {color: #333;background: #fff;}
+
+table.tracks td.selected, table.tracks tr.beat td.selected {
+  color: #fff;
+  background: #000;
+}
+
+#sequencer table.tracks td {
+  width: 18px;
+}
+
+#pattern table.tracks td {
+  width: 24px;
+}
+
+#fxtrack table.tracks td {
+  width: 34px;
+}

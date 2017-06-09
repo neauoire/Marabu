@@ -3632,7 +3632,6 @@ var CGUI = function()
     setSelectedPatternCell(0, 0);
 
     // Misc event handlers
-    document.getElementById("logo").onmousedown = about;
     document.getElementById("newSong").onmousedown = newSong;
     document.getElementById("openSong").onmousedown = openSong;
     document.getElementById("saveSong").onmousedown = saveSong;
@@ -3641,7 +3640,6 @@ var CGUI = function()
     document.getElementById("playSong").onmousedown = playSong;
     document.getElementById("playRange").onmousedown = playRange;
     document.getElementById("stopPlaying").onmousedown = stopPlaying;
-    document.getElementById("about").onmousedown = about;
     document.getElementById("bpm").onfocus = bpmFocus;
     document.getElementById("rpp").onfocus = rppFocus;
 
