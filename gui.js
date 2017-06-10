@@ -2415,76 +2415,26 @@ var CGUI = function()
   var patternCopyMouseDown = function (e) {
     if (!e) var e = window.event;
     e.preventDefault();
-
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        mPatCopyBuffer = [];
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          var arr = [];
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            arr.push(mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen]);
-          }
-          mPatCopyBuffer.push(arr);
-        }
-      }
-    }
+    this.pattern_copy();
   };
 
   var patternPasteMouseDown = function (e) {
     if (!e) var e = window.event;
     e.preventDefault();
-
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow, i = 0; row < mSong.patternLen && i < mPatCopyBuffer.length; ++row, ++i) {
-          for (var col = mPatternCol, j = 0; col < 4 && j < mPatCopyBuffer[i].length; ++col, ++j) {
-            mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
-          }
-        }
-        updatePattern();
-      }
-    }
+    this.pattern_paste();     
   };
 
   var patternNoteUpMouseDown = function (e) {
     if (!e) var e = window.event;
     e.preventDefault();
-
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
-            if (n > 0)
-              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n + 1;
-          }
-        }
-        updatePattern();
-      }
-    }
+    this.pattern_note_up();    
   };
 
   var patternNoteDownMouseDown = function (e)
   {
     if (!e) var e = window.event;
     e.preventDefault();
-
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
-            if (n > 1)
-              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n - 1;
-          }
-        }
-        updatePattern();
-      }
-    }
+    this.pattern_note_down();    
   };
 
   var patternOctaveUpMouseDown = function (e)
@@ -2504,6 +2454,76 @@ var CGUI = function()
   this.status_update = function(log)
   {
     document.getElementById("statusText").innerHTML = log;
+  }
+
+  this.pattern_copy = function()
+  {
+    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
+      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      if (pat >= 0) {
+        mPatCopyBuffer = [];
+        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
+          var arr = [];
+          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
+            arr.push(mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen]);
+          }
+          mPatCopyBuffer.push(arr);
+          this.status_update("Copied Pattern");
+        }
+      }
+    }
+  }
+
+  this.pattern_paste = function()
+  {
+    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
+      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      if (pat >= 0) {
+        for (var row = mPatternRow, i = 0; row < mSong.patternLen && i < mPatCopyBuffer.length; ++row, ++i) {
+          for (var col = mPatternCol, j = 0; col < 4 && j < mPatCopyBuffer[i].length; ++col, ++j) {
+            mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
+          }
+        }
+        updatePattern();
+        this.status_update("Pasted Pattern");
+      }
+    }
+  }
+
+  this.pattern_note_up = function()
+  {
+    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
+      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      if (pat >= 0) {
+        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
+          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
+            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
+            if (n > 0)
+              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n + 1;
+          }
+        }
+        updatePattern();
+        this.status_update("Note +1");
+      }
+    }
+  }
+
+  this.pattern_note_down = function()
+  {
+    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
+      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      if (pat >= 0) {
+        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
+          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
+            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
+            if (n > 1)
+              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n - 1;
+          }
+        }
+        updatePattern();
+        this.status_update("Note -1");
+      }
+    }
   }
 
   this.pattern_octave_up = function()

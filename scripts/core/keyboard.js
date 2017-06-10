@@ -29,8 +29,6 @@ function Keyboard()
       case "ArrowDown": this.key_arrow_down(); break;
       case "ArrowLeft": this.key_arrow_left(); break;
       case "ArrowRight": this.key_arrow_right(); break;
-      case "]": this.key_square_bracket_right(); break;
-      case "[": this.key_square_bracket_left(); break;
       case ":": this.key_colon(); break;
       case "Escape": this.key_escape(); break;
       case 13:  this.key_enter();  break;
@@ -41,10 +39,20 @@ function Keyboard()
       case 38:  this.key_arrow_up(); break;
       case 40:  this.key_arrow_down(); break;
       case 8: this.key_delete(); break;
+
+      case "]": this.key_square_bracket_right(); break;
+      case "[": this.key_square_bracket_left(); break;
+      case "}": this.key_curly_bracket_right(); break;
+      case "{": this.key_curly_bracket_left(); break;
+      case "c": this.key_letter_c(); break;
+      case "v": this.key_letter_v(); break;
+
     }
 
     console.log(event)
   };
+
+  // Controls
 
   this.key_square_bracket_left = function()
   {
@@ -55,6 +63,27 @@ function Keyboard()
   {
     GUI.pattern_octave_up();    
   }
+
+  this.key_curly_bracket_left = function()
+  {
+    GUI.pattern_note_down();
+  }
+
+  this.key_curly_bracket_right = function()
+  {
+    GUI.pattern_note_up();    
+  }
+
+  this.key_letter_c = function()
+  {
+    GUI.pattern_copy();   
+  }
+  this.key_letter_v = function()
+  {
+    GUI.pattern_paste();   
+  }
+
+
 
   this.key_tab = function()
   {
