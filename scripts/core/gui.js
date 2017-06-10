@@ -387,7 +387,7 @@ var CGUI = function()
 
     // Row length
     song.rowLen = calcSamplesPerRow(120);
-  
+
     // Last pattern to play
     song.endPattern = 2;
 
@@ -917,7 +917,7 @@ var CGUI = function()
 
       song.songData[i] = instr;
     }
-  
+
     // Last pattern to play
     song.endPattern = bin.getUBYTE() + 2;
 
@@ -944,7 +944,7 @@ var CGUI = function()
   var songToJS = function (song) {
     var i, j, k;
     var jsData = "";
-  
+
     jsData += "    // This music has been exported by SoundBox. You can use it with\n";
     jsData += "    // http://sb.bitsnbites.eu/player-small.js in your own product.\n\n";
 
@@ -1052,7 +1052,7 @@ var CGUI = function()
         jsData += ",";
       jsData += "\n";
     }
-    
+
     jsData += "      ],\n";
     jsData += "      rowLen: " + song.rowLen + ",   // In sample lengths\n";
     jsData += "      patternLen: " + song.patternLen + ",  // Rows per pattern\n";
@@ -1849,7 +1849,7 @@ var CGUI = function()
   var exportBINARY = function()
   {
     var dataURI = "data:application/octet-stream;base64," + btoa(songToBin(mSong));
-    window.open(dataURI);  
+    window.open(dataURI);
   }
 
   var exportWAV = function(e)
@@ -1894,8 +1894,9 @@ var CGUI = function()
     mPlayer = new CPlayer();
     mPlayer.generate(mSong, opts, function (progress) {
       // Update progress bar
-      var o = document.getElementById("progressBar");
-      o.style.width = Math.floor(200 * progress) + "px";
+	  // NOTE: THIS ELEMENT DOESN'T EXIST!
+      // var o = document.getElementById("progressBar");
+      // o.style.width = Math.floor(200 * progress) + "px";
 
       if (progress >= 1) {
         // Create the wave file
@@ -2336,20 +2337,20 @@ var CGUI = function()
   var patternPasteMouseDown = function (e) {
     if (!e) var e = window.event;
     e.preventDefault();
-    this.pattern_paste();     
+    this.pattern_paste();
   };
 
   var patternNoteUpMouseDown = function (e) {
     if (!e) var e = window.event;
     e.preventDefault();
-    this.pattern_note_up();    
+    this.pattern_note_up();
   };
 
   var patternNoteDownMouseDown = function (e)
   {
     if (!e) var e = window.event;
     e.preventDefault();
-    this.pattern_note_down();    
+    this.pattern_note_down();
   };
 
   var patternOctaveUpMouseDown = function (e)
@@ -2406,7 +2407,7 @@ var CGUI = function()
     {
       mKeyboardOctave--;
       this.status_update("Keyboard Octave "+mKeyboardOctave);
-    }    
+    }
   }
 
   this.pattern_copy = function()
@@ -3669,4 +3670,3 @@ function gui_init()
     alert("Unexpected error: " + err.message);
   }
 }
-
