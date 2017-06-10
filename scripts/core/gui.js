@@ -1638,43 +1638,6 @@ var CGUI = function()
     updateSongSpeed();
   };
 
-  var showDialog = function () {
-    var e = document.getElementById("cover");
-    e.style.visibility = "visible";
-    e = document.getElementById("dialog");
-    e.style.visibility = "visible";
-    deactivateMasterEvents();
-  };
-
-  var hideDialog = function () {
-    var e = document.getElementById("cover");
-    e.style.visibility = "hidden";
-    e = document.getElementById("dialog");
-    e.style.visibility = "hidden";
-    activateMasterEvents();
-  };
-
-  var showProgressDialog = function (msg) {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = "";
-
-    // Create dialog content
-    var o, o2;
-    o = document.createElement("img");
-    o.src = "gui/progress.gif";
-    parent.appendChild(o);
-    o = document.createTextNode(msg);
-    parent.appendChild(o);
-    o = document.createElement("div");
-    o.id = "progressBarParent";
-    parent.appendChild(o);
-    o2 = document.createElement("div");
-    o2.id = "progressBar";
-    o.appendChild(o2);
-
-    showDialog();
-  };
-
   var loadSongFromData = function (songData) {
     var song = binToSong(songData);
     if (song) {
@@ -1797,8 +1760,6 @@ var CGUI = function()
     };
     form.appendChild(o);
     parent.appendChild(form);
-
-    showDialog();
   };
 
   var showSaveDialog = function () {
@@ -1847,58 +1808,11 @@ var CGUI = function()
     form.appendChild(o);
 
     parent.appendChild(form);
-
-    showDialog();
   };
-
-  var showAboutDialog = function () {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = "";
-
-    o = document.createElement("p");
-    o.appendChild(document.createTextNode("an HTML5 synth music tracker"));
-    parent.appendChild(o);
-
-    o = document.createElement("p");
-    o.innerHTML = "Licensed under the <a href=\"gpl.txt\">GPL v3</a> license " +
-                  "(get the <a href=\"https://github.com/mbitsnbites/soundbox\">source</a>).";
-    o.style.fontStyle = "italic";
-    parent.appendChild(o);
-
-    o = document.createElement("p");
-    o.appendChild(document.createTextNode("To get started, open a demo song."));
-    parent.appendChild(o);
-
-    o = document.createElement("a");
-    o.href = "help.html";
-    o.appendChild(document.createTextNode("Help"));
-    parent.appendChild(o);
-    parent.appendChild(document.createElement("br"));
-    parent.appendChild(document.createElement("br"));
-
-    var form = document.createElement("form");
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Close";
-    o.onclick = function () {
-      hideDialog();
-      return false;
-    };
-    form.appendChild(o);
-    parent.appendChild(form);
-
-    showDialog();
-  };
-
 
   //--------------------------------------------------------------------------
   // Event handlers
   //--------------------------------------------------------------------------
-
-  var about = function (e) {
-    e.preventDefault();
-    showAboutDialog();
-  };
 
   var newSong = function (e) {
     mSong = makeNewSong();
@@ -1932,6 +1846,12 @@ var CGUI = function()
     e.preventDefault();
   };
 
+  var exportBINARY = function()
+  {
+    var dataURI = "data:application/octet-stream;base64," + btoa(songToBin(mSong));
+    window.open(dataURI);  
+  }
+
   var exportWAV = function(e)
   {
     e.preventDefault();
@@ -1943,7 +1863,7 @@ var CGUI = function()
     var doneFun = function (wave)
     {
       var blob = new Blob([wave], {type: "application/octet-stream"});
-      saveAs(blob, "SoundBox-music.wav");
+      saveAs(blob, "render.wav");
     };
     generateAudio(doneFun);
   };
@@ -1967,9 +1887,6 @@ var CGUI = function()
 
   var generateAudio = function (doneFun, opts)
   {
-    // Show dialog
-    showProgressDialog("Generating sound...");
-
     // Start time measurement
     var d1 = new Date();
 
@@ -1987,9 +1904,6 @@ var CGUI = function()
         // Stop time measurement
         var d2 = new Date();
         setStatus("Rendered " + (d2.getTime() - d1.getTime())/1000 + "s");
-
-        // Hide dialog
-        hideDialog();
 
         // Call the callback function
         doneFun(wave);
@@ -3612,6 +3526,7 @@ var CGUI = function()
     document.getElementById("saveSong").onmousedown = saveSong;
     document.getElementById("exportJS").onmousedown = exportJS;
     document.getElementById("exportWAV").onmousedown = exportWAV;
+    document.getElementById("exportBINARY").onmousedown = exportBINARY;
     document.getElementById("playSong").onmousedown = playSong;
     document.getElementById("playRange").onmousedown = playRange;
     document.getElementById("stopPlaying").onmousedown = stopPlaying;
@@ -3724,10 +3639,6 @@ var CGUI = function()
 
     // Set up master event handlers
     activateMasterEvents();
-
-    // Show the about dialog (if no song was loaded)
-    if (!songData)
-      showAboutDialog();
 
     // Start the jammer
     mJammer.start();

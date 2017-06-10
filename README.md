@@ -3,9 +3,11 @@
 Marabu is a web based music tracker(sequencer) tool, based on soundbox, under development. It needs to run through localhost, it only works on Chrome. The repository comes with a script that fires Marabu from within Localhost:8033.
 
 ## Active Task
-- Importing json files
 - Exporting instrument files
 - Loading instrument files
+
+## Saving/Loading
+Press .binary to create a binary file of your project, drag it on the project to load.
 
 ## Shortcuts
 ### Pattern

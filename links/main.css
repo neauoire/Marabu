@@ -24,6 +24,14 @@ body {
   margin: 0;
 }
 
+#cover {
+      position: fixed;
+    top: 0px;
+    z-index: 10000;
+    background: red;
+    
+}
+
 #content {
   position: relative;
   width: 1180px;
@@ -175,45 +183,6 @@ table.ui h3 {
   cursor: pointer;
 }
 
-#cover {
-  visibility: hidden;
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 99;
-  display:none;
-}
-
-#cover #dialog {
-  visibility: hidden;
-  width: 600px;
-  margin: 100px auto auto auto;
-  padding: 30px 10px;
-  background: #fff;
-  border: 1px solid #555;
-  text-align: center;
-  border-radius: 6px;
-/*  box-shadow: 0 0 20px #555; */
-}
-
-#cover #dialog img {
-  vertical-align: middle;
-  margin-right: 20px;
-}
-
-#cover #dialog {
-  font-size: 14px;
-}
-
-#cover #dialog h3 {
-  margin: 0;
-  font-size: 24px;
-}
-
-
-
 /*** Theme: Metal blue ********************************************************/
 
 #guiMaster {
@@ -223,12 +192,6 @@ table.ui h3 {
 table.ui td > table.ui td {
   background: #888;
 }
-
-#cover {
-  background: #888;
-}
-
-
 
 /* NEW */
 body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; background:#000; color:white; }
