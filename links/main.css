@@ -244,7 +244,6 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .pattern #fxtrack table.tracks td { width:60px; }
 
 .instrument { position:absolute; left:540px; top:30px; z-index:9000; width:490px;}
-.instrument h1 select { color:black;}
 .instrument .osc { width:240px; display:inline-block; vertical-align: top;}
 .instrument .env { width:240px; display:inline-block; vertical-align: top; }
 .instrument .arp { width:240px; display:inline-block; vertical-align: top; }
@@ -272,7 +271,9 @@ h1 span.icon.down2 { display:none  }
 h1 span.icon.play_song { background: url("../media/graphics/play_song.svg") no-repeat; }
 h1 span.icon.play_range { background: url("../media/graphics/play_range.svg") no-repeat; }
 h1 span.icon.play_stop { background: url("../media/graphics/play_stop.svg") no-repeat; }
-h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;border: 0px;background: #000;font-family: 'input_mono_regular';line-height: 30px;width: 51px;float: right;border-right: 1px solid #333;}
+h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;border: 0px;background: #000;font-family: 'input_mono_regular';line-height: 30px;width: 50px;float: right;border-right: 1px solid #000;border-left: 1px dotted #333;text-align: center; }
+h1 input:focus { color:#72dec2; }
+h1 select { color:black; }
 hr { clear:both; border:0px; padding:0px; margin:0px; }
 
 .status { margin-top: 10px;text-align: center;position: fixed;top: 575px;line-height: 28px;left: 30px;font-size: 11px;color: #999;border-top: 1px solid #555;width: 100vw;text-align: left;background: #000;z-index: 9001; width: 985px;}
