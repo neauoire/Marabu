@@ -1854,12 +1854,6 @@ var CGUI = function()
     var parent = document.getElementById("dialog");
     parent.innerHTML = "";
 
-    // Create dialog content
-    var o, o2;
-    o = document.createElement("img");
-    o.src = "gui/logo-big.png";
-    parent.appendChild(o);
-
     o = document.createElement("p");
     o.appendChild(document.createTextNode("an HTML5 synth music tracker"));
     parent.appendChild(o);
@@ -3545,27 +3539,6 @@ var CGUI = function()
     // Parse URL
     mBaseURL = getURLBase(window.location.href);
     mGETParams = parseURLGetData(window.location.href);
-
-    // Preload images
-    preloadImage("gui/progress.gif");
-    preloadImage("media/graphics/toggle_off.svg");
-    preloadImage("media/graphics/toggle_on.svg");
-    preloadImage("gui/wave-sin.png");
-    preloadImage("gui/wave-sin-sel.png");
-    preloadImage("gui/wave-saw.png");
-    preloadImage("gui/wave-saw-sel.png");
-    preloadImage("gui/wave-sqr.png");
-    preloadImage("gui/wave-sqr-sel.png");
-    preloadImage("gui/wave-tri.png");
-    preloadImage("gui/wave-tri-sel.png");
-    preloadImage("gui/filt-lp.png");
-    preloadImage("gui/filt-lp-sel.png");
-    preloadImage("gui/filt-hp.png");
-    preloadImage("gui/filt-hp-sel.png");
-    preloadImage("gui/filt-bp.png");
-    preloadImage("gui/filt-bp-sel.png");
-    preloadImage("gui/filt-n.png");
-    preloadImage("gui/filt-n-sel.png");
 
     // Set up presets
     initPresets();
