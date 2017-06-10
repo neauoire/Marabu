@@ -31,7 +31,7 @@ var CPlayer = function () {
 
     var mGeneratedBuffer;
 
-    var mWorker = new Worker("player-worker.js");
+    var mWorker = new Worker("scripts/core/player-worker.js");
 
     mWorker.onmessage = function (event) {
         if (event.data.cmd === "progress") {

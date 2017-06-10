@@ -26,6 +26,7 @@
 include("demo-songs.js");
 include("presets.js");
 include("player.js");
+include("player-worker.js");
 include("jammer.js");
 include("rle.js");
 
