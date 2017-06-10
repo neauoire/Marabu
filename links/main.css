@@ -107,12 +107,7 @@ table.ui h3 {
   border-color: #f44;
 }
 
-#statusText {
-  color: #469;
-  margin-top: 10px;
-  font-size: 9px;
-  text-align: center;
-}
+#statusText { color: #469;margin-top: 10px;font-size: 9px;text-align: center;position: fixed;bottom: 0px;line-height: 28px;left: 30px;font-size: 11px;color: #999;border-top: 1px solid #555;width: 100vw;text-align: left;background: #000;z-index: 9001 }
 
 
 #osc1_wave_sin,#osc1_wave_saw,#osc1_wave_sqr,#osc1_wave_tri,
@@ -332,25 +327,9 @@ table.tracks, table.tracks td, table.tracks th {
 }
 
 table.tracks th {width: 30px;color: #666; border-bottom:1px solid black; font-family: 'input_mono_regular'; font-size:11px;}
-table.tracks td { color: #777; font-size:11px;}
-table.tracks tr.beat td {border-bottom:1px solid #555;}
-table.tracks th.playpos {background: #999;color: #fff;}
+table.tracks td { color: #777; font-size:11px; width:30px;}
+table.tracks tr.beat td { background:#111; border-bottom:1px solid #555;}
+table.tracks th.playpos {background: #777;color: #fff;}
 table.tracks tr:hover { background:#111; }
 table.tracks td:hover {color: #fff;background: #222;}
-
-table.tracks td.selected, table.tracks tr.beat td.selected {
-  color: #fff;
-  border-bottom:1px solid white;
-}
-
-#sequencer table.tracks td {
-  width: 30px;
-}
-
-#pattern table.tracks td {
-  width: 30px;
-}
-
-#fxtrack table.tracks td {
-  width: 30px;
-}
+table.tracks td.selected, table.tracks tr.beat td.selected { color: #fff; border-bottom:1px solid white; }

@@ -208,8 +208,8 @@ var CGUI = function()
       EDIT_FXTRACK = 3;
 
   // Misc constants
-  var MAX_SONG_ROWS = 128,
-      MAX_PATTERNS = 36;
+  var MAX_SONG_ROWS = 16,
+      MAX_PATTERNS = 16;
 
   // Edit/gui state
   var mEditMode = EDIT_PATTERN,
@@ -391,7 +391,7 @@ var CGUI = function()
     song.endPattern = 2;
 
     // Rows per pattern
-    song.patternLen = 32;
+    song.patternLen = 16;
 
     // Select the default instrument from the presets
     var defaultInstr;
@@ -1477,8 +1477,9 @@ var CGUI = function()
 
     var val_el = document.getElementById(o.id+"_val");
     if(val_el){ val_el.innerHTML = pos.toFixed(1);}
-    if(val_el && pos < 0.1){ val_el.style.color = "red"; }
-    if(val_el && pos == 1){ val_el.style.color = "#72dec2"; }
+    if(val_el && pos < 0.1){ val_el.style.color = "#555"; }
+    else if(val_el && pos == 1){ val_el.style.color = "#72dec2"; }
+    else{ val_el.style.color = "#fff"; }
     o.style.marginLeft = Math.round(120 * pos.toFixed(1)) + "px";
   };
 
