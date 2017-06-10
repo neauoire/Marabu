@@ -2042,6 +2042,8 @@ var CGUI = function()
 
   var redrawPlayerGfx = function (t)
   {
+    return;
+    // TODO
     var o = document.getElementById("playGfxCanvas");
     var w = mPlayGfxVUImg.width > 0 ? mPlayGfxVUImg.width : o.width;
     var h = mPlayGfxVUImg.height > 0 ? mPlayGfxVUImg.height : 51;
@@ -3550,9 +3552,9 @@ var CGUI = function()
     mPlayGfxLedOffImg.onload = function () {
       redrawPlayerGfx(-1);
     };
-    mPlayGfxVUImg.src = "gui/playGfxBg.png";
-    mPlayGfxLedOffImg.src = "gui/led-off.png";
-    mPlayGfxLedOnImg.src = "gui/led-on.png";
+    // mPlayGfxVUImg.src = "gui/playGfxBg.png";
+    // mPlayGfxLedOffImg.src = "gui/led-off.png";
+    // mPlayGfxLedOnImg.src = "gui/led-on.png";
 
     // Build the UI tables
     buildSequencerTable();

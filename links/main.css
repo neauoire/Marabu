@@ -98,11 +98,6 @@ table.ui h3 {
 /*  text-shadow: #000 1px 1px 4px; */
 }
 
-#playGfxCanvas {
-  border: 2px solid #555;
-  margin-bottom: 3px;
-}
-
 #sequencer.edit, #pattern.edit, #fxtrack.edit {
   border-color: #f44;
 }
