@@ -1991,7 +1991,7 @@ var CGUI = function()
 
         // Stop time measurement
         var d2 = new Date();
-        setStatus("Generation time: " + (d2.getTime() - d1.getTime())/1000 + "s");
+        setStatus("Rendered " + (d2.getTime() - d1.getTime())/1000 + "s");
 
         // Hide dialog
         hideDialog();

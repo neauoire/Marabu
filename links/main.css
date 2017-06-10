@@ -321,7 +321,7 @@ table.tracks, table.tracks td, table.tracks th {
 table.tracks th {width: 30px;color: #666; border-bottom:1px solid black; font-family: 'input_mono_regular'; font-size:11px;}
 table.tracks td { color: #777; font-size:11px; width:30px;}
 table.tracks tr.beat td { background:#111; border-bottom:1px solid #555;}
-table.tracks th.playpos {background: #777;color: #fff;}
+table.tracks th.playpos {background: #000;color: #fff;}
 table.tracks tr:hover { background:#111; }
 table.tracks td:hover {color: #fff;background: #222;}
-table.tracks td.selected, table.tracks tr.beat td.selected { color: #fff; border-bottom:1px solid white; }
+table.tracks td.selected, table.tracks tr.beat td.selected { color: #fff; border-bottom:1px solid #999; }
