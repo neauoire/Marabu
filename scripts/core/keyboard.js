@@ -72,6 +72,24 @@ function Keyboard()
     }
   };
 
+  // Keybaord Notes
+
+  this.key_letter_a = function(){ GUI.keyboard_play(0); }
+  this.key_letter_s = function(){ GUI.keyboard_play(2); }
+  this.key_letter_d = function(){ GUI.keyboard_play(4); }
+  this.key_letter_f = function(){ GUI.keyboard_play(5); }
+  this.key_letter_g = function(){ GUI.keyboard_play(7); }
+  this.key_letter_h = function(){ GUI.keyboard_play(9); }
+  this.key_letter_j = function(){ GUI.keyboard_play(11); }
+  
+  this.key_letter_w = function(){ GUI.keyboard_play(1); }
+  this.key_letter_e = function(){ GUI.keyboard_play(3); }
+  this.key_letter_t = function(){ GUI.keyboard_play(6); }
+  this.key_letter_y = function(){ GUI.keyboard_play(8); }
+  this.key_letter_u = function(){ GUI.keyboard_play(10); }
+
+  // Keyboard Octave
+
   this.key_letter_z = function()
   {
     GUI.keyboard_octave_down();    

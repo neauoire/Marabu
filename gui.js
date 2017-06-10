@@ -2465,16 +2465,22 @@ var CGUI = function()
     this.keyboard_octave_down();
   };
 
+  // New methods
+
   this.status_update = function(log)
   {
     document.getElementById("statusText").innerHTML = log;
+  }
+
+  this.keyboard_play = function(n = 1)
+  {
+    playNote(n + mKeyboardOctave * 12);
   }
 
   this.keyboard_octave_up = function()
   {
     if (mKeyboardOctave < 8){
       mKeyboardOctave++;
-      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
       this.status_update("Keyboard Octave "+mKeyboardOctave);
     }
   }
@@ -2484,7 +2490,6 @@ var CGUI = function()
     if (mKeyboardOctave > 1)
     {
       mKeyboardOctave--;
-      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
       this.status_update("Keyboard Octave "+mKeyboardOctave);
     }    
   }
@@ -2893,11 +2898,6 @@ var CGUI = function()
       if (n >= 6) comp++;
       n -= comp;
     }
-
-    // Play the note
-    if (playNote(n + mKeyboardOctave * 12)) {
-      e.preventDefault();
-    }
   };
 
   var fxTrackMouseDown = function (e)
@@ -3173,59 +3173,6 @@ var CGUI = function()
         updatePattern();
         updateFxTrack();
         return false;
-      }
-    }
-
-    // Emulate a piano through keyboard input.
-    if (mEditMode != EDIT_SEQUENCE && !editingBpmRpp) {
-      n = -1;
-      switch (e.keyCode)
-      {
-        // First octave on the ZXCVB... row
-        case 90: n = 0; break;
-        case 83: n = 1; break;
-        case 88: n = 2; break;
-        case 68: n = 3; break;
-        case 67: n = 4; break;
-        case 86: n = 5; break;
-        case 71: n = 6; break;
-        case 66: n = 7; break;
-        case 72: n = 8; break;
-        case 78: n = 9; break;
-        case 74: n = 10; break;
-        case 77: n = 11; break;
-        // "Bonus keys" 1 (extensions of first octave into second octave)
-        case 188: n = 12; break;
-        case 76: n = 13; break;
-        case 190: n = 14; break;
-        case 186: n = 15; break;
-        case 191: n = 16; break;
-        // Second octave on the QWERTY... row
-        case 81: n = 12; break;
-        case 50: n = 13; break;
-        case 87: n = 14; break;
-        case 51: n = 15; break;
-        case 69: n = 16; break;
-        case 82: n = 17; break;
-        case 53: n = 18; break;
-        case 84: n = 19; break;
-        case 54: n = 20; break;
-        case 89: n = 21; break;
-        case 55: n = 22; break;
-        case 85: n = 23; break;
-        // "Bonus keys" 2 (extensions of second octave into third octave)
-        case 73: n = 24; break;
-        case 57: n = 25; break;
-        case 79: n = 26; break;
-        case 48: n = 27; break;
-        case 80: n = 28; break;
-      }
-      if (n >= 0)
-      {
-        if (playNote(n + mKeyboardOctave * 12))
-        {
-          return false;
-        }
       }
     }
 
@@ -3767,12 +3714,6 @@ var CGUI = function()
     document.getElementById("fx_dist").addEventListener("touchstart", sliderMouseDown, false);
     document.getElementById("fx_drive").addEventListener("mousedown", sliderMouseDown, false);
     document.getElementById("fx_drive").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("octaveDown").addEventListener("mousedown", octaveDown, false);
-    document.getElementById("octaveDown").addEventListener("touchstart", octaveDown, false);
-    document.getElementById("octaveUp").addEventListener("mousedown", octaveUp, false);
-    document.getElementById("octaveUp").addEventListener("touchstart", octaveUp, false);
-    document.getElementById("keyboard").addEventListener("mousedown", keyboardMouseDown, false);
-    document.getElementById("keyboard").addEventListener("touchstart", keyboardMouseDown, false);
 
     document.getElementById("instrCopy").onmousedown = instrCopyMouseDown;
     document.getElementById("instrPaste").onmousedown = instrPasteMouseDown;
