@@ -1474,7 +1474,7 @@ var CGUI = function()
     {
       pos = Math.sqrt(pos);
     }
-    o.style.marginLeft = Math.round(191 * pos) + "px";
+    o.style.marginLeft = Math.round(120 * pos) + "px";
   };
 
   var updateCheckBox = function (o, check) {
@@ -3014,7 +3014,7 @@ var CGUI = function()
       var pos = getMousePos(e, false);
       var origin = getElementPos(mActiveSlider.parentNode);
       var x = pos[0] - 6 - origin[0];
-      x = x < 0 ? 0 : (x > 191 ? 1 : (x / 191));
+      x = x < 0 ? 0 : (x > 150 ? 1 : (x / 150));
 
       // Adapt to the range of the slider
       if (mActiveSlider.sliderProps.nonLinear)

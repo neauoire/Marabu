@@ -112,10 +112,9 @@
       <img id="osc1_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
       <img id="osc1_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
     </h2>
-    <table class="subui">
-      <tr><td>VOL</td><td title="Volume"><div class="slider"><img id="osc1_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-      <tr><td>1/2</td><td title="Semitune"><div class="slider"><img id="osc1_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    </table>
+    <div class="slider"><span>VOL</span><img id="osc1_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>1/2</span><img id="osc1_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>NOI</span><img id="noise_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- OSC2 -->
   <div class='osc'>
@@ -126,11 +125,9 @@
       <img id="osc2_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
       <img id="osc2_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
     </h2>
-    <table class="subui">
-    <tr><td>VOL</td><td title="Volume"><div class="slider"><img id="osc2_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>1/2</td><td title="Semitune"><div class="slider"><img id="osc2_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>DET</td><td title="Detune"><div class="slider"><img id="osc2_det" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    </table>
+    <div class="slider"><span>VOL</span><img id="osc2_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>1/2</span><img id="osc2_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DET</span><img id="osc2_det" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- ENV -->
   <div class='env'>
@@ -166,7 +163,7 @@
     <tr><td>&nbsp;Freq</td><td title="Pan frequency"><div class="slider"><img id="fx_pan_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     <tr><td>Delay</td><td title="Delay amount"><div class="slider"><img id="fx_dly_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     <tr><td>&nbsp;Time</td><td title="Delay time"><div class="slider"><img id="fx_dly_time" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>NOISE</td><td title="Volume"><div class="slider"><img id="noise_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    
     </table>
   </div>
   <!-- LFO -->
@@ -178,9 +175,6 @@
       <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
     </h2>
     <table class="subui">
-    <tr><td>Wave</td><td>
-      
-    </td></tr>
     <tr><td>Amt</td><td title="Amount"><div class="slider"><img id="lfo_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     <tr><td>Freq</td><td title="Frequency"><div class="slider"><img id="lfo_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     <tr><td>FXFreq</td><td title="FX frequency modulation"><img id="lfo_fxfreq" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" /></td></tr>

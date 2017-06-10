@@ -114,17 +114,6 @@ table.ui h3 {
   text-align: center;
 }
 
-.slider {
-  width: 201px;
-  height: 12px;
-  background: url("gui/slider-bg.png") no-repeat;
-  padding: 0;
-  margin: 0;
-}
-
-.slider img {
-  cursor: pointer;
-}
 
 #osc1_wave_sin,#osc1_wave_saw,#osc1_wave_sqr,#osc1_wave_tri,
 #osc2_wave_sin,#osc2_wave_saw,#osc2_wave_sqr,#osc2_wave_tri,
@@ -286,16 +275,32 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .effects #fxtrack { border:0px; height:calc(100vh - 90px); overflow: hidden; ;}
 
 .instrument { position:absolute; left:525px; top:30px; z-index:9000; }
-.instrument .osc { width:250px; display:inline-block; }
-.instrument .env { width:250px; display:inline-block; }
-.instrument .arp { width:250px; display:inline-block; }
-.instrument .efx { width:250px; display:inline-block; }
-.instrument .lfo { width:250px; display:inline-block; }
+.instrument .osc { width:250px; display:inline-block; vertical-align: top;}
+.instrument .env { width:250px; display:inline-block; vertical-align: top; }
+.instrument .arp { width:250px; display:inline-block; vertical-align: top; }
+.instrument .efx { width:250px; display:inline-block; vertical-align: top; }
+.instrument .lfo { width:250px; display:inline-block; vertical-align: top; }
 
 h1 { font-family:'input_mono_medium'; font-size:12px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px; border-bottom:1px solid #fff;}
 h2 { font-family:'input_mono_medium'; font-size:12px; font-weight: normal; text-align: left; color:#999; background:none; line-height: 30px; border-bottom:1px solid #333;}
 h2 img { display: inline-block; float:right; width:30px; height:30px; }
-h2 img:hover { background:#333; }
+h2 img:hover { opacity: 0.5 }
+
+.slider {
+  width: 150px;
+  height: 30px;
+  background: url("media/graphics/slider_bar.svg") no-repeat;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  margin-left:30px;
+}
+
+.slider img {
+  cursor: pointer;
+}
+
+.slider span { position: absolute; left:-30px; top:0px; color:#999; }
 
 #content { left:500px;}
 
