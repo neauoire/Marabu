@@ -110,12 +110,11 @@
       <img id="osc1_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
       <img id="osc1_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" />
       <img id="osc1_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
-      <img id="osc1_xenv" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" />
+      <img id="osc1_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
     </h2>
     <table class="subui">
-      <tr><td>Vol</td><td title="Volume"><div class="slider"><img id="osc1_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-      <tr><td>Semi</td><td title="Semitune"><div class="slider"><img id="osc1_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-      <tr><td>X-Env</td><td title="Envelope modulates frequency"></td></tr>
+      <tr><td>VOL</td><td title="Volume"><div class="slider"><img id="osc1_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+      <tr><td>1/2</td><td title="Semitune"><div class="slider"><img id="osc1_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     </table>
   </div>
   <!-- OSC2 -->
@@ -125,13 +124,12 @@
       <img id="osc2_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
       <img id="osc2_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" />
       <img id="osc2_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
-      <img id="osc2_xenv" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" />
+      <img id="osc2_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
     </h2>
     <table class="subui">
-    <tr><td>Vol</td><td title="Volume"><div class="slider"><img id="osc2_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Semi</td><td title="Semitune"><div class="slider"><img id="osc2_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Det</td><td title="Detune"><div class="slider"><img id="osc2_det" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>X-Env</td><td title="Envelope modulates frequency"></td></tr>
+    <tr><td>VOL</td><td title="Volume"><div class="slider"><img id="osc2_vol" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>1/2</td><td title="Semitune"><div class="slider"><img id="osc2_semi" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>DET</td><td title="Detune"><div class="slider"><img id="osc2_det" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     </table>
   </div>
   <!-- ENV -->
@@ -147,9 +145,9 @@
   <div class='arp'>
     <h2>ARP</h2>
     <table class="subui">
-    <tr><td>Note 1</td><td title="Note 1"><div class="slider"><img id="arp_note1" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Note 2</td><td title="Note 2"><div class="slider"><img id="arp_note2" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Speed</td><td title="Arpeggio speed"><div class="slider"><img id="arp_speed" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>NT1</td><td title="Note 1"><div class="slider"><img id="arp_note1" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>NT2</td><td title="Note 2"><div class="slider"><img id="arp_note2" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
+    <tr><td>SPD</td><td title="Arpeggio speed"><div class="slider"><img id="arp_speed" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     </table>
   </div>
   <!-- EFX -->
@@ -173,17 +171,19 @@
   </div>
   <!-- LFO -->
   <div class='lfo'>
-    <h2>LFO</h2>
+    <h2>LFO
+      <img id="lfo_wave_sin" title="Sine" src="media/graphics/wavesin.svg" alt="Sin" style="margin-right: 10px" />
+      <img id="lfo_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" style="margin-right: 10px" />
+      <img id="lfo_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" style="margin-right: 10px" />
+      <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
+    </h2>
     <table class="subui">
     <tr><td>Wave</td><td>
-      <img id="lfo_wave_sin" title="Sine" src="gui/wave-sin.png" alt="Sin" style="margin-right: 10px" />
-      <img id="lfo_wave_tri" title="Triangle" src="gui/wave-tri.png" alt="Tri" style="margin-right: 10px" />
-      <img id="lfo_wave_saw" title="Saw" src="gui/wave-saw.png" alt="Saw" style="margin-right: 10px" />
-      <img id="lfo_wave_sqr" title="Square" src="gui/wave-sqr.png" alt="Sqr" />
+      
     </td></tr>
     <tr><td>Amt</td><td title="Amount"><div class="slider"><img id="lfo_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
     <tr><td>Freq</td><td title="Frequency"><div class="slider"><img id="lfo_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>FXFreq</td><td title="FX frequency modulation"><img id="lfo_fxfreq" class="box" src="gui/box-uncheck.png" width="10" height="12" alt="" /></td></tr>
+    <tr><td>FXFreq</td><td title="FX frequency modulation"><img id="lfo_fxfreq" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" /></td></tr>
     </table>
   </div>
   <!-- COPY -->

@@ -1478,7 +1478,7 @@ var CGUI = function()
   };
 
   var updateCheckBox = function (o, check) {
-    o.src = check ? "gui/box-check.png" : "gui/box-uncheck.png";
+    o.src = check ? "media/graphics/toggle_on.svg" : "media/graphics/toggle_off.svg";
   };
 
   var clearPresetSelection = function () {
@@ -1522,10 +1522,10 @@ var CGUI = function()
     updateSlider(document.getElementById("arp_speed"), instr.i[ARP_SPEED]);
 
     // LFO
-    document.getElementById("lfo_wave_sin").src = instr.i[LFO_WAVEFORM] == 0 ? "gui/wave-sin-sel.png" : "gui/wave-sin.png";
-    document.getElementById("lfo_wave_sqr").src = instr.i[LFO_WAVEFORM] == 1 ? "gui/wave-sqr-sel.png" : "gui/wave-sqr.png";
-    document.getElementById("lfo_wave_saw").src = instr.i[LFO_WAVEFORM] == 2 ? "gui/wave-saw-sel.png" : "gui/wave-saw.png";
-    document.getElementById("lfo_wave_tri").src = instr.i[LFO_WAVEFORM] == 3 ? "gui/wave-tri-sel.png" : "gui/wave-tri.png";
+    document.getElementById("lfo_wave_sin").src = instr.i[LFO_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
+    document.getElementById("lfo_wave_sqr").src = instr.i[LFO_WAVEFORM] == 1 ? "media/graphics/wave_sqr_sel.svg" : "media/graphics/wave_sqr.svg";
+    document.getElementById("lfo_wave_saw").src = instr.i[LFO_WAVEFORM] == 2 ? "media/graphics/wave_saw_sel.svg" : "media/graphics/wave_saw.svg";
+    document.getElementById("lfo_wave_tri").src = instr.i[LFO_WAVEFORM] == 3 ? "media/graphics/wave_tri_sel.svg" : "media/graphics/wave_tri.svg";
     updateSlider(document.getElementById("lfo_amt"), instr.i[LFO_AMT]);
     updateSlider(document.getElementById("lfo_freq"), instr.i[LFO_FREQ]);
     updateCheckBox(document.getElementById("lfo_fxfreq"), instr.i[LFO_FX_FREQ]);
@@ -3542,8 +3542,8 @@ var CGUI = function()
 
     // Preload images
     preloadImage("gui/progress.gif");
-    preloadImage("gui/box-uncheck.png");
-    preloadImage("gui/box-uncheck.png");
+    preloadImage("media/graphics/toggle_off.svg");
+    preloadImage("media/graphics/toggle_on.svg");
     preloadImage("gui/wave-sin.png");
     preloadImage("gui/wave-sin-sel.png");
     preloadImage("gui/wave-saw.png");
