@@ -132,20 +132,16 @@
   <!-- ENV -->
   <div class='env'>
     <h2>ENV</h2>
-    <table class="subui">
-    <tr><td>Att</td><td title="Attack"><div class="slider"><img id="env_att" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Sust</td><td title="Sustain"><div class="slider"><img id="env_sust" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Rel</td><td title="Release"><div class="slider"><img id="env_rel" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    </table>
+    <div class="slider"><span>ATK</span><img id="env_att" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>SUS</span><img id="env_sust" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>REL</span><img id="env_rel" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- ARP -->
   <div class='arp'>
     <h2>ARP</h2>
-    <table class="subui">
-    <tr><td>NT1</td><td title="Note 1"><div class="slider"><img id="arp_note1" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>NT2</td><td title="Note 2"><div class="slider"><img id="arp_note2" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>SPD</td><td title="Arpeggio speed"><div class="slider"><img id="arp_speed" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    </table>
+    <div class="slider"><span>AR1</span><img id="arp_note1" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>AR2</span><img id="arp_note2" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>SPD</span><img id="arp_speed" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- EFX -->
   <div class='efx'>
@@ -154,17 +150,14 @@
       <img id="fx_filt_hp" title="High pass" src="gui/filt-hp.png" alt="HP" style="margin-right: 10px" />
       <img id="fx_filt_bp" title="Band pass" src="gui/filt-bp.png" alt="BP" style="margin-right: 10px" />
     </h2>
-    <table class="subui">
-    <tr><td>Freq</td><td title="Filter frequency"><div class="slider"><img id="fx_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>&nbsp;Res</td><td title="Filter resonance"><div class="slider"><img id="fx_res" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Dist</td><td title="Distortion"><div class="slider"><img id="fx_dist" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Drive</td><td title="Volume drive"><div class="slider"><img id="fx_drive" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Pan</td><td title="Pan amount"><div class="slider"><img id="fx_pan_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>&nbsp;Freq</td><td title="Pan frequency"><div class="slider"><img id="fx_pan_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Delay</td><td title="Delay amount"><div class="slider"><img id="fx_dly_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>&nbsp;Time</td><td title="Delay time"><div class="slider"><img id="fx_dly_time" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    
-    </table>
+    <div class="slider"><span>FRQ</span><img id="fx_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>RES</span><img id="fx_res" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DIS</span><img id="fx_dist" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DRV</span><img id="fx_drive" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>PAN</span><img id="fx_pan_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>FRQ</span><img id="fx_pan_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DLY</span><img id="fx_dly_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>SPD</span><img id="fx_dly_time" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- LFO -->
   <div class='lfo'>
@@ -174,11 +167,9 @@
       <img id="lfo_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" style="margin-right: 10px" />
       <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
     </h2>
-    <table class="subui">
-    <tr><td>Amt</td><td title="Amount"><div class="slider"><img id="lfo_amt" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>Freq</td><td title="Frequency"><div class="slider"><img id="lfo_freq" src="gui/slider.png" width="10" height="12" alt="" /></div></td></tr>
-    <tr><td>FXFreq</td><td title="FX frequency modulation"><img id="lfo_fxfreq" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" /></td></tr>
-    </table>
+    <div class="slider"><span>AMT</span><img id="lfo_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>FRQ</span><img id="lfo_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>MOD</span><img id="lfo_fxfreq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- COPY -->
   <div style="height: 32px; margin-top: 4px"><img id="instrCopy" class="smallButton" title="Copy instrument" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /><img id="instrPaste" class="smallButton" title="Paste instrument" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>

@@ -324,7 +324,7 @@ table.tracks td:hover, table.tracks tr.beat td:hover {color: #333;background: #f
 
 table.tracks td.selected, table.tracks tr.beat td.selected {
   color: #fff;
-  background: #000;
+  border-bottom:1px solid white;
 }
 
 #sequencer table.tracks td {
