@@ -158,14 +158,14 @@
     <div class="slider"><span>DIS</span><span class='val' id='fx_dist_val'>0</span><img id="fx_dist" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>DRV</span><span class='val' id='fx_drive_val'>0</span><img id="fx_drive" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>PAN</span><span class='val' id='fx_pan_amt_val'>0</span><img id="fx_pan_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>FRQ</span><span class='val' id='fx_pan_freq_val'>0</span><img id="fx_pan_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider" style='display:none'><span>FRQ</span><span class='val' id='fx_pan_freq_val'>0</span><img id="fx_pan_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>DLY</span><span class='val' id='fx_dly_amt_val'>0</span><img id="fx_dly_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>SPD</span><span class='val' id='fx_dly_time_val'>0</span><img id="fx_dly_time" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- LFO -->
   <div class='lfo'>
     <h1>LFO
-      <img id="lfo_wave_sin" title="Sine" src="media/graphics/wavesin.svg" alt="Sin" style="margin-right: 10px" />
+      <img id="lfo_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" style="margin-right: 10px" />
       <img id="lfo_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" style="margin-right: 10px" />
       <img id="lfo_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" style="margin-right: 10px" />
       <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
@@ -177,12 +177,12 @@
   
   <!-- PIANO -->
   <div class="keyboard">
-    <div class="octaveSelector">
-    Octave: <span id="keyboardOctave" title="Octave">5</span>
-    </div>
-    <img id="octaveDown" title="Octave down" alt="&lt;" src="gui/button-prev.png" width="23" height="20" />
-    <img id="keyboard" src="gui/keyboard.jpg" width="421" height="112" alt="Keyboard" />
-    <img id="octaveUp" title="Octave up" alt="&gt;" src="gui/button-next.png" width="23" height="20" />
+    <h1 style='border-bottom:1px solid black'>
+      CLI <text id="keyboardOctave" title="Octave">5</text>
+      <span id="octaveDown" class='icon down'></span>
+      <span id="octaveUp" class='icon up'></span>      
+    </h1>
+    <img id="keyboard" src="media/graphics/piano.svg" width="240" height="90" alt="Keyboard" />
   </div>
 </div>
 

@@ -165,17 +165,6 @@ table.ui h3 {
   cursor: pointer;
 }
 
-.keyboard {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.keyboard img {
-  vertical-align: middle;
-  cursor: pointer;
-}
-
 .octaveSelector {
   padding-bottom: 6px;
 }
@@ -276,6 +265,9 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .instrument .arp { width:240px; display:inline-block; vertical-align: top; }
 .instrument .efx { width:240px; display:inline-block; vertical-align: top; }
 .instrument .lfo { width:240px; display:inline-block; vertical-align: top; }
+
+.keyboard { width:210px; display:inline-block; vertical-align: top; float:right; margin-top:-125px; margin-right:32px;}
+.keyboard img { cursor: pointer; }
 
 h1 { font-family:'input_mono_medium'; font-size:11px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px; border-bottom:1px solid #333;}
 h1 img { display: inline-block; float:right; width:30px; height:30px; }
