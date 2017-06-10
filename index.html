@@ -30,7 +30,7 @@
   <script type="text/javascript" src="gui.js?v=13"></script>
   <link rel="stylesheet" type="text/css" href="links/fonts.css" />
   <link rel="stylesheet" type="text/css" href="links/reset.css" />
-  <link rel="stylesheet" type="text/css" href="screen.css" />
+  <link rel="stylesheet" type="text/css" href="links/main.css" />
   <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body onload="gui_init()">
@@ -51,10 +51,11 @@
 
 <div class='sequencer'>
   <h1>SEQ
-    <span id="sequencerCopy">C</span>
-    <span id="sequencerPaste">P</span>
-    <span id="sequencerPatDown">-1</span>
-    <span id="sequencerPatUp">+1</span>
+    <span id="sequencerCopy" class='icon copy'></span>
+    <span id="sequencerPaste" class='icon paste'></span>
+    <span id="sequencerPatDown" class='icon down'></span>
+    <span id="sequencerPatUp" class='icon up'></span>
+    <hr/>
   </h1>
   <div class='vu'>
     <canvas id="playGfxCanvas" width="220" height="65"></canvas>
@@ -66,12 +67,13 @@
 
 <div class='pattern'>
   <h1>PAT
-    <span id="patternCopy">C</span>
-    <span id="patternPaste">P</span>
-    <span id="patternNoteDown">-N</span>
-    <span id="patternNoteUp">+N</span>
-    <span id="patternOctaveDown">-O</span>
-    <span id="patternOctaveUp">+O</span>
+    <span id="patternCopy" class='icon copy'></span>
+    <span id="patternPaste" class='icon paste'></span>
+    <span id="patternNoteDown" class='icon down'></span>
+    <span id="patternNoteUp" class='icon up'></span>
+    <span id="patternOctaveDown" class='icon up2'>-O</span>
+    <span id="patternOctaveUp" class='icon down2'>+O</span>
+    <hr />
   </h1>
   <div id="pattern">
     <table class="tracks" id="pattern-table" title="Use the piano or keyboard to enter notes"></table>
@@ -81,74 +83,76 @@
 </div>
 
 <div class='effects'>
-  <h2>MOD
-    <span id="fxCopy">C</span>
-    <span id="fxPaste">P</span>
-  </h2>
+  <h1>MOD
+    <span id="fxCopy" class='icon copy'></span>
+    <span id="fxPaste" class='icon paste'></span>
+    <hr />
+  </h1>
   <div id="fxtrack">
     <table class="tracks" id="fxtrack-table" title="Use instrument and effect controls to edit"></table>
   </div>
 </div>
 
 <div class='instrument'>
-  <h2>Instrument
-    <span id="instrCopy">C</span>
-    <span id="instrPaste">P</span>
+  <h1>INS
+    <span id="instrCopy" class='icon copy'></span>
+    <span id="instrPaste" class='icon paste'></span>
     <select id="instrPreset" title="Select an instrument preset">
       <option value="">Presets</option>
     </select>
     <select id="midiInput" title="Select a MIDI source" style="margin-left: 10px; display: none">
       <option value="">(select MIDI)</option>
     </select>
-  </h2>
+    <hr />
+  </h1>
   
   <!-- OSC1 -->
   <div class='osc'>
-    <h2>OSC1
+    <h1>OSC1
       <img id="osc1_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" />
       <img id="osc1_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
       <img id="osc1_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" />
       <img id="osc1_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
       <img id="osc1_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
-    </h2>
+    </h1>
     <div class="slider"><span>VOL</span><span class='val' id='osc1_vol_val'>0</span><img id="osc1_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>1/2</span><span class='val' id='osc1_semi_val'>0</span><img id="osc1_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>NOI</span><span class='val' id='noise_vol_val'>0</span><img id="noise_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- OSC2 -->
   <div class='osc'>
-    <h2>OSC2
+    <h1>OSC2
       <img id="osc2_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" />
       <img id="osc2_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
       <img id="osc2_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" />
       <img id="osc2_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
       <img id="osc2_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
-    </h2>
+    </h1>
     <div class="slider"><span>VOL</span><span class='val' id='osc2_vol_val'>0</span><img id="osc2_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>1/2</span><span class='val' id='osc2_semi_val'>0</span><img id="osc2_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>DET</span><span class='val' id='osc2_det_val'>0</span><img id="osc2_det" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- ENV -->
   <div class='env'>
-    <h2>ENV</h2>
+    <h1>ENV</h1>
     <div class="slider"><span>ATK</span><span class='val' id='env_att_val'>0</span><img id="env_att" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>SUS</span><span class='val' id='env_sust_val'>0</span><img id="env_sust" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>REL</span><span class='val' id='env_rel_val'>0</span><img id="env_rel" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- ARP -->
   <div class='arp'>
-    <h2>ARP</h2>
+    <h1>ARP</h1>
     <div class="slider"><span>AR1</span><span class='val' id='arp_note1_val'>0</span><img id="arp_note1" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>AR2</span><span class='val' id='arp_note2_val'>0</span><img id="arp_note2" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>SPD</span><span class='val' id='arp_speed_val'>0</span><img id="arp_speed" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- EFX -->
   <div class='efx'>
-    <h2>EFX
+    <h1>EFX
       <img id="fx_filt_lp" src="media/graphics/wave_lp.svg" alt="Saw" />
       <img id="fx_filt_bp" src="media/graphics/wave_bp.svg" alt="Saw" />
       <img id="fx_filt_hp" src="media/graphics/wave_hp.svg" alt="Saw" />
-    </h2>
+    </h1>
     <div class="slider"><span>FRQ</span><span class='val' id='fx_freq_val'>0</span><img id="fx_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>RES</span><span class='val' id='fx_res_val'>0</span><img id="fx_res" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>DIS</span><span class='val' id='fx_dist_val'>0</span><img id="fx_dist" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
@@ -160,12 +164,12 @@
   </div>
   <!-- LFO -->
   <div class='lfo'>
-    <h2>LFO
+    <h1>LFO
       <img id="lfo_wave_sin" title="Sine" src="media/graphics/wavesin.svg" alt="Sin" style="margin-right: 10px" />
       <img id="lfo_wave_tri" title="Triangle" src="media/graphics/wave_tri.svg" alt="Tri" style="margin-right: 10px" />
       <img id="lfo_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" style="margin-right: 10px" />
       <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
-    </h2>
+    </h1>
     <div class="slider"><span>AMT</span><span class='val' id='lfo_amt_val'>0</span><img id="lfo_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>FRQ</span><span class='val' id='lfo_freq_val'>0</span><img id="lfo_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
     <div class="slider"><span>MOD</span><span class='val' id='lfo_fxfreq_val'>0</span><img id="lfo_fxfreq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
