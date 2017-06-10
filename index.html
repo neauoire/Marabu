@@ -50,51 +50,50 @@
 </div>
 
 <div class='sequencer'>
-  <h1>Sequencer</h1>
+  <h1>SEQ
+    <span id="sequencerCopy">C</span>
+    <span id="sequencerPaste">P</span>
+    <span id="sequencerPatDown">-1</span>
+    <span id="sequencerPatUp">+1</span>
+  </h1>
   <div class='vu'>
     <canvas id="playGfxCanvas" width="220" height="65"></canvas>
   </div>
   <div id="sequencer" title="Enter pattern numbers, 0-9">
     <table class="tracks" id="sequencer-table"></table>
   </div>
-  <div style="height: 32px">
-    <span id="sequencerCopy">C</span>
-    <span id="sequencerPaste">P</span>
-    <span id="sequencerPatDown">-1</span>
-    <span id="sequencerPatUp">+1</span>
-  </div>
 </div>
 
 <div class='pattern'>
-  <h1>Pattern</h1>
-  <div id="pattern">
-    <table class="tracks" id="pattern-table" title="Use the piano or keyboard to enter notes"></table>
-  </div>
-  <div style="height: 32px">
+  <h1>PAT
     <span id="patternCopy">C</span>
     <span id="patternPaste">P</span>
     <span id="patternNoteDown">-N</span>
     <span id="patternNoteUp">+N</span>
     <span id="patternOctaveDown">-O</span>
     <span id="patternOctaveUp">+O</span>
+  </h1>
+  <div id="pattern">
+    <table class="tracks" id="pattern-table" title="Use the piano or keyboard to enter notes"></table>
   </div>
   <!-- Status (debug etc) -->
   <div id="statusText"></div>
 </div>
 
 <div class='effects'>
-  <h2>MOD</h2>
+  <h2>MOD
+    <span id="fxCopy">C</span>
+    <span id="fxPaste">P</span>
+  </h2>
   <div id="fxtrack">
     <table class="tracks" id="fxtrack-table" title="Use instrument and effect controls to edit"></table>
-  </div>
-  <div style="height: 32px">
-  <span id="fxCopy">C</span>
-  <span id="fxPaste">P</span>
   </div>
 </div>
 
 <div class='instrument'>
   <h2>Instrument
+    <span id="instrCopy">C</span>
+    <span id="instrPaste">P</span>
     <select id="instrPreset" title="Select an instrument preset">
       <option value="">Presets</option>
     </select>
@@ -112,9 +111,9 @@
       <img id="osc1_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
       <img id="osc1_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
     </h2>
-    <div class="slider"><span>VOL</span><img id="osc1_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>1/2</span><img id="osc1_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>NOI</span><img id="noise_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>VOL</span><span class='val' id='osc1_vol_val'>0</span><img id="osc1_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>1/2</span><span class='val' id='osc1_semi_val'>0</span><img id="osc1_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>NOI</span><span class='val' id='noise_vol_val'>0</span><img id="noise_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- OSC2 -->
   <div class='osc'>
@@ -125,39 +124,39 @@
       <img id="osc2_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
       <img id="osc2_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
     </h2>
-    <div class="slider"><span>VOL</span><img id="osc2_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>1/2</span><img id="osc2_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>DET</span><img id="osc2_det" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>VOL</span><span class='val' id='osc2_vol_val'>0</span><img id="osc2_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>1/2</span><span class='val' id='osc2_semi_val'>0</span><img id="osc2_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DET</span><span class='val' id='osc2_det_val'>0</span><img id="osc2_det" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- ENV -->
   <div class='env'>
     <h2>ENV</h2>
-    <div class="slider"><span>ATK</span><img id="env_att" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>SUS</span><img id="env_sust" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>REL</span><img id="env_rel" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>ATK</span><span class='val' id='env_att_val'>0</span><img id="env_att" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>SUS</span><span class='val' id='env_sust_val'>0</span><img id="env_sust" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>REL</span><span class='val' id='env_rel_val'>0</span><img id="env_rel" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- ARP -->
   <div class='arp'>
     <h2>ARP</h2>
-    <div class="slider"><span>AR1</span><img id="arp_note1" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>AR2</span><img id="arp_note2" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>SPD</span><img id="arp_speed" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>AR1</span><span class='val' id='arp_note1_val'>0</span><img id="arp_note1" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>AR2</span><span class='val' id='arp_note2_val'>0</span><img id="arp_note2" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>SPD</span><span class='val' id='arp_speed_val'>0</span><img id="arp_speed" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- EFX -->
   <div class='efx'>
     <h2>EFX
-      <img id="fx_filt_lp" title="Low pass" src="gui/filt-lp.png" alt="LP" style="margin-right: 10px" />
-      <img id="fx_filt_hp" title="High pass" src="gui/filt-hp.png" alt="HP" style="margin-right: 10px" />
-      <img id="fx_filt_bp" title="Band pass" src="gui/filt-bp.png" alt="BP" style="margin-right: 10px" />
+      <img id="fx_filt_lp" src="media/graphics/wave_lp.svg" alt="Saw" />
+      <img id="fx_filt_bp" src="media/graphics/wave_bp.svg" alt="Saw" />
+      <img id="fx_filt_hp" src="media/graphics/wave_hp.svg" alt="Saw" />
     </h2>
-    <div class="slider"><span>FRQ</span><img id="fx_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>RES</span><img id="fx_res" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>DIS</span><img id="fx_dist" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>DRV</span><img id="fx_drive" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>PAN</span><img id="fx_pan_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>FRQ</span><img id="fx_pan_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>DLY</span><img id="fx_dly_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>SPD</span><img id="fx_dly_time" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>FRQ</span><span class='val' id='fx_freq_val'>0</span><img id="fx_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>RES</span><span class='val' id='fx_res_val'>0</span><img id="fx_res" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DIS</span><span class='val' id='fx_dist_val'>0</span><img id="fx_dist" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DRV</span><span class='val' id='fx_drive_val'>0</span><img id="fx_drive" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>PAN</span><span class='val' id='fx_pan_amt_val'>0</span><img id="fx_pan_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>FRQ</span><span class='val' id='fx_pan_freq_val'>0</span><img id="fx_pan_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>DLY</span><span class='val' id='fx_dly_amt_val'>0</span><img id="fx_dly_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>SPD</span><span class='val' id='fx_dly_time_val'>0</span><img id="fx_dly_time" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
   <!-- LFO -->
   <div class='lfo'>
@@ -167,18 +166,19 @@
       <img id="lfo_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" style="margin-right: 10px" />
       <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
     </h2>
-    <div class="slider"><span>AMT</span><img id="lfo_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>FRQ</span><img id="lfo_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-    <div class="slider"><span>MOD</span><img id="lfo_fxfreq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>AMT</span><span class='val' id='lfo_amt_val'>0</span><img id="lfo_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>FRQ</span><span class='val' id='lfo_freq_val'>0</span><img id="lfo_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+    <div class="slider"><span>MOD</span><span class='val' id='lfo_fxfreq_val'>0</span><img id="lfo_fxfreq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
   </div>
-  <!-- COPY -->
-  <div style="height: 32px; margin-top: 4px"><img id="instrCopy" class="smallButton" title="Copy instrument" src="gui/edit-copy.png" width="24" height="24" alt="Copy" /><img id="instrPaste" class="smallButton" title="Paste instrument" src="gui/edit-paste.png" width="24" height="24" alt="Paste" /></div>
+  
   <!-- PIANO -->
   <div class="keyboard">
     <div class="octaveSelector">
     Octave: <span id="keyboardOctave" title="Octave">5</span>
     </div>
-    <img id="octaveDown" title="Octave down" alt="&lt;" src="gui/button-prev.png" width="23" height="20" />&nbsp;<img id="keyboard" src="gui/keyboard.jpg" width="421" height="112" alt="Keyboard" />&nbsp;<img id="octaveUp" title="Octave up" alt="&gt;" src="gui/button-next.png" width="23" height="20" />
+    <img id="octaveDown" title="Octave down" alt="&lt;" src="gui/button-prev.png" width="23" height="20" />
+    <img id="keyboard" src="gui/keyboard.jpg" width="421" height="112" alt="Keyboard" />
+    <img id="octaveUp" title="Octave up" alt="&gt;" src="gui/button-next.png" width="23" height="20" />
   </div>
 </div>
 

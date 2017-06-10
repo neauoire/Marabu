@@ -1466,7 +1466,7 @@ var CGUI = function()
     return false;
   };
 
-  var updateSlider = function (o, x) {
+  var updateSlider = function(o, x) {
     var props = o.sliderProps;
     var pos = (x - props.min) / (props.max - props.min);
     pos = pos < 0 ? 0 : (pos > 1 ? 1 : pos);
@@ -1474,7 +1474,12 @@ var CGUI = function()
     {
       pos = Math.sqrt(pos);
     }
-    o.style.marginLeft = Math.round(120 * pos) + "px";
+
+    var val_el = document.getElementById(o.id+"_val");
+    if(val_el){ val_el.innerHTML = pos.toFixed(1);}
+    if(val_el && pos < 0.1){ val_el.style.color = "red"; }
+    if(val_el && pos == 1){ val_el.style.color = "#72dec2"; }
+    o.style.marginLeft = Math.round(120 * pos.toFixed(1)) + "px";
   };
 
   var updateCheckBox = function (o, check) {
@@ -1531,9 +1536,9 @@ var CGUI = function()
     updateCheckBox(document.getElementById("lfo_fxfreq"), instr.i[LFO_FX_FREQ]);
 
     // Effects
-    document.getElementById("fx_filt_lp").src = instr.i[FX_FILTER] == 2 ? "gui/filt-lp-sel.png" : "gui/filt-lp.png";
-    document.getElementById("fx_filt_hp").src = instr.i[FX_FILTER] == 1 ? "gui/filt-hp-sel.png" : "gui/filt-hp.png";
-    document.getElementById("fx_filt_bp").src = instr.i[FX_FILTER] == 3 ? "gui/filt-bp-sel.png" : "gui/filt-bp.png";
+    document.getElementById("fx_filt_lp").src = instr.i[FX_FILTER] == 2 ? "media/graphics/wave_lp_sel.svg" : "media/graphics/wave_lp.svg";
+    document.getElementById("fx_filt_hp").src = instr.i[FX_FILTER] == 1 ? "media/graphics/wave_hp_sel.svg" : "media/graphics/wave_hp.svg";
+    document.getElementById("fx_filt_bp").src = instr.i[FX_FILTER] == 3 ? "media/graphics/wave_bp_sel.svg" : "media/graphics/wave_bp.svg";
     updateSlider(document.getElementById("fx_freq"), instr.i[FX_FREQ]);
     updateSlider(document.getElementById("fx_res"), instr.i[FX_RESONANCE]);
     updateSlider(document.getElementById("fx_dly_amt"), instr.i[FX_DELAY_AMT]);
