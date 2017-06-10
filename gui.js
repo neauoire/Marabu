@@ -2491,7 +2491,23 @@ var CGUI = function()
   {
     if (!e) var e = window.event;
     e.preventDefault();
+    this.pattern_octave_up();
+  };
 
+  var patternOctaveDownMouseDown = function (e)
+  {
+    if (!e) var e = window.event;
+    e.preventDefault();
+    this.pattern_octave_down();
+  };
+
+  this.status_update = function(log)
+  {
+    document.getElementById("statusText").innerHTML = log;
+  }
+
+  this.pattern_octave_up = function()
+  {
     if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
       var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
       if (pat >= 0) {
@@ -2503,15 +2519,13 @@ var CGUI = function()
           }
         }
         updatePattern();
+        this.status_update("Octave +1");
       }
     }
-  };
+  }
 
-  var patternOctaveDownMouseDown = function (e)
+  this.pattern_octave_down = function()
   {
-    if (!e) var e = window.event;
-    e.preventDefault();
-
     if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
       var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
       if (pat >= 0) {
@@ -2523,9 +2537,12 @@ var CGUI = function()
           }
         }
         updatePattern();
+        this.status_update("Octave -1");
       }
     }
-  };
+  }
+
+  //
 
   var sequencerCopyMouseDown = function (e)
   {
@@ -3762,6 +3779,7 @@ function gui_init()
   {
     // Create a global GUI object, and initialize it
     gGui = new CGUI();
+    GUI = gGui;
     gGui.init();
   }
   catch (err)

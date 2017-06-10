@@ -28,6 +28,7 @@
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
   <script type="text/javascript" src="common.js"></script>
   <script type="text/javascript" src="gui.js?v=13"></script>
+  <script type="text/javascript" src="scripts/core/keyboard.js"></script>
   <link rel="stylesheet" type="text/css" href="links/fonts.css" />
   <link rel="stylesheet" type="text/css" href="links/reset.css" />
   <link rel="stylesheet" type="text/css" href="links/main.css" />
@@ -184,7 +185,11 @@
   </div>
   
   <div id="cover"><div id="dialog"></div></div>
-  
+
+  <script type="text/javascript">
+    var GUI = null;
+    var keyboard = new Keyboard();
+  </script>
 </body>
 </html>
 

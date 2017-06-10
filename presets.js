@@ -22,7 +22,7 @@
 // Instrument presets
 gInstrumentPresets = [
   {
-    name: "====[LEADS]===="
+    name: "> Leads"
   },
   {
     name: "Softy",
@@ -190,7 +190,7 @@ gInstrumentPresets = [
     ]
   },
   {
-    name: "====[PADS]===="
+    name: "> Pads"
   },
   {
     name: "Base string",
@@ -292,7 +292,7 @@ gInstrumentPresets = [
     ]
   },
   {
-    name: "====[DRUMS]===="
+    name: "> Drums"
   },
   {
     name: "Bass drum 1",
@@ -691,7 +691,7 @@ gInstrumentPresets = [
     ]
   },
   {
-    name: "====[F/X]===="
+    name: "> Effects"
   },
   {
     name: "Wind",
