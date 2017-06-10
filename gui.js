@@ -2451,9 +2451,42 @@ var CGUI = function()
     this.pattern_octave_down();
   };
 
+  var octaveUp = function (e)
+  {
+    if (!e) var e = window.event;
+    e.preventDefault();
+    this.keyboard_octave_up();
+  };
+
+  var octaveDown = function (e)
+  {
+    if (!e) var e = window.event;
+    e.preventDefault();
+    this.keyboard_octave_down();
+  };
+
   this.status_update = function(log)
   {
     document.getElementById("statusText").innerHTML = log;
+  }
+
+  this.keyboard_octave_up = function()
+  {
+    if (mKeyboardOctave < 8){
+      mKeyboardOctave++;
+      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
+      this.status_update("Keyboard Octave "+mKeyboardOctave);
+    }
+  }
+
+  this.keyboard_octave_down = function()
+  {
+    if (mKeyboardOctave > 1)
+    {
+      mKeyboardOctave--;
+      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
+      this.status_update("Keyboard Octave "+mKeyboardOctave);
+    }    
   }
 
   this.pattern_copy = function()
@@ -2807,30 +2840,6 @@ var CGUI = function()
       updateInstrument(true);
       unfocusHTMLInputElements();
       e.preventDefault();
-    }
-  };
-
-  var octaveUp = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-
-    if (mKeyboardOctave < 8)
-    {
-      mKeyboardOctave++;
-      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
-    }
-  };
-
-  var octaveDown = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-
-    if (mKeyboardOctave > 1)
-    {
-      mKeyboardOctave--;
-      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
     }
   };
 
