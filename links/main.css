@@ -233,25 +233,29 @@ table.ui td > table.ui td {
 /* NEW */
 body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; background:#000; color:white; }
 
-.sequencer { position:absolute; left:30px; top:30px; z-index:9000; }
-.sequencer #sequencer { border:0px; height:calc(100vh - 90px); overflow: hidden;}
+.wrapper {width: 1000px;height: 590px;position: relative;margin: 60px auto;; }
+
+.sequencer { position:absolute; left:0px; top:0px; z-index:9000; }
+.sequencer #sequencer { border:0px; height:520px; overflow: hidden;}
 
 .sequencer .vu { display:none;}
 
-.pattern { position:absolute; left:310px; top:30px; z-index:9000; width:216px; }
-.pattern #pattern { border:0px; height:calc(100vh - 90px); overflow: hidden}
-.pattern #fxtrack { border:0px; height:calc(100vh - 90px); overflow: hidden;position: absolute;right: 0px;top: 31px;}
+.pattern { position:absolute; left:280px; top:0px; z-index:9000; width:216px; }
+.pattern #pattern { overflow: hidden}
+.pattern #fxtrack {  overflow: hidden;position: absolute;right: 0px;top: 31px;}
 .pattern #fxtrack table.tracks td { width:60px; }
 
-.instrument { position:absolute; left:540px; top:30px; z-index:9000; width:490px;}
+.instrument { position:absolute; left:510px; top:0px; z-index:9000; width:490px;}
 .instrument .osc { width:240px; display:inline-block; vertical-align: top;}
 .instrument .env { width:240px; display:inline-block; vertical-align: top; }
 .instrument .arp { width:240px; display:inline-block; vertical-align: top; }
 .instrument .efx { width:240px; display:inline-block; vertical-align: top; }
 .instrument .lfo { width:240px; display:inline-block; vertical-align: top; }
 
-.keyboard { width:210px; display:inline-block; vertical-align: top; float:right; margin-top:-125px; margin-right:32px;}
-.keyboard img { cursor: pointer; }
+.status { text-align: center;position: absolute;bottom: 0px;line-height: 28px;left: 0px;font-size: 11px;color: #999;border-top: 1px solid #555;width: 1000px;text-align: left;background: #000;z-index: 9001; }
+.status .option { float:right; display:inline-block; color:#555; padding:0px 10px;}
+.status .option:hover { color:white; text-decoration:underline; cursor:pointer;}
+.status #statusText { color:white;}
 
 h1 { font-family:'input_mono_medium'; font-size:11px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px; border-bottom:1px solid #333;}
 h1 img { display: inline-block; float:right; width:30px; height:30px; }
@@ -275,11 +279,6 @@ h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;b
 h1 input:focus { color:#72dec2; }
 h1 select { color:black; }
 hr { clear:both; border:0px; padding:0px; margin:0px; }
-
-.status { margin-top: 10px;text-align: center;position: fixed;top: 575px;line-height: 28px;left: 30px;font-size: 11px;color: #999;border-top: 1px solid #555;width: 100vw;text-align: left;background: #000;z-index: 9001; width: 985px;}
-.status .option { float:right; display:inline-block; color:#555; padding:0px 10px;}
-.status .option:hover { color:white; text-decoration:underline; cursor:pointer;}
-.status #statusText { color:white;}
 
 .slider {
   width: 150px;
