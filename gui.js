@@ -1490,19 +1490,19 @@ var CGUI = function()
     var instr = mSong.songData[mSeqCol];
 
     // Oscillator 1
-    document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "gui/wave-sin-sel.png" : "gui/wave-sin.png";
-    document.getElementById("osc1_wave_sqr").src = instr.i[OSC1_WAVEFORM] == 1 ? "gui/wave-sqr-sel.png" : "gui/wave-sqr.png";
-    document.getElementById("osc1_wave_saw").src = instr.i[OSC1_WAVEFORM] == 2 ? "gui/wave-saw-sel.png" : "gui/wave-saw.png";
-    document.getElementById("osc1_wave_tri").src = instr.i[OSC1_WAVEFORM] == 3 ? "gui/wave-tri-sel.png" : "gui/wave-tri.png";
+    document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
+    document.getElementById("osc1_wave_sqr").src = instr.i[OSC1_WAVEFORM] == 1 ? "media/graphics/wave_sqr_sel.svg" : "media/graphics/wave_sqr.svg";
+    document.getElementById("osc1_wave_saw").src = instr.i[OSC1_WAVEFORM] == 2 ? "media/graphics/wave_saw_sel.svg" : "media/graphics/wave_saw.svg";
+    document.getElementById("osc1_wave_tri").src = instr.i[OSC1_WAVEFORM] == 3 ? "media/graphics/wave_tri_sel.svg" : "media/graphics/wave_tri.svg";
     updateSlider(document.getElementById("osc1_vol"), instr.i[OSC1_VOL]);
     updateSlider(document.getElementById("osc1_semi"), instr.i[OSC1_SEMI]);
     updateCheckBox(document.getElementById("osc1_xenv"), instr.i[OSC1_XENV]);
 
     // Oscillator 2
-    document.getElementById("osc2_wave_sin").src = instr.i[OSC2_WAVEFORM] == 0 ? "gui/wave-sin-sel.png" : "gui/wave-sin.png";
-    document.getElementById("osc2_wave_sqr").src = instr.i[OSC2_WAVEFORM] == 1 ? "gui/wave-sqr-sel.png" : "gui/wave-sqr.png";
-    document.getElementById("osc2_wave_saw").src = instr.i[OSC2_WAVEFORM] == 2 ? "gui/wave-saw-sel.png" : "gui/wave-saw.png";
-    document.getElementById("osc2_wave_tri").src = instr.i[OSC2_WAVEFORM] == 3 ? "gui/wave-tri-sel.png" : "gui/wave-tri.png";
+    document.getElementById("osc2_wave_sin").src = instr.i[OSC2_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
+    document.getElementById("osc2_wave_sqr").src = instr.i[OSC2_WAVEFORM] == 1 ? "media/graphics/wave_sqr_sel.svg" : "media/graphics/wave_sqr.svg";
+    document.getElementById("osc2_wave_saw").src = instr.i[OSC2_WAVEFORM] == 2 ? "media/graphics/wave_saw_sel.svg" : "media/graphics/wave_saw.svg";
+    document.getElementById("osc2_wave_tri").src = instr.i[OSC2_WAVEFORM] == 3 ? "media/graphics/wave_tri_sel.svg" : "media/graphics/wave_tri.svg";
     updateSlider(document.getElementById("osc2_vol"), instr.i[OSC2_VOL]);
     updateSlider(document.getElementById("osc2_semi"), instr.i[OSC2_SEMI]);
     updateSlider(document.getElementById("osc2_det"), instr.i[OSC2_DETUNE]);

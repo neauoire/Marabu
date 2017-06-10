@@ -294,6 +294,8 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 
 h1 { font-family:'input_mono_medium'; font-size:12px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px; border-bottom:1px solid #fff;}
 h2 { font-family:'input_mono_medium'; font-size:12px; font-weight: normal; text-align: left; color:#999; background:none; line-height: 30px; border-bottom:1px solid #333;}
+h2 img { display: inline-block; float:right; width:30px; height:30px; }
+h2 img:hover { background:#333; }
 
 #content { left:500px;}
 
