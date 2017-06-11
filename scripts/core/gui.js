@@ -3400,13 +3400,13 @@ var CGUI = function()
     buildSequencerTable();
 
     this.setup_sliders([
-      {id: "osc1_vol", name: "VOL", min: 0, max: 255 },
+      {id: "osc1_vol", name: "VOL", min: 0, max: 255, percent: true },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164 },
       {id: "noise_vol", name: "NOI", min: 0, max: 255 },
 
-      {id: "osc2_vol", name: "VOL", min: 0, max: 255 },
+      {id: "osc2_vol", name: "VOL", min: 0, max: 255, percent: true },
       {id: "osc2_semi", name: "FRQ", min: 92, max: 164 },
-      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true },
+      {id: "osc2_det", name: "DET", min: 0, max: 255, percent: true, nonLinear: true },
 
       {id: "env_att", name: "ATK", min: 0, max: 255 },
       {id: "env_sust", name: "SUS", min: 0, max: 255 },

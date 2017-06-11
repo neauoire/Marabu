@@ -52,6 +52,8 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     this.slide_el.addEventListener("mousemove", mouse_move, false);
     this.value_el.addEventListener('input', value_update, false);
 
+    this.value_el.addEventListener("mousedown", select, false);
+
     console.log("Installed",this.id);
   }
 
@@ -63,6 +65,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     this.handle_el.style.marginLeft = mar_left;
     this.progress_el.style.width = mar_left;
     this.value_el.value = this.value;
+    this.update();
   }
 
   this.save = function()
@@ -82,6 +85,19 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     this.el.setAttribute("class","slider");
   }
 
+  this.update = function()
+  {
+    if(parseInt(this.value_el.value) == this.min){ this.value_el.style.color = "#333"; }
+    else if(parseInt(this.value_el.value) == this.max){ this.value_el.style.color = "#72dec2"; }
+    else{ this.value_el.style.color = "#fff"; }
+  }
+
+  function select(e)
+  {
+    e.target.select();
+    e.preventDefault();
+  }
+
   function value_update(e)
   {
     var id = this.parentNode.id;
@@ -96,6 +112,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     var mar_left = ((target_obj.value/parseFloat(target_obj.max)) * 120)+"px"
     target_obj.handle_el.style.marginLeft = mar_left;
     target_obj.progress_el.style.width = mar_left;
+    target_obj.update();
   }
 
   function mouse_update(target_obj,offset)
@@ -111,6 +128,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     target_obj.value = target_obj.min + parseInt(ratio * range);
 
     target_obj.value_el.value = target_obj.value;
+    target_obj.update();
     target_obj.save();
   }
 
