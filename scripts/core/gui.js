@@ -2344,7 +2344,7 @@ var CGUI = function()
 
   // New methods
 
-  this.status_update = function(log)
+  this.update_status = function(log)
   {
     document.getElementById("statusText").innerHTML = log;
   }
@@ -2358,7 +2358,7 @@ var CGUI = function()
   {
     if (mKeyboardOctave < 8){
       mKeyboardOctave++;
-      this.status_update("Keyboard Octave "+mKeyboardOctave);
+      this.update_status("Keyboard Octave "+mKeyboardOctave);
     }
   }
 
@@ -2367,7 +2367,7 @@ var CGUI = function()
     if (mKeyboardOctave > 1)
     {
       mKeyboardOctave--;
-      this.status_update("Keyboard Octave "+mKeyboardOctave);
+      this.update_status("Keyboard Octave "+mKeyboardOctave);
     }
   }
 
@@ -2383,7 +2383,7 @@ var CGUI = function()
             arr.push(mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen]);
           }
           mPatCopyBuffer.push(arr);
-          this.status_update("Copied Pattern");
+          this.update_status("Copied Pattern");
         }
       }
     }
@@ -2400,7 +2400,7 @@ var CGUI = function()
           }
         }
         updatePattern();
-        this.status_update("Pasted Pattern");
+        this.update_status("Pasted Pattern");
       }
     }
   }
@@ -2418,7 +2418,7 @@ var CGUI = function()
           }
         }
         updatePattern();
-        this.status_update("Note +1");
+        this.update_status("Note +1");
       }
     }
   }
@@ -2436,7 +2436,7 @@ var CGUI = function()
           }
         }
         updatePattern();
-        this.status_update("Note -1");
+        this.update_status("Note -1");
       }
     }
   }
@@ -2454,7 +2454,7 @@ var CGUI = function()
           }
         }
         updatePattern();
-        this.status_update("Octave +1");
+        this.update_status("Octave +1");
       }
     }
   }
@@ -2472,7 +2472,7 @@ var CGUI = function()
           }
         }
         updatePattern();
-        this.status_update("Octave -1");
+        this.update_status("Octave -1");
       }
     }
   }

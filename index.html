@@ -38,14 +38,14 @@
 <body onload="gui_init()">
 <div class='wrapper'>
   <div class='sequencer'>
-    <h1>SEQ
+    <h1 class='title'>SEQ
       <input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" placeholder="BPM"/>
       <span id="sequencerCopy" class='icon copy hide'></span>
       <span id="sequencerPaste" class='icon paste hide'></span>
-      <span id="sequencerPatDown" class='icon remove'></span>
-      <span id="sequencerPatUp" class='icon add'></span>
+      <span id="sequencerPatDown" class='icon remove hide'></span>
+      <span id="sequencerPatUp" class='icon add hide'></span>
       <span id="playSong" class="icon play_song" title="Play song"></span>
-      <span id="stopPlaying" class="icon play_stop" title="Stop playing"></span>
+      <span id="stopPlaying" class="icon play_stop hide" title="Stop playing"></span>
       <hr/>
     </h1>
     <div id="sequencer" title="Enter pattern numbers, 0-9">
@@ -54,7 +54,7 @@
   </div>
   
   <div class='pattern'>
-    <h1>PAT
+    <h1 class='title'>PAT
       <input id="rpp" type="text" size="3" value="" title="Rows per pattern" placeholder="RPP" />
       <span id="patternCopy" class='icon copy hide'></span>
       <span id="patternPaste" class='icon paste hide'></span>
@@ -82,7 +82,7 @@
   </div>
   
   <div class='instrument'>
-    <h1>INS
+    <h1 class='title'>INS
       <span id="instrCopy" class='icon copy'></span>
       <span id="instrPaste" class='icon paste'></span>
       <select id="instrPreset" title="Select an instrument preset">

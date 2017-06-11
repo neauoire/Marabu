@@ -90,6 +90,8 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     if(parseInt(this.value_el.value) == this.min){ this.value_el.style.color = "#333"; }
     else if(parseInt(this.value_el.value) == this.max){ this.value_el.style.color = "#72dec2"; }
     else{ this.value_el.style.color = "#fff"; }
+
+    GUI.update_status("Updated <b>"+this.id+"</b> to "+this.value+"/"+this.max);
   }
 
   function select(e)
