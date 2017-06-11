@@ -247,6 +247,8 @@ var CGUI = function()
   var mPlayGfxLedOnImg = new Image();
   var mJammer = new CJammer();
 
+  this.mJammer = mJammer;
+
   // Constant look-up-tables
   var mNoteNames = [
     'C-', 'C#', 'D-', 'D#', 'E-', 'F-', 'F#', 'G-', 'G#', 'A-', 'A#', 'B-'
@@ -1438,25 +1440,6 @@ var CGUI = function()
     return false;
   };
 
-  var updateSlider = function(o, x) {
-    var props = o.sliderProps;
-    var pos = (x - props.min) / (props.max - props.min);
-    pos = pos < 0 ? 0 : (pos > 1 ? 1 : pos);
-    if (props.nonLinear)
-    {
-      pos = Math.sqrt(pos);
-    }
-
-    var val_el = document.getElementById(o.id+"_val");
-    if(val_el){ val_el.innerHTML = pos.toFixed(2);}
-
-    if(val_el && pos == 0){ val_el.style.color = "#555"; }
-    else if(val_el && pos == 1){ val_el.style.color = "#72dec2"; }
-    else{ val_el.style.color = "#fff"; }
-
-    o.style.marginLeft = Math.round(120 * pos) + "px";
-  };
-
   var updateCheckBox = function (o, check) {
     o.src = check ? "media/graphics/toggle_on.svg" : "media/graphics/toggle_off.svg";
   };
@@ -1466,7 +1449,13 @@ var CGUI = function()
     o.selectedIndex = 0;
   };
 
-  var updateInstrument = function (resetPreset) {
+  this.instrument = function()
+  {
+    return mSong.songData[mSeqCol];
+  }
+
+  var updateInstrument = function (resetPreset)
+  {
     var instr = mSong.songData[mSeqCol];
 
     // Oscillator 1
@@ -1474,54 +1463,53 @@ var CGUI = function()
     document.getElementById("osc1_wave_sqr").src = instr.i[OSC1_WAVEFORM] == 1 ? "media/graphics/wave_sqr_sel.svg" : "media/graphics/wave_sqr.svg";
     document.getElementById("osc1_wave_saw").src = instr.i[OSC1_WAVEFORM] == 2 ? "media/graphics/wave_saw_sel.svg" : "media/graphics/wave_saw.svg";
     document.getElementById("osc1_wave_tri").src = instr.i[OSC1_WAVEFORM] == 3 ? "media/graphics/wave_tri_sel.svg" : "media/graphics/wave_tri.svg";
-    updateSlider(document.getElementById("osc1_vol"), instr.i[OSC1_VOL]);
-    updateSlider(document.getElementById("osc1_semi"), instr.i[OSC1_SEMI]);
-    updateCheckBox(document.getElementById("osc1_xenv"), instr.i[OSC1_XENV]);
 
     // Oscillator 2
     document.getElementById("osc2_wave_sin").src = instr.i[OSC2_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
     document.getElementById("osc2_wave_sqr").src = instr.i[OSC2_WAVEFORM] == 1 ? "media/graphics/wave_sqr_sel.svg" : "media/graphics/wave_sqr.svg";
     document.getElementById("osc2_wave_saw").src = instr.i[OSC2_WAVEFORM] == 2 ? "media/graphics/wave_saw_sel.svg" : "media/graphics/wave_saw.svg";
     document.getElementById("osc2_wave_tri").src = instr.i[OSC2_WAVEFORM] == 3 ? "media/graphics/wave_tri_sel.svg" : "media/graphics/wave_tri.svg";
-    updateSlider(document.getElementById("osc2_vol"), instr.i[OSC2_VOL]);
-    updateSlider(document.getElementById("osc2_semi"), instr.i[OSC2_SEMI]);
-    updateSlider(document.getElementById("osc2_det"), instr.i[OSC2_DETUNE]);
-    updateCheckBox(document.getElementById("osc2_xenv"), instr.i[OSC2_XENV]);
 
-    // Noise
-    updateSlider(document.getElementById("noise_vol"), instr.i[NOISE_VOL]);
-
-    // Envelope
-    updateSlider(document.getElementById("env_att"), instr.i[ENV_ATTACK]);
-    updateSlider(document.getElementById("env_sust"), instr.i[ENV_SUSTAIN]);
-    updateSlider(document.getElementById("env_rel"), instr.i[ENV_RELEASE]);
-
-    // Arpeggio
-    updateSlider(document.getElementById("arp_note1"), instr.i[ARP_CHORD] >> 4);
-    updateSlider(document.getElementById("arp_note2"), instr.i[ARP_CHORD] & 15);
-    updateSlider(document.getElementById("arp_speed"), instr.i[ARP_SPEED]);
-
-    // LFO
     document.getElementById("lfo_wave_sin").src = instr.i[LFO_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
     document.getElementById("lfo_wave_sqr").src = instr.i[LFO_WAVEFORM] == 1 ? "media/graphics/wave_sqr_sel.svg" : "media/graphics/wave_sqr.svg";
     document.getElementById("lfo_wave_saw").src = instr.i[LFO_WAVEFORM] == 2 ? "media/graphics/wave_saw_sel.svg" : "media/graphics/wave_saw.svg";
     document.getElementById("lfo_wave_tri").src = instr.i[LFO_WAVEFORM] == 3 ? "media/graphics/wave_tri_sel.svg" : "media/graphics/wave_tri.svg";
-    updateSlider(document.getElementById("lfo_amt"), instr.i[LFO_AMT]);
-    updateSlider(document.getElementById("lfo_freq"), instr.i[LFO_FREQ]);
-    updateCheckBox(document.getElementById("lfo_fxfreq"), instr.i[LFO_FX_FREQ]);
 
-    // Effects
     document.getElementById("fx_filt_lp").src = instr.i[FX_FILTER] == 2 ? "media/graphics/wave_lp_sel.svg" : "media/graphics/wave_lp.svg";
     document.getElementById("fx_filt_hp").src = instr.i[FX_FILTER] == 1 ? "media/graphics/wave_hp_sel.svg" : "media/graphics/wave_hp.svg";
     document.getElementById("fx_filt_bp").src = instr.i[FX_FILTER] == 3 ? "media/graphics/wave_bp_sel.svg" : "media/graphics/wave_bp.svg";
-    updateSlider(document.getElementById("fx_freq"), instr.i[FX_FREQ]);
-    updateSlider(document.getElementById("fx_res"), instr.i[FX_RESONANCE]);
-    updateSlider(document.getElementById("fx_dly_amt"), instr.i[FX_DELAY_AMT]);
-    updateSlider(document.getElementById("fx_dly_time"), instr.i[FX_DELAY_TIME]);
-    updateSlider(document.getElementById("fx_pan_amt"), instr.i[FX_PAN_AMT]);
-    updateSlider(document.getElementById("fx_pan_freq"), instr.i[FX_PAN_FREQ]);
-    updateSlider(document.getElementById("fx_dist"), instr.i[FX_DIST]);
-    updateSlider(document.getElementById("fx_drive"), instr.i[FX_DRIVE]);
+
+    updateCheckBox(document.getElementById("osc1_xenv"), instr.i[OSC1_XENV]);
+    updateCheckBox(document.getElementById("osc2_xenv"), instr.i[OSC2_XENV]);
+
+    // PART 1
+    GUI.sliders["osc1_vol"].override(instr.i[OSC1_VOL]);
+    GUI.sliders["osc1_semi"].override(instr.i[OSC1_SEMI]);
+    GUI.sliders["osc2_vol"].override(instr.i[OSC2_VOL]);
+    GUI.sliders["osc2_semi"].override(instr.i[OSC2_SEMI]);
+    GUI.sliders["osc2_det"].override(instr.i[OSC2_VOL]);
+    GUI.sliders["noise_vol"].override(instr.i[NOISE_VOL]);
+
+    GUI.sliders["env_att"].override(instr.i[ENV_ATTACK]);
+    GUI.sliders["env_sust"].override(instr.i[ENV_SUSTAIN]);
+    GUI.sliders["env_rel"].override(instr.i[ENV_RELEASE]);
+
+    GUI.sliders["arp_note1"].override(instr.i[ARP_CHORD] >> 4);
+    GUI.sliders["arp_note2"].override(instr.i[ARP_CHORD] & 15);
+    GUI.sliders["arp_speed"].override(instr.i[ARP_SPEED]);
+
+    GUI.sliders["lfo_amt"].override(instr.i[LFO_AMT]);
+    GUI.sliders["lfo_freq"].override(instr.i[LFO_FREQ]);
+    GUI.sliders["lfo_fxfreq"].override(instr.i[LFO_FX_FREQ]);
+
+    GUI.sliders["fx_freq"].override(instr.i[FX_FREQ]);
+    GUI.sliders["fx_res"].override(instr.i[FX_RESONANCE]);
+    GUI.sliders["fx_dly_amt"].override(instr.i[FX_DELAY_AMT]);
+    GUI.sliders["fx_dly_time"].override(instr.i[FX_DELAY_TIME]);
+    GUI.sliders["fx_pan_amt"].override(instr.i[FX_PAN_AMT]);
+    GUI.sliders["fx_pan_freq"].override(instr.i[FX_PAN_FREQ]);
+    GUI.sliders["fx_dist"].override(instr.i[FX_DIST]);
+    GUI.sliders["fx_drive"].override(instr.i[FX_DRIVE]);
 
     // Clear the preset selection?
     if (resetPreset)
@@ -2927,98 +2915,33 @@ var CGUI = function()
     }
   };
 
-  var mActiveSlider = null;
-
-  var sliderMouseDown = function (e)
+  this.update_instrument = function(cmdNo,value,id)
   {
-    if (mSeqCol == mSeqCol2)
-    {
-      if (!e) var e = window.event;
-      mActiveSlider = getEventElement(e);
-      unfocusHTMLInputElements();
-      e.preventDefault();
+    var instr = this.instrument();
+
+    if (cmdNo === ARP_CHORD) { 
+    // The arpeggio chord notes are combined into a single byte
+      if (id == "arp_note1")
+        value = (instr.i[ARP_CHORD] & 15) | (value << 4);
+      else
+        value = (instr.i[ARP_CHORD] & 240) | value;
     }
-  };
 
-  var mouseMove = function (e) {
-    if (!e) var e = window.event;
-
-    // Handle slider?
-    if (mActiveSlider) {
-      var instr = mSong.songData[mSeqCol];
-
-      // Calculate slider position
-      var pos = getMousePos(e, false);
-      var origin = getElementPos(mActiveSlider.parentNode);
-      var x = pos[0] - 6 - origin[0];
-      x = x < 0 ? 0 : (x > 150 ? 1 : (x / 150));
-
-      // Adapt to the range of the slider
-      if (mActiveSlider.sliderProps.nonLinear)
-        x = x * x;
-      var min = mActiveSlider.sliderProps.min;
-      var max = mActiveSlider.sliderProps.max;
-      x = Math.round(min + ((max - min) * x));
-
-      // Update the slider position
-      updateSlider(mActiveSlider, x);
-      clearPresetSelection();
-
-      // Check which instrument property to update
-      var cmdNo = -1;
-      if (mActiveSlider.id == "osc1_vol")         cmdNo = OSC1_VOL;
-      else if (mActiveSlider.id == "osc1_semi")   cmdNo = OSC1_SEMI;
-      else if (mActiveSlider.id == "osc2_vol")    cmdNo = OSC2_VOL;
-      else if (mActiveSlider.id == "osc2_semi")   cmdNo = OSC2_SEMI;
-      else if (mActiveSlider.id == "osc2_det")    cmdNo = OSC2_DETUNE;
-      else if (mActiveSlider.id == "noise_vol")   cmdNo = NOISE_VOL;
-      else if (mActiveSlider.id == "env_att")     cmdNo = ENV_ATTACK;
-      else if (mActiveSlider.id == "env_sust")    cmdNo = ENV_SUSTAIN;
-      else if (mActiveSlider.id == "env_rel")     cmdNo = ENV_RELEASE;
-      else if (mActiveSlider.id == "arp_note1")   cmdNo = ARP_CHORD;
-      else if (mActiveSlider.id == "arp_note2")   cmdNo = ARP_CHORD;
-      else if (mActiveSlider.id == "arp_speed")   cmdNo = ARP_SPEED;
-      else if (mActiveSlider.id == "lfo_amt")     cmdNo = LFO_AMT;
-      else if (mActiveSlider.id == "lfo_freq")    cmdNo = LFO_FREQ;
-      else if (mActiveSlider.id == "fx_freq")     cmdNo = FX_FREQ;
-      else if (mActiveSlider.id == "fx_res")      cmdNo = FX_RESONANCE;
-      else if (mActiveSlider.id == "fx_dist")     cmdNo = FX_DIST;
-      else if (mActiveSlider.id == "fx_drive")    cmdNo = FX_DRIVE;
-      else if (mActiveSlider.id == "fx_pan_amt")  cmdNo = FX_PAN_AMT;
-      else if (mActiveSlider.id == "fx_pan_freq") cmdNo = FX_PAN_FREQ;
-      else if (mActiveSlider.id == "fx_dly_amt")  cmdNo = FX_DELAY_AMT;
-      else if (mActiveSlider.id == "fx_dly_time") cmdNo = FX_DELAY_TIME;
-
-      // The arpeggio chord notes are combined into a single byte
-      if (cmdNo === ARP_CHORD) {
-        if (mActiveSlider.id == "arp_note1")
-          x = (instr.i[ARP_CHORD] & 15) | (x << 4);
-        else
-          x = (instr.i[ARP_CHORD] & 240) | x;
-      }
-
-      if (mEditMode == EDIT_FXTRACK && mFxTrackRow == mFxTrackRow2) {
-        // Update the effect command in the FX track
-        if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-          var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-          if (pat >= 0) {
-            mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = cmdNo + 1;
-            mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = x;
-            updateFxTrack();
-          }
+    if (mEditMode == EDIT_FXTRACK && mFxTrackRow == mFxTrackRow2) {
+      // Update the effect command in the FX track
+      if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
+        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+        if (pat >= 0) {
+          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = cmdNo + 1;
+          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = value;
+          updateFxTrack();
         }
       }
-
-      // Update the instrument property
-      if (cmdNo >= 0)
-        instr.i[cmdNo] = x;
-
-      // Update the jammer instrument
-      mJammer.updateInstr(instr.i);
-
-      e.preventDefault();
     }
-  };
+
+    if (cmdNo >= 0){ instr.i[cmdNo] = value;}
+    mJammer.updateInstr(instr.i);  
+  }
 
   var mouseUp = function (e)
   {
@@ -3282,10 +3205,6 @@ var CGUI = function()
   {
     // Set up the master mouse event handlers
     document.onmousedown = null;
-    document.addEventListener("mousemove", mouseMove, false);
-    document.addEventListener("touchmove", mouseMove, false);
-    document.addEventListener("mouseup", mouseUp, false);
-    document.addEventListener("touchend", mouseUp, false);
 
     // Set up the master key event handler
     document.onkeydown = keyDown;
@@ -3416,6 +3335,45 @@ var CGUI = function()
   // Initialization
   //--------------------------------------------------------------------------
 
+  this.sliders = {};
+
+  this.setup_sliders = function(sliders)
+  {
+    for(id in sliders){
+      var slider = new Slider(sliders[id].id,sliders[id].name,sliders[id].min,sliders[id].max);
+      this.sliders[new String(sliders[id].id)] = slider;
+      slider.install();
+    }
+  }
+
+  this.get_storage = function(id)
+  {
+    if      (id == "osc1_vol")    { return OSC1_VOL; }
+    else if (id == "osc1_semi")   { return OSC1_SEMI; }
+    else if (id == "osc2_vol")    { return OSC2_VOL; }
+    else if (id == "osc2_semi")   { return OSC2_SEMI; }
+    else if (id == "osc2_det")    { return OSC2_DETUNE; }
+    else if (id == "noise_vol")   { return NOISE_VOL; }
+    else if (id == "env_att")     { return ENV_ATTACK; }
+    else if (id == "env_sust")    { return ENV_SUSTAIN; }
+    else if (id == "env_rel")     { return ENV_RELEASE; }
+    else if (id == "arp_note1")   { return ARP_CHORD; }
+    else if (id == "arp_note2")   { return ARP_CHORD; }
+    else if (id == "arp_speed")   { return ARP_SPEED; }
+    else if (id == "lfo_amt")     { return LFO_AMT; }
+    else if (id == "lfo_freq")    { return LFO_FREQ; }
+    else if (id == "fx_freq")     { return FX_FREQ; }
+    else if (id == "fx_res")      { return FX_RESONANCE; }
+    else if (id == "fx_dist")     { return FX_DIST; }
+    else if (id == "fx_drive")    { return FX_DRIVE; }
+    else if (id == "fx_pan_amt")  { return FX_PAN_AMT; }
+    else if (id == "fx_pan_freq") { return FX_PAN_FREQ; }
+    else if (id == "fx_dly_amt")  { return FX_DELAY_AMT; }
+    else if (id == "fx_dly_time") { return FX_DELAY_TIME; }
+
+    return -1;
+  }
+
   this.init = function ()
   {
     var i, j, o;
@@ -3441,29 +3399,36 @@ var CGUI = function()
     // Build the UI tables
     buildSequencerTable();
 
-    // Set up GUI elements
-    document.getElementById("osc1_vol").sliderProps = { min: 0, max: 255 };
-    document.getElementById("osc1_semi").sliderProps = { min: 92, max: 164 };
-    document.getElementById("osc2_vol").sliderProps = { min: 0, max: 255 };
-    document.getElementById("osc2_semi").sliderProps = { min: 92, max: 164 };
-    document.getElementById("osc2_det").sliderProps = { min: 0, max: 255, nonLinear: true };
-    document.getElementById("noise_vol").sliderProps = { min: 0, max: 255 };
-    document.getElementById("env_att").sliderProps = { min: 0, max: 255 };
-    document.getElementById("env_sust").sliderProps = { min: 0, max: 255 };
-    document.getElementById("env_rel").sliderProps = { min: 0, max: 255 };
-    document.getElementById("arp_note1").sliderProps = { min: 0, max: 12 };
-    document.getElementById("arp_note2").sliderProps = { min: 0, max: 12 };
-    document.getElementById("arp_speed").sliderProps = { min: 0, max: 7 };
-    document.getElementById("lfo_amt").sliderProps = { min: 0, max: 255 };
-    document.getElementById("lfo_freq").sliderProps = { min: 0, max: 16 };
-    document.getElementById("fx_freq").sliderProps = { min: 0, max: 255, nonLinear: true };
-    document.getElementById("fx_res").sliderProps = { min: 0, max: 254 };
-    document.getElementById("fx_dly_amt").sliderProps = { min: 0, max: 255 };
-    document.getElementById("fx_dly_time").sliderProps = { min: 0, max: 16 };
-    document.getElementById("fx_pan_amt").sliderProps = { min: 0, max: 255 };
-    document.getElementById("fx_pan_freq").sliderProps = { min: 0, max: 16 };
-    document.getElementById("fx_dist").sliderProps = { min: 0, max: 255, nonLinear: true };
-    document.getElementById("fx_drive").sliderProps = { min: 0, max: 255 };
+    this.setup_sliders([
+      {id: "osc1_vol", name: "VOL", min: 0, max: 255 },
+      {id: "osc1_semi", name: "FRQ", min: 92, max: 164 },
+      {id: "noise_vol", name: "NOI", min: 0, max: 255 },
+
+      {id: "osc2_vol", name: "VOL", min: 0, max: 255 },
+      {id: "osc2_semi", name: "FRQ", min: 92, max: 164 },
+      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true },
+
+      {id: "env_att", name: "ATK", min: 0, max: 255 },
+      {id: "env_sust", name: "SUS", min: 0, max: 255 },
+      {id: "env_rel", name: "REL", min: 0, max: 255 },
+
+      {id: "arp_note1", name: "NT1", min: 0, max: 12 },
+      {id: "arp_note2", name: "NT2", min: 0, max: 12 },
+      {id: "arp_speed", name: "SPD", min: 0, max: 7 },
+
+      {id: "lfo_amt", name: "AMT", min: 0, max: 255 },
+      {id: "lfo_freq", name: "FRQ", min: 0, max: 254 },
+      {id: "lfo_fxfreq", name: "MOD", min: 0, max: 255 },
+
+      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true },
+      {id: "fx_res", name: "RES", min: 0, max: 254 },
+      {id: "fx_dly_amt", name: "AMT", min: 0, max: 255 },
+      {id: "fx_dly_time", name: "TIM", min: 0, max: 16 },
+      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255 },
+      {id: "fx_pan_freq", name: "PFR", min: 0, max: 16 },
+      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255 },
+    ]);
 
     // Create audio element, and always play the audio as soon as it's ready
     try
@@ -3524,6 +3489,7 @@ var CGUI = function()
 
     document.getElementById("instrPreset").onfocus = instrPresetFocus;
     document.getElementById("instrPreset").onchange = selectPreset;
+
     document.getElementById("osc1_wave_sin").addEventListener("mousedown", osc1WaveMouseDown, false);
     document.getElementById("osc1_wave_sin").addEventListener("touchstart", osc1WaveMouseDown, false);
     document.getElementById("osc1_wave_sqr").addEventListener("mousedown", osc1WaveMouseDown, false);
@@ -3532,12 +3498,9 @@ var CGUI = function()
     document.getElementById("osc1_wave_saw").addEventListener("touchstart", osc1WaveMouseDown, false);
     document.getElementById("osc1_wave_tri").addEventListener("mousedown", osc1WaveMouseDown, false);
     document.getElementById("osc1_wave_tri").addEventListener("touchstart", osc1WaveMouseDown, false);
-    document.getElementById("osc1_vol").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("osc1_vol").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("osc1_semi").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("osc1_semi").addEventListener("touchstart", sliderMouseDown, false);
     document.getElementById("osc1_xenv").addEventListener("mousedown", boxMouseDown, false);
     document.getElementById("osc1_xenv").addEventListener("touchstart", boxMouseDown, false);
+
     document.getElementById("osc2_wave_sin").addEventListener("mousedown", osc2WaveMouseDown, false);
     document.getElementById("osc2_wave_sin").addEventListener("touchstart", osc2WaveMouseDown, false);
     document.getElementById("osc2_wave_sqr").addEventListener("mousedown", osc2WaveMouseDown, false);
@@ -3546,28 +3509,9 @@ var CGUI = function()
     document.getElementById("osc2_wave_saw").addEventListener("touchstart", osc2WaveMouseDown, false);
     document.getElementById("osc2_wave_tri").addEventListener("mousedown", osc2WaveMouseDown, false);
     document.getElementById("osc2_wave_tri").addEventListener("touchstart", osc2WaveMouseDown, false);
-    document.getElementById("osc2_vol").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("osc2_vol").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("osc2_semi").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("osc2_semi").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("osc2_det").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("osc2_det").addEventListener("touchstart", sliderMouseDown, false);
     document.getElementById("osc2_xenv").addEventListener("mousedown", boxMouseDown, false);
     document.getElementById("osc2_xenv").addEventListener("touchstart", boxMouseDown, false);
-    document.getElementById("noise_vol").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("noise_vol").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("env_att").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("env_att").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("env_sust").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("env_sust").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("env_rel").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("env_rel").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("arp_note1").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("arp_note1").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("arp_note2").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("arp_note2").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("arp_speed").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("arp_speed").addEventListener("touchstart", sliderMouseDown, false);
+
     document.getElementById("lfo_wave_sin").addEventListener("mousedown", lfoWaveMouseDown, false);
     document.getElementById("lfo_wave_sin").addEventListener("touchstart", lfoWaveMouseDown, false);
     document.getElementById("lfo_wave_sqr").addEventListener("mousedown", lfoWaveMouseDown, false);
@@ -3576,34 +3520,12 @@ var CGUI = function()
     document.getElementById("lfo_wave_saw").addEventListener("touchstart", lfoWaveMouseDown, false);
     document.getElementById("lfo_wave_tri").addEventListener("mousedown", lfoWaveMouseDown, false);
     document.getElementById("lfo_wave_tri").addEventListener("touchstart", lfoWaveMouseDown, false);
-    document.getElementById("lfo_amt").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("lfo_amt").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("lfo_freq").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("lfo_freq").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("lfo_fxfreq").addEventListener("mousedown", boxMouseDown, false);
-    document.getElementById("lfo_fxfreq").addEventListener("touchstart", boxMouseDown, false);
     document.getElementById("fx_filt_lp").addEventListener("mousedown", fxFiltMouseDown, false);
     document.getElementById("fx_filt_lp").addEventListener("touchstart", fxFiltMouseDown, false);
     document.getElementById("fx_filt_hp").addEventListener("mousedown", fxFiltMouseDown, false);
     document.getElementById("fx_filt_hp").addEventListener("touchstart", fxFiltMouseDown, false);
     document.getElementById("fx_filt_bp").addEventListener("mousedown", fxFiltMouseDown, false);
     document.getElementById("fx_filt_bp").addEventListener("touchstart", fxFiltMouseDown, false);
-    document.getElementById("fx_freq").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_freq").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_res").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_res").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_dly_amt").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_dly_amt").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_dly_time").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_dly_time").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_pan_amt").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_pan_amt").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_pan_freq").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_pan_freq").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_dist").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_dist").addEventListener("touchstart", sliderMouseDown, false);
-    document.getElementById("fx_drive").addEventListener("mousedown", sliderMouseDown, false);
-    document.getElementById("fx_drive").addEventListener("touchstart", sliderMouseDown, false);
 
     document.getElementById("instrCopy").onmousedown = instrCopyMouseDown;
     document.getElementById("instrPaste").onmousedown = instrPasteMouseDown;

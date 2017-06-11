@@ -40,8 +40,6 @@ function Keyboard()
       // case 40:  this.key_arrow_down(); break;
       // case 8: this.key_delete(); break;
 
-      case "1": GUI.save_dialog(); break;
-
       // Pattern Mods
       case "]": this.key_square_bracket_right(); break;
       case "[": this.key_square_bracket_left(); break;

@@ -27,6 +27,7 @@
   <meta name="robots" content="noindex" />
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
   <script type="text/javascript" src="scripts/core/common.js"></script>
+  <script type="text/javascript" src="scripts/core/gui.slider.js"></script>
   <script type="text/javascript" src="scripts/core/gui.js"></script>
   <script type="text/javascript" src="scripts/core/keyboard.js"></script>
   <link rel="stylesheet" type="text/css" href="links/fonts.css" />
@@ -102,9 +103,9 @@
         <img id="osc1_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
         <img id="osc1_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
       </h1>
-      <div class="slider"><span>VOL</span><span class='val' id='osc1_vol_val'>0</span><img id="osc1_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>1/2</span><span class='val' id='osc1_semi_val'>0</span><img id="osc1_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>NOI</span><span class='val' id='noise_vol_val'>0</span><img id="noise_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+      <div id='osc1_vol'></div>
+      <div id='osc1_semi'></div>
+      <div id='noise_vol'></div>
     </div>
     <!-- OSC2 -->
     <div class='osc'>
@@ -115,23 +116,23 @@
         <img id="osc2_wave_sin" title="Sine" src="media/graphics/wave_sin.svg" alt="Sin" />
         <img id="osc2_xenv" class="box" src="media/graphics/toggle_off.svg" width="10" height="12" alt="" />
       </h1>
-      <div class="slider"><span>VOL</span><span class='val' id='osc2_vol_val'>0</span><img id="osc2_vol" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>1/2</span><span class='val' id='osc2_semi_val'>0</span><img id="osc2_semi" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>DET</span><span class='val' id='osc2_det_val'>0</span><img id="osc2_det" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+      <div id='osc2_vol'></div>
+      <div id='osc2_semi'></div>
+      <div id='osc2_det'></div>
     </div>
     <!-- ENV -->
     <div class='env'>
       <h1>ENV</h1>
-      <div class="slider"><span>ATK</span><span class='val' id='env_att_val'>0</span><img id="env_att" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>SUS</span><span class='val' id='env_sust_val'>0</span><img id="env_sust" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>REL</span><span class='val' id='env_rel_val'>0</span><img id="env_rel" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+      <div id='env_att'></div>
+      <div id='env_sust'></div>
+      <div id='env_rel'></div>
     </div>
     <!-- ARP -->
     <div class='arp'>
       <h1>ARP</h1>
-      <div class="slider"><span>AR1</span><span class='val' id='arp_note1_val'>0</span><img id="arp_note1" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>AR2</span><span class='val' id='arp_note2_val'>0</span><img id="arp_note2" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>SPD</span><span class='val' id='arp_speed_val'>0</span><img id="arp_speed" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+      <div id='arp_note1'></div>
+      <div id='arp_note2'></div>
+      <div id='arp_speed'></div>
     </div>
     <!-- EFX -->
     <div class='efx'>
@@ -140,14 +141,14 @@
         <img id="fx_filt_bp" src="media/graphics/wave_bp.svg" alt="Saw" />
         <img id="fx_filt_hp" src="media/graphics/wave_hp.svg" alt="Saw" />
       </h1>
-      <div class="slider"><span>FRQ</span><span class='val' id='fx_freq_val'>0</span><img id="fx_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>RES</span><span class='val' id='fx_res_val'>0</span><img id="fx_res" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>DIS</span><span class='val' id='fx_dist_val'>0</span><img id="fx_dist" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>DRV</span><span class='val' id='fx_drive_val'>0</span><img id="fx_drive" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>PAN</span><span class='val' id='fx_pan_amt_val'>0</span><img id="fx_pan_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider" style='display:none'><span>FRQ</span><span class='val' id='fx_pan_freq_val'>0</span><img id="fx_pan_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>DLY</span><span class='val' id='fx_dly_amt_val'>0</span><img id="fx_dly_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>SPD</span><span class='val' id='fx_dly_time_val'>0</span><img id="fx_dly_time" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+      <div id='fx_freq'></div>
+      <div id='fx_res'></div>
+      <div id='fx_dist'></div>
+      <div id='fx_drive'></div>
+      <div id='fx_pan_amt'></div>
+      <div id='fx_pan_freq'></div>
+      <div id='fx_dly_amt'></div>
+      <div id='fx_dly_time'></div>
     </div>
     <!-- LFO -->
     <div class='lfo'>
@@ -157,9 +158,9 @@
         <img id="lfo_wave_saw" title="Saw" src="media/graphics/wave_saw.svg" alt="Saw" style="margin-right: 10px" />
         <img id="lfo_wave_sqr" title="Square" src="media/graphics/wave_sqr.svg" alt="Sqr" />
       </h1>
-      <div class="slider"><span>AMT</span><span class='val' id='lfo_amt_val'>0</span><img id="lfo_amt" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>FRQ</span><span class='val' id='lfo_freq_val'>0</span><img id="lfo_freq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
-      <div class="slider"><span>MOD</span><span class='val' id='lfo_fxfreq_val'>0</span><img id="lfo_fxfreq" src="media/graphics/slider_handle.svg" width="30" height="30" alt="" /></div>
+      <div id='lfo_amt'></div>
+      <div id='lfo_freq'></div>
+      <div id='lfo_fxfreq'></div>
     </div>
   </div>
   
