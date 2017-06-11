@@ -397,13 +397,7 @@ var CGUI = function()
     song.patternLen = 16;
 
     // Select the default instrument from the presets
-    var defaultInstr;
-    for (i = 0; i < gInstrumentPresets.length; ++i) {
-      if (gInstrumentPresets[i].i) {
-        defaultInstr = gInstrumentPresets[i];
-        break;
-      }
-    }
+    var defaultInstr = { name: "FORM sin", i: [3,255,128,0,2,23,152,0,0,0,0,72,129,0,0,3,121,57,0,2,180,50,0,31,47,3,55,8] };
 
     // All 8 instruments
     song.songData = [];
@@ -1204,9 +1198,11 @@ var CGUI = function()
     document.getElementById("instrPreset").blur();
   };
 
-  var setEditMode = function (mode) {
-    if (mode === mEditMode)
-      return;
+  var setEditMode = function (mode)
+  {
+    if(mode === mEditMode){ return; }
+
+    GUI.update_status("Mode: "+mode);
     mEditMode = mode;
 
     // Set the style for the different edit sections
@@ -1228,8 +1224,8 @@ var CGUI = function()
     document.getElementById("rpp").value = mSong.patternLen;
   };
 
-  var updateSequencer = function (scrollIntoView, selectionOnly) {
-    // Update sequencer element contents and selection
+  var updateSequencer = function (scrollIntoView, selectionOnly)
+  {
     for (var i = 0; i < MAX_SONG_ROWS; ++i)
     {
       for (var j = 0; j < 8; ++j)
@@ -1263,7 +1259,8 @@ var CGUI = function()
     }
   };
 
-  var updatePattern = function (scrollIntoView, selectionOnly) {
+  var updatePattern = function (scrollIntoView, selectionOnly)
+  {
     buildPatternTable();
     var singlePattern = (mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2);
     var pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1;
@@ -1419,21 +1416,20 @@ var CGUI = function()
     updateFxTrack(false, true);
   };
 
-  var playNote = function (n) {
+  var playNote = function (n)
+  {
     // Calculate note number and trigger a new note in the jammer.
     var note = n + 87;
     mJammer.addNote(note);
 
     // Edit pattern if we're in pattern edit mode.
-    if (mEditMode == EDIT_PATTERN &&
-        mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2 &&
-        mPatternCol == mPatternCol2 && mPatternRow == mPatternRow2)
-    {
+    if (mEditMode == EDIT_PATTERN && mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2 && mPatternCol == mPatternCol2 && mPatternRow == mPatternRow2){
       var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
       if (pat >= 0) {
         mSong.songData[mSeqCol].c[pat].n[mPatternRow + mPatternCol*mSong.patternLen] = note;
         setSelectedPatternCell(mPatternCol, (mPatternRow + 1) % mSong.patternLen);
         updatePattern();
+        GUI.update_status("Wrote <b>"+note+"</b> in PAT"+pat+" <i>"+mPatternCol+","+mPatternRow+"</i>");
         return true;
       }
     }
