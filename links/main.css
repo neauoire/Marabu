@@ -44,6 +44,7 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .instrument .arp { width:240px; display:inline-block; vertical-align: top; }
 .instrument .efx { width:240px; display:inline-block; vertical-align: top; }
 .instrument .lfo { width:240px; display:inline-block; vertical-align: top; }
+.instrument .noi { width: 240px; display: inline-block; vertical-align: top; position: absolute; margin-top: -93px; right: 0px; }
 
 .status { text-align: center;position: absolute;bottom: 0px;line-height: 28px;left: 0px;font-size: 11px;color: #999;border-top: 1px solid #555;width: 100%;text-align: left;background: #000;z-index: 9001; }
 .status .option { float:right; display:inline-block; color:#555; padding:0px 10px;}
