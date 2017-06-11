@@ -11,6 +11,7 @@ http://localhost:8033/
 ## Active Task
 - Exporting instrument files
 - Loading instrument files
+- Input fields for slider values
 
 ## Saving/Loading
 Press .binary to create a binary file of your project, drag it on the project to load.

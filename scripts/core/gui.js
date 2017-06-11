@@ -1477,11 +1477,13 @@ var CGUI = function()
     }
 
     var val_el = document.getElementById(o.id+"_val");
-    if(val_el){ val_el.innerHTML = pos.toFixed(1);}
-    if(val_el && pos < 0.1){ val_el.style.color = "#555"; }
+    if(val_el){ val_el.innerHTML = pos.toFixed(2);}
+
+    if(val_el && pos == 0){ val_el.style.color = "#555"; }
     else if(val_el && pos == 1){ val_el.style.color = "#72dec2"; }
     else{ val_el.style.color = "#fff"; }
-    o.style.marginLeft = Math.round(120 * pos.toFixed(1)) + "px";
+
+    o.style.marginLeft = Math.round(120 * pos) + "px";
   };
 
   var updateCheckBox = function (o, check) {
