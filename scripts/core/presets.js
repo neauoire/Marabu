@@ -791,6 +791,39 @@ gInstrumentPresets = [
           157, // FX_DELAY_AMT
           2 // FX_DELAY_TIME
     ]
+  },
+  {
+    name: "Gabber Kick",
+    i: [
+          0, // OSC1_WAVEFORM
+          0, // OSC1_VOL
+          128, // OSC1_SEMI
+          0, // OSC1_XENV
+          1, // OSC2_WAVEFORM
+          245, // OSC2_VOL
+          112, // OSC2_SEMI
+          0, // OSC2_DETUNE
+          1, // OSC2_XENV
+          0, // NOISE_VOL
+          5, // ENV_ATTACK
+          0, // ENV_SUSTAIN
+          58, // ENV_RELEASE
+          0, // ARP_CHORD
+          0, // ARP_SPEED
+          1, // LFO_WAVEFORM
+          99, // LFO_AMT
+          8, // LFO_FREQ
+          1, // LFO_FX_FREQ
+          3, // FX_FILTER
+          9, // FX_FREQ
+          0, // FX_RESONANCE
+          73, // FX_DIST
+          221, // FX_DRIVE
+          60, // FX_PAN_AMT
+          6, // FX_PAN_FREQ
+          0, // FX_DELAY_AMT
+          0 // FX_DELAY_TIME
+    ]
   }
 ];
 

@@ -16,6 +16,11 @@ http://localhost:8033/
 Press .binary to create a binary file of your project, drag it on the project to load.
 
 ## Shortcuts
+### Sequencer
+```
+#
+```
+
 ### Pattern
 ```
 ] Selection Octave Up
@@ -24,6 +29,7 @@ Press .binary to create a binary file of your project, drag it on the project to
 { Selection Note Down
 c Selection copy
 v Selection paste
+  Play
 ```
 
 ### Keyboard
