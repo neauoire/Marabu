@@ -8,12 +8,10 @@ python -m SimpleHTTPServer 8033
 http://localhost:8033/
 ```
 
-## Active Task
-- Exporting instrument files
-- Loading instrument files
-- Input fields for slider values
+## Save/Loading Instruments
+Press .instrument and save the content of the file into a .instrument file. You can drag the file on the window to load that instrument.
 
-## Saving/Loading
+## Saving/Loading Projects
 Press .binary to create a binary file of your project, drag it on the project to load.
 
 ## Shortcuts

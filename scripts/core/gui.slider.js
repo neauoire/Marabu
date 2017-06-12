@@ -60,8 +60,8 @@ function Slider(id,name = "UNK",min = 0,max = 255)
   this.override = function(v)
   {
     this.value = parseInt(v);
-
-    var mar_left = ((this.value/parseFloat(this.max)) * 120)+"px"
+    var range = parseInt(this.max) - parseInt(this.min);
+    var mar_left = (((this.value - parseInt(this.min))/parseFloat(range)) * 120)+"px"
     this.handle_el.style.marginLeft = mar_left;
     this.progress_el.style.width = mar_left;
     this.value_el.value = this.value;
@@ -116,6 +116,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     target_obj.handle_el.style.marginLeft = mar_left;
     target_obj.progress_el.style.width = mar_left;
     target_obj.update();
+    target_obj.save();
   }
 
   function mouse_update(target_obj,offset)

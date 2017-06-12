@@ -24,7 +24,6 @@
 //------------------------------------------------------------------------------
 
 include("demo-songs.js");
-include("presets.js");
 include("player.js");
 include("player-worker.js");
 include("jammer.js");
@@ -1125,20 +1124,6 @@ var CGUI = function()
     mPreload.push(img);
   };
 
-  var initPresets = function()
-  {
-    var parent = document.getElementById("instrPreset");
-    var o, instr;
-    for (var i = 0; i < gInstrumentPresets.length; ++i)
-    {
-      instr = gInstrumentPresets[i];
-      o = document.createElement("option");
-      o.value = instr.i ? "" + i : "";
-      o.appendChild(document.createTextNode(instr.name));
-      parent.appendChild(o);
-    }
-  };
-
   var getElementPos = function (o)
   {
     var left = 0, top = 0;
@@ -1509,10 +1494,6 @@ var CGUI = function()
     GUI.sliders["fx_pan_freq"].override(instr.i[FX_PAN_FREQ]);
     GUI.sliders["fx_dist"].override(instr.i[FX_DIST]);
     GUI.sliders["fx_drive"].override(instr.i[FX_DRIVE]);
-
-    // Clear the preset selection?
-    if (resetPreset)
-      clearPresetSelection();
 
     // Update the jammer instrument
     mJammer.updateInstr(instr.i);
@@ -2566,30 +2547,6 @@ var CGUI = function()
     }
   };
 
-  var selectPreset = function (e)
-  {
-    if (!e) var e = window.event;
-    if (mSeqCol == mSeqCol2)
-    {
-      var o = getEventElement(e);
-      var val = o.options[o.selectedIndex].value;
-      if (val !== "")
-      {
-        val = parseInt(val);
-        if (val)
-        {
-          // Clone instrument settings
-          var src = gInstrumentPresets[val];
-          for (var i = 0; i < src.i.length; ++i)
-            mSong.songData[mSeqCol].i[i] = src.i[i];
-
-          updateInstrument(false);
-          e.preventDefault();
-        }
-      }
-    }
-  };
-
   var keyboardMouseDown = function (e)
   {
     if (!e) var e = window.event;
@@ -3069,7 +3026,9 @@ var CGUI = function()
 
   var export_instrument = function()
   {
-    var str = "{\"name\":\"Untitled\",\"i\":["+GUI.instrument().i.toString()+"]}"
+    var instr_str = GUI.instrument().i.toString();
+    if(instr_str.substr(-1,1) == ","){ instr_str = instr_str.substr(0,instr_str.length-1) }
+    var str = "{\"name\":\"Untitled\",\"i\":["+instr_str+"]}";
     window.open("data:text/javascript;base64," + btoa(str));
     return false;
   }
@@ -3262,9 +3221,6 @@ var CGUI = function()
     mBaseURL = getURLBase(window.location.href);
     mGETParams = parseURLGetData(window.location.href);
 
-    // Set up presets
-    initPresets();
-
     // Load images for the play graphics canvas
     mPlayGfxVUImg.onload = function () {
       redrawPlayerGfx(-1);
@@ -3302,10 +3258,10 @@ var CGUI = function()
 
       {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true },
       {id: "fx_res", name: "RES", min: 0, max: 254 },
-      {id: "fx_dly_amt", name: "AMT", min: 0, max: 255 },
-      {id: "fx_dly_time", name: "TIM", min: 0, max: 16 },
+      {id: "fx_dly_amt", name: "DLY", min: 0, max: 255 },
+      {id: "fx_dly_time", name: "SPD", min: 0, max: 16 },
       {id: "fx_pan_amt", name: "PAN", min: 0, max: 255 },
-      {id: "fx_pan_freq", name: "PFR", min: 0, max: 16 },
+      {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16 },
       {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true },
       {id: "fx_drive", name: "DRV", min: 0, max: 255 },
     ]);
@@ -3367,9 +3323,6 @@ var CGUI = function()
 
     document.getElementById("fxCopy").onmousedown = fxCopyMouseDown;
     document.getElementById("fxPaste").onmousedown = fxPasteMouseDown;
-
-    document.getElementById("instrPreset").onfocus = instrPresetFocus;
-    document.getElementById("instrPreset").onchange = selectPreset;
 
     document.getElementById("osc1_wave_sin").addEventListener("mousedown", osc1WaveMouseDown, false);
     document.getElementById("osc1_wave_sin").addEventListener("touchstart", osc1WaveMouseDown, false);
