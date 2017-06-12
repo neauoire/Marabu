@@ -82,7 +82,6 @@ function Slider(id,name = "UNK",min = 0,max = 255)
 
   this.deactivate = function()
   {
-    console.log(this);
     this.is_active = false;
     this.el.setAttribute("class","slider");
   }

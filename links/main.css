@@ -75,6 +75,8 @@ h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;b
 h1 input:focus { color:#72dec2; }
 h1 select { color:black; display:none; }
 h1 i { color:#555; font-style: normal }
+h1 b { color:#555; font-style: normal; float:right; display:inline-block; }
+h1 b:hover { color:#fff; cursor:pointer;}
 h1.title { border-bottom:1px solid white; }
 hr { clear:both; border:0px; padding:0px; margin:0px; }
 

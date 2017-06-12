@@ -1454,7 +1454,8 @@ var CGUI = function()
 
   var updateInstrument = function (resetPreset)
   {
-    var instr = mSong.songData[mSeqCol];
+    var instr = GUI.instrument();
+    GUI.instrument_name.innerHTML = instr.name ? instr.name : "";
 
     // Oscillator 1
     document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
@@ -3060,9 +3061,17 @@ var CGUI = function()
   this.load_instrument = function(instr_name,instr_data)
   {
     GUI.instrument().i = instr_data;
+    GUI.instrument().name = instr_name;
     updateInstrument(true);
     GUI.update_status("Loaded Instrument <b>"+instr_name+"</b>");
     this.instrument_name.innerHTML = instr_name;
+  }
+
+  var export_instrument = function()
+  {
+    var str = "{\"name\":\"Untitled\",\"i\":["+GUI.instrument().i.toString()+"]}"
+    window.open("data:text/javascript;base64," + btoa(str));
+    return false;
   }
 
   var activateMasterEvents = function ()
@@ -3337,6 +3346,7 @@ var CGUI = function()
     document.getElementById("exportJS").onmousedown = exportJS;
     document.getElementById("exportWAV").onmousedown = exportWAV;
     document.getElementById("exportBINARY").onmousedown = exportBINARY;
+    document.getElementById("exportINSTRUMENT").onmousedown = export_instrument;
     document.getElementById("playSong").onmousedown = playSong;
     document.getElementById("playRange").onmousedown = playRange;
     document.getElementById("stopPlaying").onmousedown = stopPlaying;
@@ -3399,9 +3409,6 @@ var CGUI = function()
     document.getElementById("fx_filt_bp").addEventListener("touchstart", fxFiltMouseDown, false);
 
     this.instrument_name = document.getElementById("instrument_name");
-
-    document.getElementById("instrCopy").onmousedown = instrCopyMouseDown;
-    document.getElementById("instrPaste").onmousedown = instrPasteMouseDown;
 
     // Initialize the MIDI handler
     initMIDI();
