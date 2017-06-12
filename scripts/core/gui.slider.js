@@ -75,12 +75,14 @@ function Slider(id,name = "UNK",min = 0,max = 255)
 
   this.activate = function()
   {
+    GUI.unselect_sliders();
     this.is_active = true;
     this.el.setAttribute("class","slider active");
   }
 
   this.deactivate = function()
   {
+    console.log(this);
     this.is_active = false;
     this.el.setAttribute("class","slider");
   }

@@ -74,6 +74,7 @@ h1 span.icon.play_stop { background: url("../media/graphics/play_stop.svg") no-r
 h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;border: 0px;background: #000;font-family: 'input_mono_regular';line-height: 30px;width: 50px;float: right;border-right: 1px solid #000;border-left: 1px dotted #333;text-align: center; }
 h1 input:focus { color:#72dec2; }
 h1 select { color:black; display:none; }
+h1 i { color:#555; font-style: normal }
 h1.title { border-bottom:1px solid white; }
 hr { clear:both; border:0px; padding:0px; margin:0px; }
 
@@ -101,7 +102,7 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 .slider div.handle { width:30px; height:30px; background-image:url(../media/graphics/slider_handle.svg); cursor: pointer }
 .slider div.slide { width:150px; height:30px; position: relative; z-index:20; }
 .slider div.progress { position: absolute;top: 0px;width:0px; height:30px; background-image:url(../media/graphics/slider_progress.svg); left:15px; }
-.slider.active input.value { color:#72dec2; }
+.slider.active input.value { color:#72dec2 !important; }
 .slider:hover { background-color:#333; }
 .slider input.value:hover { cursor:pointer; color:red;}
 .slider:hover div.progress { background-image:url(../media/graphics/slider_progress_active.svg); }

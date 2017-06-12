@@ -202,6 +202,8 @@ var CAudioTimer = function () {
 
 var CGUI = function()
 {
+  this.instrument_name = "Default";
+
   // Edit modes
   var EDIT_NONE = 0,
       EDIT_SEQUENCE = 1,
@@ -384,7 +386,8 @@ var CGUI = function()
       FX_DELAY_TIME = 27;
 
 
-  var makeNewSong = function () {
+  var makeNewSong = function ()
+  {
     var song = {}, i, j, k, instr, col;
 
     // Row length
@@ -1029,7 +1032,6 @@ var CGUI = function()
     return jsData;
   };
 
-
   //----------------------------------------------------------------------------
   // Midi interaction.
   // Based on example code by Chris Wilson.
@@ -1595,7 +1597,8 @@ var CGUI = function()
     updateSongSpeed();
   };
 
-  var loadSongFromData = function (songData) {
+  var loadSongFromData = function (songData)
+  {
     var song = binToSong(songData);
     if (song) {
       stopAudio();
@@ -1606,165 +1609,6 @@ var CGUI = function()
       updateFxTrack();
       updateInstrument(true);
     }
-  };
-
-  var showOpenDialog = function () {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = "";
-
-    // Create dialog content
-    var o;
-    o = document.createElement("h3");
-    o.appendChild(document.createTextNode("Open song"));
-    parent.appendChild(o);
-
-    parent.appendChild(document.createElement("br"));
-
-    var form = document.createElement("form");
-
-    var listDiv = document.createElement("div");
-    listDiv.style.textAlign = "left";
-    listDiv.style.marginLeft = "30px";
-    listDiv.style.lineHeight = "1.8em";
-
-    // List demo songs...
-    var demoSongsElements = [];
-    for (var i = 0; i < gDemoSongs.length; i++) {
-      o = document.createElement("input");
-      o.type = "radio";
-      o.name = "radiogroup1";
-      o.value = gDemoSongs[i].name;
-      if (i === 0)
-        o.checked = true;
-      demoSongsElements.push(o);
-      listDiv.appendChild(o);
-      o = document.createElement("span");
-      o.innerHTML = gDemoSongs[i].description;
-      listDiv.appendChild(o);
-      listDiv.appendChild(document.createElement("br"));
-    }
-
-    // Add input for a custom data URL
-    var customURLRadioElement = document.createElement("input");
-    customURLRadioElement.type = "radio";
-    customURLRadioElement.name = "radiogroup1";
-    customURLRadioElement.value = "custom";
-    listDiv.appendChild(customURLRadioElement);
-    listDiv.appendChild(document.createTextNode(" Data URL: "));
-    var customURLElement = document.createElement("input");
-    customURLElement.type = "text";
-    customURLElement.size = "45";
-    customURLElement.title = "Paste a saved song data URL here";
-    customURLElement.onchange = function () {
-      customURLRadioElement.checked = true;
-    };
-    customURLElement.onkeydown = customURLElement.onchange;
-    customURLElement.onclick = customURLElement.onchange;
-    listDiv.appendChild(customURLElement);
-
-    form.appendChild(listDiv);
-
-    o = document.createElement("p");
-    o.appendChild(document.createTextNode("Hint: You can also drag'n'drop binary files into the editor."));
-    form.appendChild(o);
-
-    form.appendChild(document.createElement("br"));
-
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Open";
-    o.title = "Open song";
-    o.onclick = function (e) {
-      e.preventDefault();
-
-      var songData = null;
-      if (customURLRadioElement.checked) {
-        // Convert custom data URL to song data
-        var params = parseURLGetData(customURLElement.value);
-        songData = getURLSongData(params && params.data && params.data[0]);
-      } else {
-        // Pick a demo song
-        for (var i = 0; i < demoSongsElements.length; i++) {
-          var e = demoSongsElements[i];
-          if (e.checked) {
-            for (var j = 0; j < gDemoSongs.length; j++) {
-              if (gDemoSongs[j].name === e.value) {
-                if (gDemoSongs[j].data)
-                  songData = gDemoSongs[j].data;
-                else
-                  songData = getURLSongData(gDemoSongs[j].base64);
-                break;
-              }
-            }
-            break;
-          }
-        }
-      }
-
-      // Load the song
-      if (songData)
-        loadSongFromData(songData);
-      hideDialog();
-    };
-    form.appendChild(o);
-    form.appendChild(document.createTextNode(" "));
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Cancel";
-    o.onclick = function () {
-      hideDialog();
-      return false;
-    };
-    form.appendChild(o);
-    parent.appendChild(form);
-  };
-
-  var showSaveDialog = function () {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = "";
-
-    // Create dialog content
-    var o, o2;
-    o = document.createElement("h3");
-    o.appendChild(document.createTextNode("Save song"));
-    parent.appendChild(o);
-
-    o = document.createElement("p");
-    o.appendChild(document.createTextNode("Data URL (copy/paste, bookmark, mail etc):"));
-    parent.appendChild(o);
-
-    o = document.createElement("p");
-    o2 = document.createElement("a");
-    var url = makeURLSongData(songToBin(mSong));
-    var shortURL = url.length < 70 ? url : url.slice(0,67) + "...";
-    o2.href = url;
-    o2.title = url;
-    o2.appendChild(document.createTextNode(shortURL));
-    o.appendChild(o2);
-    parent.appendChild(o);
-
-    var form = document.createElement("form");
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Save binary";
-    o.title = "Save the song as a binary file.";
-    o.onclick = function () {
-      var dataURI = "data:application/octet-stream;base64," + btoa(songToBin(mSong));
-      window.open(dataURI);
-      hideDialog();
-      return false;
-    };
-    form.appendChild(o);
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Close";
-    o.onclick = function () {
-      hideDialog();
-      return false;
-    };
-    form.appendChild(o);
-
-    parent.appendChild(form);
   };
 
   //--------------------------------------------------------------------------
@@ -3177,25 +3021,49 @@ var CGUI = function()
     return true;
   };
 
-  var onFileDrop = function (e) {
+  var onFileDrop = function (e)
+  {
     e.stopPropagation();
     e.preventDefault();
 
     // Get the dropped file
     var files = e.dataTransfer.files;
     if (files.length != 1) {
-      alert("Only open one file at a time.");
+      this.update_status("Cannot open multiple files at once.")
       return;
     }
     var file = files[0];
 
+    if(file.name.indexOf(".instrument") > -1){
+      GUI.load_instrument_file(file);
+      return;
+    }
+
     // Load the file into the editor
     var reader = new FileReader();
-    reader.onload = function(e) {
-      loadSongFromData(getURLSongData(e.target.result));
+    reader.onload = function(e){
+      loadSongFromData(getURLSongData(e.target.result));  
     };
     reader.readAsDataURL(file);
   };
+
+  this.load_instrument_file = function(file)
+  {
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var new_instr = JSON.parse(e.target.result);
+      GUI.load_instrument(new_instr.name,new_instr.i);
+    };
+    reader.readAsText(file);
+  }
+
+  this.load_instrument = function(instr_name,instr_data)
+  {
+    GUI.instrument().i = instr_data;
+    updateInstrument(true);
+    GUI.update_status("Loaded Instrument <b>"+instr_name+"</b>");
+    this.instrument_name.innerHTML = instr_name;
+  }
 
   var activateMasterEvents = function ()
   {
@@ -3339,6 +3207,13 @@ var CGUI = function()
       var slider = new Slider(sliders[id].id,sliders[id].name,sliders[id].min,sliders[id].max);
       this.sliders[new String(sliders[id].id)] = slider;
       slider.install();
+    }
+  }
+
+  this.unselect_sliders = function()
+  {
+    for(id in this.sliders){
+      this.sliders[id].deactivate();
     }
   }
 
@@ -3522,6 +3397,8 @@ var CGUI = function()
     document.getElementById("fx_filt_hp").addEventListener("touchstart", fxFiltMouseDown, false);
     document.getElementById("fx_filt_bp").addEventListener("mousedown", fxFiltMouseDown, false);
     document.getElementById("fx_filt_bp").addEventListener("touchstart", fxFiltMouseDown, false);
+
+    this.instrument_name = document.getElementById("instrument_name");
 
     document.getElementById("instrCopy").onmousedown = instrCopyMouseDown;
     document.getElementById("instrPaste").onmousedown = instrPasteMouseDown;
