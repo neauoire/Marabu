@@ -3,6 +3,7 @@ function Pattern_Controller()
   this.el = document.getElementById("pattern_controller");  
   this.status_el = document.getElementById("pattern_controller_status");
   this.is_selected = false;
+  this.is_mod_selected = false;
   this.pattern_id = -1;
 
   this.select = function(id,col,row)
@@ -55,11 +56,14 @@ function Pattern_Controller()
   this.select_mod = function(o,row)
   {
     GUI.deselect_all(); 
+    this.is_mod_selected = true;
+    o.setAttribute("class","edit");
   }
 
   this.deselect_mod = function()
   {
-    GUI.select_mod_row(-1); 
+    this.is_mod_selected = false;
+    GUI.select_mod_row(null); 
   }
 
   // 

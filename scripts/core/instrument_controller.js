@@ -21,7 +21,7 @@ function Instrument_Controller()
   this.select_instrument = function(instrument_id)
   {
     this.instrument_id = instrument_id;
-    
+
     this.status_el.innerHTML = this.instrument_id;
   }
 }

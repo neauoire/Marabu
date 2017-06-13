@@ -1194,11 +1194,9 @@ var CGUI = function()
   {
     if(mode === mEditMode){ return; }
 
-    console.log("Set mode: ",mode)
-
     GUI.update_status("Mode: "+mode);
     mEditMode = mode;
-    
+
     // Unfocus any focused input elements
     if (mEditMode != EDIT_NONE)
     {
@@ -1316,7 +1314,7 @@ var CGUI = function()
         if (o.innerHTML != fxTxt)
           o.innerHTML = fxTxt;
       }
-      if (i >= mFxTrackRow && i <= mFxTrackRow2)
+      if (GUI.pattern_controller.is_mod_selected && i >= mFxTrackRow && i <= mFxTrackRow2)
         o.className ="selected";
       else
         o.className = "";
@@ -1381,7 +1379,7 @@ var CGUI = function()
     mFxTrackRow2 = row;
     for (var i = 0; i < mSong.patternLen; ++i) {
       var o = document.getElementById("fxr" + i);
-      if (i >= mFxTrackRow && i <= mFxTrackRow2)
+      if (row && i >= mFxTrackRow && i <= mFxTrackRow2)
         o.className ="selected";
       else
         o.className = "";
@@ -1389,11 +1387,12 @@ var CGUI = function()
     updateFxTrack(true, true);
   };
 
-  var setSelectedFxTrackRow2 = function (row) {
+  var setSelectedFxTrackRow2 = function (row)
+  {
     mFxTrackRow2 = row >= mFxTrackRow ? row : mFxTrackRow;
     for (var i = 0; i < mSong.patternLen; ++i) {
       var o = document.getElementById("fxr" + i);
-      if (i >= mFxTrackRow && i <= mFxTrackRow2)
+      if (row && i >= mFxTrackRow && i <= mFxTrackRow2)
         o.className ="selected";
       else
         o.className = "";
@@ -2437,8 +2436,7 @@ var CGUI = function()
       }
 
       // Edit the fx track
-      if (mEditMode == EDIT_FXTRACK && mSeqRow == mSeqRow2 &&
-          mFxTrackRow == mFxTrackRow2 && fxCmd) {
+      if (GUI.pattern_controller.is_mod_selected) {
         var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
         if (pat >= 0) {
           mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = fxCmd + 1;
@@ -2462,8 +2460,7 @@ var CGUI = function()
       else if (o.id === "osc1_wave_sqr") wave = 1;
       else if (o.id === "osc1_wave_saw") wave = 2;
       else if (o.id === "osc1_wave_tri") wave = 3;
-      if (mEditMode == EDIT_FXTRACK && mSeqRow == mSeqRow2 &&
-          mFxTrackRow == mFxTrackRow2) {
+      if (GUI.pattern_controller.is_mod_selected) {
         var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
         if (pat >= 0) {
           mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = OSC1_WAVEFORM + 1;
@@ -2487,8 +2484,7 @@ var CGUI = function()
       else if (o.id === "osc2_wave_sqr") wave = 1;
       else if (o.id === "osc2_wave_saw") wave = 2;
       else if (o.id === "osc2_wave_tri") wave = 3;
-      if (mEditMode == EDIT_FXTRACK && mSeqRow == mSeqRow2 &&
-          mFxTrackRow == mFxTrackRow2) {
+      if (GUI.pattern_controller.is_mod_selected) {
         var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
         if (pat >= 0) {
           mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = OSC2_WAVEFORM + 1;
@@ -2512,8 +2508,7 @@ var CGUI = function()
       else if (o.id === "lfo_wave_sqr") wave = 1;
       else if (o.id === "lfo_wave_saw") wave = 2;
       else if (o.id === "lfo_wave_tri") wave = 3;
-      if (mEditMode == EDIT_FXTRACK && mSeqRow == mSeqRow2 &&
-          mFxTrackRow == mFxTrackRow2) {
+      if (GUI.pattern_controller.is_mod_selected) {
         var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
         if (pat >= 0) {
           mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = LFO_WAVEFORM + 1;
@@ -2536,8 +2531,7 @@ var CGUI = function()
       if (o.id === "fx_filt_hp") filt = 1;
       else if (o.id === "fx_filt_lp") filt = 2;
       else if (o.id === "fx_filt_bp") filt = 3;
-      if (mEditMode == EDIT_FXTRACK && mSeqRow == mSeqRow2 &&
-          mFxTrackRow == mFxTrackRow2) {
+      if (GUI.pattern_controller.is_mod_selected) {
         var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
         if (pat >= 0) {
           mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = FX_FILTER + 1
@@ -2744,7 +2738,7 @@ var CGUI = function()
         value = (instr.i[ARP_CHORD] & 240) | value;
     }
 
-    if (mEditMode == EDIT_FXTRACK && mFxTrackRow == mFxTrackRow2) {
+    if (GUI.pattern_controller.is_mod_selected) {
       // Update the effect command in the FX track
       if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
         var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
@@ -2854,7 +2848,7 @@ var CGUI = function()
           setSelectedPatternCell(mPatternCol, (mPatternRow + 1) % mSong.patternLen);
           return false;
         }
-        else if (mEditMode == EDIT_FXTRACK)
+        else if (GUI.pattern_controller.is_mod_selected)
         {
           setSelectedFxTrackRow((mFxTrackRow + 1) % mSong.patternLen);
           return false;
@@ -2874,7 +2868,7 @@ var CGUI = function()
           setSelectedPatternCell(mPatternCol, (mPatternRow - 1 + mSong.patternLen) % mSong.patternLen);
           return false;
         }
-        else if (mEditMode == EDIT_FXTRACK)
+        else if (GUI.pattern_controller.is_mod_selected)
         {
           setSelectedFxTrackRow((mFxTrackRow - 1 + mSong.patternLen) % mSong.patternLen);
           return false;
@@ -2894,7 +2888,7 @@ var CGUI = function()
           setSelectedPatternCell(mPatternCol, 0);
           return false;
         }
-        else if (mEditMode == EDIT_FXTRACK)
+        else if (GUI.pattern_controller.is_mod_selected)
         {
           setSelectedFxTrackRow(0);
           return false;
@@ -2914,7 +2908,7 @@ var CGUI = function()
           setSelectedPatternCell(mPatternCol, mSong.patternLen - 1);
           return false;
         }
-        else if (mEditMode == EDIT_FXTRACK)
+        else if (GUI.pattern_controller.is_mod_selected)
         {
           setSelectedFxTrackRow(mSong.patternLen - 1);
           return false;
@@ -2963,7 +2957,7 @@ var CGUI = function()
             return false;
           }
         }
-        else if (mEditMode == EDIT_FXTRACK)
+        else if (GUI.pattern_controller.is_mod_selected)
         {
           if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
             var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
@@ -3322,6 +3316,8 @@ var CGUI = function()
     setEditMode(EDIT_PATTERN);
     setSelectedSequencerCell(0, 0);
     setSelectedPatternCell(0, 0);
+
+    GUI.pattern_controller.select_pattern(0);
 
     // Misc event handlers
     document.getElementById("newSong").onmousedown = newSong;
