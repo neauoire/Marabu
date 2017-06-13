@@ -124,6 +124,6 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 1;} }
 @keyframes blink_text { 0% {color: #f00;} 50% {color: #fff;} 100% {color: #f00;} }
 h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinite; }
-table.tracks td.selected { animation: blink_text 2s; animation-iteration-count: infinite; }
+.edit table.tracks td.selected { animation: blink_text 2s; animation-iteration-count: infinite; }
 
 

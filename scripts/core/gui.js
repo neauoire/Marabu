@@ -1198,12 +1198,7 @@ var CGUI = function()
 
     GUI.update_status("Mode: "+mode);
     mEditMode = mode;
-
-    // Set the style for the different edit sections
-    document.getElementById("sequencer").className = (mEditMode == EDIT_SEQUENCE ? "edit" : "");
-    document.getElementById("pattern").className = (mEditMode == EDIT_PATTERN ? "edit" : "");
-    document.getElementById("fxtrack").className = (mEditMode == EDIT_FXTRACK ? "edit" : "");
-
+    
     // Unfocus any focused input elements
     if (mEditMode != EDIT_NONE)
     {
