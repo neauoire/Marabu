@@ -1439,10 +1439,15 @@ var CGUI = function()
     return mSong.songData[mSeqCol];
   }
 
+  this.instruments = function()
+  {
+    return mSong.songData;
+  }
+
   var updateInstrument = function (resetPreset)
   {
     var instr = GUI.instrument();
-    GUI.instrument_name.innerHTML = instr.name ? instr.name : "";
+    GUI.instrument_name.innerHTML = instr.name ? instr.name : "??";
 
     // Oscillator 1
     document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
@@ -3010,6 +3015,10 @@ var CGUI = function()
       GUI.load_instrument_file(file);
       return;
     }
+    if(file.name.indexOf(".kit") > -1){
+      GUI.load_kit_file(file);
+      return;
+    }
 
     // Load the file into the editor
     var reader = new FileReader();
@@ -3018,6 +3027,16 @@ var CGUI = function()
     };
     reader.readAsDataURL(file);
   };
+
+  this.load_kit_file = function(file)
+  {
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var new_kit = JSON.parse(e.target.result);
+      GUI.load_kit(new_kit);
+    };
+    reader.readAsText(file);
+  }
 
   this.load_instrument_file = function(file)
   {
@@ -3038,13 +3057,27 @@ var CGUI = function()
     this.instrument_name.innerHTML = instr_name;
   }
 
+  this.load_kit = function(kit_data)
+  {
+    var id = 0
+    for(name in kit_data){
+      mSong.songData[id].i = kit_data[name];
+      mSong.songData[id].name = name;
+      id += 1;
+    }
+
+    updateInstrument(true);
+    GUI.update_status("Loaded Kit");
+  }
+
   var export_instrument = function()
   {
-    var instr_str = GUI.instrument().i.toString();
-    if(instr_str.substr(-1,1) == ","){ instr_str = instr_str.substr(0,instr_str.length-1) }
-    var str = "{\"name\":\"Untitled\",\"i\":["+instr_str+"]}";
-    window.open("data:text/javascript;base64," + btoa(str));
-    return false;
+    GUI.instrument_controller.export_instrument();
+  }
+
+  var export_kit = function()
+  {
+    GUI.instrument_controller.export_kit();
   }
 
   var activateMasterEvents = function ()
@@ -3327,6 +3360,7 @@ var CGUI = function()
     document.getElementById("exportWAV").onmousedown = exportWAV;
     document.getElementById("exportBINARY").onmousedown = exportBINARY;
     document.getElementById("exportINSTRUMENT").onmousedown = export_instrument;
+    document.getElementById("exportKIT").onmousedown = export_kit;
     document.getElementById("playSong").onmousedown = playSong;
     document.getElementById("playRange").onmousedown = playRange;
     document.getElementById("stopPlaying").onmousedown = stopPlaying;
