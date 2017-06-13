@@ -105,34 +105,45 @@ function Keyboard()
 
   this.key_square_bracket_left = function()
   {
-    GUI.pattern_octave_down();
+    if(GUI.pattern_controller.is_selected){
+      GUI.pattern_octave_down();
+    }
   }
 
   this.key_square_bracket_right = function()
   {
-    GUI.pattern_octave_up();    
+    if(GUI.pattern_controller.is_selected){
+      GUI.pattern_octave_up();    
+    }
   }
 
   this.key_curly_bracket_left = function()
   {
-    GUI.pattern_note_down();
+    if(GUI.pattern_controller.is_selected){
+      GUI.pattern_note_down();
+    }
   }
 
   this.key_curly_bracket_right = function()
   {
-    GUI.pattern_note_up();    
+    if(GUI.pattern_controller.is_selected){
+      GUI.pattern_note_up();    
+    }
   }
 
   this.key_letter_c = function()
   {
-    GUI.pattern_copy();   
+    if(GUI.pattern_controller.is_selected){
+      GUI.pattern_copy();  
+    }
   }
+
   this.key_letter_v = function()
   {
-    GUI.pattern_paste();   
+    if(GUI.pattern_controller.is_selected){
+      GUI.pattern_paste();  
+    }
   }
-
-
 
   this.key_tab = function()
   {
@@ -168,7 +179,6 @@ function Keyboard()
 
   this.key_escape = function()
   {
-    console.log("?")
     GUI.deselect_all();
   }
 

@@ -1411,12 +1411,17 @@ var CGUI = function()
 
   var playNote = function (n)
   {
+    // Don't play if editing sequencer
+    if(GUI.sequence_controller.is_selected){
+      return false;
+    }
+
     // Calculate note number and trigger a new note in the jammer.
     var note = n + 87;
     mJammer.addNote(note);
 
-    // Edit pattern if we're in pattern edit mode.
-    if (mEditMode == EDIT_PATTERN && mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2 && mPatternCol == mPatternCol2 && mPatternRow == mPatternRow2){
+    // Record only if pattern is selected
+    if (GUI.pattern_controller.is_selected && mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2 && mPatternCol == mPatternCol2 && mPatternRow == mPatternRow2){
       var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
       if (pat >= 0) {
         mSong.songData[mSeqCol].c[pat].n[mPatternRow + mPatternCol*mSong.patternLen] = note;
@@ -2639,12 +2644,13 @@ var CGUI = function()
     }
     setEditMode(EDIT_PATTERN);
 
-    GUI.pattern_controller.select(col,row);
+    var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+    GUI.pattern_controller.select(pat,col,row);
   };
 
   var patternMouseOver = function (e)
   {
-    if (mSelectingPatternRange)
+    if(mSelectingPatternRange)
     {
       if (!e) var e = window.event;
       var o = getEventElement(e);
@@ -2687,7 +2693,6 @@ var CGUI = function()
       mSelectingSeqRange = true;
 
     setEditMode(EDIT_SEQUENCE);
-    GUI.sequence_controller.select(col,row);
 
     updatePattern();
     updateFxTrack();
@@ -2726,6 +2731,7 @@ var CGUI = function()
       updateFxTrack();
       updateInstrument(newChannel);
       e.preventDefault();
+      GUI.sequence_controller.select(col,row);
     }
   };
 
@@ -3206,6 +3212,7 @@ var CGUI = function()
     GUI.deselect_sliders();
     GUI.pattern_controller.deselect();
     GUI.sequence_controller.deselect();
+    GUI.update_status("Idle.")
   }
 
   this.get_storage = function(id)

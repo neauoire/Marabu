@@ -46,31 +46,31 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .instrument .lfo { width:240px; display:inline-block; vertical-align: top; }
 .instrument .noi { width: 240px; display: inline-block; vertical-align: top; position: absolute; margin-top: -93px; right: 0px; }
 
-.status { position: absolute; bottom: 0px; line-height: 34px; right: 0px; font-size: 11px; color: #999; border-top: 1px solid #333; width: 490px; text-align: left; background: #000; z-index: 9001; height: 28px;}
-.status .option { float:right; display:inline-block; color:#555; padding:0px 10px;}
-.status .option:hover { color:white; text-decoration:underline; cursor:pointer;}
-.status #statusText { color:white;}
-.status #statusText b { color:#72dec2; }
-.status #statusText i { color:#555; }
+.wrapper > .status { position: absolute; bottom: 0px; line-height: 34px; right: 0px; font-size: 11px; color: #999; border-top: 1px solid #333; width: 490px; text-align: left; background: #000; z-index: 9001; height: 28px;}
+.wrapper > .status .option { float:right; display:inline-block; color:#555; padding:0px 10px;}
+.wrapper > .status .option:hover { color:white; text-decoration:underline; cursor:pointer;}
+.wrapper > .status #statusText { color:white;}
+.wrapper > .status #statusText b { color:#72dec2; }
+.wrapper > .status #statusText i { color:#555; }
 
 h1 { font-family:'input_mono_medium'; font-size:11px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px; border-bottom:1px solid #333;}
 h1 img { display: inline-block; float:right; width:30px; height:30px; }
 h1 img:hover { opacity: 0.75; cursor:pointer; border-bottom:1px solid white; }
-h1 span { background:#333; display: inline-block; padding:0px 5px; float:right; width:30px; }
-h1 span:hover{ background:red; cursor:pointer;  }
-h1 span.icon { width:30px; height:30px; padding:0px; margin:0px; opacity:0.5; border-right:1px solid black;}
-h1 span.icon:hover { opacity:1;}
-h1 span.icon.copy { background: url("../media/graphics/copy.svg") no-repeat; }
-h1 span.icon.paste { background: url("../media/graphics/paste.svg") no-repeat; }
-h1 span.icon.add { background: url("../media/graphics/add.svg") no-repeat; }
-h1 span.icon.remove { background: url("../media/graphics/remove.svg") no-repeat; }
-h1 span.icon.up { background: url("../media/graphics/up.svg") no-repeat; }
-h1 span.icon.down { background: url("../media/graphics/down.svg") no-repeat; }
-h1 span.icon.up2 { display:none ;}
-h1 span.icon.down2 { display:none  }
-h1 span.icon.play_song { background: url("../media/graphics/play_song.svg") no-repeat; }
-h1 span.icon.play_range { background: url("../media/graphics/play_range.svg") no-repeat; }
-h1 span.icon.play_stop { background: url("../media/graphics/play_stop.svg") no-repeat; }
+h1 span {}
+h1 .icon { background:#333; display: inline-block; padding:0px 5px; float:right; width:30px; width:30px; height:30px; padding:0px; margin:0px; opacity:0.5; border-right:1px solid black;}
+h1 .icon:hover { opacity:1;}
+h1 .icon.copy { background: url("../media/graphics/copy.svg") no-repeat; }
+h1 .icon.paste { background: url("../media/graphics/paste.svg") no-repeat; }
+h1 .icon.add { background: url("../media/graphics/add.svg") no-repeat; }
+h1 .icon.remove { background: url("../media/graphics/remove.svg") no-repeat; }
+h1 .icon.up { background: url("../media/graphics/up.svg") no-repeat; }
+h1 .icon.down { background: url("../media/graphics/down.svg") no-repeat; }
+h1 .icon.up2 { display:none ;}
+h1 .icon.down2 { display:none  }
+h1 .icon.play_song { background: url("../media/graphics/play_song.svg") no-repeat; }
+h1 .icon.play_range { background: url("../media/graphics/play_range.svg") no-repeat; }
+h1 .icon.play_stop { background: url("../media/graphics/play_stop.svg") no-repeat; }
+h1 .icon.recording { background: url("../media/graphics/recording.svg") no-repeat; display:none;}
 h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;border: 0px;background: #000;font-family: 'input_mono_regular';line-height: 30px;width: 50px;float: right;border-right: 1px solid #000;border-left: 1px dotted #333;text-align: center; }
 h1 input:focus { color:#72dec2; }
 h1 select { color:black; display:none; }
@@ -79,7 +79,8 @@ h1 b { color:#555; font-style: normal; float:right; display:inline-block; }
 h1 b:hover { color:#fff; cursor:pointer;}
 h1.title { border-bottom:1px solid white; }
 h1 text { color:#999; }
-.edit h1 text { color:red; }
+.edit h1 span.status { color:red; }
+.edit h1 .icon.recording { display:inline-block; }
 hr { clear:both; border:0px; padding:0px; margin:0px; }
 
 #content { left:500px;}
@@ -114,3 +115,11 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 /* MISC */
 
 .hide { display:none !important;}
+
+/* ANIMATION */
+
+@keyframes blink { 0% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 1;} }
+h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinite; }
+
+
+

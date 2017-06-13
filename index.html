@@ -41,7 +41,8 @@
 <div class='wrapper'>
   <div class='sequencer' id='sequence_controller'>
     <h1 class='title'>SEQ
-      <text id='sequence_controller_status'></text>
+      <span class='status' id='sequence_controller_status'></span>
+
       <input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" placeholder="BPM"/>
       <span id="sequencerCopy" class='icon copy hide'></span>
       <span id="sequencerPaste" class='icon paste hide'></span>
@@ -49,6 +50,7 @@
       <span id="sequencerPatUp" class='icon add hide'></span>
       <span id="playSong" class="icon play_song" title="Play song"></span>
       <span id="stopPlaying" class="icon play_stop hide" title="Stop playing"></span>
+      <span class='icon recording'></span>
       <hr/>
     </h1>
     <div id="sequencer" title="Enter pattern numbers, 0-9">
@@ -58,7 +60,8 @@
   
   <div class='pattern' id='pattern_controller'>
     <h1 class='title'>PAT
-      <text id='pattern_controller_status'></text>
+      <span class='status' id='pattern_controller_status'></span>
+
       <input id="rpp" type="text" size="3" value="" title="Rows per pattern" placeholder="RPP" />
       <span id="patternCopy" class='icon copy hide'></span>
       <span id="patternPaste" class='icon paste hide'></span>
@@ -67,6 +70,7 @@
       <span id="patternOctaveDown" class='icon up2 hide'>-O</span>
       <span id="patternOctaveUp" class='icon down2 hide'>+O</span>
       <span id="playRange" class="icon play_range" title="Play selected range (SPACE)"></span>
+      <span class='icon recording'></span>
       <hr />
     </h1>
     <div id="pattern">

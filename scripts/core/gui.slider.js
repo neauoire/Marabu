@@ -75,7 +75,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
 
   this.select = function()
   {
-    GUI.deselect_sliders();
+    GUI.deselect_all();
     this.is_selected = true;
     this.el.setAttribute("class","slider active");
   }
