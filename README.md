@@ -15,10 +15,7 @@ Press .instrument and save the content of the file into a .instrument file. You 
 Press .binary to create a binary file of your project, drag it on the project to load.
 
 ## Shortcuts
-### Sequencer
-```
-#
-```
+Pressing `escape` will leave the edit mode. Pressing `space` will play the active pattern.
 
 ### Pattern
 ```
@@ -28,7 +25,6 @@ Press .binary to create a binary file of your project, drag it on the project to
 { Selection Note Down
 c Selection copy
 v Selection paste
-  Play
 ```
 
 ### Keyboard
