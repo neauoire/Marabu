@@ -30,6 +30,8 @@
   <script type="text/javascript" src="scripts/core/gui.slider.js"></script>
   <script type="text/javascript" src="scripts/core/gui.js"></script>
   <script type="text/javascript" src="scripts/core/keyboard.js"></script>
+  <script type="text/javascript" src="scripts/core/pattern_controller.js"></script>
+  <script type="text/javascript" src="scripts/core/sequence_controller.js"></script>
   <link rel="stylesheet" type="text/css" href="links/fonts.css" />
   <link rel="stylesheet" type="text/css" href="links/reset.css" />
   <link rel="stylesheet" type="text/css" href="links/main.css" />
@@ -37,8 +39,9 @@
 </head>
 <body onload="gui_init()">
 <div class='wrapper'>
-  <div class='sequencer'>
+  <div class='sequencer' id='sequence_controller'>
     <h1 class='title'>SEQ
+      <text id='sequence_controller_status'></text>
       <input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" placeholder="BPM"/>
       <span id="sequencerCopy" class='icon copy hide'></span>
       <span id="sequencerPaste" class='icon paste hide'></span>
@@ -53,8 +56,9 @@
     </div>
   </div>
   
-  <div class='pattern'>
+  <div class='pattern' id='pattern_controller'>
     <h1 class='title'>PAT
+      <text id='pattern_controller_status'></text>
       <input id="rpp" type="text" size="3" value="" title="Rows per pattern" placeholder="RPP" />
       <span id="patternCopy" class='icon copy hide'></span>
       <span id="patternPaste" class='icon paste hide'></span>

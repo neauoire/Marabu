@@ -11,7 +11,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
   this.slide_el = null;
   this.handle_el = null;
 
-  this.is_active = false;
+  this.is_selected = false;
 
   this.install = function()
   {
@@ -73,16 +73,16 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     GUI.update_instrument(GUI.get_storage(this.id),this.value,this.id);
   }
 
-  this.activate = function()
+  this.select = function()
   {
-    GUI.unselect_sliders();
-    this.is_active = true;
+    GUI.deselect_sliders();
+    this.is_selected = true;
     this.el.setAttribute("class","slider active");
   }
 
-  this.deactivate = function()
+  this.deselect = function()
   {
-    this.is_active = false;
+    this.is_selected = false;
     this.el.setAttribute("class","slider");
   }
 
@@ -142,7 +142,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     var target_obj = GUI.sliders[id];
 
     mouse_update(target_obj,e.layerX);
-    target_obj.activate();
+    target_obj.select();
   }
 
   function mouse_up(e)
@@ -151,14 +151,14 @@ function Slider(id,name = "UNK",min = 0,max = 255)
     var target_obj = GUI.sliders[id];
 
     mouse_update(target_obj,e.layerX);
-    target_obj.deactivate();
+    target_obj.deselect();
   }
 
   function mouse_move(e)
   {
     var id = this.parentNode.id;
     var target_obj = GUI.sliders[id];
-    if(!target_obj.is_active){ return; }
+    if(!target_obj.is_selected){ return; }
     mouse_update(target_obj,e.layerX);
   }
 }

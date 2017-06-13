@@ -78,6 +78,8 @@ h1 i { color:#555; font-style: normal }
 h1 b { color:#555; font-style: normal; float:right; display:inline-block; }
 h1 b:hover { color:#fff; cursor:pointer;}
 h1.title { border-bottom:1px solid white; }
+h1 text { color:#999; }
+.edit h1 text { color:red; }
 hr { clear:both; border:0px; padding:0px; margin:0px; }
 
 #content { left:500px;}

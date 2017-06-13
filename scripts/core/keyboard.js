@@ -34,6 +34,7 @@ function Keyboard()
       // case 13:  this.key_enter();  break;
       // case 186: if(event.shiftKey){this.key_colon();}  break;
       case 27:  this.key_escape(); break;
+      case "Escape":  this.key_escape(); break;
       // case 219:  this.key_square_bracket_right(); break;
       // case 221:  this.key_square_bracket_left(); break;
       // case 38:  this.key_arrow_up(); break;
@@ -167,7 +168,8 @@ function Keyboard()
 
   this.key_escape = function()
   {
-    GUI.unselect_sliders();
+    console.log("?")
+    GUI.deselect_all();
   }
 
   this.key_delete = function()

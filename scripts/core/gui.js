@@ -23,6 +23,8 @@
 // External dependencies
 //------------------------------------------------------------------------------
 
+include("rle.js");
+
 include("demo-songs.js");
 include("player.js");
 include("player-worker.js");
@@ -201,6 +203,8 @@ var CAudioTimer = function () {
 
 var CGUI = function()
 {
+  this.sequence_controller = new Sequence_Controller();
+  this.pattern_controller = new Pattern_Controller();
   this.instrument_name = "Default";
 
   // Edit modes
@@ -1179,15 +1183,17 @@ var CGUI = function()
     return [p[0] - pElem[0], p[1] - pElem[1]];
   };
 
-  var unfocusHTMLInputElements = function () {
+  var unfocusHTMLInputElements = function ()
+  {
     document.getElementById("bpm").blur();
     document.getElementById("rpp").blur();
-    document.getElementById("instrPreset").blur();
   };
 
   var setEditMode = function (mode)
   {
     if(mode === mEditMode){ return; }
+
+    console.log("Set mode: ",mode)
 
     GUI.update_status("Mode: "+mode);
     mEditMode = mode;
@@ -2615,20 +2621,25 @@ var CGUI = function()
     }
   };
 
+  // Pattern
+
   var patternMouseDown = function (e)
   {
     if (!e) var e = window.event;
     e.preventDefault();
 
+    var o = getEventElement(e);
+    var col = parseInt(o.id.slice(2,3));
+    var row = parseInt(o.id.slice(4));
+
     if (!mFollowerActive)
     {
-      var o = getEventElement(e);
-      var col = parseInt(o.id.slice(2,3));
-      var row = parseInt(o.id.slice(4));
       setSelectedPatternCell(col, row);
       mSelectingPatternRange = true;
     }
     setEditMode(EDIT_PATTERN);
+
+    GUI.pattern_controller.select(col,row);
   };
 
   var patternMouseOver = function (e)
@@ -2669,10 +2680,15 @@ var CGUI = function()
     else
       row = mSeqRow;
     var newChannel = col != mSeqCol || mSeqCol != mSeqCol2;
+
     setSelectedSequencerCell(col, row);
+
     if (!mFollowerActive)
       mSelectingSeqRange = true;
+
     setEditMode(EDIT_SEQUENCE);
+    GUI.sequence_controller.select(col,row);
+
     updatePattern();
     updateFxTrack();
     updateInstrument(newChannel);
@@ -3178,11 +3194,18 @@ var CGUI = function()
     }
   }
 
-  this.unselect_sliders = function()
+  this.deselect_sliders = function()
   {
     for(id in this.sliders){
-      this.sliders[id].deactivate();
+      this.sliders[id].deselect();
     }
+  }
+
+  this.deselect_all = function()
+  {
+    GUI.deselect_sliders();
+    GUI.pattern_controller.deselect();
+    GUI.sequence_controller.deselect();
   }
 
   this.get_storage = function(id)
