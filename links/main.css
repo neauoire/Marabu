@@ -29,6 +29,7 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .sequencer #sequencer td:nth-child(3) { width:30px; }
 .sequencer #sequencer td:nth-child(4) { width:30px; }
 .sequencer #sequencer td:nth-child(5) { width:30px; }
+.sequencer.edit td.selected { border-bottom: 1px solid red !important; }
 .sequencer h1 input { width:53px; }
 
 .sequencer .vu { display:none;}
@@ -37,7 +38,8 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .pattern #pattern { overflow: hidden}
 .pattern #fxtrack {  overflow: hidden;position: absolute;right: 0px;top: 31px;}
 .pattern #fxtrack table.tracks td { width:60px; }
-.pattern #fxtrack .selected { color:red; }
+.pattern.edit td.selected { border-bottom: 1px solid red !important; }
+.pattern #fxtrack .selected { color:white; border-bottom:1px solid red; }
 .pattern.inactive h1 { border-bottom:1px dotted #999; color:#999;}
 .pattern.inactive .icon { display: none }
 
