@@ -152,6 +152,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
 
     mouse_update(target_obj,e.layerX);
     target_obj.deselect();
+    GUI.pattern_controller.deselect_mod();
   }
 
   function mouse_move(e)

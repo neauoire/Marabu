@@ -205,6 +205,7 @@ var CGUI = function()
 {
   this.sequence_controller = new Sequence_Controller();
   this.pattern_controller = new Pattern_Controller();
+  this.instrument_controller = new Instrument_Controller();
   this.instrument_name = "Default";
 
   // Edit modes
@@ -1301,7 +1302,8 @@ var CGUI = function()
     return s;
   };
 
-  var updateFxTrack = function (scrollIntoView, selectionOnly) {
+  var updateFxTrack = function (scrollIntoView, selectionOnly)
+  {
     buildFxTable();
     var singlePattern = (mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2);
     var pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1;
@@ -1323,17 +1325,6 @@ var CGUI = function()
         o.className ="selected";
       else
         o.className = "";
-    }
-
-    // Scroll the row into view? (only when needed)
-    if (scrollIntoView & singlePattern) {
-      var o = document.getElementById("fxr" + mFxTrackRow);
-      if (o.scrollIntoView) {
-        var so = document.getElementById("fxtrack");
-        var oy = o.offsetTop - so.scrollTop;
-        if (oy < 0 || (oy + 10) > so.offsetHeight)
-          o.scrollIntoView(oy < 0);
-      }
     }
   };
 
@@ -1384,7 +1375,13 @@ var CGUI = function()
     updateSequencer(false, true);
   };
 
-  var setSelectedFxTrackRow = function (row) {
+  this.select_mod_row = function(row)
+  {
+    setSelectedFxTrackRow(row);
+  }
+
+  var setSelectedFxTrackRow = function (row)
+  {
     mFxTrackRow = row;
     mFxTrackRow2 = row;
     for (var i = 0; i < mSong.patternLen; ++i) {
@@ -2593,10 +2590,13 @@ var CGUI = function()
     if (!e) var e = window.event;
     e.preventDefault();
 
+    var o = getEventElement(e);
+    var row = parseInt(o.id.slice(3));
+
+    GUI.pattern_controller.select_mod(o,row);
+
     if (!mFollowerActive)
     {
-      var o = getEventElement(e);
-      var row = parseInt(o.id.slice(3));
       setSelectedFxTrackRow(row);
       mSelectingFxRange = true;
     }
@@ -2733,7 +2733,7 @@ var CGUI = function()
       updateFxTrack();
       updateInstrument(newChannel);
       e.preventDefault();
-      GUI.sequence_controller.select(col,row);
+      GUI.sequence_controller.select(o,col,row);
     }
   };
 
@@ -2775,7 +2775,8 @@ var CGUI = function()
     return true;
   };
 
-  var keyDown = function (e) {
+  var keyDown = function (e)
+  {
     if (!e) var e = window.event;
 
     // Check if we're editing BPM / RPP
@@ -2786,14 +2787,14 @@ var CGUI = function()
     var row, col, n;
 
     // Sequencer editing
-    if (mEditMode == EDIT_SEQUENCE &&
-        mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2)
+    if (GUI.sequence_controller.is_selected)
     {
       // 0 - 9
       if (e.keyCode >= 48 && e.keyCode <= 57)
       {
         mSong.songData[mSeqCol].p[mSeqRow] = e.keyCode - 47;
         updateSequencer();
+        GUI.pattern_controller.edit_pattern(e.keyCode - 48);
         updatePattern();
         updateFxTrack();
         return false;

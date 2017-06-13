@@ -32,6 +32,7 @@
   <script type="text/javascript" src="scripts/core/keyboard.js"></script>
   <script type="text/javascript" src="scripts/core/pattern_controller.js"></script>
   <script type="text/javascript" src="scripts/core/sequence_controller.js"></script>
+  <script type="text/javascript" src="scripts/core/instrument_controller.js"></script>
   <link rel="stylesheet" type="text/css" href="links/fonts.css" />
   <link rel="stylesheet" type="text/css" href="links/reset.css" />
   <link rel="stylesheet" type="text/css" href="links/main.css" />
@@ -91,6 +92,8 @@
   
   <div class='instrument'>
     <h1 class='title'>INS 
+      <span class='status' id='instrument_controller_status'></span>
+
       <i id='instrument_name'></i>
       <b id="exportINSTRUMENT" class="option">.instrument</b>
       <select id="midiInput" title="Select a MIDI source" style="margin-left: 10px; display: none">

@@ -37,6 +37,8 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .pattern #pattern { overflow: hidden}
 .pattern #fxtrack {  overflow: hidden;position: absolute;right: 0px;top: 31px;}
 .pattern #fxtrack table.tracks td { width:60px; }
+.pattern.inactive h1 { border-bottom:1px dotted #999; color:#999;}
+.pattern.inactive .icon { display: none }
 
 .instrument { position:absolute; left:455px; top:0px; z-index:9000; width:490px;}
 .instrument .osc { width:240px; display:inline-block; vertical-align: top;}
@@ -52,6 +54,7 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .wrapper > .status #statusText { color:white;}
 .wrapper > .status #statusText b { color:#72dec2; }
 .wrapper > .status #statusText i { color:#555; }
+.wrapper > .status #statusText .error { color:red; }
 
 h1 { font-family:'input_mono_medium'; font-size:11px; font-weight: normal; text-align: left; color:white; background:none; line-height: 30px; border-bottom:1px solid #333;}
 h1 img { display: inline-block; float:right; width:30px; height:30px; }
@@ -107,7 +110,7 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 .slider div.handle { width:30px; height:30px; background-image:url(../media/graphics/slider_handle.svg); cursor: pointer }
 .slider div.slide { width:150px; height:30px; position: relative; z-index:20; }
 .slider div.progress { position: absolute;top: 0px;width:0px; height:30px; background-image:url(../media/graphics/slider_progress.svg); left:15px; }
-.slider.active input.value { color:#72dec2 !important; }
+.slider.active input.value { color:#f00 !important; }
 .slider:hover { background-color:#333; }
 .slider input.value:hover { cursor:pointer; color:red;}
 .slider:hover div.progress { background-image:url(../media/graphics/slider_progress_active.svg); }
@@ -119,7 +122,8 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 /* ANIMATION */
 
 @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 1;} }
+@keyframes blink_text { 0% {color: #f00;} 50% {color: #fff;} 100% {color: #f00;} }
 h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinite; }
-
+table.tracks td.selected { animation: blink_text 2s; animation-iteration-count: infinite; }
 
 
