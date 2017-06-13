@@ -1972,6 +1972,7 @@ var CGUI = function()
   {
     if (!e) var e = window.event;
     e.preventDefault();
+    GUI.deselect_all();
 
     // Stop the currently playing audio
     stopAudio();
@@ -2019,6 +2020,7 @@ var CGUI = function()
   {
     if (!e) var e = window.event;
     e.preventDefault();
+    GUI.deselect_all();
 
     // Stop the currently playing audio
     stopAudio();
