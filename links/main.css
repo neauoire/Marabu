@@ -20,7 +20,7 @@
 */ 
 body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; background:#000; color:white; }
 
-.wrapper {width: 945px;height: 525px;position: relative;margin: 60px auto;; }
+.wrapper {width: 945px;height: 525px;position: relative;margin: 60px auto; }
 
 .sequencer { position:absolute; left:0px; top:0px; z-index:9000; }
 .sequencer #sequencer { border:0px; height:520px; overflow: hidden;}
@@ -31,8 +31,6 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .sequencer #sequencer td:nth-child(5) { width:30px; }
 .sequencer.edit td.selected { border-bottom: 1px solid red !important; }
 .sequencer h1 input { width:53px; }
-
-.sequencer .vu { display:none;}
 
 .pattern { position:absolute; left:220px; top:0px; z-index:9000; width:216px; }
 .pattern #pattern { overflow: hidden}
@@ -102,9 +100,9 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 .slider div.slide { width:150px; height:30px; position: relative; z-index:20; }
 .slider div.progress { position: absolute;top: 0px;width:0px; height:30px; background-image:url(../media/graphics/slider_progress.svg); left:15px; }
 .slider.active input.value { color:#f00 !important; }
-.slider:hover { background-color:#333; }
+.slider:hover { background-color:#111; }
 .slider input.value:hover { cursor:pointer; color:red;}
-.slider:hover div.progress { background-image:url(../media/graphics/slider_progress_active.svg); }
+.slider.active div.progress { background-image:url(../media/graphics/slider_progress_active.svg); }
 
 /* MISC */
 
@@ -136,3 +134,16 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 .icon.export_wav { background: url("../media/graphics/export_wav.svg") no-repeat; }
 .icon.export_json { background: url("../media/graphics/export_json.svg") no-repeat; }
 .icon.export_binary { background: url("../media/graphics/export_binary.svg") no-repeat; }
+
+
+/* COLORS */
+
+.pattern table.tracks td.octave_1 { color:#555; }
+.pattern table.tracks td.octave_2 { color:#999; }
+.pattern table.tracks td.octave_3 { color:#72dec2; }
+.pattern table.tracks td.octave_4 { color:#72dec2; }
+.pattern table.tracks td.octave_5 { color:#affec7; }
+.pattern table.tracks td.octave_6 { color:#affec7; }
+.pattern table.tracks td.octave_7 { color:#ccc; }
+.pattern table.tracks td.octave_8 { color:#fff; }
+

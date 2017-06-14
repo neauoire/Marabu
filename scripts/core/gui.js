@@ -1226,22 +1226,20 @@ var CGUI = function()
           else
             o.innerHTML = "";
         }
-        if (i >= mSeqRow && i <= mSeqRow2 &&
-            j >= mSeqCol && j <= mSeqCol2)
-          o.className ="selected";
-        else
+        if (i >= mSeqRow && i <= mSeqRow2 && j >= mSeqCol && j <= mSeqCol2){
+          if(o.innerHTML != ""){
+            o.className = "active selected pattern_"+o.innerHTML;
+          }
+          else{
+            o.className ="selected";
+          }
+        }
+        else if(o.innerHTML != ""){
+          o.className = "active pattern_"+o.innerHTML;
+        }
+        else{
           o.className = "";
-      }
-    }
-
-    // Scroll the row into view? (only when needed)
-    if (scrollIntoView) {
-      var o = document.getElementById("spr" + mSeqRow);
-      if (o.scrollIntoView) {
-        var so = document.getElementById("sequencer");
-        var oy = o.offsetTop - so.scrollTop;
-        if (oy < 0 || (oy + 10) > so.offsetHeight)
-          o.scrollIntoView(oy < 0);
+        }
       }
     }
   };
@@ -1267,11 +1265,28 @@ var CGUI = function()
           if (o.innerHTML != noteName)
             o.innerHTML = noteName;
         }
-        if (i >= mPatternRow && i <= mPatternRow2 &&
-            j >= mPatternCol && j <= mPatternCol2)
-          o.className ="selected";
-        else
-          o.className = "";
+        if (i >= mPatternRow && i <= mPatternRow2 && j >= mPatternCol && j <= mPatternCol2){
+          if(o.innerHTML != ""){
+            var note = o.innerHTML.substr(0,1);
+            var sharp = o.innerHTML.substr(1,1) == "#" ? "sharp" : "";
+            var octave = o.innerHTML.substr(2,1);
+            o.className = "active selected note_"+note+" "+sharp+" octave_"+octave;
+          }
+          else{
+            o.className ="selected";
+          }
+        }
+        else{
+          if(o.innerHTML != ""){
+            var note = o.innerHTML.substr(0,1);
+            var sharp = o.innerHTML.substr(1,1) == "#" ? "sharp" : "";
+            var octave = o.innerHTML.substr(2,1);
+            o.className = "active note_"+note+" "+sharp+" octave_"+octave;
+          }
+          else{
+            o.className ="";
+          }
+        }
       }
     }
 
@@ -2219,7 +2234,7 @@ var CGUI = function()
   {
     if (mKeyboardOctave < 8){
       mKeyboardOctave++;
-      this.update_status("Keyboard Octave "+mKeyboardOctave);
+      this.update_status("Keyboard Octave "+mKeyboardOctave+"("+mKeyboardOctave+")");
     }
   }
 
@@ -2710,7 +2725,7 @@ var CGUI = function()
     updateFxTrack();
     e.preventDefault();
 
-    GUI.sequence_controller.select(null,null,col,row);
+    GUI.sequence_controller.select(col,row,col,row);
   };
 
   var sequencerMouseOver = function (e)
