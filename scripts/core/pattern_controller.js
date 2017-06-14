@@ -8,6 +8,17 @@ function Pattern_Controller()
   this.is_selected = false;
   this.is_mod_selected = false;
   this.pattern_id = -1;
+  this.rpp_el = document.getElementById("rpp");
+  this.rpp_el.addEventListener('input', rpp_update, false);
+
+  function rpp_update()
+  {
+    if(GUI.pattern_controller.rpp_el.value == ""){ return; }
+    var new_rpp = parseInt(GUI.pattern_controller.rpp_el.value);
+    if(new_rpp < 4){ new_rpp = 4; }
+    if(new_rpp > 16){ new_rpp = 16; }
+    GUI.update_rpp(new_rpp);
+  }
 
   this.selection = {x1:0,y1:0,x2:0,y2:0};
 
@@ -34,6 +45,7 @@ function Pattern_Controller()
     this.el.setAttribute("class","pattern");
     this.status_el.innerHTML = "";
     this.is_selected = false;
+    this.rpp_el.blur();
   }
 
   this.select_pattern = function(pattern_id)
@@ -63,7 +75,7 @@ function Pattern_Controller()
 
   this.update = function()
   {
-    this.status_el.innerHTML = this.pattern_id+"+"+this.selection.x1+":"+this.selection.y1+" ";
+    this.status_el.innerHTML = this.selection.x1+":"+this.selection.y1+" ";
 
     if(this.selection.x2 == null || this.selection.y2 == null){ return; }
     if(this.selection.x2 == this.selection.x1 && this.selection.y2 == this.selection.y1){ return; }

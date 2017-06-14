@@ -1512,6 +1512,13 @@ var CGUI = function()
     GUI.update_status("Updated song BPM to <b>"+bpm+"</b>")
   }
 
+  this.update_rpp = function(rpp)
+  {
+    setPatternLength(rpp);
+    updatePatternLength();
+    GUI.update_status("Updated RPP to <b>"+rpp+"</b>")
+  }
+
   var setPatternLength = function (length) {
     if (mSong.patternLen === length)
       return;
@@ -3043,7 +3050,7 @@ var CGUI = function()
     GUI.deselect_sliders();
     GUI.pattern_controller.deselect();
     GUI.sequence_controller.deselect();
-    GUI.update_status("Idle.")
+    GUI.update_status("Idle.");
   }
 
   this.get_storage = function(id)

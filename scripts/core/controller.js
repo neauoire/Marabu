@@ -7,7 +7,7 @@ function Controller()
 
   this.input = function(keyCode,keyVal)
   {
-    console.log(this.name+":"+keyCode+"("+keyVal+")");
+    
   }
 
   // Keyboard Numbers
