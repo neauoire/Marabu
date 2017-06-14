@@ -1,5 +1,8 @@
 function Instrument_Controller()
 {
+  Controller.call(this);
+
+  this.name = "Instrument";
   this.el = document.getElementById("instrument_controller");  
   this.status_el = document.getElementById("instrument_controller_status");
   this.is_selected = false;

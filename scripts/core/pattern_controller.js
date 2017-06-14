@@ -1,10 +1,15 @@
 function Pattern_Controller()
 {
+  Controller.call(this);
+  
+  this.name = "Pattern";
   this.el = document.getElementById("pattern_controller");  
   this.status_el = document.getElementById("pattern_controller_status");
   this.is_selected = false;
   this.is_mod_selected = false;
   this.pattern_id = -1;
+
+  this.selection = {x1:0,y1:0};
 
   this.select = function(id,col,row)
   {
@@ -66,5 +71,50 @@ function Pattern_Controller()
     GUI.select_mod_row(null); 
   }
 
-  // 
+  /* ===================================
+  @  Keyboard
+  ====================================*/
+
+  // Keyboard Notes
+  this.key_letter_a = function(){ GUI.keyboard_play(0);  }
+  this.key_letter_s = function(){ GUI.keyboard_play(2);  }
+  this.key_letter_d = function(){ GUI.keyboard_play(4);  }
+  this.key_letter_f = function(){ GUI.keyboard_play(5);  }
+  this.key_letter_g = function(){ GUI.keyboard_play(7);  }
+  this.key_letter_h = function(){ GUI.keyboard_play(9);  }
+  this.key_letter_j = function(){ GUI.keyboard_play(11); }
+  // Keyboard Notes sharp
+  this.key_letter_w = function(){ GUI.keyboard_play(1);  }
+  this.key_letter_e = function(){ GUI.keyboard_play(3);  }
+  this.key_letter_t = function(){ GUI.keyboard_play(6);  }
+  this.key_letter_y = function(){ GUI.keyboard_play(8);  }
+  this.key_letter_u = function(){ GUI.keyboard_play(10); }
+
+  // Arrows
+  this.key_arrow_up    = function()
+  {
+    if(this.selection.y1 < 1){ return; }
+    GUI.select_pattern_cell(this.selection.x1,this.selection.y1-1);
+    this.selection.y1 -= 1;
+  }
+
+  this.key_arrow_down  = function()
+  {
+    GUI.select_pattern_cell(this.selection.x1,this.selection.y1+1);
+    this.selection.y1 += 1;
+  }
+
+  this.key_arrow_left  = function()
+  { 
+    if(this.selection.x1 < 1){ return; }
+    GUI.select_pattern_cell(this.selection.x1-1,this.selection.y1);
+    this.selection.x1 -= 1;
+  }
+
+  this.key_arrow_right = function()
+  {
+    if(this.selection.x1 > 2){ return; }
+    GUI.select_pattern_cell(this.selection.x1+1,this.selection.y1);
+    this.selection.x1 += 1;
+  }
 }
