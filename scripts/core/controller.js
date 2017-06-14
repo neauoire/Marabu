@@ -7,7 +7,7 @@ function Controller()
 
   this.input = function(keyCode,keyVal)
   {
-    
+
   }
 
   // Keyboard Numbers
@@ -60,5 +60,5 @@ function Controller()
   this.key_arrow_right = function(){ }
   // Etc
   this.key_escape      = function(){ }
-  this.key_delete      = function(){ console.log("A") }
+  this.key_delete      = function(){ console.log("No effect"); }
 }

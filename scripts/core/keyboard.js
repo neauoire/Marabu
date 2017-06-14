@@ -31,6 +31,9 @@ function Keyboard()
     else if(GUI.pattern_controller.is_selected){
       this.host = GUI.pattern_controller;
     }
+    else if(GUI.pattern_controller.is_mod_selected){
+      this.host = GUI.pattern_controller;
+    }
     else{
       this.host = GUI.instrument_controller;
     }

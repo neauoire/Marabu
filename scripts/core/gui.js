@@ -2589,45 +2589,37 @@ var CGUI = function()
 
   var fxTrackMouseDown = function (e)
   {
-    if (!e) var e = window.event;
-    e.preventDefault();
-
     var o = getEventElement(e);
     var row = parseInt(o.id.slice(3));
 
-    GUI.pattern_controller.select_mod(o,row);
+    setSelectedFxTrackRow(row);
+    e.preventDefault();
 
-    if (!mFollowerActive)
-    {
-      setSelectedFxTrackRow(row);
-      mSelectingFxRange = true;
-    }
-    setEditMode(EDIT_FXTRACK);
+    GUI.pattern_controller.select_mod(row,row);
   };
 
   var fxTrackMouseOver = function (e)
   {
-    if (mSelectingFxRange)
-    {
-      if (!e) var e = window.event;
-      var o = getEventElement(e);
-      var row = parseInt(o.id.slice(3));
-      setSelectedFxTrackRow2(row);
-      e.preventDefault();
-    }
+    if(!mSelectingFxRange){ return; }
+  
+    var o = getEventElement(e);
+    var row = parseInt(o.id.slice(3));
+
+    setSelectedFxTrackRow2(row);
+    e.preventDefault();
+    GUI.pattern_controller.select_mod(null,row);
   };
 
   var fxTrackMouseUp = function (e)
   {
-    if (mSelectingFxRange)
-    {
-      if (!e) var e = window.event;
-      var o = getEventElement(e);
-      var row = parseInt(o.id.slice(3));
-      setSelectedFxTrackRow2(row);
-      mSelectingFxRange = false;
-      e.preventDefault();
-    }
+    if(!mSelectingFxRange){ return; }
+
+    var o = getEventElement(e);
+    var row = parseInt(o.id.slice(3));
+
+    setSelectedFxTrackRow2(row);
+    e.preventDefault();
+    GUI.pattern_controller.select_mod(null,row);
   };
 
   // Pattern
@@ -2793,9 +2785,11 @@ var CGUI = function()
 
   this.erase_pattern_positions = function(x1,y1,x2,y2)
   {
+    if(GUI.pattern_controller.is_mod_selected){ return; }
+
     var pat = GUI.pattern_controller.pattern_id;
     
-    for (row = y1; row <= y2; ++row) {
+    for(row = y1; row <= y2; ++row) {
       for (col = x1; col <= x2; ++col){
         mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = 0;
       }
@@ -2804,6 +2798,25 @@ var CGUI = function()
     updatePattern(true,true);
     updateFxTrack();
     setSelectedPatternCell(0,0);
+
+    GUI.update_status("Erased Pattern <b>"+y1+":"+y2+"</b> <i>"+y2+":"+y2+"</i>");
+  }
+
+  this.erase_mod_positions = function(y1,y2)
+  {
+    if(!GUI.pattern_controller.is_mod_selected){ return; }
+
+    var pat = GUI.pattern_controller.pattern_id;
+
+    mSong.songData[mSeqCol].c[pat].f[y1] = 0;
+    mSong.songData[mSeqCol].c[pat].f[y1 + mSong.patternLen] = 0;
+
+    updateSequencer();
+    updatePattern();
+    updateFxTrack();
+    setSelectedFxTrackRow(y1);
+
+    GUI.update_status("Erased Mod <b>"+y1+"</b>")
   }
 
   var keyDown = function (e)

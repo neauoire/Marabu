@@ -20,6 +20,7 @@ function Pattern_Controller()
     GUI.update_rpp(new_rpp);
   }
 
+  this.mod_selection = {x1:0,y1:0,x2:0,y2:0};
   this.selection = {x1:0,y1:0,x2:0,y2:0};
 
   this.select = function(from_x = null,from_y = null,to_x = null,to_y = null)
@@ -85,11 +86,12 @@ function Pattern_Controller()
 
   // MOD
 
-  this.select_mod = function(o,row)
+  this.select_mod = function(y1 = null,y2 = null)
   {
     GUI.deselect_all(); 
     this.is_mod_selected = true;
-    o.setAttribute("class","edit");
+    this.mod_selection.y1 = y1;
+    GUI.select_mod_row(y1); 
   }
 
   this.deselect_mod = function()
@@ -170,6 +172,7 @@ function Pattern_Controller()
   this.key_delete = function()
   {
     GUI.erase_pattern_positions(this.selection.x1,this.selection.y1,this.selection.x2,this.selection.y2);
+    GUI.erase_mod_positions(this.mod_selection.y1,this.mod_selection.y2);
     this.deselect();
   }
 }
