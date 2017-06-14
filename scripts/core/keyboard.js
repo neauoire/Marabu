@@ -179,6 +179,7 @@ function Keyboard()
 
   this.key_escape = function()
   {
+    GUI.stop_audio();
     GUI.deselect_all();
   }
 

@@ -1702,13 +1702,19 @@ var CGUI = function()
     });
   };
 
-  var stopAudio = function () {
+  var stopAudio = function ()
+  {
     stopFollower();
     if (mAudio) {
       mAudio.pause();
       mAudioTimer.reset();
     }
   };
+
+  this.stop_audio = function()
+  {
+    stopAudio();
+  }
 
 
   //----------------------------------------------------------------------------
