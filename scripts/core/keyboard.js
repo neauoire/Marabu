@@ -35,8 +35,6 @@ function Keyboard()
       this.host = GUI.instrument_controller;
     }
 
-    this.host.input(event.keyCode,event.key);
-
     switch (event.key || event.keyCode || event.which)
     {
       case "ArrowUp": this.host.key_arrow_up(); break;
@@ -89,5 +87,8 @@ function Keyboard()
       case "y": this.host.key_letter_y(); break;
       case "u": this.host.key_letter_u(); break;
     }
+
+    this.host.input(event.keyCode,event.key);
+
   }
 }

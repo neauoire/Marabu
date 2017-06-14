@@ -2656,49 +2656,44 @@ var CGUI = function()
 
   var patternMouseDown = function (e)
   {
-    if (!e) var e = window.event;
+    var o = getEventElement(e);
+    var col = parseInt(o.id.slice(2,3));
+    var row = parseInt(o.id.slice(4));
+
+    setSelectedPatternCell(col, row);
+    mSelectingPatternRange = true;
     e.preventDefault();
+
+    GUI.pattern_controller.select(col,row,col,row);
+  };
+
+  var patternMouseOver = function (e)
+  {
+    if(!mSelectingPatternRange){ return; }
 
     var o = getEventElement(e);
     var col = parseInt(o.id.slice(2,3));
     var row = parseInt(o.id.slice(4));
 
-    if (!mFollowerActive)
-    {
-      setSelectedPatternCell(col, row);
-      mSelectingPatternRange = true;
-    }
-    setEditMode(EDIT_PATTERN);
+    setSelectedPatternCell2(col, row);
+    e.preventDefault();
 
-    var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-    GUI.pattern_controller.select(pat,col,row);
-  };
-
-  var patternMouseOver = function (e)
-  {
-    if(mSelectingPatternRange)
-    {
-      if (!e) var e = window.event;
-      var o = getEventElement(e);
-      var col = parseInt(o.id.slice(2,3));
-      var row = parseInt(o.id.slice(4));
-      setSelectedPatternCell2(col, row);
-      e.preventDefault();
-    }
+    GUI.pattern_controller.select(null,null,col,row);
   };
 
   var patternMouseUp = function (e)
   {
-    if (mSelectingPatternRange)
-    {
-      if (!e) var e = window.event;
-      var o = getEventElement(e);
-      var col = parseInt(o.id.slice(2,3));
-      var row = parseInt(o.id.slice(4));
-      setSelectedPatternCell2(col, row);
-      mSelectingPatternRange = false;
-      e.preventDefault();
-    }
+    if(!mSelectingPatternRange){ return; }
+
+    var o = getEventElement(e);
+    var col = parseInt(o.id.slice(2,3));
+    var row = parseInt(o.id.slice(4));
+
+    setSelectedPatternCell2(col, row);
+    mSelectingPatternRange = false;
+    e.preventDefault();
+
+    GUI.pattern_controller.select(null,null,col,row);
   };
 
   var sequencerMouseDown = function (e)
@@ -2715,7 +2710,7 @@ var CGUI = function()
     updateFxTrack();
     e.preventDefault();
 
-    GUI.sequence_controller.select(col,row,col,row);
+    GUI.sequence_controller.select(null,null,col,row);
   };
 
   var sequencerMouseOver = function (e)
@@ -2806,10 +2801,8 @@ var CGUI = function()
 
   this.erase_sequence_positions = function(x1,y1,x2,y2)
   {
-    for (row = y1; row <= y2; ++row)
-    {
-      for (col = x1; col <= x2; ++col)
-      {
+    for (row = y1; row <= y2; ++row){
+      for (col = x1; col <= x2; ++col){
         mSong.songData[col].p[row] = 0;
       }
     }
@@ -2820,7 +2813,16 @@ var CGUI = function()
 
   this.erase_pattern_positions = function(x1,y1,x2,y2)
   {
+    var pat = GUI.pattern_controller.pattern_id;
     
+    for (row = y1; row <= y2; ++row) {
+      for (col = x1; col <= x2; ++col){
+        mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = 0;
+      }
+    }
+    updateSequencer();
+    updatePattern();
+    updateFxTrack();
   }
 
   var keyDown = function (e)

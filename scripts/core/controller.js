@@ -61,5 +61,4 @@ function Controller()
   // Etc
   this.key_escape      = function(){ }
   this.key_delete      = function(){ console.log("A") }
-
 }
