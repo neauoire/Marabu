@@ -29,15 +29,12 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .sequencer #sequencer td:nth-child(3) { width:30px; }
 .sequencer #sequencer td:nth-child(4) { width:30px; }
 .sequencer #sequencer td:nth-child(5) { width:30px; }
-.sequencer.edit td.selected { border-bottom: 1px solid red !important; }
 .sequencer h1 input { width:53px; }
 
 .pattern { position:absolute; left:220px; top:0px; z-index:9000; width:216px; }
 .pattern #pattern { overflow: hidden}
 .pattern #fxtrack {  overflow: hidden;position: absolute;right: 0px;top: 31px;}
 .pattern #fxtrack table.tracks td { width:60px; }
-.pattern.edit td.selected { border-bottom: 1px solid red !important; }
-.pattern #fxtrack .selected { color:white; border-bottom:1px solid red; }
 .pattern.inactive h1 { border-bottom:1px dotted #999; color:#999;}
 .pattern.inactive .icon { display: none }
 
@@ -87,7 +84,6 @@ table.tracks tr.beat td { background:#111; border-bottom:1px solid #555;}
 table.tracks th.playpos {background: #000;color: #fff;}
 table.tracks tr:hover { background:#111; }
 table.tracks td:hover {color: #fff;background: #222;}
-table.tracks td.selected, table.tracks tr.beat td.selected { color: #fff; border-bottom:1px solid #999; }
 table.tracks td:nth-child(5) { border-right:1px solid #333 !important; }
 table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 
@@ -111,9 +107,9 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 /* ANIMATION */
 
 @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0;} 100% {opacity: 1;} }
-@keyframes blink_text { 0% {color: #f00;} 50% {color: #f55;} 100% {color: #f00;} }
+@keyframes blink_text { 0% {background: #f00;} 50% {background: #f55;} 100% {background: #f00;} }
 h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinite; }
-.edit table.tracks td.selected { animation: blink_text 2s; animation-iteration-count: infinite; }
+.edit table.tracks td.selected, .edit table.tracks .beat td.selected { color: red !important; }
 
 .icon { background:#333; display: inline-block; padding:0px 5px; float:right; width:30px; width:30px; height:30px; padding:0px; margin:0px; opacity:0.5; border-right:1px solid black;}
 .icon:hover { opacity:1; cursor:pointer;}
@@ -138,32 +134,34 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 
 /* COLORS */
 
-.pattern table.tracks td.octave_8 { background:#fff; color:black !important; }
-.pattern table.tracks td.octave_7 { background:#72dec2; color:black !important; }
-.pattern table.tracks td.octave_6 { color:#fff !important; }
-.pattern table.tracks td.octave_5 { color:#affec7 !important; }
-.pattern table.tracks td.octave_4 { color:#72dec2 !important; }
-.pattern table.tracks td.octave_3 { color:#41d2ac !important; }
-.pattern table.tracks td.octave_2 { color:#999 !important; }
-.pattern table.tracks td.octave_1 { background:#333; color:white !important; border-bottom:1px solid black; }
+.pattern #pattern table.tracks td.octave_8 { background:#fff; color:black ; }
+.pattern #pattern table.tracks td.octave_7 { background:#72dec2; color:black ; }
+.pattern #pattern table.tracks td.octave_6 { color:#fff ; }
+.pattern #pattern table.tracks td.octave_5 { color:#affec7 ; }
+.pattern #pattern table.tracks td.octave_4 { color:#72dec2 ; }
+.pattern #pattern table.tracks td.octave_3 { color:#41d2ac ; }
+.pattern #pattern table.tracks td.octave_2 { color:#999 ; }
+.pattern #pattern table.tracks td.octave_1 { background:#333; color:white ; border-bottom:1px solid black; }
 
-.pattern table.tracks td.note_A:before { content:"A"; }
-.pattern table.tracks td.note_B:before { content:"B"; }
-.pattern table.tracks td.note_C:before { content:"C"; }
-.pattern table.tracks td.note_D:before { content:"D"; }
-.pattern table.tracks td.note_E:before { content:"E"; }
-.pattern table.tracks td.note_F:before { content:"F"; }
-.pattern table.tracks td.note_G:before { content:"G"; }
-.pattern table.tracks td.octave_8:after { content:"8"; }
-.pattern table.tracks td.octave_7:after { content:"7"; }
-.pattern table.tracks td.octave_6:after { content:"6"; }
-.pattern table.tracks td.octave_5:after { content:"5"; }
-.pattern table.tracks td.octave_4:after { content:"4"; }
-.pattern table.tracks td.octave_3:after { content:"3"; }
-.pattern table.tracks td.octave_2:after { content:"2"; }
-.pattern table.tracks td.octave_1:after { content:"1"; }
+.pattern #pattern table.tracks td.selected:before { content:"x"; }
+.pattern #pattern table.tracks td.note_A:before { content:"A"; }
+.pattern #pattern table.tracks td.note_B:before { content:"B"; }
+.pattern #pattern table.tracks td.note_C:before { content:"C"; }
+.pattern #pattern table.tracks td.note_D:before { content:"D"; }
+.pattern #pattern table.tracks td.note_E:before { content:"E"; }
+.pattern #pattern table.tracks td.note_F:before { content:"F"; }
+.pattern #pattern table.tracks td.note_G:before { content:"G"; }
+.pattern #pattern table.tracks td.octave_8:after { content:"8"; }
+.pattern #pattern table.tracks td.octave_7:after { content:"7"; }
+.pattern #pattern table.tracks td.octave_6:after { content:"6"; }
+.pattern #pattern table.tracks td.octave_5:after { content:"5"; }
+.pattern #pattern table.tracks td.octave_4:after { content:"4"; }
+.pattern #pattern table.tracks td.octave_3:after { content:"3"; }
+.pattern #pattern table.tracks td.octave_2:after { content:"2"; }
+.pattern #pattern table.tracks td.octave_1:after { content:"1"; }
+.pattern #pattern table.tracks td.sharp { text-decoration: underline; }
 
-.pattern table.tracks td.sharp { text-decoration: underline; }
+.sequencer table.tracks td.selected:before { content:"x"; }
 
 .sequencer table.tracks td.pattern_1:before { content:"0"; }
 .sequencer table.tracks td.pattern_2:before { content:"1"; }

@@ -1302,15 +1302,6 @@ var CGUI = function()
     mPatternRow = row;
     mPatternCol2 = col;
     mPatternRow2 = row;
-    for (var i = 0; i < mSong.patternLen; ++i) {
-      for (var j = 0; j < 4; ++j) {
-        var o = document.getElementById("pc" + j + "r" + i);
-        if (i == row && j == col)
-          o.className ="selected";
-        else
-          o.className = "";
-      }
-    }
     updatePattern(true, true);
   };
 
@@ -1411,6 +1402,7 @@ var CGUI = function()
       if (pat >= 0) {
         mSong.songData[mSeqCol].c[pat].n[mPatternRow + mPatternCol*mSong.patternLen] = note;
         setSelectedPatternCell(mPatternCol, (mPatternRow + 1) % mSong.patternLen);
+        GUI.pattern_controller.select(mPatternCol, (mPatternRow) % mSong.patternLen);
         updatePattern();
         GUI.update_status("Wrote <b>"+note+"</b> in PATTERN "+GUI.pattern_controller.pattern_id+" <i>at "+mPatternCol+","+mPatternRow+"</i>");
         return true;

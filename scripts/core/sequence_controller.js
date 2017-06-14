@@ -75,7 +75,7 @@ function Sequence_Controller()
     {
       GUI.update_sequencer_position(keyCode - 47);
       GUI.pattern_controller.edit_pattern(keyCode - 48);
-      GUI.pattern_controller.select(0,0);
+      GUI.pattern_controller.select(0,0,0,0);
       GUI.update_pattern_mod();
       GUI.update_pattern();
     }
