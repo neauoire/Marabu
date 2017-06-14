@@ -65,20 +65,6 @@ h1 { font-family:'input_mono_medium'; font-size:11px; font-weight: normal; text-
 h1 img { display: inline-block; float:right; width:30px; height:30px; }
 h1 img:hover { opacity: 0.75; cursor:pointer; border-bottom:1px solid white; }
 h1 span {}
-h1 .icon { background:#333; display: inline-block; padding:0px 5px; float:right; width:30px; width:30px; height:30px; padding:0px; margin:0px; opacity:0.5; border-right:1px solid black;}
-h1 .icon:hover { opacity:1;}
-h1 .icon.copy { background: url("../media/graphics/copy.svg") no-repeat; }
-h1 .icon.paste { background: url("../media/graphics/paste.svg") no-repeat; }
-h1 .icon.add { background: url("../media/graphics/add.svg") no-repeat; }
-h1 .icon.remove { background: url("../media/graphics/remove.svg") no-repeat; }
-h1 .icon.up { background: url("../media/graphics/up.svg") no-repeat; }
-h1 .icon.down { background: url("../media/graphics/down.svg") no-repeat; }
-h1 .icon.up2 { display:none ;}
-h1 .icon.down2 { display:none  }
-h1 .icon.play_song { background: url("../media/graphics/play_song.svg") no-repeat; }
-h1 .icon.play_range { background: url("../media/graphics/play_range.svg") no-repeat; }
-h1 .icon.play_stop { background: url("../media/graphics/play_stop.svg") no-repeat; }
-h1 .icon.recording { background: url("../media/graphics/recording.svg") no-repeat; display:none;}
 h1 input { display: inline-block;color: white;padding: 0px 5px;font-size: 12px;border: 0px;background: #000;font-family: 'input_mono_regular';line-height: 30px;width: 50px;float: right;border-right: 1px solid #000;border-left: 1px dotted #333;text-align: center; }
 h1 input:focus { color:#72dec2; }
 h1 select { color:black; display:none; }
@@ -131,4 +117,22 @@ table.tracks td:nth-child(7) { border-right:1px solid #333 !important; }
 h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinite; }
 .edit table.tracks td.selected { animation: blink_text 2s; animation-iteration-count: infinite; }
 
-
+.icon { background:#333; display: inline-block; padding:0px 5px; float:right; width:30px; width:30px; height:30px; padding:0px; margin:0px; opacity:0.5; border-right:1px solid black;}
+.icon:hover { opacity:1; cursor:pointer;}
+.icon.copy { background: url("../media/graphics/copy.svg") no-repeat; }
+.icon.paste { background: url("../media/graphics/paste.svg") no-repeat; }
+.icon.add { background: url("../media/graphics/add.svg") no-repeat; }
+.icon.remove { background: url("../media/graphics/remove.svg") no-repeat; }
+.icon.up { background: url("../media/graphics/up.svg") no-repeat; }
+.icon.down { background: url("../media/graphics/down.svg") no-repeat; }
+.icon.up2 { display:none ;}
+.icon.down2 { display:none  }
+.icon.play_song { background: url("../media/graphics/play_song.svg") no-repeat; }
+.icon.play_range { background: url("../media/graphics/play_range.svg") no-repeat; }
+.icon.play_stop { background: url("../media/graphics/play_stop.svg") no-repeat; }
+.icon.recording { background: url("../media/graphics/recording.svg") no-repeat; display:none;}
+.icon.export_instrument { background: url("../media/graphics/export_instrument.svg") no-repeat; }
+.icon.export_kit { background: url("../media/graphics/export_kit.svg") no-repeat; }
+.icon.export_wav { background: url("../media/graphics/export_wav.svg") no-repeat; }
+.icon.export_json { background: url("../media/graphics/export_json.svg") no-repeat; }
+.icon.export_binary { background: url("../media/graphics/export_binary.svg") no-repeat; }

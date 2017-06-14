@@ -1418,7 +1418,7 @@ var CGUI = function()
         mSong.songData[mSeqCol].c[pat].n[mPatternRow + mPatternCol*mSong.patternLen] = note;
         setSelectedPatternCell(mPatternCol, (mPatternRow + 1) % mSong.patternLen);
         updatePattern();
-        GUI.update_status("Wrote <b>"+note+"</b> in PAT"+pat+" <i>"+mPatternCol+","+mPatternRow+"</i>");
+        GUI.update_status("Wrote <b>"+note+"</b> in PATTERN "+GUI.pattern_controller.pattern_id+" <i>at "+mPatternCol+","+mPatternRow+"</i>");
         return true;
       }
     }
@@ -1447,7 +1447,7 @@ var CGUI = function()
   var updateInstrument = function (resetPreset)
   {
     var instr = GUI.instrument();
-    GUI.instrument_name.innerHTML = instr.name ? instr.name : "??";
+    GUI.instrument_name.innerHTML = instr.name ? instr.name : "";
 
     // Oscillator 1
     document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
