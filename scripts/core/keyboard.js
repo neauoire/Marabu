@@ -45,6 +45,7 @@ function Keyboard()
       case "ArrowRight": this.host.key_arrow_right(); break;
 
       case "Escape" || 27:  this.host.key_escape(); break;
+      case "Backspace" || 8:  this.host.key_delete(); break;
 
       // Pattern Mods
       case "]": this.host.key_square_bracket_right(); break;

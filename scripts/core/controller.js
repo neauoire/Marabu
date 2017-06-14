@@ -59,6 +59,7 @@ function Controller()
   this.key_arrow_left  = function(){ }
   this.key_arrow_right = function(){ }
   // Etc
-  this.key_escape      = function(){}
+  this.key_escape      = function(){ }
+  this.key_delete      = function(){ console.log("A") }
 
 }

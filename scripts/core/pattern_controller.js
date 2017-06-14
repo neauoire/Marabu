@@ -9,7 +9,7 @@ function Pattern_Controller()
   this.is_mod_selected = false;
   this.pattern_id = -1;
 
-  this.selection = {x1:0,y1:0};
+  this.selection = {x1:0,y1:0,x2:0,y2:0};
 
   this.select = function(id,col,row)
   {

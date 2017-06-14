@@ -2703,62 +2703,56 @@ var CGUI = function()
 
   var sequencerMouseDown = function (e)
   {
-    if (!e) var e = window.event;
     var o = getEventElement(e);
     var col = parseInt(o.id.slice(2,3));
-    var row;
-    if (!mFollowerActive)
-      row = parseInt(o.id.slice(4));
-    else
-      row = mSeqRow;
-    var newChannel = col != mSeqCol || mSeqCol != mSeqCol2;
+    var row = parseInt(o.id.slice(4));
 
     setSelectedSequencerCell(col, row);
 
-    if (!mFollowerActive)
-      mSelectingSeqRange = true;
-
-    setEditMode(EDIT_SEQUENCE);
+    mSelectingSeqRange = true;
 
     updatePattern();
     updateFxTrack();
-    updateInstrument(newChannel);
     e.preventDefault();
+
+    GUI.sequence_controller.select(col,row,col,row);
   };
 
   var sequencerMouseOver = function (e)
   {
-    if (mSelectingSeqRange)
-    {
-      if (!e) var e = window.event;
-      var o = getEventElement(e);
-      var col = parseInt(o.id.slice(2,3));
-      var row = parseInt(o.id.slice(4));
-      setSelectedSequencerCell2(col, row);
-      updatePattern();
-      updateFxTrack();
-      updateInstrument(true);
-      e.preventDefault();
-    }
+    if(!mSelectingSeqRange){ return; }
+
+    var o = getEventElement(e);
+    var col = parseInt(o.id.slice(2,3));
+    var row = parseInt(o.id.slice(4));
+
+    setSelectedSequencerCell2(col, row);
+
+    updatePattern();
+    updateFxTrack();
+    updateInstrument(true);
+    e.preventDefault();
+
+    GUI.sequence_controller.select(null,null,col,row);
   };
 
   var sequencerMouseUp = function (e)
   {
-    if (mSelectingSeqRange)
-    {
-      if (!e) var e = window.event;
-      var o = getEventElement(e);
-      var col = parseInt(o.id.slice(2,3));
-      var row = parseInt(o.id.slice(4));
-      var newChannel = col != mSeqCol2 || mSeqCol != mSeqCol2;
-      setSelectedSequencerCell2(col, row);
-      mSelectingSeqRange = false;
-      updatePattern();
-      updateFxTrack();
-      updateInstrument(newChannel);
-      e.preventDefault();
-      GUI.sequence_controller.select(o,col,row);
-    }
+    if(!mSelectingSeqRange){ return; }
+    
+    var o = getEventElement(e);
+    var col = parseInt(o.id.slice(2,3));
+    var row = parseInt(o.id.slice(4));
+
+    setSelectedSequencerCell2(col, row);
+
+    mSelectingSeqRange = false;
+
+    updatePattern();
+    updateFxTrack();
+    e.preventDefault();
+
+    GUI.sequence_controller.select(null,null,col,row);
   };
 
   this.update_instrument = function(cmdNo,value,id)
@@ -2789,16 +2783,6 @@ var CGUI = function()
     mJammer.updateInstr(instr.i);  
   }
 
-  var mouseUp = function (e)
-  {
-    if (mActiveSlider)
-    {
-      mActiveSlider = null;
-      return false;
-    }
-    return true;
-  };
-
   this.update_sequencer = function()
   {
     updateSequencer();
@@ -2820,9 +2804,27 @@ var CGUI = function()
     GUI.update_sequencer();
   }
 
+  this.erase_sequence_positions = function(x1,y1,x2,y2)
+  {
+    for (row = y1; row <= y2; ++row)
+    {
+      for (col = x1; col <= x2; ++col)
+      {
+        mSong.songData[col].p[row] = 0;
+      }
+    }
+    updateSequencer();
+    updatePattern();
+    updateFxTrack();
+  }
+
+  this.erase_pattern_positions = function(x1,y1,x2,y2)
+  {
+    
+  }
+
   var keyDown = function (e)
   {
-    console.log(mSong.songData[mSeqCol].p[mSeqRow])
     return;
     if (!e) var e = window.event;
 
@@ -2836,71 +2838,9 @@ var CGUI = function()
     // The rest of the key presses...
     switch (e.keyCode)
     {
-      case 36:  // HOME
-        if (mEditMode == EDIT_SEQUENCE)
-        {
-          setSelectedSequencerCell(mSeqCol, 0);
-          updatePattern();
-          updateFxTrack();
-          return false;
-        }
-        else if (mEditMode == EDIT_PATTERN)
-        {
-          setSelectedPatternCell(mPatternCol, 0);
-          return false;
-        }
-        else if (GUI.pattern_controller.is_mod_selected)
-        {
-          setSelectedFxTrackRow(0);
-          return false;
-        }
-        break;
-
-      case 35:  // END
-        if (mEditMode == EDIT_SEQUENCE)
-        {
-          setSelectedSequencerCell(mSeqCol, MAX_SONG_ROWS - 1);
-          updatePattern();
-          updateFxTrack();
-          return false;
-        }
-        else if (mEditMode == EDIT_PATTERN)
-        {
-          setSelectedPatternCell(mPatternCol, mSong.patternLen - 1);
-          return false;
-        }
-        else if (GUI.pattern_controller.is_mod_selected)
-        {
-          setSelectedFxTrackRow(mSong.patternLen - 1);
-          return false;
-        }
-        break;
-
-      case 32: // SPACE
-        if (mEditMode != EDIT_NONE)
-        {
-          playRange(e);
-          return false;
-        }
-        break;
-
       case 8:   // BACKSPACE (Mac delete)
       case 46:  // DELETE
-        if (mEditMode == EDIT_SEQUENCE)
-        {
-          for (row = mSeqRow; row <= mSeqRow2; ++row)
-          {
-            for (col = mSeqCol; col <= mSeqCol2; ++col)
-            {
-              mSong.songData[col].p[row] = 0;
-            }
-          }
-          updateSequencer();
-          updatePattern();
-          updateFxTrack();
-          return false;
-        }
-        else if (mEditMode == EDIT_PATTERN)
+        if (mEditMode == EDIT_PATTERN)
         {
           if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2)
           {
