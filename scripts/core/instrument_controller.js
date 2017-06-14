@@ -8,22 +8,9 @@ function Instrument_Controller()
   this.is_selected = false;
   this.instrument_id = 0;
 
-  this.select = function(id,col,row)
+  this.select_instrument = function(id)
   {
-    GUI.deselect_all();
-  }
-
-  this.deselect = function()
-  {
-    this.el.setAttribute("class","instrument");
-    this.status_el.innerHTML = GUI.instrument().name ? GUI.instrument().name : "?";
-    this.is_selected = false;
-  }
-
-  this.select_instrument = function(instrument_id)
-  {
-    this.instrument_id = instrument_id;
-
+    this.instrument_id = id;
     this.status_el.innerHTML = this.instrument_id;
   }
 

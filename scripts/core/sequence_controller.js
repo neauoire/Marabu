@@ -7,7 +7,6 @@ function Sequence_Controller()
   this.status_el = document.getElementById("sequence_controller_status");
   this.is_selected = false;
 
-  this.instrument_id = -1;
   this.selection = {x1:0,y1:0,x2:0,y2:0};
 
   this.select = function(from_x = null,from_y = null,to_x = null,to_y = null)
@@ -19,12 +18,8 @@ function Sequence_Controller()
     if(to_x != null){ this.selection.x2 = to_x;}
     if(to_y != null){ this.selection.y2 = to_y;}
 
-    // Select pattern
-    // var pattern_id = -1;
-    // if(o.innerHTML != ""){ pattern_id = o.innerHTML; }
-    // GUI.pattern_controller.select_pattern(pattern_id)
-
-    GUI.instrument_controller.select_instrument(from_x);
+    GUI.instrument_controller.select_instrument(this.selection.x1);
+    GUI.pattern_controller.select_pattern(this.pattern_id_at(this.selection.x1,this.selection.y1));
 
     this.el.setAttribute("class","sequencer edit");
     this.is_selected = true;
@@ -47,6 +42,13 @@ function Sequence_Controller()
     if(this.selection.x2 == this.selection.x1 && this.selection.y2 == this.selection.y1){ return; }
     
     this.status_el.innerHTML += this.selection.x2+":"+this.selection.y2;
+  }
+
+  this.pattern_id_at = function(x,y)
+  {
+    var instrument_id = GUI.instrument_controller.instrument_id;
+    var pattern_id = GUI.song().songData[instrument_id].p[this.selection.y1];
+    return pattern_id - 1;
   }
 
   /* ===================================
