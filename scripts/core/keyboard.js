@@ -44,7 +44,7 @@ function Keyboard()
       case "ArrowLeft": this.host.key_arrow_left(); break;
       case "ArrowRight": this.host.key_arrow_right(); break;
 
-      case "Escape" || 27:  this.key_escape(); break;
+      case "Escape" || 27:  this.host.key_escape(); break;
 
       // Pattern Mods
       case "]": this.host.key_square_bracket_right(); break;
@@ -53,8 +53,8 @@ function Keyboard()
       case "{": this.host.key_curly_bracket_left(); break;
 
       // Pattern Copy/Paste
-      case "c": this.host.host.key_letter_c(); break;
-      case "v": this.host.host.key_letter_v(); break;
+      case "c": this.host.key_letter_c(); break;
+      case "v": this.host.key_letter_v(); break;
 
       // Keyboard Up/Down
       case "z": this.host.key_letter_z(); break;
@@ -88,119 +88,5 @@ function Keyboard()
       case "y": this.host.key_letter_y(); break;
       case "u": this.host.key_letter_u(); break;
     }
-  };
-
-  // Keybaord Notes
-  this.key_letter_a = function(){ GUI.keyboard_play(0); }
-  this.key_letter_s = function(){ GUI.keyboard_play(2); }
-  this.key_letter_d = function(){ GUI.keyboard_play(4); }
-  this.key_letter_f = function(){ GUI.keyboard_play(5); }
-  this.key_letter_g = function(){ GUI.keyboard_play(7); }
-  this.key_letter_h = function(){ GUI.keyboard_play(9); }
-  this.key_letter_j = function(){ GUI.keyboard_play(11); }
-  // Keyboard Notes sharp
-  this.key_letter_w = function(){ GUI.keyboard_play(1); }
-  this.key_letter_e = function(){ GUI.keyboard_play(3); }
-  this.key_letter_t = function(){ GUI.keyboard_play(6); }
-  this.key_letter_y = function(){ GUI.keyboard_play(8); }
-  this.key_letter_u = function(){ GUI.keyboard_play(10); }
-
-  // Keyboard Octave
-
-  this.key_letter_z = function()
-  {
-    GUI.keyboard_octave_down();    
-  }
-
-  this.key_letter_x = function()
-  {
-    GUI.keyboard_octave_up();    
-  }
-
-  // Controls
-
-  this.key_square_bracket_left = function()
-  {
-    if(GUI.pattern_controller.is_selected){
-      GUI.pattern_octave_down();
-    }
-  }
-
-  this.key_square_bracket_right = function()
-  {
-    if(GUI.pattern_controller.is_selected){
-      GUI.pattern_octave_up();    
-    }
-  }
-
-  this.key_curly_bracket_left = function()
-  {
-    if(GUI.pattern_controller.is_selected){
-      GUI.pattern_note_down();
-    }
-  }
-
-  this.key_curly_bracket_right = function()
-  {
-    if(GUI.pattern_controller.is_selected){
-      GUI.pattern_note_up();    
-    }
-  }
-
-  this.key_letter_c = function()
-  {
-    if(GUI.pattern_controller.is_selected){
-      GUI.pattern_copy();  
-    }
-  }
-
-  this.key_letter_v = function()
-  {
-    if(GUI.pattern_controller.is_selected){
-      GUI.pattern_paste();  
-    }
-  }
-
-  this.key_tab = function()
-  {
-  }
-
-  this.key_enter = function()
-  {
-  }
-
-  this.key_space = function()
-  {
-  }
-
-  this.key_arrow_up = function()
-  {
-  }
-
-  this.key_arrow_down = function()
-  {
-  }
-
-  this.key_arrow_left = function()
-  {
-  }
-
-  this.key_arrow_right = function()
-  {
-  }
-
-  this.key_colon = function()
-  {
-  }
-
-  this.key_escape = function()
-  {
-    GUI.stop_audio();
-    GUI.pattern_controller.deselect_mod();
-    GUI.deselect_all();
-  }
-
-  this.key_delete = function()
-  {
   }
 }

@@ -12,7 +12,7 @@ function Sequence_Controller()
 
   this.select = function(o,col,row)
   {
-    GUI.deselect_all();
+    // GUI.deselect_all();
 
     this.selection.x1 = col;
     this.selection.y1 = row;
@@ -88,6 +88,13 @@ function Sequence_Controller()
     if(this.selection.x1 > 6){ return; }
     GUI.select_sequencer_cell(this.selection.x1+1,this.selection.y1);
     this.selection.x1 += 1;
+  }
+
+  this.key_escape = function()
+  {
+    GUI.stop_audio();
+    GUI.pattern_controller.deselect_mod();
+    GUI.deselect_all();
   }
 
 }

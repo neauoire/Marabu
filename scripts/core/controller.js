@@ -39,8 +39,8 @@ function Controller()
   this.key_letter_c = function(){ }
   this.key_letter_v = function(){ }
   // Controls up/down
-  this.key_letter_z = function(){ }
   this.key_letter_x = function(){ }
+  this.key_letter_z = function(){ }
   // Brackets
   this.key_square_bracket_right = function(){}
   this.key_square_bracket_left  = function(){}
@@ -58,5 +58,7 @@ function Controller()
   this.key_arrow_down  = function(){ }
   this.key_arrow_left  = function(){ }
   this.key_arrow_right = function(){ }
+  // Etc
+  this.key_escape      = function(){}
 
 }

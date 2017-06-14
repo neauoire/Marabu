@@ -75,6 +75,14 @@ function Pattern_Controller()
   @  Keyboard
   ====================================*/
 
+  // Controls
+  this.key_letter_c = function(){ GUI.pattern_copy();  }
+  this.key_letter_v = function(){ GUI.pattern_paste(); }
+  // Brackets
+  this.key_square_bracket_right = function(){ GUI.pattern_octave_up();  }
+  this.key_square_bracket_left  = function(){ GUI.pattern_octave_down();  }
+  this.key_curly_bracket_right  = function(){ GUI.pattern_note_up();  }
+  this.key_curly_bracket_left   = function(){ GUI.pattern_note_down();  }
   // Keyboard Notes
   this.key_letter_a = function(){ GUI.keyboard_play(0);  }
   this.key_letter_s = function(){ GUI.keyboard_play(2);  }
@@ -89,6 +97,9 @@ function Pattern_Controller()
   this.key_letter_t = function(){ GUI.keyboard_play(6);  }
   this.key_letter_y = function(){ GUI.keyboard_play(8);  }
   this.key_letter_u = function(){ GUI.keyboard_play(10); }
+  // Controls up/down
+  this.key_letter_x = function(){ GUI.keyboard_octave_up(); }
+  this.key_letter_z = function(){ GUI.keyboard_octave_down(); }
 
   // Arrows
   this.key_arrow_up    = function()
@@ -96,12 +107,14 @@ function Pattern_Controller()
     if(this.selection.y1 < 1){ return; }
     GUI.select_pattern_cell(this.selection.x1,this.selection.y1-1);
     this.selection.y1 -= 1;
+    this.select(null,this.selection.x1,this.selection.y1);
   }
 
   this.key_arrow_down  = function()
   {
     GUI.select_pattern_cell(this.selection.x1,this.selection.y1+1);
     this.selection.y1 += 1;
+    this.select(null,this.selection.x1,this.selection.y1);
   }
 
   this.key_arrow_left  = function()
@@ -109,6 +122,7 @@ function Pattern_Controller()
     if(this.selection.x1 < 1){ return; }
     GUI.select_pattern_cell(this.selection.x1-1,this.selection.y1);
     this.selection.x1 -= 1;
+    this.select(null,this.selection.x1,this.selection.y1);
   }
 
   this.key_arrow_right = function()
@@ -116,5 +130,13 @@ function Pattern_Controller()
     if(this.selection.x1 > 2){ return; }
     GUI.select_pattern_cell(this.selection.x1+1,this.selection.y1);
     this.selection.x1 += 1;
+    this.select(null,this.selection.x1,this.selection.y1);
+  }
+
+  this.key_escape = function()
+  {
+    GUI.stop_audio();
+    GUI.pattern_controller.deselect_mod();
+    GUI.deselect_all();
   }
 }
