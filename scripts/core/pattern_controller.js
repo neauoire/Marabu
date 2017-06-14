@@ -22,6 +22,7 @@ function Pattern_Controller()
     if(to_x != null){ this.selection.x2 = to_x;}
     if(to_y != null){ this.selection.y2 = to_y;}
 
+    GUI.select_pattern_cell(this.selection.x1,this.selection.y1);
     this.el.setAttribute("class","pattern edit");
     this.is_selected = true;
     GUI.update_status("Editing Pattern");
@@ -62,7 +63,7 @@ function Pattern_Controller()
 
   this.update = function()
   {
-    this.status_el.innerHTML = this.selection.x1+":"+this.selection.y1+" ";
+    this.status_el.innerHTML = this.pattern_id+"+"+this.selection.x1+":"+this.selection.y1+" ";
 
     if(this.selection.x2 == null || this.selection.y2 == null){ return; }
     if(this.selection.x2 == this.selection.x1 && this.selection.y2 == this.selection.y1){ return; }
@@ -157,5 +158,6 @@ function Pattern_Controller()
   this.key_delete = function()
   {
     GUI.erase_pattern_positions(this.selection.x1,this.selection.y1,this.selection.x2,this.selection.y2);
+    this.deselect();
   }
 }

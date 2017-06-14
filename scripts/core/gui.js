@@ -1201,12 +1201,12 @@ var CGUI = function()
     if (mEditMode != EDIT_NONE)
     {
       unfocusHTMLInputElements();
-      updateSongSpeed();
       updatePatternLength();
     }
   };
 
-  var updateSongInfo = function() {
+  var updateSongInfo = function()
+  {
     document.getElementById("bpm").value = getBPM();
     document.getElementById("rpp").value = mSong.patternLen;
   };
@@ -1218,28 +1218,11 @@ var CGUI = function()
       for (var j = 0; j < 8; ++j)
       {
         var o = document.getElementById("sc" + j + "r" + i);
-        if (!selectionOnly)
-        {
-          var pat = mSong.songData[j].p[i];
-          if (pat > 0)
-            o.innerHTML = "" + (pat <= 10 ? pat - 1 : String.fromCharCode(64 + pat - 10));
-          else
-            o.innerHTML = "";
-        }
-        if (i >= mSeqRow && i <= mSeqRow2 && j >= mSeqCol && j <= mSeqCol2){
-          if(o.innerHTML != ""){
-            o.className = "active selected pattern_"+o.innerHTML;
-          }
-          else{
-            o.className ="selected";
-          }
-        }
-        else if(o.innerHTML != ""){
-          o.className = "active pattern_"+o.innerHTML;
-        }
-        else{
-          o.className = "";
-        }
+        var pat = mSong.songData[j].p[i];
+        var classes = "";
+        if(pat > 0){ classes += "pattern_"+pat+" "; }
+        if (i >= mSeqRow && i <= mSeqRow2 && j >= mSeqCol && j <= mSeqCol2){ classes += "selected "; }
+        o.className = classes;
       }
     }
   };
@@ -1254,50 +1237,28 @@ var CGUI = function()
       for (var j = 0; j < 4; ++j)
       {
         var o = document.getElementById("pc" + j + "r" + i);
-        if (!selectionOnly) {
-          var noteName = "";
-          if (pat >= 0)
-          {
-            var n = mSong.songData[mSeqCol].c[pat].n[i+j*mSong.patternLen] - 87;
-            if (n > 0)
-              noteName = mNoteNames[n % 12] + Math.floor(n / 12);
-          }
-          if (o.innerHTML != noteName)
-            o.innerHTML = noteName;
-        }
-        if (i >= mPatternRow && i <= mPatternRow2 && j >= mPatternCol && j <= mPatternCol2){
-          if(o.innerHTML != ""){
-            var note = o.innerHTML.substr(0,1);
-            var sharp = o.innerHTML.substr(1,1) == "#" ? "sharp" : "";
-            var octave = o.innerHTML.substr(2,1);
-            o.className = "active selected note_"+note+" "+sharp+" octave_"+octave;
-          }
-          else{
-            o.className ="selected";
-          }
-        }
-        else{
-          if(o.innerHTML != ""){
-            var note = o.innerHTML.substr(0,1);
-            var sharp = o.innerHTML.substr(1,1) == "#" ? "sharp" : "";
-            var octave = o.innerHTML.substr(2,1);
-            o.className = "active note_"+note+" "+sharp+" octave_"+octave;
-          }
-          else{
-            o.className ="";
-          }
-        }
-      }
-    }
 
-    // Scroll the row into view? (only when needed)
-    if (scrollIntoView & singlePattern) {
-      var o = document.getElementById("pc0r" + mPatternRow);
-      if (o.scrollIntoView) {
-        var so = document.getElementById("pattern");
-        var oy = o.offsetTop - so.scrollTop;
-        if (oy < 0 || (oy + 10) > so.offsetHeight)
-          o.scrollIntoView(oy < 0);
+        var classes = "";
+
+        if (i >= mPatternRow && i <= mPatternRow2 && j >= mPatternCol && j <= mPatternCol2){
+          classes += "selected ";
+        }
+
+        if(mSong.songData[mSeqCol].c[pat]){
+          var n = mSong.songData[mSeqCol].c[pat].n[i+j*mSong.patternLen] - 87;
+
+          if(n < 1){ continue; }
+
+          var octaveName = Math.floor(n / 12);
+          var noteName = mNoteNames[n % 12];
+          var sharp = noteName.substr(1,1) == "#" ? true : false;
+
+          classes += "octave_"+octaveName+" ";
+          classes += "note_"+noteName.substr(0,1)+" ";
+          classes += sharp ? "sharp " : "";
+        }
+
+        o.className = classes;
       }
     }
   };
@@ -1544,14 +1505,12 @@ var CGUI = function()
     mJammer.updateInstr(instr.i);
   };
 
-  var updateSongSpeed = function () {
-    // Determine song speed
-    var bpm = parseInt(document.getElementById("bpm").value);
-    if (bpm && (bpm >= 10) && (bpm <= 1000)) {
-      mSong.rowLen = calcSamplesPerRow(bpm);
-      mJammer.updateRowLen(mSong.rowLen);
-    }
-  };
+  this.update_bpm = function(bpm)
+  {
+    mSong.rowLen = calcSamplesPerRow(bpm);
+    mJammer.updateRowLen(mSong.rowLen);
+    GUI.update_status("Updated song BPM to <b>"+bpm+"</b>")
+  }
 
   var setPatternLength = function (length) {
     if (mSong.patternLen === length)
@@ -1619,9 +1578,6 @@ var CGUI = function()
       if (!emptyRow) break;
       mSong.endPattern--;
     }
-
-    // Update the song speed
-    updateSongSpeed();
   };
 
   var loadSongFromData = function (songData)
@@ -2824,6 +2780,8 @@ var CGUI = function()
     updateSequencer();
     updatePattern();
     updateFxTrack();
+    setSelectedSequencerCell(0,0);
+    GUI.sequence_controller.select(0,0);
   }
 
   this.erase_pattern_positions = function(x1,y1,x2,y2)
@@ -2836,79 +2794,14 @@ var CGUI = function()
       }
     }
     updateSequencer();
-    updatePattern();
+    updatePattern(true,true);
     updateFxTrack();
+    setSelectedPatternCell(0,0);
   }
 
   var keyDown = function (e)
   {
     return;
-    if (!e) var e = window.event;
-
-    // Check if we're editing BPM / RPP
-    var editingBpmRpp =
-        document.activeElement === document.getElementById("bpm") ||
-        document.activeElement === document.getElementById("rpp");
-
-    var row, col, n;
-
-    // The rest of the key presses...
-    switch (e.keyCode)
-    {
-      case 8:   // BACKSPACE (Mac delete)
-      case 46:  // DELETE
-        if (mEditMode == EDIT_PATTERN)
-        {
-          if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2)
-          {
-            var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-            if (pat >= 0) {
-              for (row = mPatternRow; row <= mPatternRow2; ++row) {
-                for (col = mPatternCol; col <= mPatternCol2; ++col)
-                  mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = 0;
-              }
-              if (mPatternRow == mPatternRow2) {
-                setSelectedPatternCell(mPatternCol, (mPatternRow + 1) % mSong.patternLen);
-              }
-              updatePattern();
-            }
-            return false;
-          }
-        }
-        else if (GUI.pattern_controller.is_mod_selected)
-        {
-          if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-            var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-            if (pat >= 0) {
-              for (row = mFxTrackRow; row <= mFxTrackRow2; ++row) {
-                mSong.songData[mSeqCol].c[pat].f[row] = 0;
-                mSong.songData[mSeqCol].c[pat].f[row + mSong.patternLen] = 0;
-              }
-              if (mFxTrackRow == mFxTrackRow2) {
-                setSelectedFxTrackRow((mFxTrackRow + 1) % mSong.patternLen);
-              }
-              updateFxTrack();
-            }
-            return false;
-          }
-        }
-        break;
-
-      case 13:  // ENTER / RETURN
-        if (editingBpmRpp) {
-          updateSongSpeed();
-          updatePatternLength();
-          document.getElementById("bpm").blur();
-          document.getElementById("rpp").blur();
-        }
-        break;
-
-      default:
-        // alert("onkeydown: " + e.keyCode);
-        break;
-    }
-
-    return true;
   };
 
   var onFileDrop = function (e)

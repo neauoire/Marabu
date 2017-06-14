@@ -5,7 +5,18 @@ function Sequence_Controller()
   this.name = "Sequencer";
   this.el = document.getElementById("sequence_controller");
   this.status_el = document.getElementById("sequence_controller_status");
+  this.bpm_el = document.getElementById("bpm");
   this.is_selected = false;
+  this.bpm_el.addEventListener('input', bpm_update, false);
+
+  function bpm_update()
+  {
+    if(GUI.sequence_controller.bpm_el.value == ""){ return; }
+    var new_bpm = parseInt(GUI.sequence_controller.bpm_el.value);
+    if(new_bpm < 20){ new_bpm = 20; }
+    if(new_bpm > 800){ new_bpm = 800; }
+    GUI.update_bpm(new_bpm);
+  }
 
   this.selection = {x1:0,y1:0,x2:0,y2:0};
 
@@ -62,6 +73,7 @@ function Sequence_Controller()
     {
       GUI.update_sequencer_position(keyCode - 47);
       GUI.pattern_controller.edit_pattern(keyCode - 48);
+      GUI.pattern_controller.select(0,0);
       GUI.update_pattern_mod();
       GUI.update_pattern();
     }
@@ -70,6 +82,7 @@ function Sequence_Controller()
     {
       GUI.update_sequencer_position(keyCode - 54);
       GUI.pattern_controller.edit_pattern(keyCode - 55);
+      GUI.pattern_controller.select(0,0);
       GUI.update_pattern_mod();
       GUI.update_pattern();
     }
