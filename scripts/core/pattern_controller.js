@@ -11,6 +11,9 @@ function Pattern_Controller()
   this.rpp_el = document.getElementById("rpp");
   this.rpp_el.addEventListener('input', rpp_update, false);
 
+  this.mod_selection = {x1:0,y1:0,x2:0,y2:0};
+  this.selection = {x1:0,y1:0,x2:0,y2:0};
+
   function rpp_update()
   {
     if(GUI.pattern_controller.rpp_el.value == ""){ return; }
@@ -19,9 +22,6 @@ function Pattern_Controller()
     if(new_rpp > 16){ new_rpp = 16; }
     GUI.update_rpp(new_rpp);
   }
-
-  this.mod_selection = {x1:0,y1:0,x2:0,y2:0};
-  this.selection = {x1:0,y1:0,x2:0,y2:0};
 
   this.select = function(from_x = null,from_y = null,to_x = null,to_y = null)
   {
@@ -105,13 +105,13 @@ function Pattern_Controller()
   ====================================*/
 
   // Controls
-  this.key_letter_c = function(){ GUI.pattern_copy();  }
-  this.key_letter_v = function(){ GUI.pattern_paste(); }
+  this.key_letter_c = function(){ GUI.pattern_copy(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2); }
+  this.key_letter_v = function(){ GUI.pattern_paste(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2); }
   // Brackets
-  this.key_square_bracket_right = function(){ GUI.pattern_octave_up();  }
-  this.key_square_bracket_left  = function(){ GUI.pattern_octave_down();  }
-  this.key_curly_bracket_right  = function(){ GUI.pattern_note_up();  }
-  this.key_curly_bracket_left   = function(){ GUI.pattern_note_down();  }
+  this.key_square_bracket_right = function(){ GUI.pattern_octave_up(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2); }
+  this.key_square_bracket_left  = function(){ GUI.pattern_octave_down(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2); }
+  this.key_curly_bracket_right  = function(){ GUI.pattern_note_up(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2); }
+  this.key_curly_bracket_left   = function(){ GUI.pattern_note_down(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2); }
   // Keyboard Notes
   this.key_letter_a = function(){ GUI.keyboard_play(0);  }
   this.key_letter_s = function(){ GUI.keyboard_play(2);  }

@@ -208,6 +208,9 @@ var CGUI = function()
   this.instrument_controller = new Instrument_Controller();
   this.instrument_name = "Default";
 
+  keyboard = new Keyboard();
+  keyboard.install();
+
   // Edit modes
   var EDIT_NONE = 0,
       EDIT_SEQUENCE = 1,
@@ -1240,24 +1243,22 @@ var CGUI = function()
 
         var classes = "";
 
-        if (i >= mPatternRow && i <= mPatternRow2 && j >= mPatternCol && j <= mPatternCol2){
+        if (i >= GUI.pattern_controller.selection.y1 && i <= GUI.pattern_controller.selection.y2 && j >= GUI.pattern_controller.selection.x1 && j <= GUI.pattern_controller.selection.x2){
           classes += "selected ";
         }
 
         if(mSong.songData[mSeqCol].c[pat]){
           var n = mSong.songData[mSeqCol].c[pat].n[i+j*mSong.patternLen] - 87;
+          if(n > 0){
+            var octaveName = Math.floor(n / 12);
+            var noteName = mNoteNames[n % 12];
+            var sharp = noteName.substr(1,1) == "#" ? true : false;
 
-          if(n < 1){ continue; }
-
-          var octaveName = Math.floor(n / 12);
-          var noteName = mNoteNames[n % 12];
-          var sharp = noteName.substr(1,1) == "#" ? true : false;
-
-          classes += "octave_"+octaveName+" ";
-          classes += "note_"+noteName.substr(0,1)+" ";
-          classes += sharp ? "sharp " : "";
+            classes += "octave_"+octaveName+" ";
+            classes += "note_"+noteName.substr(0,1)+" ";
+            classes += sharp ? "sharp " : "";
+          }
         }
-
         o.className = classes;
       }
     }
@@ -1339,7 +1340,8 @@ var CGUI = function()
     updateSequencer(true, true);
   }
 
-  var setSelectedSequencerCell = function (col, row) {
+  var setSelectedSequencerCell = function (col, row)
+  {
     mSeqCol = col;
     mSeqRow = row;
     mSeqCol2 = col;
@@ -2122,7 +2124,7 @@ var CGUI = function()
   var patternCopyMouseDown = function (e) {
     if (!e) var e = window.event;
     e.preventDefault();
-    this.pattern_copy();
+    this.pattern_copy(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2);
   };
 
   var patternPasteMouseDown = function (e) {
@@ -2202,110 +2204,104 @@ var CGUI = function()
     }
   }
 
-  this.pattern_copy = function()
+  this.pattern_copy = function(from_x,from_y,to_x,to_y)
   {
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        mPatCopyBuffer = [];
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          var arr = [];
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            arr.push(mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen]);
-          }
-          mPatCopyBuffer.push(arr);
-          this.update_status("Copied Pattern");
-        }
+    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
+    if (pat < 0) { return; }
+
+    mPatCopyBuffer = [];
+    count = 0;
+    for (var row = from_y; row <= to_y; ++row) {
+      var arr = [];
+      for (var col = from_x; col <= to_x; ++col) {
+        arr.push(mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen]);
+        count += 1;
       }
+      mPatCopyBuffer.push(arr);
     }
+    this.update_status("Copied <b>"+count+"</b> notes");
+    this.deselect_all();
   }
 
-  this.pattern_paste = function()
+  this.pattern_paste = function(from_x,from_y,to_x,to_y)
   {
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow, i = 0; row < mSong.patternLen && i < mPatCopyBuffer.length; ++row, ++i) {
-          for (var col = mPatternCol, j = 0; col < 4 && j < mPatCopyBuffer[i].length; ++col, ++j) {
-            mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
-          }
-        }
-        updatePattern();
-        this.update_status("Pasted Pattern");
+    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
+    if (pat < 0) { return; }
+
+    var count = 0;
+    for (var row = from_y, i = 0; row < mSong.patternLen && i < mPatCopyBuffer.length; ++row, ++i) {
+      for (var col = from_x, j = 0; col < 4 && j < mPatCopyBuffer[i].length; ++col, ++j) {
+        mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
+        count += 1;
       }
     }
+    updatePattern();
+    this.deselect_all();
+    this.update_status("Pasted <b>"+count+"</b> notes");
   }
 
-  this.pattern_note_up = function()
+  this.pattern_note_up = function(from_x,from_y,to_x,to_y)
   {
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
-            if (n > 0)
-              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n + 1;
-          }
-        }
-        updatePattern();
-        this.update_status("Note +1");
+    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
+    if (pat < 0) { return; }
+
+    for (var row = from_y; row <= to_y; ++row) {
+      for (var col = from_x; col <= to_x; ++col) {
+        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        if (n > 0)
+          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n + 1;
       }
     }
+    updatePattern();
+    this.update_status("Note +1");
   }
 
-  this.pattern_note_down = function()
+  this.pattern_note_down = function(from_x,from_y,to_x,to_y)
   {
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
-            if (n > 1)
-              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n - 1;
-          }
-        }
-        updatePattern();
-        this.update_status("Note -1");
+    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
+    if (pat < 0) { return; }
+
+    for (var row = from_y; row <= to_y; ++row) {
+      for (var col = from_x; col <= to_x; ++col) {
+        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        if (n > 1)
+          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n - 1;
       }
     }
+    updatePattern();
+    this.update_status("Note -1");
   }
 
-  this.pattern_octave_up = function()
+  this.pattern_octave_up = function(from_x,from_y,to_x,to_y)
   {
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
-            if (n > 0)
-              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n + 12;
-          }
-        }
-        updatePattern();
-        this.update_status("Octave +1");
+    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
+    if (pat < 0) { return; }
+
+    for (var row = from_y; row <= to_y; ++row) {
+      for (var col = from_x; col <= to_x; ++col) {
+        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        if (n > 0)
+          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n + 12;
       }
     }
+    updatePattern();
+    this.update_status("Octave +1");
   }
 
-  this.pattern_octave_down = function()
+  this.pattern_octave_down = function(from_x,from_y,to_x,to_y)
   {
-    if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-      if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          for (var col = mPatternCol; col <= mPatternCol2; ++col) {
-            var n = mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen];
-            if (n > 12)
-              mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = n - 12;
-          }
-        }
-        updatePattern();
-        this.update_status("Octave -1");
+    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
+    if (pat < 0) { return; }
+
+    for (var row = from_y; row <= to_y; ++row) {
+      for (var col = from_x; col <= to_x; ++col) {
+        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        if (n > 12)
+          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n - 12;
       }
     }
+    updatePattern();
+    this.update_status("Octave -1");
   }
 
   //
@@ -2787,11 +2783,12 @@ var CGUI = function()
       }
     }
     updateSequencer();
-    updatePattern(true,true);
+    updatePattern();
     updateFxTrack();
-    setSelectedPatternCell(0,0);
+    GUI.deselect_all();
+    GUI.pattern_controller.select(0,0,0,0);
 
-    GUI.update_status("Erased Pattern <b>"+y1+":"+y2+"</b> <i>"+y2+":"+y2+"</i>");
+    GUI.update_status("Erased Pattern <b>"+x1+":"+y1+"</b> <i>"+x2+":"+y2+"</i>");
   }
 
   this.erase_mod_positions = function(y1,y2)

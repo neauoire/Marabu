@@ -43,7 +43,6 @@ function Sequence_Controller()
     this.el.setAttribute("class","sequencer");
     this.status_el.innerHTML = "";
     this.is_selected = false;
-
     this.bpm_el.blur();
   }
 

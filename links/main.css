@@ -143,7 +143,7 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 .pattern #pattern table.tracks td.octave_2 { color:#999 ; }
 .pattern #pattern table.tracks td.octave_1 { background:#333; color:white ; border-bottom:1px solid black; }
 
-.pattern #pattern table.tracks td.selected:before { content:"x"; }
+.pattern #pattern table.tracks td.selected:before { content:"."; }
 .pattern #pattern table.tracks td.note_A:before { content:"A"; }
 .pattern #pattern table.tracks td.note_B:before { content:"B"; }
 .pattern #pattern table.tracks td.note_C:before { content:"C"; }
@@ -161,7 +161,7 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 .pattern #pattern table.tracks td.octave_1:after { content:"1"; }
 .pattern #pattern table.tracks td.sharp { text-decoration: underline; }
 
-.sequencer table.tracks td.selected:before { content:"x"; }
+.sequencer table.tracks td.selected:before { content:"."; }
 
 .sequencer table.tracks td.pattern_1:before { content:"0"; }
 .sequencer table.tracks td.pattern_2:before { content:"1"; }
