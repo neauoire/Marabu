@@ -2083,99 +2083,6 @@ var CGUI = function()
     stopAudio();
   };
 
-  var bpmFocus = function (e) {
-    setEditMode(EDIT_NONE);
-    return true;
-  };
-
-  var rppFocus = function (e) {
-    setEditMode(EDIT_NONE);
-    return true;
-  };
-
-  var instrPresetFocus = function (e) {
-    setEditMode(EDIT_NONE);
-    return true;
-  };
-
-  var instrCopyMouseDown = function (e) {
-    if (!e) var e = window.event;
-    e.preventDefault();
-
-    if (mSeqCol == mSeqCol2) {
-      mInstrCopyBuffer = [];
-      var instr = mSong.songData[mSeqCol];
-      for (var i = 0; i <= instr.i.length; ++i)
-        mInstrCopyBuffer[i] = instr.i[i];
-    }
-  };
-
-  var instrPasteMouseDown = function (e) {
-    if (!e) var e = window.event;
-    e.preventDefault();
-
-    if (mSeqCol == mSeqCol2 && mInstrCopyBuffer.length > 0) {
-      var instr = mSong.songData[mSeqCol];
-      instr.i = [];
-      for (var i = 0; i <= mInstrCopyBuffer.length; ++i)
-        instr.i[i] = mInstrCopyBuffer[i];
-    }
-    updateInstrument(true);
-  };
-
-  var patternCopyMouseDown = function (e) {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.pattern_copy(GUI.pattern_controller.selection.x1,GUI.pattern_controller.selection.y1,GUI.pattern_controller.selection.x2,GUI.pattern_controller.selection.y2);
-  };
-
-  var patternPasteMouseDown = function (e) {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.pattern_paste();
-  };
-
-  var patternNoteUpMouseDown = function (e) {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.pattern_note_up();
-  };
-
-  var patternNoteDownMouseDown = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.pattern_note_down();
-  };
-
-  var patternOctaveUpMouseDown = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.pattern_octave_up();
-  };
-
-  var patternOctaveDownMouseDown = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.pattern_octave_down();
-  };
-
-  var octaveUp = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.keyboard_octave_up();
-  };
-
-  var octaveDown = function (e)
-  {
-    if (!e) var e = window.event;
-    e.preventDefault();
-    this.keyboard_octave_down();
-  };
-
   // New methods
 
   this.update_status = function(log)
@@ -2208,15 +2115,12 @@ var CGUI = function()
 
   this.pattern_copy = function(from_x,from_y,to_x,to_y)
   {
-    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
-    if (pat < 0) { return; }
-
     mPatCopyBuffer = [];
     count = 0;
     for (var row = from_y; row <= to_y; ++row) {
       var arr = [];
       for (var col = from_x; col <= to_x; ++col) {
-        arr.push(mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen]);
+        arr.push(mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen]);
         count += 1;
       }
       mPatCopyBuffer.push(arr);
@@ -2227,13 +2131,10 @@ var CGUI = function()
 
   this.pattern_paste = function(from_x,from_y,to_x,to_y)
   {
-    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
-    if (pat < 0) { return; }
-
     var count = 0;
     for (var row = from_y, i = 0; row < mSong.patternLen && i < mPatCopyBuffer.length; ++row, ++i) {
       for (var col = from_x, j = 0; col < 4 && j < mPatCopyBuffer[i].length; ++col, ++j) {
-        mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
+        mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
         count += 1;
       }
     }
@@ -2244,14 +2145,11 @@ var CGUI = function()
 
   this.pattern_note_up = function(from_x,from_y,to_x,to_y)
   {
-    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
-    if (pat < 0) { return; }
-
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
         var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
         if (n > 0)
-          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n + 1;
+          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n + 1;
       }
     }
     updatePattern();
@@ -2260,14 +2158,11 @@ var CGUI = function()
 
   this.pattern_note_down = function(from_x,from_y,to_x,to_y)
   {
-    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
-    if (pat < 0) { return; }
-
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
         var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
         if (n > 1)
-          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n - 1;
+          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n - 1;
       }
     }
     updatePattern();
@@ -2276,14 +2171,11 @@ var CGUI = function()
 
   this.pattern_octave_up = function(from_x,from_y,to_x,to_y)
   {
-    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
-    if (pat < 0) { return; }
-
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
         var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
         if (n > 0)
-          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n + 12;
+          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n + 12;
       }
     }
     updatePattern();
@@ -2299,7 +2191,7 @@ var CGUI = function()
       for (var col = from_x; col <= to_x; ++col) {
         var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
         if (n > 12)
-          mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen] = n - 12;
+          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n - 12;
       }
     }
     updatePattern();
@@ -2546,34 +2438,6 @@ var CGUI = function()
       updateInstrument(true);
       unfocusHTMLInputElements();
       e.preventDefault();
-    }
-  };
-
-  var keyboardMouseDown = function (e)
-  {
-    if (!e) var e = window.event;
-    var p = getMousePos(e, true);
-
-    // Calculate keyboard position
-    var n = 0;
-    if (p[1] < 68) {
-      // Possible black key
-      for (var i = 0; i < mBlackKeyPos.length; i += 2) {
-        if (p[0] >= (mBlackKeyPos[i] - 10) &&
-            p[0] <= (mBlackKeyPos[i] + 10)) {
-          n = mBlackKeyPos[i + 1];
-          break;
-        }
-      }
-    }
-    if (!n) {
-      // Must be a white key
-      n = Math.floor((p[0] * 14) / 420) * 2;
-      var comp = 0;
-      if (n >= 20) comp++;
-      if (n >= 14) comp++;
-      if (n >= 6) comp++;
-      n -= comp;
     }
   };
 
@@ -3167,9 +3031,6 @@ var CGUI = function()
     GUI.sequence_controller.select(0,0);
 
     // Misc event handlers
-    document.getElementById("newSong").onmousedown = newSong;
-    document.getElementById("openSong").onmousedown = openSong;
-    document.getElementById("saveSong").onmousedown = saveSong;
     document.getElementById("exportJS").onmousedown = exportJS;
     document.getElementById("exportWAV").onmousedown = exportWAV;
     document.getElementById("exportBINARY").onmousedown = exportBINARY;
@@ -3178,20 +3039,11 @@ var CGUI = function()
     document.getElementById("playSong").onmousedown = playSong;
     document.getElementById("playRange").onmousedown = playRange;
     document.getElementById("stopPlaying").onmousedown = stopPlaying;
-    document.getElementById("bpm").onfocus = bpmFocus;
-    document.getElementById("rpp").onfocus = rppFocus;
 
     document.getElementById("sequencerCopy").onmousedown = sequencerCopyMouseDown;
     document.getElementById("sequencerPaste").onmousedown = sequencerPasteMouseDown;
     document.getElementById("sequencerPatUp").onmousedown = sequencerPatUpMouseDown;
     document.getElementById("sequencerPatDown").onmousedown = sequencerPatDownMouseDown;
-
-    document.getElementById("patternCopy").onmousedown = patternCopyMouseDown;
-    document.getElementById("patternPaste").onmousedown = patternPasteMouseDown;
-    document.getElementById("patternNoteUp").onmousedown = patternNoteUpMouseDown;
-    document.getElementById("patternNoteDown").onmousedown = patternNoteDownMouseDown;
-    document.getElementById("patternOctaveUp").onmousedown = patternOctaveUpMouseDown;
-    document.getElementById("patternOctaveDown").onmousedown = patternOctaveDownMouseDown;
 
     document.getElementById("fxCopy").onmousedown = fxCopyMouseDown;
     document.getElementById("fxPaste").onmousedown = fxPasteMouseDown;

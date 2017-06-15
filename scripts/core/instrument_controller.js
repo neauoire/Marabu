@@ -31,7 +31,7 @@ function Instrument_Controller()
   this.export_instrument = function()
   {
     var instr_str = GUI.instrument().i.slice(0,28).toString();
-    var str = "{\"name\":\"Untitled\",\"i\":["+instr_str+"]}";
+    var str = "{\"name\":\""+(GUI.instrument().name ? GUI.instrument().name : "")+"\",\"i\":["+instr_str+"]}";
     window.open("data:text/javascript;base64," + btoa(str));
     return false;
   }

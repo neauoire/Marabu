@@ -45,7 +45,4 @@ z Octave Down
 x Octave Up
 ```
 
-
 ## Tasks
-- .kit files(multiple instruments)
--
