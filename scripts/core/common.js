@@ -24,6 +24,6 @@ function include(filename)
 	var head = document.getElementsByTagName('head')[0];
 	var s = document.createElement('script');
 	s.type = 'text/javascript';
-	s.src = 'scripts/core/'+filename;
+	s.src = 'scripts/'+filename;
   head.appendChild(s);
 }

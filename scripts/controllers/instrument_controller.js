@@ -10,6 +10,11 @@ function Instrument_Controller()
   this.instrument_name_el = document.getElementById("instrument_name");
   this.instrument_name_el.addEventListener('input', instrument_name_update, false);
 
+  this.deselect = function()
+  {
+    this.instrument_name_el.blur();
+  }
+
   function instrument_name_update()
   {
     if(GUI.instrument_controller.instrument_name_el.value == ""){ return; }
@@ -25,7 +30,7 @@ function Instrument_Controller()
     this.status_el.innerHTML = this.instrument_id;
     this.instrument_name_el.value = GUI.instrument().name ? GUI.instrument().name : "";
     GUI.update_instr();
-    GUI.update_status("Selected instrument "+this.instrument_id)
+    GUI.update_status("Selected <b>"+(GUI.instrument().name ? GUI.instrument().name : "Instrument #"+this.instrument_id)+"</b>")
   }
 
   this.export_instrument = function()

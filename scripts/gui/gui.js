@@ -23,22 +23,21 @@
 // External dependencies
 //------------------------------------------------------------------------------
 
-include("rle.js");
+include("core/rle.js");
 
-include("demo-songs.js");
-include("player.js");
-include("player-worker.js");
-include("jammer.js");
-include("rle.js");
+include("core/demo-songs.js");
+include("core/player.js");
+include("core/player-worker.js");
+include("core/jammer.js");
+include("core/rle.js");
 
-include("third_party/deflate.js");
-include("third_party/inflate.js");
-include("third_party/Blob.js");
-include("third_party/FileSaver.js");
-include("third_party/WebMIDIAPI.js");
+include("inc/deflate.js");
+include("inc/inflate.js");
+include("inc/Blob.js");
+include("inc/FileSaver.js");
+include("inc/WebMIDIAPI.js");
 
 "use strict";
-
 
 //------------------------------------------------------------------------------
 // Local classes for easy access to binary data
@@ -2920,6 +2919,7 @@ var CGUI = function()
     GUI.deselect_sliders();
     GUI.pattern_controller.deselect();
     GUI.sequence_controller.deselect();
+    GUI.instrument_controller.deselect();
   }
 
   this.get_storage = function(id)
