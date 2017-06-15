@@ -1424,6 +1424,11 @@ var CGUI = function()
     return this.song().songData[GUI.instrument_controller.instrument_id];
   }
 
+  this.pattern = function()
+  {
+    return this.instrument().c[GUI.pattern_controller.pattern_id];
+  }
+
   this.instruments = function()
   {
     return this.song().songData;
@@ -2119,7 +2124,7 @@ var CGUI = function()
     for (var row = from_y; row <= to_y; ++row) {
       var arr = [];
       for (var col = from_x; col <= to_x; ++col) {
-        arr.push(mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen]);
+        arr.push(this.pattern().n[row+col*mSong.patternLen]);
         count += 1;
       }
       mPatCopyBuffer.push(arr);
@@ -2133,7 +2138,7 @@ var CGUI = function()
     var count = 0;
     for (var row = from_y, i = 0; row < mSong.patternLen && i < mPatCopyBuffer.length; ++row, ++i) {
       for (var col = from_x, j = 0; col < 4 && j < mPatCopyBuffer[i].length; ++col, ++j) {
-        mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
+        GUI.pattern().n[row+col*mSong.patternLen] = mPatCopyBuffer[i][j];
         count += 1;
       }
     }
@@ -2146,9 +2151,9 @@ var CGUI = function()
   {
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
-        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        var n = this.pattern().n[row+col*mSong.patternLen];
         if (n > 0)
-          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n + 1;
+          GUI.pattern().n[row+col*mSong.patternLen] = n + 1;
       }
     }
     updatePattern();
@@ -2159,9 +2164,9 @@ var CGUI = function()
   {
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
-        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        var n = this.pattern().n[row+col*mSong.patternLen];
         if (n > 1)
-          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n - 1;
+          GUI.pattern().n[row+col*mSong.patternLen] = n - 1;
       }
     }
     updatePattern();
@@ -2172,9 +2177,9 @@ var CGUI = function()
   {
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
-        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        var n = this.pattern().n[row+col*mSong.patternLen];
         if (n > 0)
-          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n + 12;
+          GUI.pattern().n[row+col*mSong.patternLen] = n + 12;
       }
     }
     updatePattern();
@@ -2183,14 +2188,11 @@ var CGUI = function()
 
   this.pattern_octave_down = function(from_x,from_y,to_x,to_y)
   {
-    var pat = mSong.songData[GUI.pattern_controller.pattern_id].p[mSeqRow] - 1;
-    if (pat < 0) { return; }
-
     for (var row = from_y; row <= to_y; ++row) {
       for (var col = from_x; col <= to_x; ++col) {
-        var n = mSong.songData[GUI.pattern_controller.pattern_id].c[pat].n[row+col*mSong.patternLen];
+        var n = this.pattern().n[row+col*mSong.patternLen];
         if (n > 12)
-          mSong.songData[GUI.instrument_controller.instrument_id].c[GUI.pattern_controller.pattern_id].n[row+col*mSong.patternLen] = n - 12;
+          GUI.pattern().n[row+col*mSong.patternLen] = n - 12;
       }
     }
     updatePattern();

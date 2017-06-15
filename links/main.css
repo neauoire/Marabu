@@ -178,6 +178,7 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 .sequencer table.tracks td.pattern_13:before { content:"12"; }
 .sequencer table.tracks td.pattern_14:before { content:"13"; }
 .sequencer table.tracks td.pattern_15:before { content:"14"; }
+.sequencer table.tracks td.pattern_16:before { content:"16"; }
 
 .sequencer table.tracks td.pattern_1 { color:#999 }
 .sequencer table.tracks td.pattern_2 { color:#999 }
@@ -194,5 +195,6 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 .sequencer table.tracks td.pattern_13 { color:#fff !important; }
 .sequencer table.tracks td.pattern_14 { color:#fff !important; }
 .sequencer table.tracks td.pattern_15 { color:#fff !important; }
+.sequencer table.tracks td.pattern_16 { color:#fff !important; }
 
 .pattern #fxtrack table.tracks td.selected { color:red; }
