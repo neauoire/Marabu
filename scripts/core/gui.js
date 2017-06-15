@@ -1439,8 +1439,6 @@ var CGUI = function()
   var updateInstrument = function(resetPreset)
   {
     var instr = GUI.instrument();
-    console.log(instr);
-    // GUI.instrument_controller.instrument_name_el.value = instr.name ? instr.name : "";
 
     // Oscillator 1
     document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
@@ -2201,7 +2199,7 @@ var CGUI = function()
   {
     if (mKeyboardOctave < 8){
       mKeyboardOctave++;
-      this.update_status("Keyboard Octave "+mKeyboardOctave+"("+mKeyboardOctave+")");
+      this.update_status("Keyboard Octave <b>"+mKeyboardOctave+"</b>");
     }
   }
 
@@ -2210,7 +2208,7 @@ var CGUI = function()
     if (mKeyboardOctave > 1)
     {
       mKeyboardOctave--;
-      this.update_status("Keyboard Octave "+mKeyboardOctave);
+      this.update_status("Keyboard Octave <b>"+mKeyboardOctave+"</b>");
     }
   }
 
@@ -2263,7 +2261,7 @@ var CGUI = function()
       }
     }
     updatePattern();
-    this.update_status("Note +1");
+    this.update_status("Note <b>+1</b>");
   }
 
   this.pattern_note_down = function(from_x,from_y,to_x,to_y)
@@ -2279,7 +2277,7 @@ var CGUI = function()
       }
     }
     updatePattern();
-    this.update_status("Note -1");
+    this.update_status("Note <b>-1</b>");
   }
 
   this.pattern_octave_up = function(from_x,from_y,to_x,to_y)
@@ -2295,7 +2293,7 @@ var CGUI = function()
       }
     }
     updatePattern();
-    this.update_status("Octave +1");
+    this.update_status("Octave <b>+1</b>");
   }
 
   this.pattern_octave_down = function(from_x,from_y,to_x,to_y)
@@ -2311,7 +2309,7 @@ var CGUI = function()
       }
     }
     updatePattern();
-    this.update_status("Octave -1");
+    this.update_status("Octave <b>-1</b>");
   }
 
   //
