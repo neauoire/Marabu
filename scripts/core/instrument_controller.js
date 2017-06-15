@@ -6,12 +6,26 @@ function Instrument_Controller()
   this.el = document.getElementById("instrument_controller");  
   this.status_el = document.getElementById("instrument_controller_status");
   this.is_selected = false;
-  this.instrument_id = 0;
+  this.instrument_id = 1;
+  this.instrument_name_el = document.getElementById("instrument_name");
+  this.instrument_name_el.addEventListener('input', instrument_name_update, false);
+
+  function instrument_name_update()
+  {
+    if(GUI.instrument_controller.instrument_name_el.value == ""){ return; }
+    var new_name = GUI.instrument_controller.instrument_name_el.value;
+    GUI.update_instrument_name(new_name);
+  }
 
   this.select_instrument = function(id)
   {
+    if(id == this.instrument_id){ return; }
+
     this.instrument_id = id;
     this.status_el.innerHTML = this.instrument_id;
+    this.instrument_name_el.value = GUI.instrument().name ? GUI.instrument().name : "";
+    GUI.update_instr();
+    GUI.update_status("Selected instrument "+this.instrument_id)
   }
 
   this.export_instrument = function()

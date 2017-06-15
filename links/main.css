@@ -46,7 +46,7 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .instrument .lfo { width:240px; display:inline-block; vertical-align: top; }
 .instrument .noi { width: 240px; display: inline-block; vertical-align: top; position: absolute; margin-top: -93px; right: 0px; }
 .instrument .option { float: right;display: inline-block;color: #555;padding: 0px 10px; }
-.instrument h1 i { color:#72dec2; }
+.instrument h1 input { width:80px; }
 
 .wrapper > .status { position: absolute; bottom: 0px; line-height: 34px; right: 0px; font-size: 11px; color: #999; border-top: 1px solid #333; width: 490px; text-align: left; background: #000; z-index: 9001; height: 28px;}
 .wrapper > .status .option { float:right; display:inline-block; color:#555; padding:0px 10px;}
@@ -194,3 +194,5 @@ h1 span.icon.recording { animation: blink 1s; animation-iteration-count: infinit
 .sequencer table.tracks td.pattern_13 { color:#fff !important; }
 .sequencer table.tracks td.pattern_14 { color:#fff !important; }
 .sequencer table.tracks td.pattern_15 { color:#fff !important; }
+
+.pattern #fxtrack table.tracks td.selected { color:red; }

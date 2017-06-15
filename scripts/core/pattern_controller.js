@@ -37,7 +37,6 @@ function Pattern_Controller()
     GUI.select_pattern_cell(this.selection.x1,this.selection.y1);
     this.el.setAttribute("class","pattern edit");
     this.is_selected = true;
-    GUI.update_status("Editing Pattern");
     this.update();
   }
 

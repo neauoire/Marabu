@@ -206,7 +206,6 @@ var CGUI = function()
   this.sequence_controller = new Sequence_Controller();
   this.pattern_controller = new Pattern_Controller();
   this.instrument_controller = new Instrument_Controller();
-  this.instrument_name = "Default";
 
   keyboard = new Keyboard();
   keyboard.install();
@@ -1429,7 +1428,7 @@ var CGUI = function()
 
   this.instrument = function()
   {
-    return this.song().songData[mSeqCol];
+    return this.song().songData[GUI.instrument_controller.instrument_id];
   }
 
   this.instruments = function()
@@ -1437,10 +1436,11 @@ var CGUI = function()
     return this.song().songData;
   }
 
-  var updateInstrument = function (resetPreset)
+  var updateInstrument = function(resetPreset)
   {
     var instr = GUI.instrument();
-    GUI.instrument_name.innerHTML = instr.name ? instr.name : "";
+    console.log(instr);
+    // GUI.instrument_controller.instrument_name_el.value = instr.name ? instr.name : "";
 
     // Oscillator 1
     document.getElementById("osc1_wave_sin").src = instr.i[OSC1_WAVEFORM] == 0 ? "media/graphics/wave_sin_sel.svg" : "media/graphics/wave_sin.svg";
@@ -1499,6 +1499,11 @@ var CGUI = function()
     mJammer.updateInstr(instr.i);
   };
 
+  this.update_instr = function()
+  {
+    updateInstrument();
+  }
+
   this.update_bpm = function(bpm)
   {
     mSong.rowLen = calcSamplesPerRow(bpm);
@@ -1511,6 +1516,11 @@ var CGUI = function()
     setPatternLength(rpp);
     updatePatternLength();
     GUI.update_status("Updated RPP to <b>"+rpp+"</b>")
+  }
+
+  this.update_instrument_name = function(name)
+  {
+    GUI.instrument().name = name;
   }
 
   var setPatternLength = function (length) {
@@ -2669,6 +2679,7 @@ var CGUI = function()
     e.preventDefault();
 
     GUI.sequence_controller.select(col,row,col,row);
+    GUI.instrument_controller.select_instrument(col);
   };
 
   var sequencerMouseOver = function (e)
@@ -2706,6 +2717,7 @@ var CGUI = function()
     e.preventDefault();
 
     GUI.sequence_controller.select(null,null,col,row);
+    GUI.instrument_controller.select_instrument(col);
   };
 
   this.update_instrument = function(cmdNo,value,id)
@@ -2869,7 +2881,7 @@ var CGUI = function()
     GUI.instrument().name = instr_name;
     updateInstrument(true);
     GUI.update_status("Loaded Instrument <b>"+instr_name+"</b>");
-    this.instrument_name.innerHTML = instr_name;
+    this.instrument_controller.instrument_name_el = instr_name;
   }
 
   this.load_kit = function(kit_data)
@@ -3052,7 +3064,6 @@ var CGUI = function()
     GUI.deselect_sliders();
     GUI.pattern_controller.deselect();
     GUI.sequence_controller.deselect();
-    GUI.update_status("Idle.");
   }
 
   this.get_storage = function(id)
@@ -3233,8 +3244,6 @@ var CGUI = function()
     document.getElementById("fx_filt_hp").addEventListener("touchstart", fxFiltMouseDown, false);
     document.getElementById("fx_filt_bp").addEventListener("mousedown", fxFiltMouseDown, false);
     document.getElementById("fx_filt_bp").addEventListener("touchstart", fxFiltMouseDown, false);
-
-    this.instrument_name = document.getElementById("instrument_name");
 
     // Initialize the MIDI handler
     initMIDI();

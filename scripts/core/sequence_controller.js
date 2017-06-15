@@ -34,7 +34,6 @@ function Sequence_Controller()
 
     this.el.setAttribute("class","sequencer edit");
     this.is_selected = true;
-    GUI.update_status("Editing Sequence");
     this.update();
   }
 
