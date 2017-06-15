@@ -84,6 +84,7 @@ function Slider(id,name = "UNK",min = 0,max = 255)
   {
     this.is_selected = false;
     this.el.setAttribute("class","slider");
+    this.value_el.blur();
   }
 
   this.update = function()

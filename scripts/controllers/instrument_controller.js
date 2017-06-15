@@ -33,6 +33,18 @@ function Instrument_Controller()
     GUI.update_status("Selected <b>"+(GUI.instrument().name ? GUI.instrument().name : "Instrument #"+this.instrument_id)+"</b>")
   }
 
+  this.select_next_instrument = function()
+  {
+    var next_id = this.instrument_id > 6 ? 0 : this.instrument_id + 1;
+    this.select_instrument(next_id);
+  }
+
+  this.select_prev_instrument = function()
+  {
+    var prev_id = this.instrument_id < 1 ? 7 : this.instrument_id - 1;
+    this.select_instrument(prev_id);    
+  }
+
   this.export_instrument = function()
   {
     var instr_str = GUI.instrument().i.slice(0,28).toString();
@@ -62,16 +74,8 @@ function Instrument_Controller()
   @  Keyboard
   ====================================*/
 
-  // Keyboard Numbers
-  this.key_number_1 = function(){ this.select_instrument(0); }
-  this.key_number_2 = function(){ this.select_instrument(1); }
-  this.key_number_3 = function(){ this.select_instrument(2); }
-  this.key_number_4 = function(){ this.select_instrument(3); }
-  this.key_number_5 = function(){ this.select_instrument(4); }
-  this.key_number_6 = function(){ this.select_instrument(5); }
-  this.key_number_7 = function(){ this.select_instrument(6); }
-  this.key_number_8 = function(){ this.select_instrument(7); }
-
+  this.key_square_bracket_right = function(){ GUI.instrument_controller.select_next_instrument(); }
+  this.key_square_bracket_left  = function(){ GUI.instrument_controller.select_prev_instrument(); }
   // Keyboard Notes
   this.key_letter_a = function(){ GUI.keyboard_play(0);  }
   this.key_letter_s = function(){ GUI.keyboard_play(2);  }
