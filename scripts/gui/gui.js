@@ -1226,7 +1226,7 @@ var CGUI = function()
   {
     buildPatternTable();
     var singlePattern = (mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2);
-    var pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1;
+    var pat = singlePattern ? GUI.instrument().p[mSeqRow] - 1 : -1;
     for (var i = 0; i < mSong.patternLen; ++i)
     {
       for (var j = 0; j < 4; ++j)
@@ -1239,8 +1239,8 @@ var CGUI = function()
           classes += "selected ";
         }
 
-        if(mSong.songData[mSeqCol].c[pat]){
-          var n = mSong.songData[mSeqCol].c[pat].n[i+j*mSong.patternLen] - 87;
+        if(GUI.instrument().c[pat]){
+          var n = GUI.instrument().c[pat].n[i+j*mSong.patternLen] - 87;
           if(n > 0){
             var octaveName = Math.floor(n / 12);
             var noteName = mNoteNames[n % 12];
@@ -1268,15 +1268,15 @@ var CGUI = function()
   {
     buildFxTable();
     var singlePattern = (mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2);
-    var pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1;
+    var pat = singlePattern ? GUI.instrument().p[mSeqRow] - 1 : -1;
     for (var i = 0; i < mSong.patternLen; ++i) {
       var o = document.getElementById("fxr" + i);
       if (!selectionOnly) {
         var fxTxt = ":";
         if (pat >= 0) {
-          var fxCmd = mSong.songData[mSeqCol].c[pat].f[i];
+          var fxCmd = GUI.instrument().c[pat].f[i];
           if (fxCmd) {
-            var fxVal = mSong.songData[mSeqCol].c[pat].f[i+mSong.patternLen];
+            var fxVal = GUI.instrument().c[pat].f[i+mSong.patternLen];
             fxTxt = toHex(fxCmd,2) + ":" + toHex(fxVal,2);
           }
         }
@@ -1392,9 +1392,9 @@ var CGUI = function()
 
     // Record only if pattern is selected
     if (GUI.pattern_controller.is_selected && mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2 && mPatternCol == mPatternCol2 && mPatternRow == mPatternRow2){
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      var pat = GUI.instrument().p[mSeqRow] - 1;
       if (pat >= 0) {
-        mSong.songData[mSeqCol].c[pat].n[mPatternRow + mPatternCol*mSong.patternLen] = note;
+        GUI.instrument().c[pat].n[mPatternRow + mPatternCol*mSong.patternLen] = note;
         setSelectedPatternCell(mPatternCol, (mPatternRow + 1) % mSong.patternLen);
         GUI.pattern_controller.select(mPatternCol, (mPatternRow) % mSong.patternLen);
         updatePattern();
@@ -2278,13 +2278,13 @@ var CGUI = function()
     e.preventDefault();
 
     if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      var pat = GUI.instrument().p[mSeqRow] - 1;
       if (pat >= 0) {
         mFxCopyBuffer = [];
         for (var row = mFxTrackRow; row <= mFxTrackRow2; ++row) {
           var arr = [];
-          arr.push(mSong.songData[mSeqCol].c[pat].f[row]);
-          arr.push(mSong.songData[mSeqCol].c[pat].f[row + mSong.patternLen]);
+          arr.push(GUI.instrument().c[pat].f[row]);
+          arr.push(GUI.instrument().c[pat].f[row + mSong.patternLen]);
           mFxCopyBuffer.push(arr);
         }
       }
@@ -2296,12 +2296,12 @@ var CGUI = function()
     e.preventDefault();
 
     if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+      var pat = GUI.instrument().p[mSeqRow] - 1;
       if (pat >= 0) {
         for (var row = mFxTrackRow, i = 0; row < mSong.patternLen && i < mFxCopyBuffer.length; ++row, ++i) {
           var arr = mFxCopyBuffer[i];
-          mSong.songData[mSeqCol].c[pat].f[row] = arr[0];
-          mSong.songData[mSeqCol].c[pat].f[row + mSong.patternLen] = arr[1];
+          GUI.instrument().c[pat].f[row] = arr[0];
+          GUI.instrument().c[pat].f[row + mSong.patternLen] = arr[1];
         }
         updateFxTrack();
       }
@@ -2325,16 +2325,16 @@ var CGUI = function()
       // Update the instrument (toggle boolean)
       var fxValue;
       if (fxCmd >= 0) {
-        fxValue = mSong.songData[mSeqCol].i[fxCmd] ? 0 : 1;
-        mSong.songData[mSeqCol].i[fxCmd] = fxValue;
+        fxValue = GUI.instrument().i[fxCmd] ? 0 : 1;
+        GUI.instrument().i[fxCmd] = fxValue;
       }
 
       // Edit the fx track
       if (GUI.pattern_controller.is_mod_selected) {
-        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+        var pat = GUI.instrument().p[mSeqRow] - 1;
         if (pat >= 0) {
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = fxCmd + 1;
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = fxValue;
+          GUI.instrument().c[pat].f[mFxTrackRow] = fxCmd + 1;
+          GUI.instrument().c[pat].f[mFxTrackRow+mSong.patternLen] = fxValue;
           updateFxTrack();
         }
       }
@@ -2345,28 +2345,26 @@ var CGUI = function()
     }
   };
 
-  var osc1WaveMouseDown = function (e) {
-    if (!e) var e = window.event;
-    if (mSeqCol == mSeqCol2) {
-      var o = getEventElement(e);
-      var wave = 0;
-      if (o.id === "osc1_wave_sin") wave = 0;
-      else if (o.id === "osc1_wave_sqr") wave = 1;
-      else if (o.id === "osc1_wave_saw") wave = 2;
-      else if (o.id === "osc1_wave_tri") wave = 3;
-      if (GUI.pattern_controller.is_mod_selected) {
-        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
-        if (pat >= 0) {
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = OSC1_WAVEFORM + 1;
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = wave;
-          updateFxTrack();
-        }
+  var osc1WaveMouseDown = function (e)
+  {
+    var o = getEventElement(e);
+    var wave = 0;
+    if (o.id === "osc1_wave_sin") wave = 0;
+    else if (o.id === "osc1_wave_sqr") wave = 1;
+    else if (o.id === "osc1_wave_saw") wave = 2;
+    else if (o.id === "osc1_wave_tri") wave = 3;
+    if (GUI.pattern_controller.is_mod_selected) {
+      var pat = GUI.instrument().p[mSeqRow] - 1;
+      if (pat >= 0) {
+        GUI.instrument().c[pat].f[mFxTrackRow] = OSC1_WAVEFORM + 1;
+        GUI.instrument().c[pat].f[mFxTrackRow+mSong.patternLen] = wave;
+        updateFxTrack();
       }
-      mSong.songData[mSeqCol].i[OSC1_WAVEFORM] = wave;
-      updateInstrument();
-      unfocusHTMLInputElements();
-      e.preventDefault();
     }
+    GUI.instrument().i[OSC1_WAVEFORM] = wave;
+    updateInstrument();
+    unfocusHTMLInputElements();
+    e.preventDefault();
   };
 
   var osc2WaveMouseDown = function (e) {
@@ -2379,14 +2377,14 @@ var CGUI = function()
       else if (o.id === "osc2_wave_saw") wave = 2;
       else if (o.id === "osc2_wave_tri") wave = 3;
       if (GUI.pattern_controller.is_mod_selected) {
-        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+        var pat = GUI.instrument().p[mSeqRow] - 1;
         if (pat >= 0) {
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = OSC2_WAVEFORM + 1;
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = wave;
+          GUI.instrument().c[pat].f[mFxTrackRow] = OSC2_WAVEFORM + 1;
+          GUI.instrument().c[pat].f[mFxTrackRow+mSong.patternLen] = wave;
           updateFxTrack();
         }
       }
-      mSong.songData[mSeqCol].i[OSC2_WAVEFORM] = wave;
+      GUI.instrument().i[OSC2_WAVEFORM] = wave;
       updateInstrument(true);
       unfocusHTMLInputElements();
       e.preventDefault();
@@ -2403,14 +2401,14 @@ var CGUI = function()
       else if (o.id === "lfo_wave_saw") wave = 2;
       else if (o.id === "lfo_wave_tri") wave = 3;
       if (GUI.pattern_controller.is_mod_selected) {
-        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+        var pat = GUI.instrument().p[mSeqRow] - 1;
         if (pat >= 0) {
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = LFO_WAVEFORM + 1;
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = wave;
+          GUI.instrument().c[pat].f[mFxTrackRow] = LFO_WAVEFORM + 1;
+          GUI.instrument().c[pat].f[mFxTrackRow+mSong.patternLen] = wave;
           updateFxTrack();
         }
       }
-      mSong.songData[mSeqCol].i[LFO_WAVEFORM] = wave;
+      GUI.instrument().i[LFO_WAVEFORM] = wave;
       updateInstrument(true);
       unfocusHTMLInputElements();
       e.preventDefault();
@@ -2426,14 +2424,14 @@ var CGUI = function()
       else if (o.id === "fx_filt_lp") filt = 2;
       else if (o.id === "fx_filt_bp") filt = 3;
       if (GUI.pattern_controller.is_mod_selected) {
-        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+        var pat = GUI.instrument().p[mSeqRow] - 1;
         if (pat >= 0) {
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = FX_FILTER + 1
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = filt;
+          GUI.instrument().c[pat].f[mFxTrackRow] = FX_FILTER + 1
+          GUI.instrument().c[pat].f[mFxTrackRow+mSong.patternLen] = filt;
           updateFxTrack();
         }
       }
-      mSong.songData[mSeqCol].i[FX_FILTER] = filt;
+      GUI.instrument().i[FX_FILTER] = filt;
       updateInstrument(true);
       unfocusHTMLInputElements();
       e.preventDefault();
@@ -2590,10 +2588,10 @@ var CGUI = function()
     if (GUI.pattern_controller.is_mod_selected) {
       // Update the effect command in the FX track
       if (mSeqRow == mSeqRow2 && mSeqCol == mSeqCol2) {
-        var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1;
+        var pat = GUI.instrument().p[mSeqRow] - 1;
         if (pat >= 0) {
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow] = cmdNo + 1;
-          mSong.songData[mSeqCol].c[pat].f[mFxTrackRow+mSong.patternLen] = value;
+          GUI.instrument().c[pat].f[mFxTrackRow] = cmdNo + 1;
+          GUI.instrument().c[pat].f[mFxTrackRow+mSong.patternLen] = value;
           updateFxTrack();
         }
       }
@@ -2620,7 +2618,7 @@ var CGUI = function()
 
   this.update_sequencer_position = function(val)
   {
-    mSong.songData[mSeqCol].p[mSeqRow] = val;
+    GUI.instrument().p[mSeqRow] = val;
     GUI.update_sequencer();
   }
 
@@ -2646,7 +2644,7 @@ var CGUI = function()
     
     for(row = y1; row <= y2; ++row) {
       for (col = x1; col <= x2; ++col){
-        mSong.songData[mSeqCol].c[pat].n[row+col*mSong.patternLen] = 0;
+        GUI.instrument().c[pat].n[row+col*mSong.patternLen] = 0;
       }
     }
     updateSequencer();
@@ -2664,8 +2662,8 @@ var CGUI = function()
 
     var pat = GUI.pattern_controller.pattern_id;
 
-    mSong.songData[mSeqCol].c[pat].f[y1] = 0;
-    mSong.songData[mSeqCol].c[pat].f[y1 + mSong.patternLen] = 0;
+    GUI.instrument().c[pat].f[y1] = 0;
+    GUI.instrument().c[pat].f[y1 + mSong.patternLen] = 0;
 
     updateSequencer();
     updatePattern();
