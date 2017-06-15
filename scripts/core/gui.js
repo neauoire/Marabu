@@ -946,17 +946,11 @@ var CGUI = function()
     return song;
   };
 
-  var songToJS = function (song) {
+  var songToJS = function (song)
+  {
     var i, j, k;
     var jsData = "";
 
-    jsData += "    // This music has been exported by SoundBox. You can use it with\n";
-    jsData += "    // http://sb.bitsnbites.eu/player-small.js in your own product.\n\n";
-
-    jsData += "    // See http://sb.bitsnbites.eu/demo.html for an example of how to\n";
-    jsData += "    // use it in a demo.\n\n";
-
-    jsData += "    // Song data\n";
     jsData += "    var song = {\n";
 
     jsData += "      songData: [\n";
@@ -2879,7 +2873,7 @@ var CGUI = function()
     GUI.instrument().name = instr_name;
     updateInstrument(true);
     GUI.update_status("Loaded Instrument <b>"+instr_name+"</b>");
-    this.instrument_controller.instrument_name_el = instr_name;
+    this.instrument_controller.instrument_name_el.value = instr_name;
   }
 
   this.load_kit = function(kit_data)
@@ -3169,12 +3163,8 @@ var CGUI = function()
     updateFxTrack();
     updateInstrument(true);
 
-    // Initialize the song
-    setEditMode(EDIT_PATTERN);
-    setSelectedSequencerCell(0, 0);
-    setSelectedPatternCell(0, 0);
-
     GUI.pattern_controller.select_pattern(0);
+    GUI.sequence_controller.select(0,0);
 
     // Misc event handlers
     document.getElementById("newSong").onmousedown = newSong;
