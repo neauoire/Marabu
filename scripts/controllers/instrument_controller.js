@@ -62,6 +62,16 @@ function Instrument_Controller()
   @  Keyboard
   ====================================*/
 
+  // Keyboard Numbers
+  this.key_number_1 = function(){ this.select_instrument(0); }
+  this.key_number_2 = function(){ this.select_instrument(1); }
+  this.key_number_3 = function(){ this.select_instrument(2); }
+  this.key_number_4 = function(){ this.select_instrument(3); }
+  this.key_number_5 = function(){ this.select_instrument(4); }
+  this.key_number_6 = function(){ this.select_instrument(5); }
+  this.key_number_7 = function(){ this.select_instrument(6); }
+  this.key_number_8 = function(){ this.select_instrument(7); }
+
   // Keyboard Notes
   this.key_letter_a = function(){ GUI.keyboard_play(0);  }
   this.key_letter_s = function(){ GUI.keyboard_play(2);  }

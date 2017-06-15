@@ -11,16 +11,16 @@ function Controller()
   }
 
   // Keyboard Numbers
-  this.key_letter_0 = function(){ }
-  this.key_letter_1 = function(){ }
-  this.key_letter_2 = function(){ }
-  this.key_letter_3 = function(){ }
-  this.key_letter_4 = function(){ }
-  this.key_letter_5 = function(){ }
-  this.key_letter_6 = function(){ }
-  this.key_letter_7 = function(){ }
-  this.key_letter_8 = function(){ }
-  this.key_letter_9 = function(){ }
+  this.key_number_0 = function(){ }
+  this.key_number_1 = function(){ }
+  this.key_number_2 = function(){ }
+  this.key_number_3 = function(){ }
+  this.key_number_4 = function(){ }
+  this.key_number_5 = function(){ }
+  this.key_number_6 = function(){ }
+  this.key_number_7 = function(){ }
+  this.key_number_8 = function(){ }
+  this.key_number_9 = function(){ }
   // Keyboard Notes
   this.key_letter_a = function(){ }
   this.key_letter_s = function(){ }

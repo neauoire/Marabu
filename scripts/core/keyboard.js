@@ -66,16 +66,16 @@ function Keyboard()
       case "x": this.host.key_letter_x(); break;
 
       // Keyboard Notes
-      case "0": this.host.key_letter_0(); break;
-      case "1": this.host.key_letter_1(); break;
-      case "2": this.host.key_letter_2(); break;
-      case "3": this.host.key_letter_3(); break;
-      case "4": this.host.key_letter_4(); break;
-      case "5": this.host.key_letter_5(); break;
-      case "6": this.host.key_letter_6(); break;
-      case "7": this.host.key_letter_7(); break;
-      case "8": this.host.key_letter_8(); break;
-      case "9": this.host.key_letter_9(); break;
+      case "0": this.host.key_number_0(); break;
+      case "1": this.host.key_number_1(); break;
+      case "2": this.host.key_number_2(); break;
+      case "3": this.host.key_number_3(); break;
+      case "4": this.host.key_number_4(); break;
+      case "5": this.host.key_number_5(); break;
+      case "6": this.host.key_number_6(); break;
+      case "7": this.host.key_number_7(); break;
+      case "8": this.host.key_number_8(); break;
+      case "9": this.host.key_number_9(); break;
 
       // Keyboard Notes
       case "a": this.host.key_letter_a(); break;

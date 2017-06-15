@@ -44,7 +44,6 @@
   <div class='sequencer' id='sequence_controller'>
     <h1 class='title'>SEQ
       <span class='status' id='sequence_controller_status'></span>
-
       <input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" placeholder="BPM"/>
       <span id="sequencerCopy" class='icon copy hide'></span>
       <span id="sequencerPaste" class='icon paste hide'></span>
@@ -63,7 +62,6 @@
   <div class='pattern' id='pattern_controller'>
     <h1 class='title'>PAT
       <span class='status' id='pattern_controller_status'></span>
-
       <input id="rpp" type="text" size="3" value="" title="Rows per pattern" placeholder="RPP" />
       <span id="playRange" class="icon play_range" title="Play selected range (SPACE)"></span>
       <span class='icon recording'></span>
@@ -87,10 +85,8 @@
   
   <div class='instrument'>
     <h1 class='title'>INS 
-
-      <input id="instrument_name" type="text" size="10" value="" title="Instrument Name" placeholder="Default" />
       <span class='status' id='instrument_controller_status'></span>
-
+      <input id="instrument_name" type="text" size="10" value="" title="Instrument Name" placeholder="Default" />
       <span id="exportINSTRUMENT" title="Export .instrument" class="icon export_instrument"></span>
       <span id="exportKIT" title="Export .kit" class="icon export_kit"></span>
       <select id="midiInput" title="Select a MIDI source" style="margin-left: 10px; display: none">
