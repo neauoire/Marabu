@@ -36,7 +36,7 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .pattern { position:absolute; left:220px; top:0px; z-index:9000; width:216px; }
 .pattern #pattern { overflow: hidden}
 .pattern #fxtrack {  overflow: hidden;position: absolute;right: 0px;top: 31px;}
-.pattern #fxtrack table.tracks td { width:60px; }
+.pattern #fxtrack table.tracks td { width:60px; border-right:0px }
 .pattern.inactive h1 { border-bottom:1px dotted #999; color:#999;}
 .pattern.inactive .icon { display: none }
 
