@@ -291,13 +291,14 @@ var CJammer = function () {
   // Public interface.
   //--------------------------------------------------------------------------
 
-  this.start = function () {
+  this.start = function ()
+  {
     // Create an audio context.
     if (window.AudioContext) {
       mAudioContext = new AudioContext();
     } else if (window.webkitAudioContext) {
       mAudioContext = new webkitAudioContext();
-      mAudioContext.createScriptProcessor = mAudioContext.createJavaScriptNode;
+      // mAudioContext.createScriptProcessor = mAudioContext.createJavaScriptNode;
     } else {
       mAudioContext = undefined;
       return;
