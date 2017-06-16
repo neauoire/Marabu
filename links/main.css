@@ -25,12 +25,13 @@ body { font-family:'input_mono_medium'; font-size:12px; line-height: 30px; backg
 .wrapper {width: 945px;height: 525px;position: relative;margin: 60px auto; }
 
 .sequencer { position:absolute; left:0px; top:0px; z-index:9000; }
-.sequencer #sequencer { border:0px; height:520px; overflow: hidden;}
+.sequencer #sequencer { border:0px; height:520px; overflow: hidden; }
 .sequencer #sequencer td { width:15px; }
 .sequencer #sequencer td:nth-child(2) { width:30px; }
 .sequencer #sequencer td:nth-child(3) { width:30px; }
 .sequencer #sequencer td:nth-child(4) { width:30px; }
 .sequencer #sequencer td:nth-child(5) { width:30px; }
+.sequencer #sequencer td.instr { background:#111; border-bottom:1px solid #555; }
 .sequencer h1 input { width:53px; }
 
 .pattern { position:absolute; left:220px; top:0px; z-index:9000; width:216px; }
@@ -78,7 +79,7 @@ hr { clear:both; border:0px; padding:0px; margin:0px; }
 
 /* TRACKS */
 
-table.tracks { background:#000;font-family:'input_mono_medium'; }
+table.tracks { background:#000;font-family:'input_mono_medium'; border-bottom:0px !important;}
 table.tracks, table.tracks td, table.tracks th { border-bottom: 1px solid #333; border-right:1px solid #222; border-collapse: separate; font-size: 12px; text-align: center; cursor: default; line-height:30px; }
 table.tracks th {width: 30px;color: #666; border-bottom:1px solid black; font-family: 'input_mono_regular'; font-size:11px;}
 table.tracks td { color: #777; font-size:11px; width:30px;}

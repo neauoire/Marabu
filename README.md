@@ -9,3 +9,7 @@ http://localhost:8033/
 ```
 
 The full guide is located [http://wiki.xxiivv.com/Marabu](here).
+
+## TODO
+- Highlight current instrument row in sequencer
+- Copy paste in sequencer when multiple lines are selected, and paste when a cell is empty.

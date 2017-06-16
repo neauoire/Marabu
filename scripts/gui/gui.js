@@ -440,6 +440,16 @@ var CGUI = function()
       song.songData[i] = instr;
     }
 
+    // Default instruments
+    song.songData[4].name = "Kick";
+    song.songData[4].i = [2,0,92,0,0,255,92,23,1,0,14,0,74,0,0,0,89,0,1,1,16,0,21,255,49,6,0,0];
+    song.songData[5].name = "Snare";
+    song.songData[5].i = [0,221,92,1,0,210,92,0,1,192,4,0,46,0,0,1,97,141,1,3,93,0,4,57,20,0,0,6];
+    song.songData[6].name = "Hihat"
+    song.songData[6].i = [0,0,140,0,0,0,140,0,0,60,4,10,34,0,0,0,187,5,0,1,239,135,0,170,87,5,0,4];
+    song.songData[7].name = "Tom"
+    song.songData[7].i = [0,192,104,1,0,80,99,0,0,0,4,0,66,0,0,3,0,0,0,1,0,1,2,32,37,4,0,0];
+
     // Make a first empty pattern
     song.songData[0].p[0] = 1;
 
@@ -1217,6 +1227,7 @@ var CGUI = function()
         var classes = "";
         if(pat > 0){ classes += "pattern_"+pat+" "; }
         if (i >= mSeqRow && i <= mSeqRow2 && j >= mSeqCol && j <= mSeqCol2){ classes += "selected "; }
+        if(j == GUI.instrument_controller.instrument_id){ classes += "instr "; }
         o.className = classes;
       }
     }
@@ -1467,7 +1478,7 @@ var CGUI = function()
     GUI.sliders["osc1_semi"].override(instr.i[OSC1_SEMI]);
     GUI.sliders["osc2_vol"].override(instr.i[OSC2_VOL]);
     GUI.sliders["osc2_semi"].override(instr.i[OSC2_SEMI]);
-    GUI.sliders["osc2_det"].override(instr.i[OSC2_VOL]);
+    GUI.sliders["osc2_det"].override(instr.i[OSC2_DETUNE]);
     GUI.sliders["noise_vol"].override(instr.i[NOISE_VOL]);
 
     GUI.sliders["env_att"].override(instr.i[ENV_ATTACK]);
