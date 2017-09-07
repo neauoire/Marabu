@@ -142,73 +142,21 @@ function Marabu()
     this.song.stop_song();
   }
 
-  this.load = function(val, is_passive = false)
+  this.load_file = function(track)
   {
-    if(is_passive){
-      lobby.commander.show_browser();
-      lobby.commander.browse_candidates(val,this.formats);
-      return;
-    }
-
-    this.window.show();
-    lobby.commander.hide_browser();
-    this.load_file(lobby.commander.select_candidate(val,this.formats));
+    marabu.song.replace_song(track);
+    marabu.update();
   }
 
-  this.load_file = function(file_path)
-  {
-    this.location = file_path;
-
-    var app = this;
-    $.ajax({url: '/ide.load',
-      type: 'POST', 
-      data: { file_path: this.location },
-      success: function(data) {
-        var new_song = JSON.parse(data);
-        app.song.replace_song(new_song);
-        lobby.apps.marabu.sequencer.select();
-      }
-    })
-  }
-
-  this.save = function(val, is_passive = false)
+  this.save_file = function(val, is_passive = false)
   {  
-    if(is_passive){
-      if(this.location && val.trim() == ""){
-        lobby.commander.update_status("Save <b class='ff'>"+this.location+"</b>?");
-      }
-      else{
-        var target_file = lobby.commander.select_candidate(val,this.formats);
-        if(target_file){
-          lobby.commander.update_status("Overwrite <b class='ff'>"+target_file+"</b>?");
-        }
-        else{
-          lobby.commander.update_status("No file selected!");  
-        }
-      }
-      return;
-    } 
-
-    // Traget
-    if(!this.location){ 
-      var target_file = lobby.commander.select_candidate(val,this.formats);
-      if(!target_file){ return; }
-      this.location = target_file;
-    }
-
     this.song.update_ranges();
     var str = JSON.stringify(this.song.song());
 
-    $.ajax({url: '/ide.save',
-      type: 'POST', 
-      data: { file_path: this.location, file_content: str },
-      success: function(data) {
-        console.log(data);
-      }
-    })
-    
-    lobby.commander.notify("Saved.");
-    lobby.commander.update_status();
+    var blob = new Blob([str], {type: "application/json;charset=" + document.characterSet});
+    var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
+    var timestamp = parseInt((since_midnight/864) * 10);
+    saveAs(blob, "export.mar");
   }
 
   this.render = function(val, is_passive = false)
@@ -221,16 +169,6 @@ function Marabu()
     var val = clamp(parseInt(val),80,600);
     this.selection.bpm = val;
     this.song.update_bpm(this.selection.bpm);
-  }
-
-  this.set_rpp = function(val, is_passive = false)
-  {
-    console.log("set_rpp",val)
-  }
-
-  this.set_signature = function(val, is_passive = false)
-  {
-    console.log("set_signature",val)
   }
 
   this.operate = function(val, is_passive = false)
@@ -285,7 +223,7 @@ function Marabu()
     if(e.ctrlKey || e.metaKey){
       if(key == " "){ marabu.play(); }
       if(key == "r"){ marabu.render(); }
-      if(key == "s"){ marabu.save(); }
+      if(key == "s"){ marabu.save_file(); }
       return;
     }
 
@@ -313,6 +251,36 @@ function Marabu()
   }
   window.addEventListener("keydown", this.when_key, false);
 }
+
+window.addEventListener('dragover',function(e)
+{
+  e.stopPropagation();
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+});
+
+window.addEventListener('drop', function(e)
+{
+  e.stopPropagation();
+  e.preventDefault();
+
+  var files = e.dataTransfer.files;
+  var file = files[0];
+
+  if (file.name.indexOf(".mar") == -1) { console.log("Wrong Format"); return false; }
+
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var o = JSON.parse(e.target.result);
+    marabu.load_file(o);
+  };
+  reader.readAsText(file);
+});
+
+window.onbeforeunload = function(e)
+{
+
+};
 
 // Tools
 

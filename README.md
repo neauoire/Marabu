@@ -1,43 +1,61 @@
-# Left
+# Marabu
 
-Left is a simple open-source distractionless writing application created to help organize ideas. 
+Marabu is a simple open-source music tracker built from Soundbox.
 
-<img src='https://raw.githubusercontent.com/hundredrabbits/Left/master/PREVIEW.jpg' width="600"/>
+<img src='https://raw.githubusercontent.com/hundredrabbits/Marabu/master/PREVIEW.jpg' width="600"/>
 
-### Options
+### Controls
 
-Lines beginning with @ or #, followed by a space, will create headers. And lines starting with $ or ##, followed by a space, will create sub-headers. The headers and sub-headers are displayed on the lefthand side column of the interface and can be clicked for quick navigation.
+#### General
 
-```
-@ Header
-$ Note
-# Header
-## Note
-```
+- `space` Play/Stop.
+- `esc` Stop.
 
-### Save/Load
+#### Sequencer
 
-Simply press Ctrl+s to save, and drag any text file onto Left to load it.
+- `+"` Next Pattern.
+- `-"` Previous Pattern.
+- `ctrl +` Next Sequence.
+- `ctrl -` Previous Sequence.
 
-### Themes
+#### Editor
 
-Add #noir to the html header, to activate the night theme. Or type, `~ left.theme=noir` anywhere within the text to change the theme of a project. The current themes are blanc(default), noir & pale.
+- `ArrowRight` Next Instrument.
+- `ArrowLeft` Previous Instrument.
+- `ArrowDown` Next Row.
+- `ArrowUp` Previous Row.
+- `/"` Add a Control Keyframe.
+- `Backspace` Erase Note in Row.
+- `)` Increment Note Value +12.
+- `(` Decrement Note Value -12.
+- `0` Increment Note Value +1.
+- `9` Decrement Note Value -1.
 
-```
-/index.html#noir
-```
+#### Instrument
 
-### Statistics
+- `]` Increment Control Value +10.
+- `["` Decrement Control Value -10.
+- `}` Increment Control Value +1.
+- `{"` Decrement Control Value -1.
+- `x` Next Octave.
+- `z` Previous Octave.
+- `2` Next Control.
+- `1` Previous Control.
 
-At the bottom left corner of the screen, a code is displayed.
+#### Keyboard
 
-```
-L Lines count
-W Words count
-V Vocabulary count
-C Characters count
-% Scroll position
-```
+- `a` Play/Record C.
+- `s` Play/Record D.
+- `d` Play/Record E.
+- `f` Play/Record F.
+- `g` Play/Record G.
+- `h` Play/Record A.
+- `j` Play/Record B.
+- `w` Play/Record C#.
+- `e` Play/Record D#.
+- `t` Play/Record F#.
+- `y` Play/Record G#.
+- `u` Play/Record A#.
 
 ## License
 

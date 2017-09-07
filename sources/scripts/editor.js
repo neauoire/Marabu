@@ -3,7 +3,6 @@ function Editor(t,b)
   var target = this;
 
   this.edit_mode = false;
-  this.selection = {x:0,y:0,e:-1};
   this.pattern = {id:0,beat:4,length:(t*b),signature:[t,b],effect:-1};
 
   this.start = function()
