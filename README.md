@@ -65,12 +65,7 @@ Press `ctrl k` to activate cheatmode.
 
 #### Insert Multiple
 
-- `4214 enter` This mode awaits 4 numbers, for example `ctrl k(4214)` will autofill the current pattern, for the selected instrument, at every 4 bars, with an offset of 2, with an increment in note value of 1, for a loop of length 4. Press `esc` to leave Cheatmode.
-
-- `rate`
-- `offset`
-- `increment`
-- `loop length`
+- `4214 enter` This mode awaits 4 numbers, for example `ctrl k(4214)` will autofill the current pattern, for the selected instrument, at every 4 bars, with an offset of 2, with an increment in note value of 1, for a loop of length 4. Press `esc` to leave Cheatmode. Or `rate`, `offset`, `increment` and `loop length`.
 
 #### Erase Multiple
 
