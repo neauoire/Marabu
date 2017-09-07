@@ -63,6 +63,7 @@ b         { font-weight: normal; font-family: 'input_mono_medium'}
 .f_research { color:#333;  }
 .f_misc { text-decoration: underline;  }
 .f_red { color:#f00; }
+.f_white { color:#fff !important }
 
 .thin { font-family: "input_mono_thin" }
 .bold { font-family: "input_mono_medium" }

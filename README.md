@@ -57,6 +57,15 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `y` Play/Record G#.
 - `u` Play/Record A#.
 
+#### Cheatcodes
+
+Press `ctrl k` to activate cheatmode. This mode awaits 4 numbers, for example `ctrl k(4214)` will autofill the current pattern, for the selected instrument, at every 4 bars, with an offset of 2, with an increment in note value of 1, for a loop of length 4.
+
+- `rate`
+- `offset`
+- `increment`
+- `loop length`
+
 ### Development
 
 There are currently no means to change the `bpm`, to do so, update the `bpm` value from the exported `.mar` file to an int between 50 and 450.

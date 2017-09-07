@@ -92,6 +92,14 @@ function Editor(t,b)
         else if(pattern > 0 && r % 4 == 0){ cell.className = "fm";}
         else{ cell.className = ""; }
 
+        // Cheatcode Preview
+        if(marabu.cheatcode.is_active && i == marabu.selection.instrument && (r + marabu.cheatcode.offset) % marabu.cheatcode.rate == 0){ 
+          var index = parseInt(r/marabu.cheatcode.rate) % marabu.cheatcode.loop;
+          var mod = index * marabu.cheatcode.increment;
+          cell.className = "b_red f_white";  
+          cell.textContent = marabu.cheatcode.rate+""+marabu.cheatcode.offset+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "+"+mod : marabu.cheatcode.increment)+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "" : 0);
+        }
+
         //Effect
         if(i == marabu.selection.instrument){
           effect_el.textContent = effect_cmd > 0 ? (to_hex(effect_cmd,2) + "" + to_hex(effect_val,2)) : "0000";

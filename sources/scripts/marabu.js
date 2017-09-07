@@ -11,11 +11,6 @@ function Marabu()
 
   document.body.appendChild(this.el);
 
-  this.song = null;
-  this.sequencer = null;
-  this.editor = null;
-  this.instrument = null;
-
   this.selection = {instrument:0,track:0,row:0,octave:5,control:0};
   this.formats = ["mar"];
   this.channels = 16;
@@ -24,6 +19,7 @@ function Marabu()
   this.sequencer = new Sequencer(120);
   this.editor = new Editor(8,4);
   this.instrument = new Instrument();
+  this.cheatcode = new Cheatcode();
 
   this.start = function()
   {
@@ -172,29 +168,11 @@ function Marabu()
     this.song.export_wav();
   }
 
-  this.operate = function(val, is_passive = false)
-  {
-    var loop = val.split(" ")[0].split(""); // s.charAt(0)
-    var rate = parseInt(lobby.commander.find_variable("r:",4));
-
-    var counter = 0; // marabu.operate 0259 r:2
-    for(var row = 0; row < 32; row++){
-      if(row % rate != 0){ continue; }
-      var mod = parseInt(loop[counter]);
-      var note = (this.selection.octave * 12)+mod;
-
-      this.song.inject_note_at(this.selection.instrument,this.selection.track,row,note);
-
-      counter += 1;
-      counter = counter % loop.length;
-    }
-    this.update();
-  }
-
   this.when_key = function(e)
   {
     var key = e.key;
 
+    if(marabu.cheatcode.is_active){ marabu.cheatcode.input(key); return; }
     if(key == "Escape"){ marabu.song.stop_song(); return; }
 
     // Sequencer
@@ -234,9 +212,10 @@ function Marabu()
     // Global
 
     if(e.ctrlKey || e.metaKey){
-      if(key == " "){ marabu.play(); e.preventDefault(); }
-      if(key == "r"){ marabu.render(); e.preventDefault();}
-      if(key == "s"){ marabu.save_file(); e.preventDefault();}
+      if(key == " "){ marabu.play(); e.preventDefault(); return; }
+      if(key == "r"){ marabu.render(); e.preventDefault(); return; }
+      if(key == "s"){ marabu.save_file(); e.preventDefault(); return; }
+      if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
       return;
     }
 
