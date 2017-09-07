@@ -172,7 +172,8 @@ function Marabu()
   {
     var key = e.key;
 
-    if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(key); return; }
+    if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(e); return; }
+
     if(key == "Escape"){ marabu.song.stop_song(); return; }
 
     // Sequencer
@@ -190,7 +191,7 @@ function Marabu()
     if(key == "ArrowDown") { marabu.move_row(1); e.preventDefault(); return; }
     if(key == "ArrowUp")   { marabu.move_row(-1); e.preventDefault(); return; }
     if(key == "/")         { marabu.save_control_value(); e.preventDefault(); return; }
-    if(key == "Backspace") { marabu.set_note(0); e.preventDefault(); return; }
+    if(key == "Backspace" || key == "Delete") { marabu.set_note(0); e.preventDefault(); return; }
 
     // Instrument
 
@@ -285,6 +286,13 @@ var parse_note = function(val)
   var key_sharp = key.substr(1,1) == "#" ? true : false;
   var key_note = key.substr(0,1);
   return {octave:octave,sharp:key_sharp,note:key_note};
+}
+
+var to_hex_val = function(num)
+{
+  if(num < 10){ return ""+num; }
+  var l = ["a","b","c","d","e","f"];
+  return l[num % l.length];
 }
 
 var to_hex = function(num, count)

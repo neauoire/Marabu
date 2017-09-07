@@ -95,10 +95,10 @@ function Editor(t,b)
 
         // Cheatcode Preview
         if(marabu.cheatcode.is_active && i == marabu.selection.instrument && (r + marabu.cheatcode.offset) % marabu.cheatcode.rate == 0){ 
-          var index = parseInt(r/marabu.cheatcode.rate) % marabu.cheatcode.loop;
+          var index = parseInt(r/marabu.cheatcode.rate) % (marabu.cheatcode.loop+1);
           var mod = index * marabu.cheatcode.increment;
           cell.className = "b_red f_white";  
-          cell.textContent = marabu.cheatcode.rate+""+marabu.cheatcode.offset+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "+"+mod : marabu.cheatcode.increment)+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "" : 0);
+          cell.textContent = marabu.cheatcode.rate+""+marabu.cheatcode.offset+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "+"+to_hex_val(mod) : marabu.cheatcode.increment)+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "" : 0);
         }
 
         //Effect
