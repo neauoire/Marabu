@@ -215,11 +215,6 @@ var Song = function()
 
   this.play_song = function()
   {
-    if(mAudioTimer.currentTime() > 0){
-      this.stop_song();
-      return;
-    }
-
     this.update_bpm(marabu.selection.bpm);
     this.update_rpp(32);
 
