@@ -120,6 +120,14 @@ function Marabu()
     this.update();
   }
 
+  this.move_note_value = function(mod)
+  {
+    var note = marabu.song.note_at(this.selection.instrument,this.selection.track,this.selection.row);
+
+    this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row,note+mod-87);
+    this.update();
+  }
+
   this.play_note = function(note,right_hand)
   {
     var note_value = note + (this.selection.octave * 12);
@@ -194,31 +202,43 @@ function Marabu()
   {
     var key = e.key;
 
-    // Controls
+    if(key == "Escape"){ marabu.song.stop_song(); return; }
 
-    if(key == "ArrowRight"){ marabu.move_inst(1); return; }
-    if(key == "ArrowLeft") { marabu.move_inst(-1); return; }
+    // Sequencer
+
     if(key == "+")         { marabu.move_pattern(1); return; }
     if(key == "-")         { marabu.move_pattern(-1); return; }
     if(key == "_")         { marabu.move_pattern(-1); return; }
+    if(key == "ArrowDown" && (e.altKey || e.metaKey))         { marabu.move_track(1); e.preventDefault(); return; }
+    if(key == "ArrowUp" && (e.altKey || e.metaKey))         { marabu.move_track(-1); e.preventDefault();return; }
+
+    // Editor
+
+    if(key == "ArrowRight"){ marabu.move_inst(1); return; }
+    if(key == "ArrowLeft") { marabu.move_inst(-1); return; }
     if(key == "ArrowDown") { marabu.move_row(1); return; }
     if(key == "ArrowUp")   { marabu.move_row(-1); return; }
-    if(key == "x")         { marabu.move_octave(1); return; }
-    if(key == "z")         { marabu.move_octave(-1); return; }
-    if(key == "k")         { marabu.move_track(1); return; }
-    if(key == "o")         { marabu.move_track(-1); return; }
-    if(key == "l")         { marabu.move_control(1); return; }
-    if(key == "p")         { marabu.move_control(-1); return; }
-    if(key == "2")         { marabu.move_control(1); return; }
-    if(key == "1")         { marabu.move_control(-1); return; }
-    if(key == "]")         { marabu.move_control_value(10); return; }
-    if(key == "[")         { marabu.move_control_value(-10); return; }
-    if(key == "}")         { marabu.move_control_value(1); return; }
-    if(key == "{")         { marabu.move_control_value(-1); return; }
     if(key == "/")         { marabu.save_control_value(); return; }
     if(key == "Backspace") { marabu.set_note(0); return; }
 
-    // Shortcuts
+    // Instrument
+
+    if(key == ")") { marabu.move_note_value(12); return; }
+    if(key == "(") { marabu.move_note_value(-12); return; }
+    if(key == "0") { marabu.move_note_value(1); return; }
+    if(key == "9") { marabu.move_note_value(-1); return; }
+    if(key == "l") { marabu.move_control(1); return; }
+    if(key == "p") { marabu.move_control(-1); return; }
+    if(key == "2") { marabu.move_control(1); return; }
+    if(key == "1") { marabu.move_control(-1); return; }
+    if(key == "]") { marabu.move_control_value(10); return; }
+    if(key == "[") { marabu.move_control_value(-10); return; }
+    if(key == "}") { marabu.move_control_value(1); return; }
+    if(key == "{") { marabu.move_control_value(-1); return; }
+    if(key == "x") { marabu.move_octave(1); return; }
+    if(key == "z") { marabu.move_octave(-1); return; }
+
+    // Global
 
     if(e.ctrlKey || e.metaKey){
       if(key == " "){ marabu.play(); }

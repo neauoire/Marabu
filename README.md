@@ -13,10 +13,10 @@ Marabu is a simple open-source music tracker built from Soundbox.
 
 #### Sequencer
 
+- `alt ArrowDown` Next Sequence.
+- `alt ArrowUp` Previous Sequence.
 - `+"` Next Pattern.
 - `-"` Previous Pattern.
-- `ctrl +` Next Sequence.
-- `ctrl -` Previous Sequence.
 
 #### Editor
 
