@@ -16,20 +16,20 @@ function Sequencer_Follower()
 
   this.update = function()
   {
-    var t = app.song.mAudio_timer().currentTime();
+    var t = marabu.song.mAudio_timer().currentTime();
 
-    if (app.song.mAudio().ended || (app.song.mAudio().duration && ((app.song.mAudio().duration - t) < 0.1))) {
+    if (marabu.song.mAudio().ended || (marabu.song.mAudio().duration && ((marabu.song.mAudio().duration - t) < 0.1))) {
       clearInterval(this.timer);
       this.timer = -1;
       return;
     }
 
-    var n = Math.floor(t * 44100 / app.song.song().rowLen);
+    var n = Math.floor(t * 44100 / marabu.song.song().rowLen);
     var r = n % 32;
 
     if(n != this.prev){
-      app.selection.row = r;
-      app.update();
+      marabu.selection.row = r;
+      marabu.update();
       this.prev = n;
     }
   }
@@ -39,6 +39,6 @@ function Sequencer_Follower()
     console.log("follower","stop");
     clearInterval(this.timer);
     this.timer = -1;
-    lobby.apps.marabu.update();
+    marabu.update();
   }
 }

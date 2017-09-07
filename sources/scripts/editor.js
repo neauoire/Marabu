@@ -6,8 +6,6 @@ function Editor(t,b)
   this.selection = {x:0,y:0,e:-1};
   this.pattern = {id:0,beat:4,length:(t*b),signature:[t,b],effect:-1};
 
-  this.signature_el = document.getElementById("signature");
-
   this.start = function()
   {
     console.log("Started Editor");
@@ -37,6 +35,11 @@ function Editor(t,b)
       // End
       table.appendChild(tr);
     }
+  }
+
+  this.build = function()
+  {
+    return "<div id='editor' style='display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; float:left'><table class='tracks' id='pattern-table'></table></div>";
   }
 
   this.pattern_mouse_down = function(e)

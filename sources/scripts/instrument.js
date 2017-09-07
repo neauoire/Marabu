@@ -163,7 +163,7 @@ function Instrument()
   this.build = function()
   {
     var html = "";
-    html += "  <div class='instrument' style='width:120px; display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; line-height:15px; float:left'>";
+    html += "  <div id='instrument'>";
     html += "    <div class='env' style='width:180px; margin-bottom:15px'>";
     html += "      <div id='env_att'></div>";
     html += "      <div id='env_sust'></div>";

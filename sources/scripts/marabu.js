@@ -1,11 +1,15 @@
 function Marabu()
 {
   this.el = document.createElement("app");
+  this.el.className = "noir";
+  this.el.id = "marabu";
+
   this.wrapper_el = document.createElement("yu"); 
   this.wrapper_el.className = "wrapper";
 
-  document.body.appendChild(this.el);
   this.el.appendChild(this.wrapper_el);
+
+  document.body.appendChild(this.el);
 
   this.song = null;
   this.sequencer = null;
@@ -13,7 +17,6 @@ function Marabu()
   this.instrument = null;
 
   this.selection = {instrument:0,track:0,row:0,octave:5,control:0,bpm:120};
-  this.location = null;
   this.formats = ["mar"];
   this.channels = 16;
 
@@ -24,14 +27,8 @@ function Marabu()
 
   this.start = function()
   {
-    this.el.style.width = "870px";
-    this.el.style.height = "480px";
-    this.el.className = "noir";
-
-    this.wrapper_el.innerHTML = this.draw();
-
-    this.wrapper_el.innerHTML += "<div id='sequencer' style='display:block; vertical-align:top; float:left'><table class='tracks' id='sequencer-table'></table></div>";
-    this.wrapper_el.innerHTML += "<div id='pattern' style='display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; float:left'><table class='tracks' id='pattern-table'></table></div>";
+    this.wrapper_el.innerHTML += this.sequencer.build();
+    this.wrapper_el.innerHTML += this.editor.build();
     this.wrapper_el.innerHTML += this.instrument.build();
 
     this.song.init();
@@ -58,55 +55,6 @@ function Marabu()
     this.sequencer.update();
     this.editor.update();
     this.instrument.update();
-  }
-
-  this.draw = function()
-  {
-    var html = "";
-
-    html += "<style>";
-    html += ".tracks tr td { padding: 0 2.5px; color:#555}";
-    html += "#sequencer tr td { padding:0px;}";
-    html += "#sequencer tr td:first-child { padding-left:2.5px;}";
-    html += "#sequencer tr td:last-child { padding-right:2.5px;}";
-    html += ".tracks tr:hover { color:#999}";
-    html += ".tracks tr td { position:relative}";
-    html += ".tracks td:hover { cursor:pointer}";
-    html += ".tracks tr td:hover { cursor:pointer; color:#fff}";
-    html += ".tracks td.selected { color:#fff}";
-    html += ".tracks tr th { color:#555; font-family: 'input_mono_medium'; padding: 0 2.5px;}";
-    html += ".tracks tr th:hover { cursor:pointer; color:#999}";
-    html += "</style>";
-
-    return "<yu style='vertical-align:top' class='everything'>"+html+"</yu>";
-  }
-
-  this.location_name = function()
-  {
-    return this.location ? this.location.split("/")[this.location.split("/").length-1].split(".")[0] : "SONG";
-  }
-
-  this.status = function()
-  {
-    var html = "";
-    
-    var sequences_count = this.song.song().endPattern-1;
-    var spm = this.selection.bpm/32; // Sequences per minute
-    var seconds = (sequences_count/spm) * 60;
-    var time = (seconds/4) >  this.selection.bpm ? parseInt(seconds/4/60)+"min" : (seconds/4)+"sec";
-    var file_name = this.location_name();
-    var instrument_name = this.song.instrument(this.selection.instrument).name ? this.song.instrument(this.selection.instrument).name : "IN"+this.selection.instrument;
-
-    html += "/ <b>"+file_name.toLowerCase()+"</b>."+instrument_name.toLowerCase()+" > ";
-
-    html += this.selection.octave+"oct ";
-    html += sequences_count+"tracks ";
-    html += time+" ";
-    html += this.selection.bpm+"bpm ";
-
-    html += "<span class='right'>I"+this.selection.instrument+"T"+this.selection.track+"R"+this.selection.row+"O"+this.selection.octave+"C"+this.selection.control+" "+this.window.size.width+"x"+this.window.size.height+"</span>";
-    
-    return html;
   }
 
   // Controls
@@ -180,93 +128,15 @@ function Marabu()
     this.update();
   }
 
-
-
-
   // Methods
 
-
-  this.new_song = function()
-  {
-    var MAX_SONG_ROWS = 32,
-        MAX_PATTERNS = 16;
-
-      var song = {}, i, j, k, instr, col;
-
-      // Row length
-      song.rowLen = calcSamplesPerRow(120);
-
-      // Last pattern to play
-      song.endPattern = 2;
-
-      // Rows per pattern
-      song.patternLen = 32;
-
-      // Select the default instrument from the presets
-      var defaultInstr = { name: "FORM sin", i: [3,255,128,0,2,23,152,0,0,0,0,72,129,0,0,3,121,57,0,2,180,50,0,31,47,3,55,8] };
-
-      // All 8 instruments
-      song.songData = [];
-      for (i = 0; i < marabu.channels; i++) {
-        instr = {};
-        instr.i = [];
-
-        // Copy the default instrument
-        for (j = 0; j <= defaultInstr.i.length; ++j) {
-          instr.i[j] = defaultInstr.i[j];
-        }
-
-        // Sequence
-        instr.p = [];
-        for (j = 0; j < MAX_SONG_ROWS; j++)
-          instr.p[j] = 0;
-
-        // Patterns
-        instr.c = [];
-        for (j = 0; j < MAX_PATTERNS; j++)
-        {
-          col = {};
-          col.n = [];
-          for (k = 0; k < song.patternLen * 4; k++)
-            col.n[k] = 0;
-          col.f = [];
-          for (k = 0; k < song.patternLen * 2; k++)
-            col.f[k] = 0;
-          instr.c[j] = col;
-        }
-        song.songData[i] = instr;
-      }
-
-      // Default instruments
-      song.songData[0].name = "SYN1";
-      song.songData[1].name = "SYN2";
-      song.songData[2].name = "PAD1";
-      song.songData[3].name = "PAD2";
-
-      song.songData[4].name = "Kick";
-      song.songData[4].i = [2,0,92,0,0,255,92,23,1,0,14,0,74,0,0,0,89,0,1,1,16,0,21,255,49,6,0,0];
-      song.songData[5].name = "Snare";
-      song.songData[5].i = [0,221,92,1,0,210,92,0,1,192,4,0,46,0,0,1,97,141,1,3,93,0,4,57,20,0,0,6];
-      song.songData[6].name = "Hihat"
-      song.songData[6].i = [0,0,140,0,0,0,140,0,0,60,4,10,34,0,0,0,187,5,0,1,239,135,0,170,87,5,0,4];
-      song.songData[7].name = "Toms"
-      song.songData[7].i = [0,192,104,1,0,80,99,0,0,0,4,0,66,0,0,3,0,0,0,1,0,1,2,32,37,4,0,0];
-      
-      // Make a first empty pattern
-      song.songData[0].p[0] = 1;
-
-
-      return song;
-  };
-
-
-  this.play = function(val, is_passive = false)
+  this.play = function()
   {
     console.log("Play!")
     this.song.play_song();
   }
 
-  this.stop = function(val, is_passive = false)
+  this.stop = function()
   {
     console.log("Stop!")
     this.song.stop_song();
@@ -386,34 +256,41 @@ function Marabu()
   {
     var key = e.key;
 
-    // Skip if in input
-    if(document.activeElement.type == "text"){ return; }
-    // Movement
-    if(key == "ArrowRight"){ marabu.move_inst(1); return; }
-    if(key == "ArrowLeft"){ marabu.move_inst(-1); return; }
-    
-    if(key == "+")        { marabu.move_pattern(1); return; }
-    if(key == "-")        { marabu.move_pattern(-1); return; }
-    if(key == "_")        { marabu.move_pattern(-1); return; }
-    if(key == "ArrowDown"){ marabu.move_row(1); return; }
-    if(key == "ArrowUp")  { marabu.move_row(-1); return; }
-    if(key == "x")        { marabu.move_octave(1); return; }
-    if(key == "z")        { marabu.move_octave(-1); return; }
-    if(key == "k")        { marabu.move_track(1); return; }
-    if(key == "o")        { marabu.move_track(-1); return; }
-    if(key == "l")        { marabu.move_control(1); return; }
-    if(key == "p")        { marabu.move_control(-1); return; }
-    if(key == "2")        { marabu.move_control(1); return; }
-    if(key == "1")        { marabu.move_control(-1); return; }
-    if(key == "]")        { marabu.move_control_value(10); return; }
-    if(key == "[")        { marabu.move_control_value(-10); return; }
-    if(key == "}")        { marabu.move_control_value(1); return; }
-    if(key == "{")        { marabu.move_control_value(-1); return; }
+    // Controls
 
-    if(key == "/")        { marabu.save_control_value(); return; }
-    if(key == "Backspace"){ marabu.set_note(0); return; }
+    if(key == "ArrowRight"){ marabu.move_inst(1); return; }
+    if(key == "ArrowLeft") { marabu.move_inst(-1); return; }
+    if(key == "+")         { marabu.move_pattern(1); return; }
+    if(key == "-")         { marabu.move_pattern(-1); return; }
+    if(key == "_")         { marabu.move_pattern(-1); return; }
+    if(key == "ArrowDown") { marabu.move_row(1); return; }
+    if(key == "ArrowUp")   { marabu.move_row(-1); return; }
+    if(key == "x")         { marabu.move_octave(1); return; }
+    if(key == "z")         { marabu.move_octave(-1); return; }
+    if(key == "k")         { marabu.move_track(1); return; }
+    if(key == "o")         { marabu.move_track(-1); return; }
+    if(key == "l")         { marabu.move_control(1); return; }
+    if(key == "p")         { marabu.move_control(-1); return; }
+    if(key == "2")         { marabu.move_control(1); return; }
+    if(key == "1")         { marabu.move_control(-1); return; }
+    if(key == "]")         { marabu.move_control_value(10); return; }
+    if(key == "[")         { marabu.move_control_value(-10); return; }
+    if(key == "}")         { marabu.move_control_value(1); return; }
+    if(key == "{")         { marabu.move_control_value(-1); return; }
+    if(key == "/")         { marabu.save_control_value(); return; }
+    if(key == "Backspace") { marabu.set_note(0); return; }
+
+    // Shortcuts
+
+    if(e.ctrlKey || e.metaKey){
+      if(key == " "){ marabu.play(); }
+      if(key == "r"){ marabu.render(); }
+      if(key == "s"){ marabu.save(); }
+      return;
+    }
 
     // Keyboard
+
     var note = null;
     var is_cap = key == key.toLowerCase();
     switch (key.toLowerCase())
@@ -432,15 +309,8 @@ function Marabu()
       case "y": marabu.play_note(8,is_cap); break;
       case "u": marabu.play_note(10,is_cap); break;
     }
-  }
 
-  this.wheel = function(e)
-  {
-    marabu.move_control_value(e.wheelDeltaY * 0.25)
-    e.preventDefault();
   }
-
-  this.el.addEventListener('wheel', this.wheel, false);
   window.addEventListener("keydown", this.when_key, false);
 }
 

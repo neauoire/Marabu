@@ -26,6 +26,11 @@ function Sequencer()
     }
   }
 
+  this.build = function()
+  {
+    return "<div id='sequencer' style='display:block; vertical-align:top; float:left'><table class='tracks' id='sequencer-table'></table></div>";
+  }
+
   this.select = function(x = 0,y = 0)
   {
     marabu.selection.instrument = x;

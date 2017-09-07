@@ -45,7 +45,8 @@ var CAudioTimer = function ()
     return currentTime + comp;
   };
 
-  this.reset = function () {
+  this.reset = function ()
+  {
     mStartT = (new Date()).getTime() * 0.001;
     for (var i = 0; i < mErrHist.length; i++)
       mErrHist[i] = 0;
@@ -284,7 +285,6 @@ var Song = function()
     generateAudio(doneFun);
   }
 
-
   //--------------------------------------------------------------------------
   // Initialization
   //--------------------------------------------------------------------------
@@ -298,7 +298,7 @@ var Song = function()
     mAudioTimer.setAudioElement(mAudio);
     mAudio.addEventListener("canplay", function () { this.play(); }, true);
 
-    mSong = marabu.new_song();
+    mSong = new Track();
 
     mJammer.start();
     mJammer.updateRowLen(mSong.rowLen);
