@@ -172,7 +172,7 @@ function Marabu()
   {
     var key = e.key;
 
-    if(marabu.cheatcode.is_active){ marabu.cheatcode.input(key); return; }
+    if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(key); return; }
     if(key == "Escape"){ marabu.song.stop_song(); return; }
 
     // Sequencer

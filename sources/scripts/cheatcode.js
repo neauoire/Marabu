@@ -21,6 +21,7 @@ function Cheatcode()
     this.offset = 0;
     this.increment = 0;
     this.loop = 0;
+    this.val = "";
     marabu.update();
   }
 
@@ -51,6 +52,5 @@ function Cheatcode()
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,note);
     }
     this.stop();
-    marabu.update();
   }
 }
