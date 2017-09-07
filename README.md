@@ -24,7 +24,7 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `ArrowLeft` Previous Instrument.
 - `ArrowDown` Next Row.
 - `ArrowUp` Previous Row.
-- `/"` Add a Control Keyframe.
+- `/` Add a Control Keyframe.
 - `Backspace` Erase Note in Row.
 - `)` Increment Note Value +12.
 - `(` Decrement Note Value -12.
@@ -34,9 +34,9 @@ Marabu is a simple open-source music tracker built from Soundbox.
 #### Instrument
 
 - `]` Increment Control Value +10.
-- `["` Decrement Control Value -10.
+- `[` Decrement Control Value -10.
 - `}` Increment Control Value +1.
-- `{"` Decrement Control Value -1.
+- `{` Decrement Control Value -1.
 - `x` Next Octave.
 - `z` Previous Octave.
 - `2` Next Control.
