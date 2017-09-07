@@ -54,7 +54,8 @@ function Editor(t,b)
   this.effect_mouse_down = function(e)
   {
     var row = parseInt(e.target.id.slice(3,5));
-    console.log("?????")
+    marabu.selection.row = row;
+    marabu.update();
   }
 
   this.update = function()

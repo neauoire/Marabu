@@ -33,10 +33,12 @@ function Sequencer()
 
   this.sequence_mouse_down = function(e)
   {
-    var col = parseInt(e.target.id.slice(2,3));
-    var row = parseInt(e.target.id.slice(4));
+    var i = parseInt(e.target.id.slice(2,3));
+    var r = parseInt(e.target.id.slice(4));
 
-    target.select(col,row);
+    marabu.selection.instrument = i;
+    marabu.selection.track = r;
+    marabu.update();
   }
 
   this.update = function()
