@@ -16,7 +16,7 @@ function Marabu()
   this.editor = null;
   this.instrument = null;
 
-  this.selection = {instrument:0,track:0,row:0,octave:5,control:0,bpm:120};
+  this.selection = {instrument:0,track:0,row:0,octave:5,control:0};
   this.formats = ["mar"];
   this.channels = 16;
 
@@ -170,13 +170,6 @@ function Marabu()
   this.render = function(val, is_passive = false)
   {
     this.song.export_wav();
-  }
-
-  this.set_bpm = function(val, is_passive = false)
-  {
-    var val = clamp(parseInt(val),80,600);
-    this.selection.bpm = val;
-    this.song.update_bpm(this.selection.bpm);
   }
 
   this.operate = function(val, is_passive = false)

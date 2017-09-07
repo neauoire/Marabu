@@ -21,11 +21,6 @@ var Song = function()
   // Song import/export functions
   //--------------------------------------------------------------------------
 
-  var calcSamplesPerRow = function(bpm)
-  {
-    return Math.round((60 * 44100 / 4) / bpm);
-  };
-
   this.get_bpm = function()
   {
     return Math.round((60 * 44100 / 4) / mSong.rowLen);
@@ -33,6 +28,7 @@ var Song = function()
 
   this.update_bpm = function(bpm)
   {
+    console.log(bpm)
     mSong.rowLen = calcSamplesPerRow(bpm);
     mJammer.updateRowLen(mSong.rowLen);
   }
@@ -55,7 +51,14 @@ var Song = function()
 
   this.replace_song = function(new_song)
   {
+    stopAudio();
+
     mSong = new_song;
+
+    this.update_bpm(mSong.bpm ? mSong.bpm : 120);
+    this.update_rpp(32);
+
+    updateSongRanges();
   }
 
   this.mJammer_update = function()
@@ -215,7 +218,7 @@ var Song = function()
 
   this.play_song = function()
   {
-    this.update_bpm(marabu.selection.bpm);
+    this.update_bpm(this.song().bpm);
     this.update_rpp(32);
 
     stopAudio();

@@ -1,11 +1,12 @@
 function Track()
 {
   var MAX_SONG_ROWS = 32,
-      MAX_PATTERNS = 16;
+      MAX_PATTERNS = 32;
 
     var song = {}, i, j, k, instr, col;
 
-    song.rowLen = calcSamplesPerRow(120);
+    song.bpm = 120;
+    song.rowLen = calcSamplesPerRow(song.bpm);
     song.endPattern = 2;
     song.patternLen = 32;
 

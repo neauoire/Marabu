@@ -57,6 +57,10 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `y` Play/Record G#.
 - `u` Play/Record A#.
 
+### Development
+
+There are currently no means to change the `bpm`, to do so, update the `bpm` value from the exported `.mar` file to an int between 50 and 450.
+
 ## License
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (CC).
