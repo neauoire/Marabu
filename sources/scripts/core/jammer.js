@@ -189,7 +189,7 @@ var CJammer = function () {
         band = mFXState.band,
         filterActive = mFXState.filterActive,
         dlyPos = mFXState.dlyPos;
-        
+
     var lsample, high, dlyRead, dlyMask = MAX_DELAY - 1;
 
     // Put performance critical instrument properties in local variables
@@ -336,23 +336,13 @@ var CJammer = function () {
     // Create a script processor node with no inputs and one stereo output.
     mScriptNode = mAudioContext.createScriptProcessor(2048, 0, 2);
 
-    mScriptNode.bits = 4; // between 1 and 16
-    mScriptNode.normfreq = 0.1; // between 0.0 and 1.0
-    var step = Math.pow(1/2, mScriptNode.bits);
-    
-    var last = 0;
-
     mScriptNode.onaudioprocess = function (event) {
       var leftBuf = event.outputBuffer.getChannelData(0);
       var rightBuf = event.outputBuffer.getChannelData(1);
       generateTimeSlice(leftBuf, rightBuf);
     };
 
-    // Connect the script node to the output.
-
-    // mScriptNode.connect(effect);
-    mScriptNode.connect(mAudioContext.destination);
-    // effect.connect(mAudioContext.destination);
+    mScriptNode.connect(mAudioContext.destination);    
   };
 
   this.stop = function () {
