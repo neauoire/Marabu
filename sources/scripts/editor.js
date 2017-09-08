@@ -85,7 +85,7 @@ function Editor(t,b)
         }
 
         row_el.className = r == marabu.selection.row ? "bl" : "";
-        cell.textContent = r == 0 && left_note == 0 && right_note == 0 ? marabu.song.instrument(i).name : left_string+right_string;
+        cell.textContent = r == 1 && left_note == 0 && right_note == 0 ? marabu.song.instrument(i).name : left_string+right_string;
 
         if(effect_cmd){ cell.className = "b_inv f_inv "; }
         else if(i == marabu.selection.instrument && r == marabu.selection.row){ cell.className = "fh"; }
