@@ -36,12 +36,9 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
 
   this.mod = function(v)
   {
-    var v = clamp(v,-1,1);
-    this.index += v;
+    this.index += 1;
     this.index = this.index % this.choices.length;
     this.update();
-
-    console.log(this.index)
   }
 
   this.override = function(v)
