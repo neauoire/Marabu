@@ -189,6 +189,7 @@ var CJammer = function () {
     }
 
     // And the effects...
+
     var pos = mFXState.pos,
         low = mFXState.low,
         band = mFXState.band,
@@ -249,6 +250,17 @@ var CJammer = function () {
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;
 
+        // Bit.
+        mFXState.bit_phaser += 0.1; // Between 0.1 and 1
+        var step = Math.pow(1/2, 16); // between 1 and 16
+
+        if (mFXState.bit_phaser >= 1.0) {
+          mFXState.bit_phaser -= 1.0;
+          mFXState.bit_last = step * Math.floor(rsample / step + 0.5);
+        }
+
+        rsample = mFXState.bit_last;
+
         // Panning.
         t = Math.sin(panFreq * k) * panAmt + 0.5;
         lsample = rsample * (1 - t);
@@ -303,7 +315,7 @@ var CJammer = function () {
       mAudioContext = undefined;
       return;
     }
-
+    
     // Get actual sample rate (SoundBox is hard-coded to 44100 samples/s).
     mSampleRate = mAudioContext.sampleRate;
     mRateScale = mSampleRate / 44100;
@@ -314,7 +326,9 @@ var CJammer = function () {
       low: 0,
       band: 0,
       filterActive: false,
-      dlyPos: 0
+      dlyPos: 0,
+      bit_last: 0,
+      bit_phaser: 0
     };
 
     // Create delay buffers (lengths must be equal and a power of 2).
@@ -323,6 +337,13 @@ var CJammer = function () {
 
     // Create a script processor node with no inputs and one stereo output.
     mScriptNode = mAudioContext.createScriptProcessor(2048, 0, 2);
+
+    mScriptNode.bits = 4; // between 1 and 16
+    mScriptNode.normfreq = 0.1; // between 0.0 and 1.0
+    var step = Math.pow(1/2, mScriptNode.bits);
+    
+    var last = 0;
+
     mScriptNode.onaudioprocess = function (event) {
       var leftBuf = event.outputBuffer.getChannelData(0);
       var rightBuf = event.outputBuffer.getChannelData(1);
@@ -330,7 +351,10 @@ var CJammer = function () {
     };
 
     // Connect the script node to the output.
+
+    // mScriptNode.connect(effect);
     mScriptNode.connect(mAudioContext.destination);
+    // effect.connect(mAudioContext.destination);
   };
 
   this.stop = function () {
