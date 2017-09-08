@@ -26,6 +26,7 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
     this.name_el.style.display = "inline-block";
 
     this.value_el.textContent = this.min+"/"+this.max;
+    this.value_el.className = "fh";
 
     this.el.appendChild(this.name_el);
     this.el.appendChild(this.value_el);

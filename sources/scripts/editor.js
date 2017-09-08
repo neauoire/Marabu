@@ -87,17 +87,17 @@ function Editor(t,b)
         row_el.className = r == marabu.selection.row ? "bl" : "";
         cell.textContent = left_string+right_string;
 
-        if(effect_cmd){ cell.className = "bi fi "; }
+        if(effect_cmd){ cell.className = "b_inv f_inv "; }
         else if(i == marabu.selection.instrument && r == marabu.selection.row){ cell.className = "fh"; }
         else if(left_note || right_note){ cell.className = "fm"; }
         else if(pattern > 0 && r % 4 == 0){ cell.className = "fm";}
-        else{ cell.className = ""; }
+        else{ cell.className = "fl"; }
 
         // Cheatcode Preview
         if(marabu.cheatcode.is_active && i == marabu.selection.instrument && (r + marabu.cheatcode.offset) % marabu.cheatcode.rate == 0){ 
           var index = parseInt(r/marabu.cheatcode.rate) % (marabu.cheatcode.loop+1);
           var mod = index * marabu.cheatcode.increment;
-          cell.className = "b_red f_white";  
+          cell.className = "b_special f_special";  
           cell.textContent = marabu.cheatcode.rate+""+marabu.cheatcode.offset+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "+"+to_hex_val(mod) : marabu.cheatcode.increment)+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "" : 0);
         }
 

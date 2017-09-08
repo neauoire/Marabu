@@ -5,7 +5,13 @@ function Track()
 
     var song = {}, i, j, k, instr, col;
 
+    // Settings
+    song.artist = "Unknown";
+    song.name = "Untitled";
+    song.theme = {background:"#000",f_high:"#fff",f_med:"#999",f_low:"#555",f_inv:"#000",f_special:"#fff",b_high:"#000",b_med:"#555",b_low:"#222",b_inv:"#fff",b_special:"#f00"};
     song.bpm = 120;
+
+    // Automated
     song.rowLen = calcSamplesPerRow(song.bpm);
     song.endPattern = 2;
     song.patternLen = 32;

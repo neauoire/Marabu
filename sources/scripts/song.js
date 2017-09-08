@@ -49,6 +49,11 @@ var Song = function()
     return mSong;
   }
 
+  this.to_string = function()
+  {
+    return JSON.stringify(this.song());
+  }
+
   this.replace_song = function(new_song)
   {
     stopAudio();

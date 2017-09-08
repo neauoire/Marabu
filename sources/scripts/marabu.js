@@ -1,5 +1,8 @@
 function Marabu()
 {
+  this.theme_el = document.createElement("style");
+  document.body.appendChild(this.theme_el);
+
   this.el = document.createElement("app");
   this.el.className = "noir";
   this.el.id = "marabu";
@@ -28,6 +31,7 @@ function Marabu()
     this.wrapper_el.innerHTML += this.instrument.build();
 
     this.song.init();
+    this.load_theme(this.song.song().theme);
 
     this.sequencer.start();
     this.editor.start();
@@ -148,16 +152,36 @@ function Marabu()
 
   this.load_file = function(track)
   {
+    if(track.theme){ this.load_theme(track.theme); }
+
     marabu.song.replace_song(track);
     marabu.update();
+  }
+
+  this.load_theme = function(theme)
+  {
+    var html = "";
+
+    html += "body { background:"+theme.background+" !important }\n";
+    html += ".fh { color:"+theme.f_high+" !important; stroke:"+theme.f_high+" !important }\n";
+    html += ".fm { color:"+theme.f_med+" !important ; stroke:"+theme.f_med+" !important }\n";
+    html += ".fl { color:"+theme.f_low+" !important ; stroke:"+theme.f_low+" !important }\n";
+    html += ".f_inv { color:"+theme.f_inv+" !important ; stroke:"+theme.f_inv+" !important }\n";
+    html += ".f_special { color:"+theme.f_special+" !important ; stroke:"+theme.f_special+" !important }\n";
+    html += ".bh { background:"+theme.b_high+" !important; fill:"+theme.b_high+" !important }\n";
+    html += ".bm { background:"+theme.b_med+" !important ; fill:"+theme.b_med+" !important }\n";
+    html += ".bl { background:"+theme.b_low+" !important ; fill:"+theme.b_low+" !important }\n";
+    html += ".b_inv { background:"+theme.b_inv+" !important ; fill:"+theme.b_inv+" !important }\n";
+    html += ".b_special { background:"+theme.b_special+" !important ; fill:"+theme.b_special+" !important }\n";
+    this.theme_el.innerHTML = html;
   }
 
   this.save_file = function(val, is_passive = false)
   {  
     this.song.update_ranges();
-    var str = JSON.stringify(this.song.song());
+    var str = this.song.to_string();
 
-    var blob = new Blob([str], {type: "application/json;charset=" + document.characterSet});
+    var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
     var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
     var timestamp = parseInt((since_midnight/864) * 10);
     saveAs(blob, "export.mar");

@@ -34,8 +34,9 @@ function UI_Toggle(id,name = "UNK",control = null)
 
   this.update = function()
   {
-    this.el.style.color = this.value == 1 ? "#fff" : "#555";
-    this.el.className = app.selection.control == this.control ? "bl" : "";
+    this.el.className = "";
+    this.el.className += this.value == 1 ? "fh" : "fl";
+    this.el.className += app.selection.control == this.control ? " bl" : "";
   }
 
   this.override = function(value)

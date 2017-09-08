@@ -147,23 +147,14 @@ b         { font-weight: normal; font-family: 'input_mono_medium'}
 
 /* HIGHLIGHTS/LOWLIGHTS */
 
-app { display: block; width:30px; height:30px; background:RGBA(0,0,0,1); padding:30px; color:black; overflow: hidden; z-index:20;}
+app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20;}
 app { transition: background-color 150ms;}
 app .wrapper { overflow: hidden; height:100%; overflow: hidden;height: 100%}
 app.selected { z-index:8001; }
 app.dragged { background-color:RGBA(255,255,255,0.3) !important; z-index:8002;}
 
-app.blanc ::selection       { background: #eee; opacity:1.0; color:#000; }
-app.blanc     { background:white; color:black;  }
-app.blanc .fh { color:black; stroke:black; }
-app.blanc .fm { color:#999; stroke:#999; }
-app.blanc .bh { background:white;}
-app.blanc .fl { color:#ccc; stroke:#ccc; }
-app.blanc .bl { background:#eee;}
-app.blanc .cu:hover { background:#000; color:#fff; cursor:pointer;}
-
 app.noir ::selection       { background: #888; opacity:1.0; color:#999; }
-app.noir     { background: black; color:white; }
+app.noir     { color:white; }
 app.noir .fh { color:white; stroke:white; }
 app.noir .fm { color:#999; stroke:#999; }
 app.noir .fl { color:#555; stroke:#555; }
@@ -172,18 +163,6 @@ app.noir .bh { background:black;}
 app.noir .bl { background:#222;}
 app.noir .bi { background:#fff;}
 app.noir .cu:hover { background:#fff; color:#000; cursor:pointer;}
-
-app.ghost ::selection       { background: #888; opacity:1.0; color:#999; }
-app.ghost     { background:none; color:white; z-index:10; }
-app.ghost .fh { color:white; stroke:white; }
-app.ghost .bh { background:black;}
-app.ghost .fl { color:#ccc; stroke:#ccc; }
-app.ghost .bl { background:#A1A1A1;}
-app.ghost .cu:hover { background:#fff; color:#000; cursor:pointer;}
-
-app.hidden { display: none }
-
-app .color { color:red !important; }
 
 /* Marabu */
 
