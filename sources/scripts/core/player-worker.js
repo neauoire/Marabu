@@ -58,7 +58,6 @@ var CPlayerWorker = function() {
         osc2 = mOscillators[instr.i[4]],
         o2vol = instr.i[5],
         o2xenv = instr.i[8],
-        noiseVol = instr.i[9],
         attack = instr.i[10] * instr.i[10] * 4,
         sustain = instr.i[11] * instr.i[11] * 4,
         release = instr.i[12] * instr.i[12] * 4,
@@ -109,11 +108,6 @@ var CPlayerWorker = function() {
       }
       c2 += t;
       rsample += osc2(c2) * o2vol;
-
-      // Noise oscillator
-      if (noiseVol) {
-        rsample += (2 * Math.random() - 1) * noiseVol;
-      }
 
       // Add to (mono) channel buffer
       noteBuf[j] = (80 * rsample * e) | 0;
@@ -183,6 +177,11 @@ var CPlayerWorker = function() {
       var low = 0, band = 0, high;
       var lsample, filterActive = false;
 
+      var mFXState = {
+        bit_last: 0,
+        bit_phaser: 0
+      };
+
       // Clear note cache.
       var noteCache = [];
 
@@ -216,7 +215,9 @@ var CPlayerWorker = function() {
                 panAmt = instr.i[24] / 512,
                 panFreq = 6.283184 * Math.pow(2, instr.i[25] - 9) / rowLen,
                 dlyAmt = instr.i[26] / 255,
-                dly = instr.i[27] * rowLen;
+                dly = instr.i[27] * rowLen,
+                bit_phaser_val = 0.5 - (0.49 * (instr.i[9]/255.0)),
+                bit_step_val = 16 - (14 * (instr.i[9]/255.0));
 
             // Calculate start sample number for this row in the pattern
             rowStartSample = ((p - this.firstRow) * patternLen + row) * rowLen;
@@ -245,6 +246,18 @@ var CPlayerWorker = function() {
 
               // We only do effects if we have some sound input
               if (rsample || filterActive) {
+
+                // Bit.
+                mFXState.bit_phaser += bit_phaser_val; // Between 0.1 and 1
+                var step = Math.pow(1/2, bit_step_val); // between 1 and 16
+
+                if (mFXState.bit_phaser >= 1.0) {
+                  mFXState.bit_phaser -= 1.0;
+                  mFXState.bit_last = step * Math.floor(rsample / step + 0.5);
+                }
+
+                rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
+
                 // State variable filter
                 f = fxFreq;
                 if (fxLFO) {

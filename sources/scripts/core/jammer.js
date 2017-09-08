@@ -110,7 +110,6 @@ var CJammer = function () {
             osc2 = mOscillators[note.instr[4]],
             o2vol = note.instr[5],
             o2xenv = note.instr[8],
-            noiseVol = note.instr[9],
             attack = Math.round(note.instr[10] * note.instr[10] * 4 * mRateScale),
             sustain = Math.round(note.instr[11] * note.instr[11] * 4 * mRateScale),
             release = Math.round(note.instr[12] * note.instr[12] * 4 * mRateScale),
@@ -170,11 +169,6 @@ var CJammer = function () {
           o2t += t;
           rsample += osc2(o2t) * o2vol;
 
-          // Noise oscillator
-          if (noiseVol) {
-            rsample += (2 * Math.random() - 1) * noiseVol;
-          }
-
           // Add to (mono) channel buffer
           rightBuf[k] += 0.002441481 * rsample * e;
         }
@@ -195,6 +189,7 @@ var CJammer = function () {
         band = mFXState.band,
         filterActive = mFXState.filterActive,
         dlyPos = mFXState.dlyPos;
+        
     var lsample, high, dlyRead, dlyMask = MAX_DELAY - 1;
 
     // Put performance critical instrument properties in local variables
@@ -210,7 +205,9 @@ var CJammer = function () {
         panAmt = mInstr[24] / 512,
         panFreq = 6.283184 * Math.pow(2, mInstr[25] - 9) / mRowLen,
         dlyAmt = mInstr[26] / 255,
-        dly = (mInstr[27] * mRowLen) >> 1;
+        dly = (mInstr[27] * mRowLen) >> 1,
+        bit_phaser_val = 0.5 - (0.49 * (mInstr[9]/255.0)),
+        bit_step_val = 16 - (14 * (mInstr[9]/255.0));
 
     // Limit the delay to the delay buffer size.
     if (dly >= MAX_DELAY) {
@@ -226,6 +223,18 @@ var CJammer = function () {
 
       // We only do effects if we have some sound input.
       if (rsample || filterActive) {
+
+        // Bit.
+        mFXState.bit_phaser += bit_phaser_val; // Between 0.1 and 1
+        var step = Math.pow(1/2, bit_step_val); // between 1 and 16
+
+        if (mFXState.bit_phaser >= 1.0) {
+          mFXState.bit_phaser -= 1.0;
+          mFXState.bit_last = step * Math.floor(rsample / step + 0.5);
+        }
+
+        rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
+
         // State variable filter.
         f = fxFreq;
         if (fxLFO) {
@@ -249,17 +258,6 @@ var CJammer = function () {
 
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;
-
-        // Bit.
-        mFXState.bit_phaser += 0.1; // Between 0.1 and 1
-        var step = Math.pow(1/2, 16); // between 1 and 16
-
-        if (mFXState.bit_phaser >= 1.0) {
-          mFXState.bit_phaser -= 1.0;
-          mFXState.bit_last = step * Math.floor(rsample / step + 0.5);
-        }
-
-        rsample = mFXState.bit_last;
 
         // Panning.
         t = Math.sin(panFreq * k) * panAmt + 0.5;
@@ -315,7 +313,7 @@ var CJammer = function () {
       mAudioContext = undefined;
       return;
     }
-    
+
     // Get actual sample rate (SoundBox is hard-coded to 44100 samples/s).
     mSampleRate = mAudioContext.sampleRate;
     mRateScale = mSampleRate / 44100;

@@ -17,7 +17,6 @@ function Instrument()
 
       {id: "osc1_vol", name: "VOL", min: 0, max: 255, percent: true, control:5 },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
-      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:7 },
 
       {id: "osc2_vol", name: "VOL", min: 0, max: 255, percent: true, control:10 },
       {id: "osc2_semi", name: "FRQ", min: 92, max: 164, control:11 },
@@ -33,12 +32,13 @@ function Instrument()
       {id: "fx_dly_time", name: "SPD", min: 0, max: 16, control:21 },
       {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:22 },
       {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16, control:23 },
-      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:24 },
-      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:25 },
+      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:26 },
+      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
 
-      {id: "arp_note1", name: "ARP", min: 0, max: 12, control:26 },
-      {id: "arp_note2", name: "SEC", min: 0, max: 12, control:27 },
-      {id: "arp_speed", name: "SPD", min: 0, max: 7, control:28 },
+      {id: "arp_note1", name: "ARP", min: 0, max: 12, control:27 },
+      {id: "arp_note2", name: "SEC", min: 0, max: 12, control:28 },
+      {id: "arp_speed", name: "SPD", min: 0, max: 7, control:29 }
     ]);
 
     this.setup_choices([
@@ -89,13 +89,13 @@ function Instrument()
     if      (id == "osc1_vol")    { return 1; }
     else if (id == "osc1_semi")   { return 2; }
     else if (id == "osc1_xenv")   { return 3; }
-    else if (id == "noise_vol")   { return 9; }
     else if (id == "osc1_wave_select") { return 0; }
 
     else if (id == "osc2_vol")    { return 5; }
     else if (id == "osc2_semi")   { return 6; }
     else if (id == "osc2_det")    { return 7; }
     else if (id == "osc2_xenv")   { return 8; }
+    else if (id == "fx_bit")      { return 9; }
     else if (id == "osc2_wave_select") { return 4; }
 
     else if (id == "env_att")     { return 10; }
@@ -172,7 +172,6 @@ function Instrument()
     html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc1_wave_select'></t><t id='osc1_xenv'>X</t>";
     html += "      <div id='osc1_vol'></div>";
     html += "      <div id='osc1_semi'></div>";
-    html += "      <div id='noise_vol'></div>";
     html += "    </div>";
     html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc2_wave_select'></t><t id='osc2_xenv'>?</t>";
     html += "      <div id='osc2_vol'></div>";
@@ -194,6 +193,7 @@ function Instrument()
     html += "      <div id='fx_dly_time'></div>";
     html += "      <div id='fx_pan_amt'></div>";
     html += "      <div id='fx_pan_freq'></div>";
+    html += "      <div id='fx_bit'></div>";
     html += "      <div id='fx_dist'></div>";
     html += "      <div id='fx_drive'></div>";
     html += "    </div>";
