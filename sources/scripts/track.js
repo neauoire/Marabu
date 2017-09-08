@@ -17,7 +17,7 @@ function Track()
     song.patternLen = 32;
 
     // Select the default instrument from the presets
-    var defaultInstr = { name: "FORM sin", i: [3,255,128,0,2,23,152,0,0,0,0,72,129,0,0,3,121,57,0,2,180,50,0,31,47,3,55,8] };
+    var defaultInstr = { name: "FORM sin", i: [3,100,111,0,0,100,111,7,0,0,0,0,63,0,0,0,121,57,100,2,255,0,0,63,0,0,0,0] };
 
     // All 8 instruments
     song.songData = [];
@@ -57,14 +57,23 @@ function Track()
     song.songData[2].name = "PAD1";
     song.songData[3].name = "PAD2";
 
-    song.songData[4].name = "Kick";
+    song.songData[4].name = "KICK";
     song.songData[4].i = [2,0,92,0,0,255,92,23,1,0,14,0,74,0,0,0,89,0,1,1,16,0,21,255,49,6,0,0];
-    song.songData[5].name = "Snare";
+    song.songData[5].name = "SNAR";
     song.songData[5].i = [0,221,92,1,0,210,92,0,1,192,4,0,46,0,0,1,97,141,1,3,93,0,4,57,20,0,0,6];
-    song.songData[6].name = "Hihat"
+    song.songData[6].name = "HIHA";
     song.songData[6].i = [0,0,140,0,0,0,140,0,0,60,4,10,34,0,0,0,187,5,0,1,239,135,0,170,87,5,0,4];
-    song.songData[7].name = "Toms"
+    song.songData[7].name = "TOMS";
     song.songData[7].i = [0,192,104,1,0,80,99,0,0,0,4,0,66,0,0,3,0,0,0,1,0,1,2,32,37,4,0,0];
+
+    song.songData[8].name = "CH08";
+    song.songData[9].name = "CH09";
+    song.songData[10].name = "CH10";
+    song.songData[11].name = "CH11";
+    song.songData[12].name = "CH12";
+    song.songData[13].name = "CH13";
+    song.songData[14].name = "CH14";
+    song.songData[15].name = "CH15";
     
     // Make a first empty pattern
     song.songData[0].p[0] = 1;

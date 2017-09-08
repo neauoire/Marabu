@@ -33,14 +33,14 @@ Marabu is a simple open-source music tracker built from Soundbox.
 
 ### Instrument
 
+- `alt ArrowDown` Next Control.
+- `alt ArrowUp` Previous Control.
 - `]` Increment Control Value +10.
 - `[` Decrement Control Value -10.
 - `}` Increment Control Value +1.
 - `{` Decrement Control Value -1.
 - `x` Next Octave.
 - `z` Previous Octave.
-- `2` Next Control.
-- `1` Previous Control.
 
 ### Keyboard
 
@@ -99,7 +99,8 @@ You can customize the look of your tracks by editing the .mar file and replacing
 
 - Selective play(pattern)
 - Selective play(instrument)
-- Tune instruments
+- Tune instruments with eachother
+- Extend track length
 
 ## Development
 

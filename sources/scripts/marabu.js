@@ -207,6 +207,8 @@ function Marabu()
     if(key == "_")         { marabu.move_pattern(-1); e.preventDefault();return; }
     if(key == "ArrowDown" && (e.altKey || e.metaKey))         { marabu.move_track(1); e.preventDefault(); return; }
     if(key == "ArrowUp" && (e.altKey || e.metaKey))         { marabu.move_track(-1); e.preventDefault();return; }
+    if(key == "ArrowDown" && (e.shiftKey))         { marabu.move_control(1); e.preventDefault(); return; }
+    if(key == "ArrowUp" && (e.shiftKey))         { marabu.move_control(-1); e.preventDefault();return; }
 
     // Editor
 
@@ -225,8 +227,6 @@ function Marabu()
     if(key == "9") { marabu.move_note_value(-1); return; }
     if(key == "l") { marabu.move_control(1); return; }
     if(key == "p") { marabu.move_control(-1); return; }
-    if(key == "2") { marabu.move_control(1); return; }
-    if(key == "1") { marabu.move_control(-1); return; }
     if(key == "]") { marabu.move_control_value(10); e.preventDefault(); return; }
     if(key == "[") { marabu.move_control_value(-10); e.preventDefault(); return; }
     if(key == "}") { marabu.move_control_value(1); e.preventDefault(); return; }

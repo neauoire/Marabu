@@ -38,7 +38,7 @@ function Editor(t,b)
 
   this.build = function()
   {
-    return "<div id='editor' style='display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; float:left'><table class='tracks' id='pattern-table'></table></div>";
+    return "<div id='editor' style='display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; float:left; max-width: 571px'><table class='tracks' id='pattern-table'></table></div>";
   }
 
   this.pattern_mouse_down = function(e)
@@ -85,7 +85,7 @@ function Editor(t,b)
         }
 
         row_el.className = r == marabu.selection.row ? "bl" : "";
-        cell.textContent = left_string+right_string;
+        cell.textContent = r == 0 && left_note == 0 && right_note == 0 ? marabu.song.instrument(i).name : left_string+right_string;
 
         if(effect_cmd){ cell.className = "b_inv f_inv "; }
         else if(i == marabu.selection.instrument && r == marabu.selection.row){ cell.className = "fh"; }
