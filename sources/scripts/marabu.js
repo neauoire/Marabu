@@ -23,6 +23,7 @@ function Marabu()
   this.editor = new Editor(8,4);
   this.instrument = new Instrument();
   this.cheatcode = new Cheatcode();
+  this.loop = new Loop();
 
   this.start = function()
   {
@@ -200,6 +201,7 @@ function Marabu()
     var key = e.key;
 
     if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(e); return; }
+    if(marabu.loop.is_active == true){ marabu.loop.input(e); return; }
 
     if(key == "Escape"){ marabu.song.stop_song(); return; }
     if(key == " "){ marabu.play(); e.preventDefault(); return; }
@@ -242,6 +244,7 @@ function Marabu()
       if(key == "r"){ marabu.render(); e.preventDefault(); return; }
       if(key == "s"){ marabu.save_file(); e.preventDefault(); return; }
       if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
+      if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
       return;
     }
 
@@ -311,6 +314,18 @@ var parse_note = function(val)
   var key_sharp = key.substr(1,1) == "#" ? true : false;
   var key_note = key.substr(0,1);
   return {octave:octave,sharp:key_sharp,note:key_note};
+}
+
+var hex_to_int = function(hex)
+{
+  if(parseInt(hex) > 0){ return parseInt(hex); }
+  if(hex == "a"){ return 10; }
+  if(hex == "b"){ return 11; }
+  if(hex == "c"){ return 12; }
+  if(hex == "d"){ return 13; }
+  if(hex == "e"){ return 14; }
+  if(hex == "f"){ return 15; }
+  return 0;
 }
 
 var to_hex_val = function(num)

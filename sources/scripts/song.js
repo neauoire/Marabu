@@ -240,6 +240,25 @@ var Song = function()
     generateAudio(doneFun);
   }
 
+  this.play_loop = function(opts)
+  {
+    this.update_bpm(this.song().bpm);
+    this.update_rpp(32);
+
+    stopAudio();
+    updateSongRanges();
+
+    var doneFun = function(wave)
+    {
+      console.log("playing..")
+      marabu.sequencer.follower.start();
+      mAudio.src = URL.createObjectURL(new Blob([wave], {type: "audio/wav"}));
+      mAudioTimer.reset();
+      mAudio.play();
+    };
+    generateAudio(doneFun,opts);
+  }
+
   //--------------------------------------------------------------------------
   // Initialization
   //--------------------------------------------------------------------------

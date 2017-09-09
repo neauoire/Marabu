@@ -56,8 +56,10 @@ function Sequencer()
         // Default
         o.className = t > t_length ? "fl" : "fm";
         o.textContent = pat ? to_hex(pat) : "-";
-        // Special
-        if(t == marabu.selection.track && i == marabu.selection.instrument){ o.className = "fh"; }
+
+        // Selection
+        if(i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_special f_special"; }
+        else if(t == marabu.selection.track && i == marabu.selection.instrument){ o.className = "fh"; }
       }
     }
   }

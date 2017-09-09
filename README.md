@@ -77,6 +77,12 @@ Press `ctrl k` to activate cheatmode.
 
 - `401 ctrl+enter` Increment every 4th bar, by 1.
 
+## Selective Play(Experimental)
+
+Press `ctrl l` to activate loopmode. 
+
+- `1234 enter` This will loop instruments 2,3 and 4 - for 4 bars.
+
 ## Themes
 
 You can customize the look of your tracks by editing the .mar file and replacing the attributes' colors.

@@ -10,6 +10,8 @@ function Cheatcode()
 
   this.start = function()
   {
+    marabu.loop.stop();
+
     this.is_active = true;
     marabu.update();
   }
