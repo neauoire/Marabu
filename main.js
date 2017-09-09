@@ -2,24 +2,17 @@ const {app, BrowserWindow, webFrame, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let win
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-  // Create the browser window.
-  win = new BrowserWindow({width: 930, height: 540, frame:false, backgroundColor: '#000', resizable:true, autoHideMenuBar: true,icon: __dirname + '/icon.ico'})
+app.on('ready', () => 
+{
+  win = new BrowserWindow({width: 930, height: 540, frame:false, backgroundColor: '#000', resizable:false, autoHideMenuBar: true, icon: __dirname + '/icon.ico'})
 
   win.loadURL(`file://${__dirname}/sources/index.html`)
 
-  // Open the DevTools.
-  // win.webContents.openDevTools()
+  let is_shown = true;
 
   if (process.platform === 'darwin') {
-    // Create our menu entries so that we can use MAC shortcuts
     Menu.setApplicationMenu(Menu.buildFromTemplate([
       {
         label: 'Edit',
@@ -31,32 +24,36 @@ app.on('ready', () => {
           { role: 'paste' },
           { role: 'delete' },
           { role: 'selectall' },
-          {label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { force_quit=true; app.exit();}},
+          { label: 'Hide', accelerator: 'CmdOrCtrl+H',click: () => { if(is_shown){ win.hide(); } else{ win.show(); }}},
+          { label: 'Minimize', accelerator: 'CmdOrCtrl+M',click: () => { win.minimize(); }},
+          { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { force_quit=true; app.exit();} },
         ]
       }
     ]));
   }
 
-  // Emitted when the window is closed.
   win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     win = null
     app.quit()
   })
+
+  win.on('hide',function() {
+    is_shown = false;
+  })
+
+  win.on('show',function() {
+    is_shown = true;
+  })
+  // Open the DevTools.
+  // win.webContents.openDevTools()
 })
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+app.on('window-all-closed', () => 
+{
   app.quit()
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
   }

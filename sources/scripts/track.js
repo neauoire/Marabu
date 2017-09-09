@@ -41,7 +41,7 @@ function Track()
       {
         col = {};
         col.n = [];
-        for (k = 0; k < song.patternLen * 4; k++)
+        for (k = 0; k < song.patternLen * 2; k++)
           col.n[k] = 0;
         col.f = [];
         for (k = 0; k < song.patternLen * 2; k++)
