@@ -48,10 +48,8 @@ function Marabu()
     this.selection.instrument = clamp(this.selection.instrument,0,this.channels-1);
     this.selection.track = clamp(this.selection.track,0,32);
     this.selection.row = clamp(this.selection.row,0,32);
-    this.selection.octave = clamp(this.selection.octave,0,8);
+    this.selection.octave = clamp(this.selection.octave,3,8);
     this.selection.control = clamp(this.selection.control,0,28);
-
-    console.log("Update",this.selection);
 
     this.sequencer.update();
     this.editor.update();
@@ -118,6 +116,7 @@ function Marabu()
   this.set_note = function(val)
   {
     this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row,val-87);
+    
     if(val == 0){
       this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row+32,val-87);
     }

@@ -97,7 +97,7 @@ var Song = function()
   this.inject_note_at = function(i,t,n,v)
   {
     var c = this.pattern_at(i,t)-1; if(c == -1){ return; }
-    this.song().songData[i].c[c].n[n] = v+87;
+    this.song().songData[i].c[c].n[n] = clamp(v,36,107)+87;
   }
 
   this.effect_at = function(i,t,f)
