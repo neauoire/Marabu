@@ -36,8 +36,9 @@ function Instrument()
       {id: "noise_vol", name: "NOI", min: 0, max: 255, control:23 },
       {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
       {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
-      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:26 },
-      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:27 },
+      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:26 },
+      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:27 },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:28 },
     ]);
 
     this.setup_choices([
@@ -122,6 +123,7 @@ function Instrument()
     else if (id == "fx_pan_freq") { return 25; }
     else if (id == "fx_dly_amt")  { return 26; }
     else if (id == "fx_dly_time") { return 27; }
+    else if (id == "fx_pin")      { return 28; }
     return -1;
   }
 
@@ -200,6 +202,7 @@ function Instrument()
     html += "      <div id='noise_vol'></div>";
     html += "      <div id='fx_bit'></div>";
     html += "      <div id='fx_dist'></div>";
+    html += "      <div id='fx_pin'></div>";
     html += "      <div id='fx_compressor'></div>";
     html += "      <div id='fx_drive'></div>";
     html += "    </div>";

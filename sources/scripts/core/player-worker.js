@@ -21,30 +21,98 @@
 
 "use strict";
 
+// OSCs
+
+var osc_sin = function (value)
+{
+  return Math.sin(value * 6.283184);
+};
+
+var osc_saw = function (value)
+{
+  return 2 * (value % 1) - 1;
+};
+
+var osc_square = function (value)
+{
+  return (value % 1) < 0.5 ? 1 : -1;
+};
+
+var osc_tri = function (value)
+{
+  var v2 = (value % 1) * 4;
+  if(v2 < 2) return v2 - 1;
+  return 3 - v2;
+};
+
+// Pinking
+
+var b0, b1, b2, b3, b4, b5, b6;
+    b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
+
+function effect_pinking(input,val)
+{
+  b0 = 0.99886 * b0 + input * 0.0555179;
+  b1 = 0.99332 * b1 + input * 0.0750759;
+  b2 = 0.96900 * b2 + input * 0.1538520;
+  b3 = 0.86650 * b3 + input * 0.3104856;
+  b4 = 0.55000 * b4 + input * 0.5329522;
+  b5 = -0.7616 * b5 - input * 0.0168980;
+  var output = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + input * 0.5362) * 0.1;
+  b6 = input * 0.115926;
+
+  return (output * val) + (input * (1 - val));
+}
+
+// Compressor
+
+function effect_compressor(input,average,val)
+{
+  var output = input;
+  if(input < average){
+    output *= 1 + val;
+  }
+  else if(input > average){
+    output *= 1 - val;
+  }
+  return output;
+}
+
+function make_compressor_average(length,samples)
+{
+  var compressor_average = 0;
+  for (var j = 0; j < length; j++) {
+    compressor_average += samples[j];
+  }
+  return compressor_average/parseFloat(length)/20;
+}
+
+// Distortion
+
+function effect_distortion(input,val)
+{
+  if(!val){ return input; }
+
+  var output = input;
+  output *= val;
+  output = output < 1 ? output > -1 ? osc_sin(output*.25) : -1 : 1;
+  output /= val;
+  return output;
+}
+
+// Drive
+
+function effect_drive(input,val)
+{
+  var output = input;
+  return output * val;
+}
+
 var CPlayerWorker = function() {
 
   //----------------------------------------------------------------------------
   // Private methods
   //----------------------------------------------------------------------------
-
-  // Oscillators
-  var osc_sin = function (value) {
-    return Math.sin(value * 6.283184);
-  };
-
-  var osc_saw = function (value) {
-    return 2 * (value % 1) - 1;
-  };
-
-  var osc_square = function (value) {
-    return (value % 1) < 0.5 ? 1 : -1;
-  };
-
-  var osc_tri = function (value) {
-    var v2 = (value % 1) * 4;
-    if(v2 < 2) return v2 - 1;
-    return 3 - v2;
-  };
 
   var getnotefreq = function (n) {
     // 174.61.. / 44100 = 0.003959503758 (F)
@@ -135,7 +203,6 @@ var CPlayerWorker = function() {
     osc_tri
   ];
 
-
   //----------------------------------------------------------------------------
   // Public methods
   //----------------------------------------------------------------------------
@@ -216,15 +283,16 @@ var CPlayerWorker = function() {
                 fxFilter = instr.i[19],
                 fxFreq = instr.i[20] * 43.23529 * 3.141592 / 44100,
                 q = 1 - instr.i[21] / 255,
-                dist = instr.i[22] * 1e-5,
-                drive = instr.i[23] / 32,
+                distortion_val = instr.i[22] * 1e-5,
+                drive_val = instr.i[23] / 32,
                 panAmt = instr.i[24] / 512,
                 panFreq = 6.283184 * Math.pow(2, instr.i[25] - 9) / rowLen,
                 dlyAmt = instr.i[26] / 255,
                 dly = instr.i[27] * rowLen,
                 bit_phaser_val = 0.5 - (0.49 * (instr.i[9]/255.0)),
                 bit_step_val = 16 - (14 * (instr.i[9]/255.0)),
-                compressor_val = instr.i[14];
+                compressor_val = instr.i[14],
+                pinking_val = instr.i[28];
 
             // Calculate start sample number for this row in the pattern
             rowStartSample = ((p - this.firstRow) * patternLen + row) * rowLen;
@@ -246,12 +314,7 @@ var CPlayerWorker = function() {
             }
 
             // Compressor
-            var compressor_average = 0;
-            var compressor_strenght = (compressor_val/255);
-            for (j = 0; j < rowLen; j++) {
-              compressor_average += chnBuf[j];
-            }
-            compressor_average = compressor_average/rowLen;
+            var compressor_average = make_compressor_average(rowLen,chnBuf);
             
             // Perform effects for this pattern row
             for (j = 0; j < rowLen; j++) {
@@ -273,14 +336,6 @@ var CPlayerWorker = function() {
 
                 rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
 
-                // Compressor.
-                if(rsample < compressor_average){
-                  rsample *= 1 + (compressor_strenght);
-                }
-                else if(rsample > compressor_average){
-                  rsample *= 1 - (compressor_strenght);
-                }
-
                 // State variable filter
                 f = fxFreq;
                 if (fxLFO) {
@@ -292,15 +347,10 @@ var CPlayerWorker = function() {
                 band += f * high;
                 rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
-                // Distortion
-                if (dist) {
-                  rsample *= dist;
-                  rsample = rsample < 1 ? rsample > -1 ? osc_sin(rsample*.25) : -1 : 1;
-                  rsample /= dist;
-                }
-
-                // Drive
-                rsample *= drive;
+                rsample = effect_distortion(rsample,distortion_val);
+                rsample = effect_pinking(rsample,pinking_val/255);
+                rsample = effect_compressor(rsample,compressor_average,compressor_val/255);
+                rsample = effect_drive(rsample,drive_val);
 
                 // Is the filter active (i.e. still audiable)?
                 filterActive = rsample * rsample > 1e-5;
