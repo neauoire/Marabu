@@ -202,6 +202,7 @@ function Marabu()
     if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(e); return; }
 
     if(key == "Escape"){ marabu.song.stop_song(); return; }
+    if(key == " "){ marabu.play(); e.preventDefault(); return; }
 
     // Sequencer
 
@@ -228,8 +229,6 @@ function Marabu()
     if(key == "(") { marabu.move_note_value(-12); return; }
     if(key == "0") { marabu.move_note_value(1); return; }
     if(key == "9") { marabu.move_note_value(-1); return; }
-    if(key == "l") { marabu.move_control(1); return; }
-    if(key == "p") { marabu.move_control(-1); return; }
     if(key == "]") { marabu.move_control_value(10); e.preventDefault(); return; }
     if(key == "[") { marabu.move_control_value(-10); e.preventDefault(); return; }
     if(key == "}") { marabu.move_control_value(1); e.preventDefault(); return; }
@@ -240,7 +239,6 @@ function Marabu()
     // Global
 
     if(e.ctrlKey || e.metaKey){
-      if(key == " "){ marabu.play(); e.preventDefault(); return; }
       if(key == "r"){ marabu.render(); e.preventDefault(); return; }
       if(key == "s"){ marabu.save_file(); e.preventDefault(); return; }
       if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
