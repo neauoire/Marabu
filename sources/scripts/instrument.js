@@ -17,6 +17,7 @@ function Instrument()
 
       {id: "osc1_vol", name: "VOL", min: 0, max: 255, percent: true, control:5 },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
+      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:7 },
 
       {id: "osc2_vol", name: "VOL", min: 0, max: 255, percent: true, control:10 },
       {id: "osc2_semi", name: "FRQ", min: 92, max: 164, control:11 },
@@ -35,10 +36,6 @@ function Instrument()
       {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
       {id: "fx_drive", name: "DRV", min: 0, max: 255, control:26 },
       {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
-
-      {id: "arp_note1", name: "ARP", min: 0, max: 12, control:27 },
-      {id: "arp_note2", name: "SEC", min: 0, max: 12, control:28 },
-      {id: "arp_speed", name: "SPD", min: 0, max: 7, control:29 }
     ]);
 
     this.setup_choices([
@@ -102,9 +99,11 @@ function Instrument()
     else if (id == "env_sust")    { return 11; }
     else if (id == "env_rel")     { return 12; }
 
-    else if (id == "arp_note1")   { return 13; }
-    else if (id == "arp_note2")   { return 13; }
-    else if (id == "arp_speed")   { return 14; }
+    else if (id == "noise_vol")      { return 13; }
+
+    // else if (id == "arp_note1")   { return 13; }
+    // else if (id == "arp_note2")   { return 13; }
+    // else if (id == "arp_speed")   { return 14; }
 
     else if (id == "lfo_amt")     { return 16; }
     else if (id == "lfo_freq")    { return 17; }
@@ -193,14 +192,12 @@ function Instrument()
     html += "      <div id='fx_dly_time'></div>";
     html += "      <div id='fx_pan_amt'></div>";
     html += "      <div id='fx_pan_freq'></div>";
+    html += "    </div>";
+    html += "    <div class='efx' style='width:180px; margin-bottom:15px'>";
+    html += "      <div id='noise_vol'></div>";
     html += "      <div id='fx_bit'></div>";
     html += "      <div id='fx_dist'></div>";
     html += "      <div id='fx_drive'></div>";
-    html += "    </div>";
-    html += "    <div class='arp' style='width:180px; margin-bottom:15px'>";
-    html += "      <div id='arp_note1'></div>";
-    html += "      <div id='arp_note2'></div>";
-    html += "      <div id='arp_speed'></div>";
     html += "    </div>";
     html += "  </div>";
     return html;

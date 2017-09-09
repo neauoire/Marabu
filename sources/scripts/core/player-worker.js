@@ -58,11 +58,12 @@ var CPlayerWorker = function() {
         osc2 = mOscillators[instr.i[4]],
         o2vol = instr.i[5],
         o2xenv = instr.i[8],
+        noiseVol = instr[13],
         attack = instr.i[10] * instr.i[10] * 4,
         sustain = instr.i[11] * instr.i[11] * 4,
         release = instr.i[12] * instr.i[12] * 4,
         releaseInv = 1 / release,
-        arp = instr.i[13],
+        arp = instr.i[14],
         arpInterval = rowLen * Math.pow(2, 2 - instr.i[14]);
 
     var noteBuf = new Int32Array(attack + sustain + release);
@@ -108,6 +109,11 @@ var CPlayerWorker = function() {
       }
       c2 += t;
       rsample += osc2(c2) * o2vol;
+
+      // Noise oscillator
+      if (noiseVol) {
+        rsample += (2 * Math.random() - 1) * noiseVol;
+      }
 
       // Add to (mono) channel buffer
       noteBuf[j] = (80 * rsample * e) | 0;

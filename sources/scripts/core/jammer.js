@@ -110,6 +110,7 @@ var CJammer = function () {
             osc2 = mOscillators[note.instr[4]],
             o2vol = note.instr[5],
             o2xenv = note.instr[8],
+            noiseVol = note.instr[13],
             attack = Math.round(note.instr[10] * note.instr[10] * 4 * mRateScale),
             sustain = Math.round(note.instr[11] * note.instr[11] * 4 * mRateScale),
             release = Math.round(note.instr[12] * note.instr[12] * 4 * mRateScale),
@@ -168,6 +169,11 @@ var CJammer = function () {
           }
           o2t += t;
           rsample += osc2(o2t) * o2vol;
+
+          // Noise oscillator
+          if (noiseVol) {
+            rsample += (2 * Math.random() - 1) * noiseVol;
+          }
 
           // Add to (mono) channel buffer
           rightBuf[k] += 0.002441481 * rsample * e;
@@ -296,7 +302,6 @@ var CJammer = function () {
     mFXState.dlyPos = dlyPos;
   };
 
-
   //--------------------------------------------------------------------------
   // Public interface.
   //--------------------------------------------------------------------------
@@ -368,7 +373,7 @@ var CJammer = function () {
     var note = {
       startT: t,
       env: 0,
-      arp: mInstr[13],
+      arp: mInstr[14],
       arpSamples: 0,
       o1t: 0,
       o2t: 0,
