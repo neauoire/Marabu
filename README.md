@@ -8,7 +8,7 @@ Marabu is a simple open-source music tracker built from Soundbox.
 
 ### General
 
-- `ctrl space` Play.
+- `space` Play.
 - `esc` Stop.
 
 ### Sequencer
@@ -33,8 +33,8 @@ Marabu is a simple open-source music tracker built from Soundbox.
 
 ### Instrument
 
-- `alt ArrowDown` Next Control.
-- `alt ArrowUp` Previous Control.
+- `shift ArrowDown` Next Control.
+- `shift ArrowUp` Previous Control.
 - `]` Increment Control Value +10.
 - `[` Decrement Control Value -10.
 - `}` Increment Control Value +1.
