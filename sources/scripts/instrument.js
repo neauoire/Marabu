@@ -17,25 +17,26 @@ function Instrument()
 
       {id: "osc1_vol", name: "VOL", min: 0, max: 255, percent: true, control:5 },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
-      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:7 },
 
-      {id: "osc2_vol", name: "VOL", min: 0, max: 255, percent: true, control:10 },
-      {id: "osc2_semi", name: "FRQ", min: 92, max: 164, control:11 },
-      {id: "osc2_det", name: "DET", min: 0, max: 255, percent: true, nonLinear: true, control:12 },
+      {id: "osc2_vol", name: "VOL", min: 0, max: 255, percent: true, control:9 },
+      {id: "osc2_semi", name: "FRQ", min: 92, max: 164, control:10 },
+      {id: "osc2_det", name: "DET", min: 0, max: 255, percent: true, nonLinear: true, control:11 },
 
-      {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:14 },
-      {id: "lfo_freq", name: "FRQ", min: 0, max: 254, control:15 },
-      {id: "lfo_fxfreq", name: "MOD", min: 0, max: 255, control:16 },
+      {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:13 },
+      {id: "lfo_freq", name: "FRQ", min: 0, max: 254, control:14 },
+      {id: "lfo_fxfreq", name: "MOD", min: 0, max: 255, control:15 },
 
-      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:18 },
-      {id: "fx_res", name: "RES", min: 0, max: 254, control:19 },
-      {id: "fx_dly_amt", name: "DLY", min: 0, max: 255, control:20 },
-      {id: "fx_dly_time", name: "SPD", min: 0, max: 16, control:21 },
-      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:22 },
-      {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16, control:23 },
+      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:17 },
+      {id: "fx_res", name: "RES", min: 0, max: 254, control:18 },
+      {id: "fx_dly_amt", name: "DLY", min: 0, max: 255, control:19 },
+      {id: "fx_dly_time", name: "SPD", min: 0, max: 16, control:20 },
+      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:21 },
+      {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16, control:22 },
+
+      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:23 },
+      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
       {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
       {id: "fx_drive", name: "DRV", min: 0, max: 255, control:26 },
-      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
     ]);
 
     this.setup_choices([
