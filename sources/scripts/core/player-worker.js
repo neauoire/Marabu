@@ -246,11 +246,12 @@ var CPlayerWorker = function() {
             }
 
             // Compressor
-            var average = 0;
+            var compressor_average = 0;
+            var compressor_strenght = (compressor_val/255);
             for (j = 0; j < rowLen; j++) {
-              average + 1;
+              compressor_average += chnBuf[j];
             }
-            average = average/rowLen;
+            compressor_average = compressor_average/rowLen;
             
             // Perform effects for this pattern row
             for (j = 0; j < rowLen; j++) {
@@ -273,12 +274,11 @@ var CPlayerWorker = function() {
                 rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
 
                 // Compressor.
-                var strenght = (compressor_val/255);
-                if(rsample < average){
-                  rsample *= 1 + (strenght);
+                if(rsample < compressor_average){
+                  rsample *= 1 + (compressor_strenght);
                 }
-                else if(rsample > average){
-                  rsample *= 1 - (strenght);
+                else if(rsample > compressor_average){
+                  rsample *= 1 - (compressor_strenght);
                 }
 
                 // State variable filter

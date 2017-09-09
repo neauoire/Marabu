@@ -117,6 +117,9 @@ function Marabu()
   this.set_note = function(val)
   {
     this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row,val-87);
+    if(val == 0){
+      this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row+32,val-87);
+    }
     this.update();
   }
 

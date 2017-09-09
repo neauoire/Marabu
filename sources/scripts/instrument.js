@@ -36,8 +36,8 @@ function Instrument()
       {id: "noise_vol", name: "NOI", min: 0, max: 255, control:23 },
       {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
       {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
-      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:26 },
-      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:27 },
+      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:26 },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:27 },
     ]);
 
     this.setup_choices([

@@ -64,6 +64,7 @@ function Cheatcode()
     for(var row = 0; row < 32; row++){
       if((row + this.offset) % this.rate != 0){ continue; }
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,-87);
+      marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row+32,-87);
     }
     this.stop();
   }

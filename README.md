@@ -97,8 +97,8 @@ You can customize the look of your tracks by editing the .mar file and replacing
 
 ## TODOs
 
-- Selective play(pattern)
-- Selective play(instrument)
+- Selective play(pattern) `ctrl l`
+- Selective play(instrument) `ctrl L`
 - Tune instruments with eachother
 - Extend track length
 
