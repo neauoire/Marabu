@@ -87,7 +87,8 @@ Press `ctrl l` to activate loopmode.
 
 You can customize the look of your tracks by editing the .mar file and replacing the attributes' colors.
 
-```theme: { 
+```
+theme: { 
   background:"#fff", 
   f_high:"#f00", 
   f_med:"#0f0", 
@@ -99,7 +100,8 @@ You can customize the look of your tracks by editing the .mar file and replacing
   b_low:"#0ff",
   b_inv:"#00f", 
   b_special:"#00f", 
-}```
+}
+```
 
 ## TODOs
 
@@ -110,7 +112,7 @@ You can customize the look of your tracks by editing the .mar file and replacing
 
 ## Development
 
-There are currently no means to change the `bpm`, to do so, update the `bpm` value from the exported `.mar` file to an int between 50 and 450.
+There are currently no means to change the `bpm`, to do so, update the `bpm` value from the exported `.mar` file to an int between 50 and 450. Use `npm start` to develop locally.
 
 ## License
 
