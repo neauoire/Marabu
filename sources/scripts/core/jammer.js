@@ -115,7 +115,7 @@ var CJammer = function () {
             sustain = Math.round(note.instr[11] * note.instr[11] * 4 * mRateScale),
             release = Math.round(note.instr[12] * note.instr[12] * 4 * mRateScale),
             releaseInv = 1 / release,
-            arpInterval = mRowLen * Math.pow(2, 2 - note.instr[14]);
+            arpInterval = mRowLen * Math.pow(2, 2 - 0);
 
         // Note frequencies (defined later) and arpeggio
         var o1f, o2f;
@@ -213,12 +213,20 @@ var CJammer = function () {
         dlyAmt = mInstr[26] / 255,
         dly = (mInstr[27] * mRowLen) >> 1,
         bit_phaser_val = 0.5 - (0.49 * (mInstr[9]/255.0)),
-        bit_step_val = 16 - (14 * (mInstr[9]/255.0));
+        bit_step_val = 16 - (14 * (mInstr[9]/255.0)),
+        compressor_val = mInstr[14];
 
     // Limit the delay to the delay buffer size.
     if (dly >= MAX_DELAY) {
       dly = MAX_DELAY - 1;
     }
+
+    // Compressor
+    var average = 0;
+    for (j = 0; j < numSamples; j++) {
+      average + 1;
+    }
+    average = average/numSamples;
 
     // Perform effects for this time slice
     for (j = 0; j < numSamples; j++) {
@@ -241,6 +249,15 @@ var CJammer = function () {
 
         rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
 
+        // Compressor.
+        var strenght = (compressor_val/255);
+        if(rsample < average){
+          rsample *= 1 + (strenght);
+        }
+        else if(rsample > average){
+          rsample *= 1 - (strenght);
+        }
+
         // State variable filter.
         f = fxFreq;
         if (fxLFO) {
@@ -261,6 +278,7 @@ var CJammer = function () {
 
         // Drive.
         rsample *= drive;
+
 
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;
@@ -373,7 +391,7 @@ var CJammer = function () {
     var note = {
       startT: t,
       env: 0,
-      arp: mInstr[14],
+      arp: 0,
       arpSamples: 0,
       o1t: 0,
       o2t: 0,

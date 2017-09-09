@@ -63,8 +63,8 @@ var CPlayerWorker = function() {
         sustain = instr.i[11] * instr.i[11] * 4,
         release = instr.i[12] * instr.i[12] * 4,
         releaseInv = 1 / release,
-        arp = instr.i[14],
-        arpInterval = rowLen * Math.pow(2, 2 - instr.i[14]);
+        arp = 0,
+        arpInterval = rowLen * Math.pow(2, 2 - 0);
 
     var noteBuf = new Int32Array(attack + sustain + release);
 
@@ -223,7 +223,8 @@ var CPlayerWorker = function() {
                 dlyAmt = instr.i[26] / 255,
                 dly = instr.i[27] * rowLen,
                 bit_phaser_val = 0.5 - (0.49 * (instr.i[9]/255.0)),
-                bit_step_val = 16 - (14 * (instr.i[9]/255.0));
+                bit_step_val = 16 - (14 * (instr.i[9]/255.0)),
+                compressor_val = instr.i[14];
 
             // Calculate start sample number for this row in the pattern
             rowStartSample = ((p - this.firstRow) * patternLen + row) * rowLen;
@@ -244,6 +245,13 @@ var CPlayerWorker = function() {
               }
             }
 
+            // Compressor
+            var average = 0;
+            for (j = 0; j < rowLen; j++) {
+              average + 1;
+            }
+            average = average/rowLen;
+            
             // Perform effects for this pattern row
             for (j = 0; j < rowLen; j++) {
               // Dry mono-sample
@@ -263,6 +271,15 @@ var CPlayerWorker = function() {
                 }
 
                 rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
+
+                // Compressor.
+                var strenght = (compressor_val/255);
+                if(rsample < average){
+                  rsample *= 1 + (strenght);
+                }
+                else if(rsample > average){
+                  rsample *= 1 - (strenght);
+                }
 
                 // State variable filter
                 f = fxFreq;

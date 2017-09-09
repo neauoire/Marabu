@@ -37,18 +37,19 @@ function Instrument()
       {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
       {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
       {id: "fx_drive", name: "DRV", min: 0, max: 255, control:26 },
+      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:27 },
     ]);
 
     this.setup_choices([
       {id: "osc1_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:3},
-      {id: "osc2_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:8},
-      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:13},
-      {id: "fx_filter_select", name: "EFX", choices: [null,"HP","LP","BP"], control:17},
+      {id: "osc2_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:7},
+      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:12},
+      {id: "fx_filter_select", name: "EFX", choices: [null,"HP","LP","BP"], control:16},
     ])
 
     this.setup_toggles([
       {id: "osc1_xenv", name: "MOD", control:4},
-      {id: "osc2_xenv", name: "MOD", control:9},
+      {id: "osc2_xenv", name: "MOD", control:8},
     ]);
   }
 
@@ -101,6 +102,7 @@ function Instrument()
     else if (id == "env_rel")     { return 12; }
 
     else if (id == "noise_vol")      { return 13; }
+    else if (id == "fx_compressor")      { return 14; }
 
     // else if (id == "arp_note1")   { return 13; }
     // else if (id == "arp_note2")   { return 13; }
@@ -198,6 +200,7 @@ function Instrument()
     html += "      <div id='noise_vol'></div>";
     html += "      <div id='fx_bit'></div>";
     html += "      <div id='fx_dist'></div>";
+    html += "      <div id='fx_compressor'></div>";
     html += "      <div id='fx_drive'></div>";
     html += "    </div>";
     html += "  </div>";
