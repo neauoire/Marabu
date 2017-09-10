@@ -15,6 +15,12 @@ app.on('ready', () =>
   if (process.platform === 'darwin') {
     Menu.setApplicationMenu(Menu.buildFromTemplate([
       {
+        label: 'File',
+        submenu: [
+          { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { force_quit=true; app.exit(); }}
+        ]
+      },
+      {
         label: 'Edit',
         submenu: [
           { role: 'undo' },
@@ -23,10 +29,15 @@ app.on('ready', () =>
           { role: 'copy' },
           { role: 'paste' },
           { role: 'delete' },
-          { role: 'selectall' },
+          { role: 'selectall' }
+        ]
+      },
+      {
+        label: 'Window',
+        submenu : [
           { label: 'Hide', accelerator: 'CmdOrCtrl+H',click: () => { if(is_shown){ win.hide(); } else{ win.show(); }}},
           { label: 'Minimize', accelerator: 'CmdOrCtrl+M',click: () => { win.minimize(); }},
-          { label: 'Quit', accelerator: 'CmdOrCtrl+Q', click: function() { force_quit=true; app.exit();} },
+          { label: 'Fullscreen', accelerator: 'CmdOrCtrl+Enter',click: () => { win.setFullScreen(win.isFullScreen() ? false : true); }}
         ]
       }
     ]));

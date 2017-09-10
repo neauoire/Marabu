@@ -77,11 +77,13 @@ Press `ctrl k` to activate cheatmode.
 
 - `401 ctrl+enter` Increment every 4th bar, by 1.
 
-## Selective Play(Experimental)
+## Selective Play
 
 Press `ctrl l` to activate loopmode. 
 
-- `1234 enter` This will loop instruments 2,3 and 4 - for 4 bars.
+- `enter` Will loop current active pattern(only active instrument).
+- `00f enter` Will loop current active track(all instruments).
+- `2244 enter` Will loop instrument 2 to 4, from track 2 to 4.
 
 ## Themes
 

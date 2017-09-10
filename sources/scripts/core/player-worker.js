@@ -84,7 +84,7 @@ function make_compressor_average(length,samples)
   for (var j = 0; j < length; j++) {
     compressor_average += samples[j];
   }
-  return compressor_average/parseFloat(length)/20;
+  return compressor_average/parseFloat(length)/20.0;
 }
 
 // Distortion
