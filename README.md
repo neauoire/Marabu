@@ -111,6 +111,12 @@ theme: {
 - Selective play(instrument) `ctrl L`
 - Tune instruments with eachother
 - Extend track length
+- Update follower
+- Update active track css in sequencer for longer tracks.
+- Show rendering progress in UI.
+- Share effect methods.
+- Add cheatcode for only major.
+- Export/Import instruments
 
 ## Development
 
