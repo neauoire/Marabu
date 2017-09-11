@@ -86,6 +86,8 @@ var Song = function()
   this.inject_pattern_at = function(i,t,v)
   {
     this.song().songData[i].p[t] = v;
+    this.update_ranges();
+    marabu.update();
   }
 
   this.note_at = function(i,t,n)
@@ -166,7 +168,7 @@ var Song = function()
     mSong.endPattern = MAX_SONG_ROWS + 1;
     for (i = MAX_SONG_ROWS - 1; i >= 0; --i) {
       emptyRow = true;
-      for (j = 0; j < 8; ++j) {
+      for (j = 0; j < 16; ++j) {
         if (mSong.songData[j].p[i] > 0) {
           emptyRow = false;
           break;
