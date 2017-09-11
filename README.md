@@ -144,7 +144,6 @@ theme: {
 - Selective play(pattern) `ctrl l`
 - Selective play(instrument) `ctrl L`
 - Tune instruments with eachother.
-- Extend track length.
 - Export/Import instruments
 
 ## Development

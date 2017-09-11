@@ -78,15 +78,6 @@ function effect_compressor(input,average,val)
   return output;
 }
 
-function make_compressor_average(length,samples)
-{
-  var compressor_average = 0;
-  for (var j = 0; j < length; j++) {
-    compressor_average += samples[j];
-  }
-  return compressor_average/parseFloat(length)/20.0;
-}
-
 // Distortion
 
 function effect_distortion(input,val)
@@ -254,6 +245,8 @@ var CPlayerWorker = function() {
         bit_last: 0,
         bit_phaser: 0
       };
+      // Compressor
+      var compressor_average = 0;
 
       // Clear note cache.
       var noteCache = [];
@@ -312,9 +305,6 @@ var CPlayerWorker = function() {
                 }
               }
             }
-
-            // Compressor
-            var compressor_average = make_compressor_average(rowLen,chnBuf);
             
             // Perform effects for this pattern row
             for (j = 0; j < rowLen; j++) {
@@ -351,6 +341,8 @@ var CPlayerWorker = function() {
                 rsample = effect_pinking(rsample,pinking_val/255);
                 rsample = effect_compressor(rsample,compressor_average,compressor_val/255);
                 rsample = effect_drive(rsample,drive_val);
+
+                compressor_average = ((compressor_average * ((compressor_val/255) * 1000)) + rsample)/(((compressor_val/255) * 1000)+1);
 
                 // Is the filter active (i.e. still audiable)?
                 filterActive = rsample * rsample > 1e-5;

@@ -137,6 +137,9 @@ var CJammer = function () {
   var mSampleRate;
   var mRateScale;
 
+  // Compressor
+  var compressor_average = 0;
+
 
   //--------------------------------------------------------------------------
   // Sound synthesis engine.
@@ -291,9 +294,6 @@ var CJammer = function () {
       dly = MAX_DELAY - 1;
     }
 
-    // Compressor
-    var compressor_average = make_compressor_average(numSamples,rightBuf);
-
     // Perform effects for this time slice
     for (j = 0; j < numSamples; j++) {
       k = (pos + j) * 2;
@@ -330,6 +330,8 @@ var CJammer = function () {
         rsample = effect_pinking(rsample,pinking_val/255);
         rsample = effect_compressor(rsample,compressor_average,compressor_val/255);
         rsample = effect_drive(rsample,drive_val);
+
+        compressor_average = ((compressor_average * ((compressor_val/255) * 1000)) + rsample)/(((compressor_val/255) * 1000)+1);
 
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;
