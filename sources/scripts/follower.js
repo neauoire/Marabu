@@ -29,6 +29,7 @@ function Follower()
 
     if(n != this.prev){
       marabu.selection.row = r;
+      marabu.selection.track = parseInt(n/32);
       marabu.update();
       this.prev = n;
     }
