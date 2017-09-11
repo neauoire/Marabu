@@ -54,17 +54,14 @@ function Track()
     song.songData[0].name = "SYN1";
     song.songData[1].name = "SYN2";
     song.songData[2].name = "PAD1";
-    song.songData[3].i = [2,100,111,0,1,50,111,24,0,0,0,50,123,0,50,0,255,27,0,0,255,150,0,63,0,0,0,0,255,0];
+    song.songData[2].i = [2,100,111,0,3,100,111,3,0,0,50,0,125,0,40,0,31,1,100,2,225,40,0,63,0,0,0,0,190,0];
     song.songData[3].name = "PAD2";
+    song.songData[3].i = [2,100,111,0,1,50,111,24,0,0,0,50,123,0,50,0,255,27,0,0,255,150,0,63,0,0,0,0,255,0];
 
-    song.songData[4].name = "KICK";
-    song.songData[4].i = [2,0,92,0,0,255,92,23,1,0,14,0,74,0,0,0,89,0,1,1,16,0,21,255,49,6,0,0,0];
-    song.songData[5].name = "SNAR";
-    song.songData[5].i = [0,221,92,1,0,210,92,0,1,192,4,0,46,0,0,1,97,141,1,3,93,0,4,57,20,0,0,6,0];
-    song.songData[6].name = "HIHA";
-    song.songData[6].i = [0,0,140,0,0,0,140,0,0,60,4,10,34,0,0,0,187,5,0,1,239,135,0,170,87,5,0,4,0];
-    song.songData[7].name = "TOMS";
-    song.songData[7].i = [0,192,104,1,0,80,99,0,0,0,4,0,66,0,0,3,0,0,0,1,0,1,2,32,37,4,0,0,0];
+    song.songData[4].name = "CH04";
+    song.songData[5].name = "CH05";
+    song.songData[6].name = "CH06";
+    song.songData[7].name = "CH07";
 
     song.songData[8].name = "CH08";
     song.songData[9].name = "CH09";

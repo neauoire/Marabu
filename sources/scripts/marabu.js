@@ -153,6 +153,17 @@ function Marabu()
     this.song.stop_song();
   }
 
+  this.export_file = function()
+  {  
+    this.song.update_ranges();
+    var str = this.song.to_string();
+
+    var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
+    var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
+    var timestamp = parseInt((since_midnight/864) * 10);
+    saveAs(blob, "export.mar");
+  }
+
   this.load_file = function(track)
   {
     if(track.theme){ this.load_theme(track.theme); }
@@ -182,15 +193,23 @@ function Marabu()
     this.theme_el.innerHTML = html;
   }
 
-  this.save_file = function(val, is_passive = false)
-  {  
-    this.song.update_ranges();
-    var str = this.song.to_string();
-
+  this.export_instrument = function()
+  {
+    var instr = this.song.instrument();
+    var instr_obj = {};
+    instr_obj.name = instr.name;
+    instr_obj.i = instr.i;
+    var str = JSON.stringify(instr_obj);
+    
     var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
     var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
     var timestamp = parseInt((since_midnight/864) * 10);
-    saveAs(blob, "export.mar");
+    saveAs(blob, instr.name+".ins");
+  }
+
+  this.load_instrument = function(instr)
+  {
+    console.log(instr);
   }
 
   this.render = function(val, is_passive = false)
@@ -252,9 +271,10 @@ function Marabu()
 
     if(e.ctrlKey || e.metaKey){
       if(key == "r"){ marabu.render(); e.preventDefault(); return; }
-      if(key == "s"){ marabu.save_file(); e.preventDefault(); return; }
       if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
       if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
+      if(key == "s"){ marabu.export_file(); e.preventDefault(); return; }
+      if(key == "i"){ marabu.export_instrument(); e.preventDefault(); return; }
       return;
     }
 
