@@ -45,7 +45,7 @@ function Instrument()
       {id: "osc1_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:3},
       {id: "osc2_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:7},
       {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:12},
-      {id: "fx_filter_select", name: "EFX", choices: [null,"HP","LP","BP"], control:16},
+      {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:16},
     ])
 
     this.setup_toggles([

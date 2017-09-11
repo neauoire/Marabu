@@ -195,12 +195,20 @@ function Marabu()
     this.song.export_wav();
   }
 
+  this.reset = function()
+  {
+    this.song.init();
+    this.update();
+  }
+
   this.when_key = function(e)
   {
     var key = e.key;
 
     if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(e); return; }
     if(marabu.loop.is_active == true){ marabu.loop.input(e); return; }
+
+    if((e.key == "Backspace" || e.key == "Delete") && e.ctrlKey && e.shiftKey){ marabu.reset(); }
 
     if(key == "Escape"){ marabu.song.stop_song(); return; }
     if(key == " "){ marabu.play(); e.preventDefault(); return; }
@@ -317,6 +325,7 @@ var parse_note = function(val)
 
 var hex_to_int = function(hex)
 {
+  var hex = hex.toLowerCase();
   if(parseInt(hex) > 0){ return parseInt(hex); }
   if(hex == "a"){ return 10; }
   if(hex == "b"){ return 11; }

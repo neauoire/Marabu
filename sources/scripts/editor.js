@@ -94,11 +94,8 @@ function Editor(t,b)
         else{ cell.className = "fl"; }
 
         // Cheatcode Preview
-        if(marabu.cheatcode.is_active && i == marabu.selection.instrument && (r + marabu.cheatcode.offset) % marabu.cheatcode.rate == 0){ 
-          var index = parseInt(r/marabu.cheatcode.rate) % (marabu.cheatcode.loop+1);
-          var mod = index * marabu.cheatcode.increment;
+        if(marabu.cheatcode.is_active && i == marabu.selection.instrument && marabu.cheatcode.selection[r]){ 
           cell.className = "b_special f_special";  
-          cell.textContent = marabu.cheatcode.rate+""+marabu.cheatcode.offset+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "+"+to_hex_val(mod) : marabu.cheatcode.increment)+""+(marabu.cheatcode.increment && marabu.cheatcode.loop ? "" : 0);
         }
 
         //Effect

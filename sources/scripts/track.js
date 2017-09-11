@@ -8,7 +8,7 @@ function Track()
     // Settings
     song.artist = "Unknown";
     song.name = "Untitled";
-    song.theme = {background:"#000",f_high:"#fff",f_med:"#999",f_low:"#555",f_inv:"#000",f_special:"#fff",b_high:"#000",b_med:"#555",b_low:"#222",b_inv:"#fff",b_special:"#f00"};
+    song.theme = {background:"#000",f_high:"#fff",f_med:"#999",f_low:"#555",f_inv:"#000",f_special:"#000",b_high:"#000",b_med:"#555",b_low:"#222",b_inv:"#fff",b_special:"#72dec2"};
     song.bpm = 120;
 
     // Automated
@@ -17,7 +17,7 @@ function Track()
     song.patternLen = 32;
 
     // Select the default instrument from the presets
-    var defaultInstr = { name: "FORM sin", i: [3,100,111,0,0,100,111,7,0,0,0,0,63,0,0,0,121,57,100,2,255,0,0,63,0,0,0,0,0] };
+    var defaultInstr = { name: "FORM sin", i: [3,100,111,0,0,100,111,0,0,0,0,0,63,0,0,0,121,57,100,2,255,0,0,63,0,0,0,0,0] };
 
     // All 8 instruments
     song.songData = [];
@@ -55,6 +55,7 @@ function Track()
     song.songData[0].name = "SYN1";
     song.songData[1].name = "SYN2";
     song.songData[2].name = "PAD1";
+    song.songData[3].i = [2,100,111,0,1,50,111,24,0,0,0,50,123,0,50,0,255,27,0,0,255,150,0,63,0,0,0,0,255,0];
     song.songData[3].name = "PAD2";
 
     song.songData[4].name = "KICK";

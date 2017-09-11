@@ -10,6 +10,7 @@ Marabu is a simple open-source music tracker built from Soundbox.
 
 - `space` Play.
 - `esc` Stop.
+- `ctrl shift del` Reset.
 
 ### Sequencer
 
@@ -59,13 +60,30 @@ Hold `shift`, while pressing a note, to make chords.
 - `y` Play/Record G#.
 - `u` Play/Record A#.
 
-## Cheatcode
+## Cheatmode
 
-Press `ctrl k` to activate cheatmode. 
+Press `ctrl k` to activate cheatmode. Press `esc` to exit cheatmode.
+
+### Selection
+
+The cheatmode will catch 3 keys, corresponding to int/hex of `rate`, `length` & `offset` of the selection. The `/` key indicates that it does not loop through the whole pattern.
+
+- `4` Every 4th note.
+- `42` Every 4th note, and the following one.
+- `422` Every 4th note, and the following one, starting from the second.
+- `/` Only the first note.
+- `/ 44` Only the 5th, 6th, 7th and 8th first notes.
+
+### Copy/Paste
+
+- `c` To copy the entire pattern.
+- `v` To paste copied notes.
+- `4 c` To copy every 4th note.
+- `4 c` To copy every 4th note.
 
 ### Insert Multiple
 
-- `4214 enter` This mode awaits 4 numbers, `rate`, `offset`, `increment` and `loop length`, for example `4214 enter` will autofill the current pattern, for the selected instrument, at every 4 bars, with an offset of 2, with an increment in note value of 1, for a loop of length 4. Press `esc` to leave Cheatmode.
+- `8 as` This will add C5 and D5 to the 1st and 9th note.
 
 ### Erase Multiple
 
@@ -75,7 +93,15 @@ Press `ctrl k` to activate cheatmode.
 
 ### Modify Multiple
 
-- `401 ctrl+enter` Increment every 4th bar, by 1.
+- `+` Increment each note of the pattern.
+- `-` Decrement each note of the pattern.
+
+### Use case
+
+To copy the first 16 bars, into the 16 following bars and play the following note.
+
+- `/ F c` Copy the first 16 bars.
+- `/ F F v` Paste the first 16 bars from the the 16th bar.
 
 ## Selective Play
 
