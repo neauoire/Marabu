@@ -2,16 +2,21 @@ function Sequencer()
 {
   var target = this;
 
+  this.el = null;
+  this.scrollbar_el = null;
   this.follower = new Follower();
-  this.sequence = {length:32}
+  this.length = 128;
 
   this.start = function()
   {
     console.log("Started Sequencer");
 
+    this.el = document.getElementById("sequencer");
+    this.scrollbar_el = document.getElementById("scrollbar");
+
     var table = document.getElementById("sequencer-table");
     var tr = document.createElement("tr");
-    for (var t = 0; t < 32; t++) {
+    for (var t = 0; t < this.length; t++) {
       var tr = document.createElement("tr");
       tr.id = "spr"+t;
       tr.style.lineHeight = "15px";
@@ -24,11 +29,19 @@ function Sequencer()
       }
       table.appendChild(tr);
     }
+
+    this.el.addEventListener('wheel', function(e)
+    {
+      e.preventDefault();
+      marabu.sequencer.el.scrollTop += e.wheelDeltaY * -0.25;
+      console.log(marabu.sequencer.el.scrollTop/marabu.sequencer.el.scrollHeight);
+      marabu.sequencer.scrollbar_el.style.height = 480 * (marabu.sequencer.el.scrollTop/(marabu.sequencer.el.scrollHeight * 0.75))+"px";
+    }, false);
   }
 
   this.build = function()
   {
-    return "<div id='sequencer' style='display:block; vertical-align:top; float:left'><table class='tracks' id='sequencer-table'></table></div>";
+    return "<div id='sequencer'><table class='tracks' id='sequencer-table'></table></div><yu id='scrollbar'></yu>";
   }
 
   this.sequence_mouse_down = function(e)
@@ -45,7 +58,7 @@ function Sequencer()
 
   this.update = function()
   {
-    for (var t = 0; t < 32; ++t)
+    for (var t = 0; t < this.length; ++t)
     {
       var tr = document.getElementById("spr" + t);
       tr.className = t == marabu.selection.track ? "bl" : "";
@@ -57,8 +70,7 @@ function Sequencer()
         var t_length = marabu.song.song().endPattern-2;
         // Default
         o.className = t > t_length ? "fl" : "fm";
-        o.textContent = pat ? to_hex(pat) : "-";
-
+        o.textContent = pat ? to_hex(pat) : (t % 8 == 0 && i == 0 ? ">" : "-");
         // Selection
         if(i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_special f_special"; }
         else if(t == marabu.selection.track && i == marabu.selection.instrument){ o.className = "fh"; }

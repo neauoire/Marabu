@@ -1,7 +1,6 @@
 function Track()
 {
-  var MAX_SONG_ROWS = 32,
-      MAX_PATTERNS = 32;
+  var MAX_SONG_ROWS = 32, MAX_PATTERNS = 32;
 
     var song = {}, i, j, k, instr, col;
 
@@ -32,7 +31,7 @@ function Track()
 
       // Sequence
       instr.p = [];
-      for (j = 0; j < MAX_SONG_ROWS; j++)
+      for (j = 0; j < marabu.sequencer.length; j++)
         instr.p[j] = 0;
 
       // Patterns

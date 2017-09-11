@@ -38,7 +38,7 @@ function Editor(t,b)
 
   this.build = function()
   {
-    return "<div id='editor' style='display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; float:left; max-width: 571px'><table class='tracks' id='pattern-table'></table></div>";
+    return "<div id='editor'><table class='tracks' id='pattern-table'></table></div>";
   }
 
   this.pattern_mouse_down = function(e)
@@ -101,7 +101,8 @@ function Editor(t,b)
         //Effect
         if(i == marabu.selection.instrument){
           effect_el.textContent = effect_cmd > 0 ? (to_hex(effect_cmd,2) + "" + to_hex(effect_val,2)) : "0000";
-          effect_el.className = r % 4 == 0 ? "fm" : "fl";
+          effect_el.className = effect_cmd > 0 ? "fh" : (r % 4 == 0 ? "fm" : "fl");
+
         }
       }
     }

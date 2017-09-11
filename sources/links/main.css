@@ -170,9 +170,12 @@ app { width: 870px; height: 480px }
 
 .tracks tr td { padding: 0 2.5px; color:#555}
 #instrument { width:120px; display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; line-height:15px; float:left }
+#sequencer { display:block; vertical-align:top; float:left; max-height: 480px; overflow:hidden; position: relative;}
 #sequencer tr td { padding:0px;}
 #sequencer tr td:first-child { padding-left:2.5px;}
 #sequencer tr td:last-child { padding-right:2.5px;}
+#scrollbar { background: #333;width: 1px;height: 20px;position: absolute;left: 162px;top: 30px; }
+#editor { display:block; vertical-align:top; border-left:1px dotted #333; padding-left:15px; margin-left:15px; float:left; max-width: 571px  }
 .tracks tr:hover { color:#999}
 .tracks tr td { position:relative}
 .tracks td:hover { cursor:pointer}

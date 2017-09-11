@@ -46,7 +46,7 @@ function Marabu()
   this.update = function()
   {
     this.selection.instrument = clamp(this.selection.instrument,0,this.channels-1);
-    this.selection.track = clamp(this.selection.track,0,32);
+    this.selection.track = clamp(this.selection.track,0,this.sequencer.length);
     this.selection.row = clamp(this.selection.row,0,32);
     this.selection.octave = clamp(this.selection.octave,3,8);
     this.selection.control = clamp(this.selection.control,0,28);
@@ -176,6 +176,9 @@ function Marabu()
     html += ".bl { background:"+theme.b_low+" !important ; fill:"+theme.b_low+" !important }\n";
     html += ".b_inv { background:"+theme.b_inv+" !important ; fill:"+theme.b_inv+" !important }\n";
     html += ".b_special { background:"+theme.b_special+" !important ; fill:"+theme.b_special+" !important }\n";
+    html += "#editor { border-left-color: "+theme.b_low+" }\n";
+    html += "#instrument { border-left-color: "+theme.b_low+" }\n";
+    html += "#scrollbar { background: "+theme.b_low+" }\n";
     this.theme_el.innerHTML = html;
   }
 

@@ -165,8 +165,8 @@ var Song = function()
     var i, j, emptyRow;
 
     // Determine the last song pattern
-    mSong.endPattern = MAX_SONG_ROWS + 1;
-    for (i = MAX_SONG_ROWS - 1; i >= 0; --i) {
+    mSong.endPattern = marabu.sequencer.length + 1;
+    for (i = marabu.sequencer.length - 1; i >= 0; --i) {
       emptyRow = true;
       for (j = 0; j < 16; ++j) {
         if (mSong.songData[j].p[i] > 0) {
