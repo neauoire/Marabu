@@ -306,28 +306,31 @@ function Marabu()
 
 window.addEventListener('dragover',function(e)
 {
-  e.stopPropagation();
   e.preventDefault();
+  e.stopPropagation();
   e.dataTransfer.dropEffect = 'copy';
 });
 
 window.addEventListener('drop', function(e)
 {
-  e.stopPropagation();
   e.preventDefault();
+  e.stopPropagation();
 
   var files = e.dataTransfer.files;
-  var file = files[0];
 
-  if(file.name.indexOf(".mar") == -1 && file.name.indexOf(".ins") == -1){ console.log("Wrong Format"); return false; }
+  for(file_id in files){
+    var file = files[file_id];
+    if(!file || !file.name || file.name.indexOf(".mar") == -1 && file.name.indexOf(".ins") == -1){ console.log("skipped",file); continue; }
 
-  var reader = new FileReader();
-  reader.onload = function(e){
-    var o = JSON.parse(e.target.result);
-    if(file.name.indexOf(".mar") > 0){ marabu.load_file(o); }
-    if(file.name.indexOf(".ins") > 0){ marabu.load_instrument(o); }    
-  };
-  reader.readAsText(file);
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var o = JSON.parse(e.target.result);
+      if(file.name.indexOf(".mar") > 0){ marabu.load_file(o); }
+      if(file.name.indexOf(".ins") > 0){ marabu.load_instrument(o); }    
+    };
+    reader.readAsText(file);
+    return;
+  }
 });
 
 window.onbeforeunload = function(e)
