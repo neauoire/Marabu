@@ -19,6 +19,10 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `+` Next Pattern.
 - `-` Previous Pattern.
 
+#### Loop(Special)
+
+- `ctrl l` Loopmode, see below.
+
 ### Editor
 
 - `ArrowRight` Next Instrument.
@@ -31,6 +35,10 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `(` Decrement Note Value -12.
 - `0` Increment Note Value +1.
 - `9` Decrement Note Value -1.
+
+#### Editor(Special)
+
+- `ctrl k` Cheatmode, see below.
 
 ### Instrument
 
@@ -103,7 +111,7 @@ To copy the first 16 bars, into the 16 following bars and play the following not
 - `/ F c` Copy the first 16 bars.
 - `/ F F v` Paste the first 16 bars from the the 16th bar.
 
-## Selective Play
+## Loopmode
 
 Press `ctrl l` to activate loopmode. 
 
@@ -135,13 +143,8 @@ theme: {
 
 - Selective play(pattern) `ctrl l`
 - Selective play(instrument) `ctrl L`
-- Tune instruments with eachother
-- Extend track length
-- Update follower
-- Update active track css in sequencer for longer tracks.
-- Show rendering progress in UI.
-- Share effect methods.
-- Add cheatcode for only major.
+- Tune instruments with eachother.
+- Extend track length.
 - Export/Import instruments
 
 ## Development

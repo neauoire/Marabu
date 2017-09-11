@@ -128,7 +128,7 @@ function Cheatcode()
       if(!this.selection[row]){ continue;}
       var note = marabu.song.note_at(marabu.selection.instrument,marabu.selection.track,row);
       if(note == 0){ continue; }
-      note += mod;
+      note = mod == 1 ? this.next_major(note) : this.prev_major(note);
       marabu.selection.row = row;
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,note-87);
     }
@@ -158,5 +158,17 @@ function Cheatcode()
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,target_row,this.stash[row]-87);
     }
     this.stop();
+  }
+
+  this.next_major = function(note)
+  {
+    var n = parse_note(note+1);
+    return n.sharp ? note+2 : note+1;
+  }
+
+  this.prev_major = function(note)
+  {
+    var n = parse_note(note-1);
+    return n.sharp ? note-2 : note-1;
   }
 }

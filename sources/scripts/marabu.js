@@ -275,7 +275,6 @@ function Marabu()
       case "y": marabu.play_note(8,is_cap); break;
       case "u": marabu.play_note(10,is_cap); break;
     }
-
   }
   window.addEventListener("keydown", this.when_key, false);
 }

@@ -193,6 +193,8 @@ var Song = function()
 
   var generateAudio = function (doneFun, opts)
   {
+    var display_el = document.getElementById("fxr31");
+
     var d1 = new Date();
     mPlayer = new CPlayer();
     mPlayer.generate(mSong, opts, function (progress){
@@ -200,9 +202,11 @@ var Song = function()
         var wave = mPlayer.createWave();
         var d2 = new Date();
         doneFun(wave);
+        display_el.className = "fl";
       }
       else{
-        console.log("Rendering "+parseInt(progress * 100)+"%");
+        display_el.textContent = "00"+parseInt(progress * 100);
+        display_el.className = "b_special f_special";
       }
     });
   };
