@@ -139,11 +139,15 @@ theme: {
 }
 ```
 
+## Instruments
+
+- `ctrl i` Export instrument.
+- `drag .ins` Import instrument.
+
 ## TODOs
 
 - Selective play(pattern) `ctrl l`
 - Selective play(instrument) `ctrl L`
-- Export/Import instruments
 
 ## Development
 

@@ -209,7 +209,9 @@ function Marabu()
 
   this.load_instrument = function(instr)
   {
-    console.log(instr);
+    this.song.song().songData[this.selection.instrument].name = instr.name;
+    this.song.song().songData[this.selection.instrument].i = instr.i;
+    this.update();
   }
 
   this.render = function(val, is_passive = false)
@@ -317,12 +319,13 @@ window.addEventListener('drop', function(e)
   var files = e.dataTransfer.files;
   var file = files[0];
 
-  if (file.name.indexOf(".mar") == -1) { console.log("Wrong Format"); return false; }
+  if(file.name.indexOf(".mar") == -1 && file.name.indexOf(".ins") == -1){ console.log("Wrong Format"); return false; }
 
   var reader = new FileReader();
   reader.onload = function(e){
     var o = JSON.parse(e.target.result);
-    marabu.load_file(o);
+    if(file.name.indexOf(".mar") > 0){ marabu.load_file(o); }
+    if(file.name.indexOf(".ins") > 0){ marabu.load_instrument(o); }    
   };
   reader.readAsText(file);
 });
