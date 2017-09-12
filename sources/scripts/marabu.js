@@ -157,7 +157,7 @@ function Marabu()
 
   this.open = function()
   {
-    var filepath = dialog.showOpenDialog({properties: ['openFile']});
+    var filepath = dialog.showOpenDialog({filters: [{name: 'Marabu Files', extensions: ['mar', 'ins']}], properties: ['openFile']});
 
     if(!filepath){ console.log("Nothing to load"); return; }
 
