@@ -17,6 +17,7 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `ctrl S` Save as.
 - `ctrl o` Open.
 - `ctrl i` Export instrument.
+- `ctrl t` Export theme.
 
 ### Sequencer
 

@@ -34,7 +34,6 @@ function Sequencer()
     {
       e.preventDefault();
       marabu.sequencer.el.scrollTop += e.wheelDeltaY * -0.25;
-      console.log(marabu.sequencer.el.scrollTop/marabu.sequencer.el.scrollHeight);
       marabu.sequencer.scrollbar_el.style.height = 480 * (marabu.sequencer.el.scrollTop/(marabu.sequencer.el.scrollHeight * 0.75))+"px";
     }, false);
   }

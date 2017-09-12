@@ -15,7 +15,6 @@ function Marabu()
   document.body.appendChild(this.el);
 
   this.selection = {instrument:0,track:0,row:0,octave:5,control:0};
-  this.formats = ["mar"];
   this.channels = 16;
 
   this.song = new Song();
@@ -170,6 +169,8 @@ function Marabu()
 
   this.load = function(data,path = "")
   {
+    console.log("loading",path);
+
     var file_type = path.split(".")[path.split(".").length-1];
 
     if(file_type == "mar"){
@@ -177,9 +178,13 @@ function Marabu()
       marabu.load_file(o);
       marabu.path = path;
     }
-    if(file_type == "ins"){
+    else if(file_type == "ins"){
       var o = JSON.parse(data);
       marabu.load_instrument(o);
+    }
+    else if(file_type == "thm"){
+      var o = JSON.parse(data);
+      marabu.load_theme(o);
     }
   }
 
@@ -212,6 +217,16 @@ function Marabu()
 
     marabu.song.replace_song(track);
     marabu.update();
+  }
+
+  this.export_theme = function()
+  {
+    var str = JSON.stringify(this.song.song().theme);
+
+    var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
+    var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
+    var timestamp = parseInt((since_midnight/864) * 10);
+    saveAs(blob, "theme.thm");
   }
 
   this.load_theme = function(theme)
@@ -318,6 +333,7 @@ function Marabu()
       if(key == "S"){ marabu.export(); e.preventDefault(); return; }
       if(key == "r"){ marabu.render(); e.preventDefault(); return; }
       if(key == "i"){ marabu.export_instrument(); e.preventDefault(); return; }
+      if(key == "t"){ marabu.export_theme(); e.preventDefault(); return; }
       
       if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
       if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
@@ -364,7 +380,7 @@ window.addEventListener('drop', function(e)
 
   for(file_id in files){
     var file = files[file_id];
-    if(!file || !file.name || file.name.indexOf(".mar") == -1 && file.name.indexOf(".ins") == -1){ console.log("skipped",file); continue; }
+    if(!file || !file.name || file.name.indexOf(".mar") == -1 && file.name.indexOf(".ins") == -1 && file.name.indexOf(".thm") == -1){ console.log("skipped",file); continue; }
 
     var path = file.path;
     var reader = new FileReader();
