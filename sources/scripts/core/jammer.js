@@ -177,11 +177,11 @@ var CJammer = function () {
       var note = mPlayingNotes[i];
       if (note != undefined) {
         var osc1 = mOscillators[note.instr[0]],
-            o1vol = note.instr[1],
+            o1vol = 255 - note.instr[1],
             o1xenv = note.instr[3],
             osc2 = mOscillators[note.instr[4]],
-            o2vol = note.instr[5],
-            o2xenv = note.instr[8],
+            o2vol = 255 - (255 - note.instr[1]),
+            o2xenv = note.instr[3],
             noiseVol = note.instr[13],
             attack = Math.round(note.instr[10] * note.instr[10] * 4 * mRateScale),
             sustain = Math.round(note.instr[11] * note.instr[11] * 4 * mRateScale),
@@ -214,7 +214,7 @@ var CJammer = function () {
 
             // Calculate note frequencies for the oscillators
             o1f = getnotefreq(note.n + (arp & 15) + note.instr[2] - 128);
-            o2f = getnotefreq(note.n + (arp & 15) + note.instr[6] - 128) * (1 + 0.0008 * note.instr[7]);
+            o2f = getnotefreq(note.n + (arp & 15) + note.instr[2] - 128) * (1 + 0.0008 * note.instr[7]);
           }
           arpSamples++;
 

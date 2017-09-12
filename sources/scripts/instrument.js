@@ -15,12 +15,9 @@ function Instrument()
       {id: "env_sust", name: "SUS", min: 0, max: 255, control:1 },
       {id: "env_rel", name: "REL", min: 0, max: 255, control:2 },
 
-      {id: "osc1_vol", name: "VOL", min: 0, max: 255, percent: true, control:5 },
+      {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:5 },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
-
-      {id: "osc2_vol", name: "VOL", min: 0, max: 255, percent: true, control:9 },
-      {id: "osc2_semi", name: "FRQ", min: 92, max: 164, control:10 },
-      {id: "osc2_det", name: "DET", min: 0, max: 255, percent: true, nonLinear: true, control:11 },
+      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true, control:11 },
 
       {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:13 },
       {id: "lfo_freq", name: "FRQ", min: 0, max: 254, control:14 },
@@ -50,7 +47,6 @@ function Instrument()
 
     this.setup_toggles([
       {id: "osc1_xenv", name: "MOD", control:4},
-      {id: "osc2_xenv", name: "MOD", control:8},
     ]);
   }
 
@@ -176,11 +172,9 @@ function Instrument()
     html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc1_wave_select'></t><t id='osc1_xenv'>X</t>";
     html += "      <div id='osc1_vol'></div>";
     html += "      <div id='osc1_semi'></div>";
-    html += "    </div>";
-    html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc2_wave_select'></t><t id='osc2_xenv'>?</t>";
-    html += "      <div id='osc2_vol'></div>";
-    html += "      <div id='osc2_semi'></div>";
     html += "      <div id='osc2_det'></div>";
+    html += "    </div>";
+    html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc2_wave_select'></t>";
     html += "    </div>";
     html += "    <div class='lfo' style='width:180px; margin-bottom:15px'>";
     html += "      <h1>";

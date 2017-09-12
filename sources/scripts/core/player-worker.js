@@ -112,11 +112,11 @@ var CPlayerWorker = function() {
 
   var createNote = function (instr, n, rowLen) {
     var osc1 = mOscillators[instr.i[0]],
-        o1vol = instr.i[1],
+        o1vol = 255 - instr.i[1],
         o1xenv = instr.i[3],
         osc2 = mOscillators[instr.i[4]],
-        o2vol = instr.i[5],
-        o2xenv = instr.i[8],
+        o2vol = 255 - (255 - instr.i[1]),
+        o2xenv = instr.i[3],
         noiseVol = instr.i[13],
         attack = instr.i[10] * instr.i[10] * 4,
         sustain = instr.i[11] * instr.i[11] * 4,
@@ -142,7 +142,7 @@ var CPlayerWorker = function() {
 
         // Calculate note frequencies for the oscillators
         o1t = getnotefreq(n + (arp & 15) + instr.i[2] - 128);
-        o2t = getnotefreq(n + (arp & 15) + instr.i[6] - 128) * (1 + 0.0008 * instr.i[7]);
+        o2t = getnotefreq(n + (arp & 15) + instr.i[2] - 128) * (1 + 0.0008 * instr.i[7]);
       }
 
       // Envelope
