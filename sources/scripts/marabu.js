@@ -153,7 +153,49 @@ function Marabu()
     this.song.stop_song();
   }
 
-  this.export_file = function()
+  this.path = null;
+
+  this.open = function()
+  {
+    var filepath = dialog.showOpenDialog({properties: ['openFile']});
+
+    if(!filepath){ console.log("Nothing to load"); return; }
+
+    fs.readFile(filepath[0], 'utf-8', (err, data) => {
+      if(err){ alert("An error ocurred reading the file :" + err.message); return; }
+
+      marabu.load(data,filepath[0]);
+    });
+  }
+
+  this.load = function(data,path = "")
+  {
+    var file_type = path.split(".")[path.split(".").length-1];
+
+    if(file_type == "mar"){
+      var o = JSON.parse(data);
+      marabu.load_file(o);
+      marabu.path = path;
+    }
+    if(file_type == "ins"){
+      var o = JSON.parse(data);
+      marabu.load_instrument(o);
+    }
+  }
+
+  this.save = function()
+  {
+    if(!marabu.path){ marabu.export(); return; }
+
+    fs.writeFile(marabu.path, marabu.song.to_string(), (err) => {
+      if(err) { alert("An error ocurred updating the file" + err.message); console.log(err); return; }
+      console.log("saved");
+      var el = document.getElementById("fxr31");
+      if(el){ el.className = "b_special f_special"; el.innerHTML = "--OK";  }
+    });
+  }
+
+  this.export = function()
   {  
     this.song.update_ranges();
     var str = this.song.to_string();
@@ -232,8 +274,6 @@ function Marabu()
     if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(e); return; }
     if(marabu.loop.is_active == true){ marabu.loop.input(e); return; }
 
-    if((e.key == "Backspace" || e.key == "Delete") && e.ctrlKey && e.shiftKey){ marabu.reset(); }
-
     if(key == "Escape"){ marabu.song.stop_song(); return; }
     if(key == " "){ marabu.play(); e.preventDefault(); return; }
 
@@ -272,11 +312,15 @@ function Marabu()
     // Global
 
     if(e.ctrlKey || e.metaKey){
+      if(key == "n"){ marabu.reset(); e.preventDefault(); return; }
+      if(key == "o"){ marabu.open(); e.preventDefault(); return; }
+      if(key == "s"){ marabu.save(); e.preventDefault(); return; }
+      if(key == "S"){ marabu.export(); e.preventDefault(); return; }
       if(key == "r"){ marabu.render(); e.preventDefault(); return; }
+      if(key == "i"){ marabu.export_instrument(); e.preventDefault(); return; }
+      
       if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
       if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
-      if(key == "s"){ marabu.export_file(); e.preventDefault(); return; }
-      if(key == "i"){ marabu.export_instrument(); e.preventDefault(); return; }
       return;
     }
 
@@ -322,11 +366,11 @@ window.addEventListener('drop', function(e)
     var file = files[file_id];
     if(!file || !file.name || file.name.indexOf(".mar") == -1 && file.name.indexOf(".ins") == -1){ console.log("skipped",file); continue; }
 
+    var path = file.path;
     var reader = new FileReader();
     reader.onload = function(e){
-      var o = JSON.parse(e.target.result);
-      if(file.name.indexOf(".mar") > 0){ marabu.load_file(o); }
-      if(file.name.indexOf(".ins") > 0){ marabu.load_instrument(o); }    
+      var o = e.target.result;
+      marabu.load(o,path);
     };
     reader.readAsText(file);
     return;

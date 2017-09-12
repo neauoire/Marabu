@@ -30,8 +30,13 @@
   </head>
   <body>
     <script>
+
+      const {dialog} = require('electron').remote;
+      const fs = require('fs');
+
       var marabu = new Marabu();
       marabu.start();
+      
     </script>
   </body>
 </html>

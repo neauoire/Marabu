@@ -12,6 +12,12 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `esc` Stop.
 - `ctrl shift del` Reset.
 
+- `ctrl n` New.
+- `ctrl s` Save.
+- `ctrl S` Save as.
+- `ctrl o` Open.
+- `ctrl i` Export instrument.
+
 ### Sequencer
 
 - `alt ArrowDown` Next Sequence.
@@ -138,11 +144,6 @@ theme: {
   b_special:"#00f", 
 }
 ```
-
-## Instruments
-
-- `ctrl i` Export instrument.
-- `drag .ins` Import instrument.
 
 ## TODOs
 
