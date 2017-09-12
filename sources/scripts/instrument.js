@@ -17,32 +17,36 @@ function Instrument()
 
       {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:5 },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
-      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true, control:11 },
+      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true, control:7 },
 
-      {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:13 },
-      {id: "lfo_freq", name: "FRQ", min: 0, max: 254, control:14 },
-      {id: "lfo_fxfreq", name: "MOD", min: 0, max: 255, control:15 },
+      {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:9 },
+      {id: "lfo_freq", name: "FRQ", min: 0, max: 254, control:10 },
+      {id: "lfo_fxfreq", name: "MOD", min: 0, max: 255, control:11 },
 
-      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:17 },
-      {id: "fx_res", name: "RES", min: 0, max: 254, control:18 },
-      {id: "fx_dly_amt", name: "DLY", min: 0, max: 255, control:19 },
-      {id: "fx_dly_time", name: "SPD", min: 0, max: 16, control:20 },
-      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:21 },
-      {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16, control:22 },
+      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:13 },
+      {id: "fx_res", name: "RES", min: 0, max: 254, control:14 },
+      {id: "fx_dly_amt", name: "DLY", min: 0, max: 255, control:15 },
+      {id: "fx_dly_time", name: "SPD", min: 0, max: 16, control:16 },
+      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:17 },
+      {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16, control:18 },
 
-      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:23 },
-      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:24 },
-      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:25 },
-      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:26 },
-      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:27 },
-      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:28 },
+      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:19 },
+      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:20 },
+      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:21 },
+      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:22 },
+      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:23 },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:24 },
     ]);
 
     this.setup_choices([
-      {id: "osc1_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:3},
-      {id: "osc2_wave_select", name: "OSC", choices: ["SIN","SQR","SAW","TRI"], control:7},
-      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:12},
-      {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:16},
+      {id: "osc1_wave_select", name: "OSC", choices: [
+        "SIN","SINSQR","SINSAW","SINTRI",
+        "SQR","SQRSIN","SQRSAW","SQRTRI",
+        "SAW","SAWSIN","SAWSQR","SAWTRI",
+        "TRI","TRISIN","TRISQR","TRISAW"
+      ], control:3},
+      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:8},
+      {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:12},
     ])
 
     this.setup_toggles([
@@ -85,6 +89,7 @@ function Instrument()
     if      (id == "osc1_vol")    { return 1; }
     else if (id == "osc1_semi")   { return 2; }
     else if (id == "osc1_xenv")   { return 3; }
+
     else if (id == "osc1_wave_select") { return 0; }
 
     else if (id == "osc2_vol")    { return 5; }
@@ -173,8 +178,6 @@ function Instrument()
     html += "      <div id='osc1_vol'></div>";
     html += "      <div id='osc1_semi'></div>";
     html += "      <div id='osc2_det'></div>";
-    html += "    </div>";
-    html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc2_wave_select'></t>";
     html += "    </div>";
     html += "    <div class='lfo' style='width:180px; margin-bottom:15px'>";
     html += "      <h1>";

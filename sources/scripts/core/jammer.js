@@ -108,6 +108,27 @@ function effect_drive(input,val)
   return output * val;
 }
 
+function osc_to_waveform(index)
+{
+  if(index == 0 ){ return [0,0]; } // SIN
+  if(index == 1 ){ return [0,1]; } // SINSQR
+  if(index == 2 ){ return [0,2]; } // SINSAW
+  if(index == 3 ){ return [0,3]; } // SINTRI
+  if(index == 4 ){ return [1,1]; } // SQR
+  if(index == 5 ){ return [1,0]; } // SQRSIN
+  if(index == 6 ){ return [1,2]; } // SQRSAW
+  if(index == 7 ){ return [1,3]; } // SQRTRI
+  if(index == 8 ){ return [2,2]; } // SAW
+  if(index == 9 ){ return [2,0]; } // SAWSIN
+  if(index == 10){ return [2,1]; } // SAWSQR
+  if(index == 11){ return [2,3]; } // SAWTRI
+  if(index == 12){ return [3,3]; } // TRI
+  if(index == 13){ return [3,0]; } // TRISIN
+  if(index == 14){ return [3,1]; } // TRISQR
+  if(index == 15){ return [3,2]; } // TRISAW
+  // if(index == 0){ return [0,0]; } // NOI
+}
+
 var CJammer = function () {
 
   //--------------------------------------------------------------------------
@@ -176,10 +197,10 @@ var CJammer = function () {
     for (i = 0; i < MAX_POLYPHONY; ++i) {
       var note = mPlayingNotes[i];
       if (note != undefined) {
-        var osc1 = mOscillators[note.instr[0]],
+        var osc1 = mOscillators[osc_to_waveform(note.instr[0])[0]],
             o1vol = 255 - note.instr[1],
             o1xenv = note.instr[3],
-            osc2 = mOscillators[note.instr[4]],
+            osc2 = mOscillators[osc_to_waveform(note.instr[0])[1]],
             o2vol = 255 - (255 - note.instr[1]),
             o2xenv = note.instr[3],
             noiseVol = note.instr[13],
