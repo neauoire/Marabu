@@ -46,7 +46,7 @@ function Marabu()
   {
     this.selection.instrument = clamp(this.selection.instrument,0,this.channels-1);
     this.selection.track = clamp(this.selection.track,0,this.sequencer.length);
-    this.selection.row = clamp(this.selection.row,0,32);
+    this.selection.row = clamp(this.selection.row,0,31);
     this.selection.octave = clamp(this.selection.octave,3,8);
     this.selection.control = clamp(this.selection.control,0,24);
 
@@ -194,7 +194,7 @@ function Marabu()
 
     fs.writeFile(marabu.path, marabu.song.to_string(), (err) => {
       if(err) { alert("An error ocurred updating the file" + err.message); console.log(err); return; }
-      console.log("saved");
+      console.log("saved",marabu.path);
       var el = document.getElementById("fxr31");
       if(el){ el.className = "b_special f_special"; el.innerHTML = "--OK";  }
     });
@@ -205,10 +205,15 @@ function Marabu()
     this.song.update_ranges();
     var str = this.song.to_string();
 
-    var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
-    var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
-    var timestamp = parseInt((since_midnight/864) * 10);
-    saveAs(blob, "export.mar");
+    dialog.showSaveDialog((fileName) => {
+      if (fileName === undefined){ return; }
+      fs.writeFile(fileName+".mar", str, (err) => {
+        if(err){ alert("An error ocurred creating the file "+ err.message); return; }
+        marabu.path = fileName;
+        var el = document.getElementById("fxr31");
+        if(el){ el.className = "b_special f_special"; el.innerHTML = "--OK";  }
+      });
+    }); 
   }
 
   this.load_file = function(track)
@@ -231,6 +236,10 @@ function Marabu()
 
   this.load_theme = function(theme)
   {
+    console.log("Loading theme",theme);
+
+    this.song.song().theme = theme;
+
     var html = "";
 
     html += "body { background:"+theme.background+" !important }\n";
@@ -278,6 +287,7 @@ function Marabu()
 
   this.reset = function()
   {
+    this.path = null;
     this.song.init();
     this.update();
   }
