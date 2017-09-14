@@ -5,6 +5,7 @@ function Instrument()
   this.sliders = {};
   this.choices = {};
   this.toggles = {};
+  this.uv = new UI_Uv();
 
   this.start = function()
   {
@@ -52,6 +53,8 @@ function Instrument()
     this.setup_toggles([
       {id: "osc1_xenv", name: "MOD", control:4},
     ]);
+
+    this.uv.install();
   }
 
   this.setup_sliders = function(sliders)
@@ -105,10 +108,6 @@ function Instrument()
 
     else if (id == "noise_vol")      { return 13; }
     else if (id == "fx_compressor")      { return 14; }
-
-    // else if (id == "arp_note1")   { return 13; }
-    // else if (id == "arp_note2")   { return 13; }
-    // else if (id == "arp_speed")   { return 14; }
 
     else if (id == "lfo_amt")     { return 16; }
     else if (id == "lfo_freq")    { return 17; }
@@ -202,6 +201,9 @@ function Instrument()
     html += "      <div id='fx_pin'></div>";
     html += "      <div id='fx_compressor'></div>";
     html += "      <div id='fx_drive'></div>";
+    html += "    </div>";
+    html += "    <div class='efx' style='width:180px;'>";
+    html += "      <div id='uv'></div>";
     html += "    </div>";
     html += "  </div>";
     return html;

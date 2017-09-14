@@ -21,8 +21,11 @@ function Follower()
     if (marabu.song.mAudio().ended || (marabu.song.mAudio().duration && ((marabu.song.mAudio().duration - t) < 0.1))) {
       clearInterval(this.timer);
       this.timer = -1;
+      marabu.instrument.uv.draw(-1);
       return;
     }
+
+    marabu.instrument.uv.draw(t);
 
     var n = Math.floor(t * 44100 / marabu.song.song().rowLen);
     var r = n % 32;
@@ -41,5 +44,6 @@ function Follower()
     clearInterval(this.timer);
     this.timer = -1;
     marabu.update();
+    marabu.instrument.uv.draw(-1);
   }
 }

@@ -21,6 +21,11 @@ var Song = function()
   // Song import/export functions
   //--------------------------------------------------------------------------
 
+  this.player = function()
+  {
+    return mPlayer;
+  }
+
   this.get_bpm = function()
   {
     return Math.round((60 * 44100 / 4) / mSong.rowLen);
