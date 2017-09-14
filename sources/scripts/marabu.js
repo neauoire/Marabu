@@ -1,8 +1,7 @@
 function Marabu()
 {
-  this.theme_el = document.createElement("style");
-  document.body.appendChild(this.theme_el);
-
+  this.theme = new Theme();
+  
   this.el = document.createElement("app");
   this.el.className = "noir";
   this.el.id = "marabu";
@@ -13,6 +12,7 @@ function Marabu()
   this.el.appendChild(this.wrapper_el);
 
   document.body.appendChild(this.el);
+  document.body.appendChild(this.theme.el);
 
   this.selection = {instrument:0,track:0,row:0,octave:5,control:0};
   this.channels = 16;
@@ -31,7 +31,7 @@ function Marabu()
     this.wrapper_el.innerHTML += this.instrument.build();
 
     this.song.init();
-    this.load_theme(this.song.song().theme);
+    this.theme.start();
 
     this.sequencer.start();
     this.editor.start();
@@ -184,7 +184,7 @@ function Marabu()
     }
     else if(file_type == "thm"){
       var o = JSON.parse(data);
-      marabu.load_theme(o);
+      marabu.theme.install(o);
     }
   }
 
@@ -218,45 +218,10 @@ function Marabu()
 
   this.load_file = function(track)
   {
-    if(track.theme){ this.load_theme(track.theme); }
+    if(track.theme){ this.theme.install(track.theme); }
 
     marabu.song.replace_song(track);
     marabu.update();
-  }
-
-  this.export_theme = function()
-  {
-    var str = JSON.stringify(this.song.song().theme);
-
-    var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
-    var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
-    var timestamp = parseInt((since_midnight/864) * 10);
-    saveAs(blob, "theme.thm");
-  }
-
-  this.load_theme = function(theme)
-  {
-    console.log("Loading theme",theme);
-
-    this.song.song().theme = theme;
-
-    var html = "";
-
-    html += "body { background:"+theme.background+" !important }\n";
-    html += ".fh { color:"+theme.f_high+" !important; stroke:"+theme.f_high+" !important }\n";
-    html += ".fm { color:"+theme.f_med+" !important ; stroke:"+theme.f_med+" !important }\n";
-    html += ".fl { color:"+theme.f_low+" !important ; stroke:"+theme.f_low+" !important }\n";
-    html += ".f_inv { color:"+theme.f_inv+" !important ; stroke:"+theme.f_inv+" !important }\n";
-    html += ".f_special { color:"+theme.f_special+" !important ; stroke:"+theme.f_special+" !important }\n";
-    html += ".bh { background:"+theme.b_high+" !important; fill:"+theme.b_high+" !important }\n";
-    html += ".bm { background:"+theme.b_med+" !important ; fill:"+theme.b_med+" !important }\n";
-    html += ".bl { background:"+theme.b_low+" !important ; fill:"+theme.b_low+" !important }\n";
-    html += ".b_inv { background:"+theme.b_inv+" !important ; fill:"+theme.b_inv+" !important }\n";
-    html += ".b_special { background:"+theme.b_special+" !important ; fill:"+theme.b_special+" !important }\n";
-    html += "#editor { border-left-color: "+theme.b_low+" }\n";
-    html += "#instrument { border-left-color: "+theme.b_low+" }\n";
-    html += "#scrollbar { background: "+theme.b_low+" }\n";
-    this.theme_el.innerHTML = html;
   }
 
   this.export_instrument = function()
@@ -266,11 +231,8 @@ function Marabu()
     instr_obj.name = instr.name;
     instr_obj.i = instr.i;
     var str = JSON.stringify(instr_obj);
-    
-    var blob = new Blob([str], {type: "text/plain;charset=" + document.characterSet});
-    var d = new Date(), e = new Date(d), since_midnight = e - d.setHours(0,0,0,0);
-    var timestamp = parseInt((since_midnight/864) * 10);
-    saveAs(blob, instr.name+".ins");
+
+    // TODO
   }
 
   this.load_instrument = function(instr)

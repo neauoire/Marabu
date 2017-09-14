@@ -120,8 +120,8 @@ function osc_to_waveform(index)
   // if(index == 0){ return [0,0]; } // NOI
 }
 
-var CPlayerWorker = function() {
-
+var CPlayerWorker = function()
+{
   //----------------------------------------------------------------------------
   // Private methods
   //----------------------------------------------------------------------------
@@ -220,12 +220,14 @@ var CPlayerWorker = function() {
   //----------------------------------------------------------------------------
 
   // Initialize buffers etc.
-  this.init = function (song, opts) {
+  this.init = function (song, opts)
+  {
     // Handle optional arguments
     this.firstRow = 0;
-    this.lastRow = song.endPattern - 2;
+    this.lastRow = song.endPattern - 1;
     this.firstCol = 0;
     this.lastCol = 15; // TODO: lobby.apps.marabu.channels-1
+
     if (opts) {
       this.firstRow = opts.firstRow;
       this.lastRow = opts.lastRow;
@@ -243,7 +245,10 @@ var CPlayerWorker = function() {
   };
 
   // Generate audio data for a single track
-  this.generate = function (){
+  this.generate = function ()
+  {
+    var signal_processor = new Signal_Processor();
+    
     // Local variables
     var i, j, b, p, row, col, currentCol, n, cp,
         k, t, lfor, e, x, rsample, rowStartSample, f, da;
