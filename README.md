@@ -4,19 +4,28 @@ Marabu is a simple open-source music tracker built from Soundbox.
 
 <img src='https://raw.githubusercontent.com/hundredrabbits/Marabu/master/PREVIEW.jpg' width="600"/>
 
+## Guide
+
+If this is your first time using a tracker, don't worry this quick introduction will cover the basics of writing a little track, and exporting it to an audio file. 
+
+The interface is divided into 3 columns, the *sequencer*, the *pattern editor* and the *instrument*. By default, the application launches with an active pattern, in the first instrument. There is a maximum of 16 instruments that can play at the same time. 
+
+To move the *pattern cursor*, use the arrow keys. Pressing the keyboard keys a,s,d,f,g,h & j will record a note in the first row of the first column. Pressing the ArrowDown and ArrowUp keys, will move the *cursor* up/down in the sequencer. Allowing you to fill `pattern #1` with notes. Pressing `space` will play the pattern, pressing `esc` will stop.
+
+To change the *sequencer patterns*, use the arrow keys while `holding alt`. To add notes to a second instrument, move to the second column and press `alt ArrowRight`, this will set the first row of the second instrument to 1, and allow you to record notes. Press `alt ArrowDown` to move to the second row, and press `alt ArrowRight` again twice, to extend the track to 2 rows, and begin adding notes to the second row of the second instrument.
+
+To change the *instrument controls*, use the arrow keys while `holding shift`. To save your song, press `ctrl s`, to render an audio file(.wav) press `ctrl r`.
+
 ## Controls
 
 ### General
 
 - `space` Play.
 - `esc` Stop.
-- `ctrl shift del` Reset.
-
 - `ctrl n` New.
 - `ctrl s` Save.
 - `ctrl S` Save as.
 - `ctrl o` Open.
-
 - `ctrl r` Export .wav.
 - `ctrl i` Export .ins(instrument).
 - `ctrl t` Export .thm(instrument).
@@ -86,6 +95,47 @@ Hold `shift`, while pressing a note, to make chords.
 - `y` Play/Record G#.
 - `u` Play/Record A#.
 
+## Effects
+
+### Envelope
+
+- `ATK` Attack
+- `SUS` Sustain
+- `REL` Release
+
+### Osc
+
+- `MIX` Dry/Wet between the 2 osc
+- `FRQ` Frequency
+- `DET` Detune, frequency offset between the 2 osc.
+
+### Efx
+
+- `LP` Low-pass
+- `HP` High-pass
+- `BP` Band-pass
+- `FRQ` Filter Frequency
+- `RES` Resonance
+- `DLY` Delay Feedback
+- `SPD` Delay Speed
+- `PAN` Pan
+- `FRQ` Pan Frequency
+
+### Shapers
+
+- `NOI` Noise Volume
+- `BIT` Bitcrusher
+- `DIS` Distortion
+- `PIN` Pinking
+- `CMP` Compressor
+- `DRV` Drive
+
+### UV
+
+- `VOL` UV Volume
+- `ENV` UV Envelope
+- `WAV` UV Wave shape
+
 ## Cheatmode
 
 Press `ctrl k` to activate cheatmode. Press `esc` to exit cheatmode.
@@ -104,7 +154,6 @@ The cheatmode will catch 3 keys, corresponding to int/hex of `rate`, `length` & 
 
 - `c` To copy the entire pattern.
 - `v` To paste copied notes.
-- `4 c` To copy every 4th note.
 - `4 c` To copy every 4th note.
 
 ### Insert Multiple
