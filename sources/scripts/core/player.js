@@ -21,12 +21,8 @@
 
 "use strict";
 
-var CPlayer = function () {
-
-    //--------------------------------------------------------------------------
-    // Private members
-    //--------------------------------------------------------------------------
-
+var CPlayer = function ()
+{
     var mProgressCallback;
 
     var mGeneratedBuffer;

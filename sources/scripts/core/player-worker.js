@@ -19,7 +19,7 @@
 *
 */
 
-"use strict";
+self.importScripts('../signal.js');
 
 // OSCs
 
@@ -302,16 +302,17 @@ var CPlayerWorker = function()
                 fxFilter = instr.i[19],
                 fxFreq = instr.i[20] * 43.23529 * 3.141592 / 44100,
                 q = 1 - instr.i[21] / 255,
-                distortion_val = instr.i[22] * 1e-5,
-                drive_val = instr.i[23] / 32,
                 panAmt = instr.i[24] / 512,
                 panFreq = 6.283184 * Math.pow(2, instr.i[25] - 9) / rowLen,
                 dlyAmt = instr.i[26] / 255,
-                dly = instr.i[27] * rowLen,
-                bit_phaser_val = 0.5 - (0.49 * (instr.i[9]/255.0)),
-                bit_step_val = 16 - (14 * (instr.i[9]/255.0)),
-                compressor_val = instr.i[14],
-                pinking_val = instr.i[28];
+                dly = instr.i[27] * rowLen;
+
+            signal_processor.knobs.distortion = instr.i[22] * 1e-5;
+            signal_processor.knobs.pinking    = instr.i[28]  / 255.0;
+            signal_processor.knobs.compressor = instr.i[14]  / 255.0;
+            signal_processor.knobs.drive      = instr.i[23]  / 32.0;
+            signal_processor.knobs.bit_phaser = 0.5 - (0.49 * (instr.i[9]/255.0));
+            signal_processor.knobs.bit_step   = 16 - (14 * (instr.i[9]/255.0));
 
             // Calculate start sample number for this row in the pattern
             rowStartSample = ((p - this.firstRow) * patternLen + row) * rowLen;
@@ -341,17 +342,6 @@ var CPlayerWorker = function()
               // We only do effects if we have some sound input
               if (rsample || filterActive) {
 
-                // Bit.
-                mFXState.bit_phaser += bit_phaser_val; // Between 0.1 and 1
-                var step = Math.pow(1/2, bit_step_val); // between 1 and 16
-
-                if (mFXState.bit_phaser >= 1.0) {
-                  mFXState.bit_phaser -= 1.0;
-                  mFXState.bit_last = step * Math.floor(rsample / step + 0.5);
-                }
-
-                rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
-
                 // State variable filter
                 f = fxFreq;
                 if (fxLFO) {
@@ -363,12 +353,7 @@ var CPlayerWorker = function()
                 band += f * high;
                 rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
-                rsample = effect_distortion(rsample,distortion_val);
-                rsample = effect_pinking(rsample,pinking_val/255);
-                rsample = effect_compressor(rsample,compressor_average,compressor_val/255);
-                rsample = effect_drive(rsample,drive_val);
-
-                compressor_average = ((compressor_average * ((compressor_val/255) * 1000)) + rsample)/(((compressor_val/255) * 1000)+1);
+                rsample = signal_processor.operate(rsample);
 
                 // Is the filter active (i.e. still audiable)?
                 filterActive = rsample * rsample > 1e-5;

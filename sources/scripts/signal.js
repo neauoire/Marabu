@@ -1,17 +1,40 @@
 function Signal_Processor()
 {
-  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null};
+  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null};
 
-  this.compressor_average = 0;
+  this.step_last = 0;
+  this.phase = 0;
+  this.average = 0;
 
   this.operate = function(input)
   {
     var output = input;
 
+    output = this.effect_bitcrusher(output);
+
     output = this.effect_distortion(output,this.knobs.distortion);
     output = this.effect_pinking(output,this.knobs.pinking);
     output = this.effect_compressor(output,this.knobs.compressor);
     output = this.effect_drive(output,this.knobs.drive);
+
+    this.average = ((this.average * ((this.knobs.compressor) * 1000)) + output)/(((this.knobs.compressor) * 1000)+1);
+
+    return output;
+  }
+
+  this.effect_bitcrusher = function(input)
+  {
+    var output = input;
+
+    this.phase += this.knobs.bit_phaser; // Between 0.1 and 1
+    var step = Math.pow(1/2, this.knobs.bit_step); // between 1 and 16
+
+    if(this.phase >= 1.0) {
+      this.phase -= 1.0;
+      this.step_last = step * Math.floor(output / step + 0.5);
+    }
+
+    output = this.knobs.bit_step < 16 ? this.step_last : output;
 
     return output;
   }
@@ -35,10 +58,10 @@ function Signal_Processor()
   this.effect_compressor = function(input,val)
   {
     var output = input;
-    if(input < this.compressor_average){
+    if(input < this.average){
       output *= 1 + val;
     }
-    else if(input > this.compressor_average){
+    else if(input > this.average){
       output *= 1 - val;
     }
     return output;

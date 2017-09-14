@@ -45,69 +45,6 @@ var osc_tri = function (value)
   return 3 - v2;
 };
 
-// Pinking
-
-var b0, b1, b2, b3, b4, b5, b6;
-    b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
-
-function effect_pinking(input,val)
-{
-  b0 = 0.99886 * b0 + input * 0.0555179;
-  b1 = 0.99332 * b1 + input * 0.0750759;
-  b2 = 0.96900 * b2 + input * 0.1538520;
-  b3 = 0.86650 * b3 + input * 0.3104856;
-  b4 = 0.55000 * b4 + input * 0.5329522;
-  b5 = -0.7616 * b5 - input * 0.0168980;
-  var output = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + input * 0.5362) * 0.1;
-  b6 = input * 0.115926;
-
-  return (output * val) + (input * (1 - val));
-}
-
-// Compressor
-
-function effect_compressor(input,average,val)
-{
-  var output = input;
-  if(input < average){
-    output *= 1 + val;
-  }
-  else if(input > average){
-    output *= 1 - val;
-  }
-  return output;
-}
-
-function make_compressor_average(length,samples)
-{
-  var compressor_average = 0;
-  for (var j = 0; j < length; j++) {
-    compressor_average += samples[j];
-  }
-  return compressor_average/parseFloat(length);
-}
-
-// Distortion
-
-function effect_distortion(input,val)
-{
-  if(!val){ return input; }
-
-  var output = input;
-  output *= val;
-  output = output < 1 ? output > -1 ? osc_sin(output*.25) : -1 : 1;
-  output /= val;
-  return output;
-}
-
-// Drive
-
-function effect_drive(input,val)
-{
-  var output = input;
-  return output * val;
-}
-
 function osc_to_waveform(index)
 {
   if(index == 0 ){ return [0,0]; } // SIN
@@ -298,21 +235,18 @@ var CJammer = function () {
         fxFilter = mInstr[19],
         fxFreq = mInstr[20] * 43.23529 * 3.141592 / mSampleRate,
         q = 1 - mInstr[21] / 255,
-        distortion_val = mInstr[22] * 1e-5 * 32767,
-        drive_val = mInstr[23] / 32,
         panAmt = mInstr[24] / 512,
         panFreq = 6.283184 * Math.pow(2, mInstr[25] - 9) / mRowLen,
         dlyAmt = mInstr[26] / 255,
-        dly = (mInstr[27] * mRowLen) >> 1,
-        bit_phaser_val = 0.5 - (0.49 * (mInstr[9]/255.0)),
-        bit_step_val = 16 - (14 * (mInstr[9]/255.0)),
-        compressor_val = mInstr[14],
-        pinking_val = mInstr[28];
+        dly = (mInstr[27] * mRowLen) >> 1;
 
     signal_processor.knobs.distortion = mInstr[22] * 1e-5 * 32767;
     signal_processor.knobs.pinking    = mInstr[28]  / 255.0;
     signal_processor.knobs.compressor = mInstr[14]  / 255.0;
     signal_processor.knobs.drive      = mInstr[23]  / 32.0;
+    signal_processor.knobs.bit_phaser = 0.5 - (0.49 * (mInstr[9]/255.0));
+    signal_processor.knobs.bit_step =16 - (14 * (mInstr[9]/255.0));
+
 
     // Limit the delay to the delay buffer size.
     if (dly >= MAX_DELAY) {
@@ -329,17 +263,6 @@ var CJammer = function () {
       // We only do effects if we have some sound input.
       if (rsample || filterActive) {
 
-        // Bit.
-        mFXState.bit_phaser += bit_phaser_val; // Between 0.1 and 1
-        var step = Math.pow(1/2, bit_step_val); // between 1 and 16
-
-        if (mFXState.bit_phaser >= 1.0) {
-          mFXState.bit_phaser -= 1.0;
-          mFXState.bit_last = step * Math.floor(rsample / step + 0.5);
-        }
-
-        rsample = bit_step_val < 16 ? mFXState.bit_last : rsample;
-
         // State variable filter.
         f = fxFreq;
         if (fxLFO) {
@@ -352,8 +275,6 @@ var CJammer = function () {
         rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
         rsample = signal_processor.operate(rsample);
-
-        signal_processor.compressor_average = ((signal_processor.compressor_average * ((compressor_val/255) * 1000)) + rsample)/(((compressor_val/255) * 1000)+1);
 
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;
@@ -422,9 +343,7 @@ var CJammer = function () {
       low: 0,
       band: 0,
       filterActive: false,
-      dlyPos: 0,
-      bit_last: 0,
-      bit_phaser: 0
+      dlyPos: 0
     };
 
     // Create delay buffers (lengths must be equal and a power of 2).

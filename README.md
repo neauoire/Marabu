@@ -150,7 +150,6 @@ theme: {
 
 - Selective play(pattern) `ctrl l`
 - Selective play(instrument) `ctrl L`
-- Wrap effects in a class.
 - UV Canvas Animation
 
 ## Development
