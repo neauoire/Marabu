@@ -43,8 +43,9 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null)
     this.el.addEventListener("mousedown", this.mouse_down, false);
   }
 
-  this.mod = function(v)
+  this.mod = function(v,relative = false)
   {
+    if(relative && this.max > 128){ v *= 10; }
     this.value += parseInt(v);
     this.value = clamp(this.value,this.min,this.max);
     this.update();    
@@ -62,11 +63,7 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null)
     var value = this.value;
     var instr = app.song.instrument();
     var control_storage = app.instrument.get_storage(this.id);
-    var ARP_CHORD = app.instrument.get_storage("arp_chord");
 
-    if (this.id == "arp_note1" || this.id == "arp_note2") {  // The arpeggio chord notes are combined into a single byte    
-      value = id == "arp_note1" ? (instr.i[ARP_CHORD] & 15) | (value << 4) : (instr.i[ARP_CHORD] & 240) | value;
-    }
     app.song.inject_control(app.selection.instrument,control_storage,value);
   }
 

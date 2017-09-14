@@ -95,10 +95,10 @@ function Marabu()
     this.update();
   }
 
-  this.move_control_value = function(mod)
+  this.move_control_value = function(mod,relative)
   {
     var control = this.instrument.control_target(this.selection.control);
-    control.mod(mod);
+    control.mod(mod,relative);
     control.save();
   }
 
@@ -233,7 +233,26 @@ function Marabu()
     instr_obj.i = instr.i;
     var str = JSON.stringify(instr_obj);
 
-    // TODO
+    dialog.showSaveDialog((fileName) => {
+      if (fileName === undefined){ return; }
+      fs.writeFile(fileName+".ins", str, (err) => {
+        if(err){ alert("An error ocurred creating the file "+ err.message); return; }
+      });
+    }); 
+  }
+
+  this.export_theme = function()
+  {
+    var theme = marabu.song.song().theme;
+
+    var str = JSON.stringify(theme);
+
+    dialog.showSaveDialog((fileName) => {
+      if (fileName === undefined){ return; }
+      fs.writeFile(fileName+".thm", str, (err) => {
+        if(err){ alert("An error ocurred creating the file "+ err.message); return; }
+      });
+    }); 
   }
 
   this.load_instrument = function(instr)
@@ -265,22 +284,35 @@ function Marabu()
     if(key == "Escape"){ marabu.song.stop_song(); return; }
     if(key == " "){ marabu.play(); e.preventDefault(); return; }
 
+    // Arrows
+
+    if(e.shiftKey){ // Instrument
+      if(key == "ArrowDown") { marabu.move_control(1); e.preventDefault(); return; }
+      if(key == "ArrowUp")   { marabu.move_control(-1); e.preventDefault();return; }
+      if(key == "ArrowRight"){ marabu.move_control_value(1,true); e.preventDefault(); return; }
+      if(key == "ArrowLeft") { marabu.move_control_value(-1,true); e.preventDefault();return; }
+    }
+    else if(e.altKey || e.metaKey){
+      if(key == "ArrowDown") { marabu.move_track(1); e.preventDefault(); return; }
+      if(key == "ArrowUp")   { marabu.move_track(-1); e.preventDefault();return; }
+      if(key == "ArrowRight"){ marabu.move_pattern(1); e.preventDefault(); return; }
+      if(key == "ArrowLeft") { marabu.move_pattern(-1); e.preventDefault();return; }
+    }
+    else{
+      if(key == "ArrowRight"){ marabu.move_inst(1); e.preventDefault(); return; }
+      if(key == "ArrowLeft") { marabu.move_inst(-1); e.preventDefault(); return; }
+      if(key == "ArrowDown") { marabu.move_row(1); e.preventDefault(); return; }
+      if(key == "ArrowUp")   { marabu.move_row(-1); e.preventDefault(); return; }
+    }
+    
     // Sequencer
 
     if(key == "+")         { marabu.move_pattern(1); e.preventDefault();return; }
     if(key == "-")         { marabu.move_pattern(-1); e.preventDefault();return; }
     if(key == "_")         { marabu.move_pattern(-1); e.preventDefault();return; }
-    if(key == "ArrowDown" && (e.altKey || e.metaKey))         { marabu.move_track(1); e.preventDefault(); return; }
-    if(key == "ArrowUp" && (e.altKey || e.metaKey))         { marabu.move_track(-1); e.preventDefault();return; }
-    if(key == "ArrowDown" && (e.shiftKey))         { marabu.move_control(1); e.preventDefault(); return; }
-    if(key == "ArrowUp" && (e.shiftKey))         { marabu.move_control(-1); e.preventDefault();return; }
 
     // Editor
 
-    if(key == "ArrowRight"){ marabu.move_inst(1); e.preventDefault(); return; }
-    if(key == "ArrowLeft") { marabu.move_inst(-1); e.preventDefault(); return; }
-    if(key == "ArrowDown") { marabu.move_row(1); e.preventDefault(); return; }
-    if(key == "ArrowUp")   { marabu.move_row(-1); e.preventDefault(); return; }
     if(key == "/")         { marabu.save_control_value(); e.preventDefault(); return; }
     if(key == "Backspace" || key == "Delete") { marabu.set_note(0); e.preventDefault(); return; }
 

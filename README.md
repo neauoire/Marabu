@@ -16,26 +16,35 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `ctrl s` Save.
 - `ctrl S` Save as.
 - `ctrl o` Open.
-- `ctrl i` Export instrument.
-- `ctrl t` Export theme.
+
+- `ctrl r` Export .wav.
+- `ctrl i` Export .ins(instrument).
+- `ctrl t` Export .thm(instrument).
 
 ### Sequencer
 
+#### Arrows
+
 - `alt ArrowDown` Next Sequence.
 - `alt ArrowUp` Previous Sequence.
-- `+` Next Pattern.
-- `-` Previous Pattern.
+- `alt ArrowRight` Increment Pattern Id +1.
+- `alt ArrowLeft` Decrement Pattern Id -1.
 
-#### Loop(Special)
+#### Keys
 
 - `ctrl l` Loopmode, see below.
 
 ### Editor
+  
+#### Arrows
 
 - `ArrowRight` Next Instrument.
 - `ArrowLeft` Previous Instrument.
 - `ArrowDown` Next Row.
 - `ArrowUp` Previous Row.
+
+#### Keys
+
 - `/` Add a Control Keyframe.
 - `Backspace` Erase Note in Row.
 - `)` Increment Note Value +12.
@@ -43,14 +52,16 @@ Marabu is a simple open-source music tracker built from Soundbox.
 - `0` Increment Note Value +1.
 - `9` Decrement Note Value -1.
 
-#### Editor(Special)
-
-- `ctrl k` Cheatmode, see below.
-
 ### Instrument
+
+#### Arrows
 
 - `shift ArrowDown` Next Control.
 - `shift ArrowUp` Previous Control.
+- `shift ArrowRight` Increment Control Value +1.
+- `shift ArrowLeft` Decrement Control Value -1.
+
+#### Keys
 - `]` Increment Control Value +10.
 - `[` Decrement Control Value -10.
 - `}` Increment Control Value +1.
@@ -122,13 +133,15 @@ To copy the first 16 bars, into the 16 following bars and play the following not
 
 Press `ctrl l` to activate loopmode. 
 
+### Selective play
+
 - `enter` Will loop current active pattern(only active instrument).
 - `00f enter` Will loop current active track(all instruments).
 - `2244 enter` Will loop instrument 2 to 4, from track 2 to 4.
 
 ## Themes
 
-You can customize the look of your tracks by editing the .mar file and replacing the attributes' colors.
+You can customize the look of your tracks by editing the .mar file and replacing the attributes' colors. 
 
 ```
 theme: { 
@@ -145,12 +158,6 @@ theme: {
   b_special:"#00f", 
 }
 ```
-
-## TODOs
-
-- Selective play(pattern) `ctrl l`
-- Selective play(instrument) `ctrl L`
-- UV Canvas Animation
 
 ## Development
 
