@@ -60,6 +60,17 @@ function UI_Uv()
     this.el.style.width = "120px";
     this.el.style.padding = "0px 2.5px";
 
+    var vol_ctx = this.vol_canvas.getContext("2d");
+    var env_ctx = this.env_canvas.getContext("2d");
+    var wav_ctx = this.env_canvas.getContext("2d");
+
+    vol_ctx.setLineDash([2, 2]);
+    vol_ctx.lineWidth = 2;
+    env_ctx.setLineDash([2, 2]);
+    env_ctx.lineWidth = 2;
+    wav_ctx.setLineDash([2, 2]);
+    wav_ctx.lineWidth = 2;
+
     this.clear();
   }
 
@@ -99,20 +110,14 @@ function UI_Uv()
     vol_ctx.strokeStyle = marabu.theme.active.f_low;
     vol_ctx.beginPath();
     vol_ctx.moveTo(0,15);
-    vol_ctx.setLineDash([2, 2]);
-    vol_ctx.lineWidth = 2;
     vol_ctx.lineTo(this.size.width * 2,15);
     vol_ctx.stroke();
-    vol_ctx.closePath();
 
     env_ctx.strokeStyle = marabu.theme.active.f_low;
     env_ctx.beginPath();
     env_ctx.moveTo(0,15);
-    env_ctx.setLineDash([2, 2]);
-    env_ctx.lineWidth = 2;
     env_ctx.lineTo(this.size.width * 2,15);
     env_ctx.stroke();
-    env_ctx.closePath();
   }
 
   this.draw = function(t)
@@ -129,14 +134,12 @@ function UI_Uv()
     // Get the waveform
     var wave = marabu.song.player().getData(t, 1000);
 
-    // Testting something
-
     wav_ctx.clearRect(0, 0, this.size.width * 2, this.size.height * 2);
     wav_ctx.strokeStyle = marabu.theme.active.f_high;
     wav_ctx.beginPath();
-    wav_ctx.moveTo(0,this.size.height);
     wav_ctx.setLineDash([2, 2]);
     wav_ctx.lineWidth = 2;
+    wav_ctx.moveTo(0,this.size.height);
 
     // Calculate volume
     var i, l, r;
@@ -159,11 +162,13 @@ function UI_Uv()
       pr += sr * sr;
 
       var last_x = 0;
-      var x = parseInt(i/5);
+      var x = parseInt(i/20);
 
-      if(x != last_x && x < this.size.width * 2){
-        var mod = ((l+r)/2.0) * 25;
+      if(parseInt(x) != parseInt(last_x) && x < this.size.width * 2){
+        var mod = ((l+r)/2.0) * 20;
         var y = this.size.height + mod;
+        // y = y * (i/parseFloat(this.width));
+        y = clamp(y,0,this.size.height*2);
         wav_ctx.lineTo(x, y);
         last_x = x;
       }
@@ -181,11 +186,8 @@ function UI_Uv()
     vol_ctx.strokeStyle = marabu.theme.active.f_high;
     vol_ctx.beginPath();
     vol_ctx.moveTo(0,15);
-    vol_ctx.setLineDash([2, 2]);
-    vol_ctx.lineWidth = 2;
     vol_ctx.lineTo((this.size.width * 2) * index,15);
     vol_ctx.stroke();
-    vol_ctx.closePath();
 
     for (i = 0; i < 16; ++i)
     {
@@ -208,13 +210,12 @@ function UI_Uv()
         env_ctx.strokeStyle = marabu.theme.active.f_high;
         env_ctx.beginPath();
         env_ctx.moveTo(0,15);
-        env_ctx.setLineDash([2, 2]);
-        env_ctx.lineWidth = 2;
         env_ctx.lineTo((this.size.width * 2) * alpha,15);
         env_ctx.stroke();
-        env_ctx.closePath();
       }
     }
 
   }
+
+  function clamp(v, min, max) { return v < min ? min : v > max ? max : v; }
 }
