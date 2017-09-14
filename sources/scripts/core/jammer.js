@@ -158,9 +158,7 @@ var CJammer = function () {
   var mSampleRate;
   var mRateScale;
 
-  // Compressor
-  var compressor_average = 0;
-
+  var signal_processor = new Signal_Processor();
 
   //--------------------------------------------------------------------------
   // Sound synthesis engine.
@@ -180,7 +178,8 @@ var CJammer = function () {
   ];
 
   // Fill the buffer with more audio, and advance state accordingly.
-  var generateTimeSlice = function (leftBuf, rightBuf) {
+  var generateTimeSlice = function (leftBuf, rightBuf)
+  {
     var numSamples = rightBuf.length;
 
     // Local variables
@@ -310,6 +309,11 @@ var CJammer = function () {
         compressor_val = mInstr[14],
         pinking_val = mInstr[28];
 
+    signal_processor.knobs.distortion = mInstr[22] * 1e-5 * 32767;
+    signal_processor.knobs.pinking    = mInstr[28]  / 255.0;
+    signal_processor.knobs.compressor = mInstr[14]  / 255.0;
+    signal_processor.knobs.drive      = mInstr[23]  / 32.0;
+
     // Limit the delay to the delay buffer size.
     if (dly >= MAX_DELAY) {
       dly = MAX_DELAY - 1;
@@ -347,12 +351,9 @@ var CJammer = function () {
         band += f * high;
         rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
-        rsample = effect_distortion(rsample,distortion_val);
-        rsample = effect_pinking(rsample,pinking_val/255);
-        rsample = effect_compressor(rsample,compressor_average,compressor_val/255);
-        rsample = effect_drive(rsample,drive_val);
+        rsample = signal_processor.operate(rsample);
 
-        compressor_average = ((compressor_average * ((compressor_val/255) * 1000)) + rsample)/(((compressor_val/255) * 1000)+1);
+        signal_processor.compressor_average = ((signal_processor.compressor_average * ((compressor_val/255) * 1000)) + rsample)/(((compressor_val/255) * 1000)+1);
 
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;

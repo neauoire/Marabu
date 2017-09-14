@@ -8,11 +8,9 @@ function Signal_Processor()
   {
     var output = input;
 
-    this.compressor_average = ((this.compressor_average * ((this.knobs.compressor/255) * 1000)) + output)/(((this.knobs.compressor/255) * 1000)+1);
-
     output = this.effect_distortion(output,this.knobs.distortion);
     output = this.effect_pinking(output,this.knobs.pinking);
-    output = this.effect_compressor(output,this.compressor_average,this.knobs.compressor);
+    output = this.effect_compressor(output,this.knobs.compressor);
     output = this.effect_drive(output,this.knobs.drive);
 
     return output;
@@ -22,8 +20,6 @@ function Signal_Processor()
 
   this.effect_pinking = function(input,val)
   {
-    val = val/255;
-
     b0 = 0.99886 * b0 + input * 0.0555179;
     b1 = 0.99332 * b1 + input * 0.0750759;
     b2 = 0.96900 * b2 + input * 0.1538520;
@@ -36,15 +32,13 @@ function Signal_Processor()
     return (output * val) + (input * (1 - val));
   }
 
-  this.effect_compressor = function(input,average,val)
+  this.effect_compressor = function(input,val)
   {
-    val /= 255;
-
     var output = input;
-    if(input < average){
+    if(input < this.compressor_average){
       output *= 1 + val;
     }
-    else if(input > average){
+    else if(input > this.compressor_average){
       output *= 1 - val;
     }
     return output;
