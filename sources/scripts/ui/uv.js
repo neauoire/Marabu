@@ -23,7 +23,7 @@ function UI_Uv()
     this.el.appendChild(this.env_name_el);
     this.el.appendChild(this.env_canvas);
 
-    this.vol_name_el.className = "name fm";
+    this.vol_name_el.className = "name fl";
     this.vol_name_el.innerHTML = "VOL";
     this.vol_name_el.style.width = "30px";
     this.vol_name_el.style.display = "inline-block";
@@ -33,7 +33,7 @@ function UI_Uv()
     this.vol_canvas.width = this.size.width * 2;
     this.vol_canvas.height = this.size.height * 2;
 
-    this.env_name_el.className = "name fm";
+    this.env_name_el.className = "name fl";
     this.env_name_el.innerHTML = "ENV";
     this.env_name_el.style.width = "30px";
     this.env_name_el.style.display = "inline-block";

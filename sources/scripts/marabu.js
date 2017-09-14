@@ -150,6 +150,7 @@ function Marabu()
   {
     console.log("Stop!")
     this.song.stop_song();
+    this.instrument.uv.clear();
   }
 
   this.path = null;
