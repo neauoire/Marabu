@@ -52,11 +52,11 @@ function Track()
 
     // Default instruments
     song.songData[0].name = "SYN1";
+    song.songData[0].i = [9,90,111,0,3,100,111,3,0,0,0,0,125,10,10,0,31,1,100,2,105,180,0,83,127,0,0,0,255,0];
     song.songData[1].name = "SYN2";
-    song.songData[2].name = "PAD1";
-    song.songData[2].i = [2,100,111,0,3,100,111,3,0,0,50,0,125,0,40,0,31,1,100,2,225,40,0,63,0,0,0,0,190,0];
-    song.songData[3].name = "PAD2";
-    song.songData[3].i = [2,100,111,0,1,50,111,24,0,0,0,50,123,0,50,0,255,27,0,0,255,150,0,63,0,0,0,0,255,0];
+    song.songData[1].i = [11,87,111,0,1,50,111,5,0,0,0,0,123,10,10,0,95,2,0,0,185,110,0,103,127,127,0,0,255,0];
+    song.songData[2].name = "CH02";
+    song.songData[3].name = "CH03";
 
     song.songData[4].name = "CH04";
     song.songData[5].name = "CH05";

@@ -205,7 +205,7 @@ var CJammer = function ()
 
     // Put performance critical instrument properties in local variables
     var oscLFO = mOscillators[mInstr[15]],
-        lfoAmt = (mInstr[16] * mInstr[16]) / 512,
+        lfoAmt = mInstr[16] / 512,
         lfoFreq = Math.pow(2, mInstr[17] - 9) / mRowLen,
         fxFilter = mInstr[19],
         fxFreq = mInstr[20] * 43.23529 * 3.141592 / mSampleRate,
@@ -241,7 +241,7 @@ var CJammer = function ()
         f = fxFreq;
         f *= oscLFO(lfoFreq * k) * lfoAmt + 0.5;
         f = 1.5 * Math.sin(f);
-
+        
         low += f * band;
         high = q * (rsample - band) - low;
         band += f * high;
