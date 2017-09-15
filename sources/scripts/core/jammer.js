@@ -45,32 +45,9 @@ var osc_tri = function (value)
   return 3 - v2;
 };
 
-function osc_to_waveform(index)
+var CJammer = function () 
 {
-  if(index == 0 ){ return [0,0]; } // SIN
-  if(index == 1 ){ return [0,1]; } // SINSQR
-  if(index == 2 ){ return [0,2]; } // SINSAW
-  if(index == 3 ){ return [0,3]; } // SINTRI
-  if(index == 4 ){ return [1,1]; } // SQR
-  if(index == 5 ){ return [1,0]; } // SQRSIN
-  if(index == 6 ){ return [1,2]; } // SQRSAW
-  if(index == 7 ){ return [1,3]; } // SQRTRI
-  if(index == 8 ){ return [2,2]; } // SAW
-  if(index == 9 ){ return [2,0]; } // SAWSIN
-  if(index == 10){ return [2,1]; } // SAWSQR
-  if(index == 11){ return [2,3]; } // SAWTRI
-  if(index == 12){ return [3,3]; } // TRI
-  if(index == 13){ return [3,0]; } // TRISIN
-  if(index == 14){ return [3,1]; } // TRISQR
-  if(index == 15){ return [3,2]; } // TRISAW
-  // if(index == 0){ return [0,0]; } // NOI
-}
-
-var CJammer = function () {
-
-  //--------------------------------------------------------------------------
-  // Private members
-  //--------------------------------------------------------------------------
+  var signal_processor = new Signal_Processor();
 
   // Currently playing notes.
   var MAX_POLYPHONY = 16;
@@ -95,7 +72,6 @@ var CJammer = function () {
   var mSampleRate;
   var mRateScale;
 
-  var signal_processor = new Signal_Processor();
 
   //--------------------------------------------------------------------------
   // Sound synthesis engine.
@@ -133,10 +109,10 @@ var CJammer = function () {
     for (i = 0; i < MAX_POLYPHONY; ++i) {
       var note = mPlayingNotes[i];
       if (note != undefined) {
-        var osc1 = mOscillators[osc_to_waveform(note.instr[0])[0]],
+        var osc1 = mOscillators[signal_processor.osc_to_waveform(note.instr[0])[0]],
             o1vol = 255 - note.instr[1],
             o1xenv = note.instr[3],
-            osc2 = mOscillators[osc_to_waveform(note.instr[0])[1]],
+            osc2 = mOscillators[signal_processor.osc_to_waveform(note.instr[0])[1]],
             o2vol = 255 - (255 - note.instr[1]),
             o2xenv = note.instr[3],
             noiseVol = note.instr[13],
@@ -229,9 +205,8 @@ var CJammer = function () {
 
     // Put performance critical instrument properties in local variables
     var oscLFO = mOscillators[mInstr[15]],
-        lfoAmt = mInstr[16] / 512,
+        lfoAmt = (mInstr[16] * mInstr[16]) / 512,
         lfoFreq = Math.pow(2, mInstr[17] - 9) / mRowLen,
-        fxLFO = mInstr[18],
         fxFilter = mInstr[19],
         fxFreq = mInstr[20] * 43.23529 * 3.141592 / mSampleRate,
         q = 1 - mInstr[21] / 255,
@@ -264,10 +239,9 @@ var CJammer = function () {
 
         // State variable filter.
         f = fxFreq;
-        if (fxLFO) {
-          f *= oscLFO(lfoFreq * k) * lfoAmt + 0.5;
-        }
+        f *= oscLFO(lfoFreq * k) * lfoAmt + 0.5;
         f = 1.5 * Math.sin(f);
+
         low += f * band;
         high = q * (rsample - band) - low;
         band += f * high;
@@ -323,7 +297,6 @@ var CJammer = function () {
       mAudioContext = new AudioContext();
     } else if (window.webkitAudioContext) {
       mAudioContext = new webkitAudioContext();
-      // mAudioContext.createScriptProcessor = mAudioContext.createJavaScriptNode;
     } else {
       mAudioContext = undefined;
       return;
@@ -349,7 +322,7 @@ var CJammer = function () {
     // Create a script processor node with no inputs and one stereo output.
     mScriptNode = mAudioContext.createScriptProcessor(2048, 0, 2);
 
-    mScriptNode.onaudioprocess = function (event) {
+    mScriptNode.onaudioprocess = function (event){
       var leftBuf = event.outputBuffer.getChannelData(0);
       var rightBuf = event.outputBuffer.getChannelData(1);
       generateTimeSlice(leftBuf, rightBuf);
@@ -358,8 +331,9 @@ var CJammer = function () {
     mScriptNode.connect(mAudioContext.destination);    
   };
 
-  this.stop = function () {
-    // TODO(m): Implement me!
+  this.stop = function ()
+  {
+    
   };
 
   this.updateInstr = function (instr)
@@ -370,7 +344,8 @@ var CJammer = function () {
     }
   };
 
-  this.updateRowLen = function (rowLen) {
+  this.updateRowLen = function (rowLen)
+  {
     mRowLen = Math.round(rowLen * mRateScale);
   };
 

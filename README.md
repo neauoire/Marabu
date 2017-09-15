@@ -105,9 +105,15 @@ Hold `shift`, while pressing a note, to make chords.
 
 ### Osc
 
+- `MOD` --
 - `MIX` Dry/Wet between the 2 osc
 - `FRQ` Frequency
 - `DET` Detune, frequency offset between the 2 osc.
+
+### LFO
+
+- `AMT` Amount
+- `FRQ` Frequency
 
 ### Efx
 
@@ -116,10 +122,11 @@ Hold `shift`, while pressing a note, to make chords.
 - `BP` Band-pass
 - `FRQ` Filter Frequency
 - `RES` Resonance
-- `DLY` Delay Feedback
-- `SPD` Delay Speed
-- `PAN` Pan
-- `FRQ` Pan Frequency
+
+### Delay
+
+- `DLY` Delay Rate
+- `VOL` Delay Volume
 
 ### Shapers
 
@@ -129,6 +136,7 @@ Hold `shift`, while pressing a note, to make chords.
 - `PIN` Pinking
 - `CMP` Compressor
 - `DRV` Drive
+- `PAN` Pan
 
 ### UV
 
@@ -211,6 +219,10 @@ theme: {
 ## Development
 
 There are currently no means to change the `bpm`, to do so, update the `bpm` value from the exported `.mar` file to an int between 50 and 450. Use `npm start` to develop locally.
+
+### TODOs
+
+- Continuous follow instead of pageview.
 
 ## License
 

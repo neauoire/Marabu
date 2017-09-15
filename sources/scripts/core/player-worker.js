@@ -45,97 +45,21 @@ var osc_tri = function (value)
   return 3 - v2;
 };
 
-// Pinking
-
-var b0, b1, b2, b3, b4, b5, b6;
-    b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
-
-function effect_pinking(input,val)
-{
-  b0 = 0.99886 * b0 + input * 0.0555179;
-  b1 = 0.99332 * b1 + input * 0.0750759;
-  b2 = 0.96900 * b2 + input * 0.1538520;
-  b3 = 0.86650 * b3 + input * 0.3104856;
-  b4 = 0.55000 * b4 + input * 0.5329522;
-  b5 = -0.7616 * b5 - input * 0.0168980;
-  var output = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + input * 0.5362) * 0.1;
-  b6 = input * 0.115926;
-
-  return (output * val) + (input * (1 - val));
-}
-
-// Compressor
-
-function effect_compressor(input,average,val)
-{
-  var output = input;
-  if(input < average){
-    output *= 1 + val;
-  }
-  else if(input > average){
-    output *= 1 - val;
-  }
-  return output;
-}
-
-// Distortion
-
-function effect_distortion(input,val)
-{
-  if(!val){ return input; }
-
-  var output = input;
-  output *= val;
-  output = output < 1 ? output > -1 ? osc_sin(output*.25) : -1 : 1;
-  output /= val;
-  return output;
-}
-
-// Drive
-
-function effect_drive(input,val)
-{
-  var output = input;
-  return output * val;
-}
-
-function osc_to_waveform(index)
-{
-  if(index == 0 ){ return [0,0]; } // SIN
-  if(index == 1 ){ return [0,1]; } // SINSQR
-  if(index == 2 ){ return [0,2]; } // SINSAW
-  if(index == 3 ){ return [0,3]; } // SINTRI
-  if(index == 4 ){ return [1,1]; } // SQR
-  if(index == 5 ){ return [1,0]; } // SQRSIN
-  if(index == 6 ){ return [1,2]; } // SQRSAW
-  if(index == 7 ){ return [1,3]; } // SQRTRI
-  if(index == 8 ){ return [2,2]; } // SAW
-  if(index == 9 ){ return [2,0]; } // SAWSIN
-  if(index == 10){ return [2,1]; } // SAWSQR
-  if(index == 11){ return [2,3]; } // SAWTRI
-  if(index == 12){ return [3,3]; } // TRI
-  if(index == 13){ return [3,0]; } // TRISIN
-  if(index == 14){ return [3,1]; } // TRISQR
-  if(index == 15){ return [3,2]; } // TRISAW
-  // if(index == 0){ return [0,0]; } // NOI
-}
-
 var CPlayerWorker = function()
 {
-  //----------------------------------------------------------------------------
-  // Private methods
-  //----------------------------------------------------------------------------
+  var signal_processor = new Signal_Processor();
 
-  var getnotefreq = function (n) {
+  var getnotefreq = function (n)
+  {
     // 174.61.. / 44100 = 0.003959503758 (F)
     return 0.003959503758 * Math.pow(2, (n-128)/12);
   };
 
   var createNote = function (instr, n, rowLen) {
-    var osc1 = mOscillators[osc_to_waveform(instr.i[0])[0]],
+    var osc1 = mOscillators[signal_processor.osc_to_waveform(instr.i[0])[0]],
         o1vol = 255 - instr.i[1],
         o1xenv = instr.i[3],
-        osc2 = mOscillators[osc_to_waveform(instr.i[0])[1]],
+        osc2 = mOscillators[signal_processor.osc_to_waveform(instr.i[0])[1]],
         o2vol = 255 - (255 - instr.i[1]),
         o2xenv = instr.i[3],
         noiseVol = instr.i[13],
@@ -226,9 +150,9 @@ var CPlayerWorker = function()
     this.firstRow = 0;
     this.lastRow = song.endPattern - 1;
     this.firstCol = 0;
-    this.lastCol = 15; // TODO: lobby.apps.marabu.channels-1
+    this.lastCol = 15;
 
-    if (opts) {
+    if(opts) {
       this.firstRow = opts.firstRow;
       this.lastRow = opts.lastRow;
       this.firstCol = opts.firstCol;
@@ -247,7 +171,6 @@ var CPlayerWorker = function()
   // Generate audio data for a single track
   this.generate = function ()
   {
-    var signal_processor = new Signal_Processor();
     
     // Local variables
     var i, j, b, p, row, col, currentCol, n, cp,
@@ -298,12 +221,9 @@ var CPlayerWorker = function()
             var oscLFO = mOscillators[instr.i[15]],
                 lfoAmt = instr.i[16] / 512,
                 lfoFreq = Math.pow(2, instr.i[17] - 9) / rowLen,
-                fxLFO = instr.i[18],
                 fxFilter = instr.i[19],
                 fxFreq = instr.i[20] * 43.23529 * 3.141592 / 44100,
                 q = 1 - instr.i[21] / 255,
-                panAmt = instr.i[24] / 512,
-                panFreq = 6.283184 * Math.pow(2, instr.i[25] - 9) / rowLen,
                 dlyAmt = instr.i[27] == 0 ? 0 : instr.i[26] / 255,
                 dly = signal_processor.delay_conv(instr.i[27]) * rowLen;
 
@@ -345,9 +265,7 @@ var CPlayerWorker = function()
 
                 // State variable filter
                 f = fxFreq;
-                if (fxLFO) {
-                  f *= oscLFO(lfoFreq * k) * lfoAmt + 0.5;
-                }
+                f *= oscLFO(lfoFreq * k) * lfoAmt + 0.5;
                 f = 1.5 * Math.sin(f);
                 low += f * band;
                 high = q * (rsample - band) - low;
