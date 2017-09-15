@@ -36,8 +36,9 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
 
   this.mod = function(v)
   {
-    this.index += 1;
+    this.index += v > 0 ? 1 : -1;
     this.index = this.index % this.choices.length;
+    this.index = this.index < 0 ? this.choices.length-1 : this.index;
     this.update();
   }
 

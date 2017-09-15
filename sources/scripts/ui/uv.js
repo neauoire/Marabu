@@ -2,10 +2,13 @@ function UI_Uv()
 {
   this.el = null;
 
+  this.vol_el = document.createElement("div");
   this.vol_name_el = document.createElement("t");
   this.vol_canvas = document.createElement("canvas");
+  this.env_el = document.createElement("div");
   this.env_name_el = document.createElement("t");
   this.env_canvas = document.createElement("canvas");
+  this.wav_el = document.createElement("div");
   this.wav_name_el = document.createElement("t");
   this.wav_canvas = document.createElement("canvas");
 
@@ -18,14 +21,22 @@ function UI_Uv()
   {
     this.el = document.getElementById("uv");
 
-    this.el.appendChild(this.vol_name_el);
-    this.el.appendChild(this.vol_canvas);
-    this.el.appendChild(document.createElement("hr"));
-    this.el.appendChild(this.env_name_el);
-    this.el.appendChild(this.env_canvas);
-    this.el.appendChild(document.createElement("hr"));
-    this.el.appendChild(this.wav_name_el);
-    this.el.appendChild(this.wav_canvas);
+    this.el.appendChild(this.vol_el);
+    this.el.appendChild(this.env_el);
+    this.el.appendChild(this.wav_el);
+
+    this.vol_el.appendChild(this.vol_name_el);
+    this.vol_el.appendChild(this.vol_canvas);
+
+    this.env_el.appendChild(this.env_name_el);
+    this.env_el.appendChild(this.env_canvas);
+
+    this.wav_el.appendChild(this.wav_name_el);
+    this.wav_el.appendChild(this.wav_canvas);
+
+    this.vol_el.style.height = "15px";
+    this.env_el.style.height = "15px";
+    this.wav_el.style.height = "15px";
 
     this.vol_name_el.className = "name fl";
     this.vol_name_el.innerHTML = "VOL";
@@ -47,7 +58,7 @@ function UI_Uv()
     this.env_canvas.width = this.size.width * 2;
     this.env_canvas.height = this.size.height * 2;
 
-    this.wav_name_el.className = "name fl";
+    this.wav_name_el.className = "name fl lh15";
     this.wav_name_el.innerHTML = "WAV";
     this.wav_name_el.style.width = "30px";
     this.wav_name_el.style.display = "inline-block";

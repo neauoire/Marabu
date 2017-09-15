@@ -66,7 +66,7 @@ function Sequencer()
       {
         var o = document.getElementById("sc" + i + "t" + t);
         var pat = marabu.song.pattern_at(i,t);
-        var t_length = marabu.song.song().endPattern-2;
+        var t_length = marabu.song.song().endPattern-1;
         // Default
         o.className = t > t_length ? "fl" : "fm";
         o.textContent = pat ? to_hex(pat) : (t % 8 == 0 && i == 0 ? ">" : "-");
