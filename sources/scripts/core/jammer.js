@@ -235,18 +235,17 @@ var CJammer = function () {
         fxFilter = mInstr[19],
         fxFreq = mInstr[20] * 43.23529 * 3.141592 / mSampleRate,
         q = 1 - mInstr[21] / 255,
-        panAmt = mInstr[24] / 512,
-        panFreq = 6.283184 * Math.pow(2, mInstr[25] - 9) / mRowLen,
-        dlyAmt = mInstr[26] / 255,
-        dly = (mInstr[27] * mRowLen) >> 1;
+        dlyAmt = mInstr[27] == 0 ? 0 : mInstr[26] / 255,
+        dly = (signal_processor.delay_conv(mInstr[27]) * mRowLen) >> 1;
 
     signal_processor.knobs.distortion = mInstr[22] * 1e-5 * 32767;
     signal_processor.knobs.pinking    = mInstr[28]  / 255.0;
     signal_processor.knobs.compressor = mInstr[14]  / 255.0;
     signal_processor.knobs.drive      = mInstr[23]  / 32.0;
     signal_processor.knobs.bit_phaser = 0.5 - (0.49 * (mInstr[9]/255.0));
-    signal_processor.knobs.bit_step =16 - (14 * (mInstr[9]/255.0));
-
+    signal_processor.knobs.bit_step   = 16 - (14 * (mInstr[9]/255.0));
+    signal_processor.knobs.pan        = mInstr[24]  / 255.0;
+    signal_processor.knobs.delay      = mInstr[27]  / 255.0;
 
     // Limit the delay to the delay buffer size.
     if (dly >= MAX_DELAY) {
@@ -274,15 +273,12 @@ var CJammer = function () {
         band += f * high;
         rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
-        rsample = signal_processor.operate(rsample);
+        var signal = signal_processor.operate(rsample);
+        rsample = signal.right;
+        lsample = signal.left;
 
         // Is the filter active (i.e. still audiable)?
         filterActive = rsample * rsample > 1e-5;
-
-        // Panning.
-        t = Math.sin(panFreq * k) * panAmt + 0.5;
-        lsample = rsample * (1 - t);
-        rsample *= t;
       } else {
         lsample = 0;
       }
@@ -378,7 +374,8 @@ var CJammer = function () {
     mRowLen = Math.round(rowLen * mRateScale);
   };
 
-  this.addNote = function (n) {
+  this.addNote = function (n)
+  {
     var t = (new Date()).getTime();
 
     // Create a new note object.

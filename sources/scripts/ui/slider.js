@@ -1,4 +1,4 @@
-function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null)
+function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null,center = false)
 {
   var app = marabu;
   var self = this;
@@ -8,6 +8,7 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null)
   this.min = min;
   this.max = max;
   this.control = control;
+  this.center = center;
 
   this.el = document.getElementById(id);
   this.name_el = document.createElement("t");
@@ -76,8 +77,8 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null)
     var over = parseFloat(this.max) - parseInt(this.min);
     var perc = val/parseFloat(over);
 
-    this.slide_el.innerHTML = "<svg class='fh' style='width:45px;height:15px; stroke-dasharray:1,1; fill:none; stroke-width:1px; stroke-linecap:butt;'><line x1='0' y1='7.5' x2='45' y2='7.5' class='fl'/><line x1='0' y1='7.5' x2='"+parseInt(perc * 45)+"' y2='7.5' class='fh'/></svg>";
-    this.value_el.textContent = this.value;
+    this.slide_el.innerHTML = this.center ? "<svg class='fh' style='width:45px;height:15px; stroke-dasharray:1,1; fill:none; stroke-width:1px; stroke-linecap:butt;'><line x1='0' y1='7.5' x2='45' y2='7.5' class='fl'/><line style='stroke-dasharray:0' x1='"+parseInt(parseInt(perc * 45) - 0.5)+"' y1='5.5' x2='"+parseInt(parseInt(perc * 45) - 0.5)+"' y2='9.5' class='fh'/></svg>" : "<svg class='fh' style='width:45px;height:15px; stroke-dasharray:1,1; fill:none; stroke-width:1px; stroke-linecap:butt;'><line x1='0' y1='7.5' x2='45' y2='7.5' class='fl'/><line x1='0' y1='7.5' x2='"+parseInt(perc * 45)+"' y2='7.5' class='fh'/></svg>";
+    this.value_el.textContent = this.center ? this.value - Math.floor(this.max/2) : this.value;
     this.value_el.className = "fm ";
 
     if(this.value == this.min){ this.value_el.className = "fl "; }

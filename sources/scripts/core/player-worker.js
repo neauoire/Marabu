@@ -304,8 +304,8 @@ var CPlayerWorker = function()
                 q = 1 - instr.i[21] / 255,
                 panAmt = instr.i[24] / 512,
                 panFreq = 6.283184 * Math.pow(2, instr.i[25] - 9) / rowLen,
-                dlyAmt = instr.i[26] / 255,
-                dly = instr.i[27] * rowLen;
+                dlyAmt = instr.i[27] == 0 ? 0 : instr.i[26] / 255,
+                dly = signal_processor.delay_conv(instr.i[27]) * rowLen;
 
             signal_processor.knobs.distortion = instr.i[22] * 1e-5;
             signal_processor.knobs.pinking    = instr.i[28]  / 255.0;
@@ -313,7 +313,8 @@ var CPlayerWorker = function()
             signal_processor.knobs.drive      = instr.i[23]  / 32.0;
             signal_processor.knobs.bit_phaser = 0.5 - (0.49 * (instr.i[9]/255.0));
             signal_processor.knobs.bit_step   = 16 - (14 * (instr.i[9]/255.0));
-
+            signal_processor.knobs.pan        = instr.i[24]  / 255.0;
+            
             // Calculate start sample number for this row in the pattern
             rowStartSample = ((p - this.firstRow) * patternLen + row) * rowLen;
 
@@ -353,25 +354,19 @@ var CPlayerWorker = function()
                 band += f * high;
                 rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
-                rsample = signal_processor.operate(rsample);
+                var signal = signal_processor.operate(rsample);
+                rsample = signal.right;
+                lsample = signal.left;
 
                 // Is the filter active (i.e. still audiable)?
                 filterActive = rsample * rsample > 1e-5;
-
-                // Panning
-                t = Math.sin(panFreq * k) * panAmt + 0.5;
-                lsample = rsample * (1 - t);
-                rsample *= t;
               } else {
                 lsample = 0;
               }
 
               // Delay is always done, since it does not need sound input
               if (k >= dly) {
-                // Left channel = left + right[-p] * t
                 lsample += chnBuf[k-dly+1] * dlyAmt;
-
-                // Right channel = right + left[-p] * t
                 rsample += chnBuf[k-dly] * dlyAmt;
               }
 

@@ -16,7 +16,7 @@ function Instrument()
       {id: "env_sust", name: "SUS", min: 0, max: 255, control:1 },
       {id: "env_rel", name: "REL", min: 0, max: 255, control:2 },
 
-      {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:5 },
+      {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:5, center:true },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
       {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true, control:7 },
 
@@ -26,17 +26,16 @@ function Instrument()
 
       {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:13 },
       {id: "fx_res", name: "RES", min: 0, max: 254, control:14 },
-      {id: "fx_dly_amt", name: "DLY", min: 0, max: 255, control:15 },
-      {id: "fx_dly_time", name: "SPD", min: 0, max: 16, control:16 },
-      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:17 },
-      {id: "fx_pan_freq", name: "FRQ", min: 0, max: 16, control:18 },
 
-      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:19 },
-      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:20 },
-      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:21 },
-      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:22 },
-      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:23 },
-      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:24 },
+      {id: "fx_dly_amt", name: "VOL", min: 0, max: 255, control:16 },
+
+      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:17 },
+      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:18 },
+      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:19 },
+      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:20 },
+      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:21 },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:22 },
+      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:23, center:true },
     ]);
 
     this.setup_choices([
@@ -48,6 +47,7 @@ function Instrument()
       ], control:3},
       {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:8},
       {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:12},
+      {id: "fx_dly_time", name: "DLY", choices: ["OFF","1/2","1/3","1/4","1/6","1/8","1/12","1/16"], control:15},
     ])
 
     this.setup_toggles([
@@ -61,7 +61,7 @@ function Instrument()
   {
     for(id in sliders){
       var s = sliders[id];
-      var slider = new UI_Slider(s.id,s.name,s.min,s.max,s.control);
+      var slider = new UI_Slider(s.id,s.name,s.min,s.max,s.control,s.center);
       this.sliders[new String(s.id)] = slider;
       slider.install();
     }
@@ -189,10 +189,10 @@ function Instrument()
     html += "    <div class='efx' style='width:180px; margin-bottom:15px'><t id='fx_filter_select'></t>";
     html += "      <div id='fx_freq'></div>";
     html += "      <div id='fx_res'></div>";
-    html += "      <div id='fx_dly_amt'></div>";
+    html += "    </div>";
+    html += "    <div class='efx' style='width:180px; margin-bottom:15px'>";
     html += "      <div id='fx_dly_time'></div>";
-    html += "      <div id='fx_pan_amt'></div>";
-    html += "      <div id='fx_pan_freq'></div>";
+    html += "      <div id='fx_dly_amt'></div>";
     html += "    </div>";
     html += "    <div class='efx' style='width:180px; margin-bottom:15px'>";
     html += "      <div id='noise_vol'></div>";
@@ -201,6 +201,7 @@ function Instrument()
     html += "      <div id='fx_pin'></div>";
     html += "      <div id='fx_compressor'></div>";
     html += "      <div id='fx_drive'></div>";
+    html += "      <div id='fx_pan_amt'></div>";
     html += "    </div>";
     html += "    <div class='efx' style='width:180px;'>";
     html += "      <div id='uv'></div>";

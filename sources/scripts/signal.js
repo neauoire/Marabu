@@ -1,6 +1,6 @@
 function Signal_Processor()
 {
-  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null};
+  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null,pan:null};
 
   this.step_last = 0;
   this.phase = 0;
@@ -19,7 +19,11 @@ function Signal_Processor()
 
     this.average = ((this.average * ((this.knobs.compressor) * 1000)) + output)/(((this.knobs.compressor) * 1000)+1);
 
-    return output;
+    // Pan
+    var left = output * (1 - this.knobs.pan);
+    var right = output * (this.knobs.pan);
+
+    return {left:left,right:right};
   }
 
   this.effect_bitcrusher = function(input)
@@ -82,5 +86,12 @@ function Signal_Processor()
   {
     var output = input;
     return output * val;
+  }
+
+  // Tools
+
+  this.delay_conv = function(val)
+  {
+    return [0,32,24,16,12,8,6,4][val];
   }
 }

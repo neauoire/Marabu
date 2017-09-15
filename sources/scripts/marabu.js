@@ -48,7 +48,7 @@ function Marabu()
     this.selection.track = clamp(this.selection.track,0,this.sequencer.length);
     this.selection.row = clamp(this.selection.row,0,31);
     this.selection.octave = clamp(this.selection.octave,3,8);
-    this.selection.control = clamp(this.selection.control,0,24);
+    this.selection.control = clamp(this.selection.control,0,23);
 
     this.sequencer.update();
     this.editor.update();
