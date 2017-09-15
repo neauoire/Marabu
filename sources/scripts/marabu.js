@@ -270,6 +270,7 @@ function Marabu()
   this.reset = function()
   {
     this.path = null;
+    this.song = new Song();
     this.song.init();
     this.update();
   }
