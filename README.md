@@ -102,6 +102,7 @@ Hold `shift`, while pressing a note, to make chords.
 - `ATK` Attack
 - `SUS` Sustain
 - `REL` Release
+- `POW` Attack/Release curve
 
 ### Osc
 
@@ -223,6 +224,9 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 ### TODOs
 
 - Continuous follow instead of pageview.
+- Trim tracks on export.
+- Load trimmed track.
+- Do not display all 256 patterns.
 
 ## License
 

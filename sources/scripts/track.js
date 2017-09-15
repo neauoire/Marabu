@@ -16,7 +16,7 @@ function Track()
     song.patternLen = 32;
 
     // Select the default instrument from the presets
-    var defaultInstr = { name: "FORM sin", i: [3,127,111,0,0,100,111,0,0,0,0,0,63,0,0,0,0,6,0,2,255,0,0,63,127,0,0,0,0] };
+    var defaultInstr = { name: "FORM sin", i: [15,67,111,0,0,100,111,6,0,0,0,0,153,0,20,0,0,123,64,2,205,90,0,63,127,0,0,0,190,0] };
 
     // All 8 instruments
     song.songData = [];
@@ -52,9 +52,7 @@ function Track()
 
     // Default instruments
     song.songData[0].name = "SYN1";
-    song.songData[0].i = [9,90,111,0,3,100,111,3,0,0,0,0,125,10,10,0,31,1,100,2,105,180,0,83,127,0,0,0,255,0];
     song.songData[1].name = "SYN2";
-    song.songData[1].i = [11,87,111,0,1,50,111,5,0,0,0,0,123,10,10,0,95,2,0,0,185,110,0,103,127,127,0,0,255,0];
     song.songData[2].name = "CH02";
     song.songData[3].name = "CH03";
 

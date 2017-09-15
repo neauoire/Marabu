@@ -38,6 +38,11 @@ var osc_square = function (value)
   return (value % 1) < 0.5 ? 1 : -1;
 };
 
+var osc_noise = function(value)
+{
+  return (2 * Math.random() - 1);
+}
+
 var osc_tri = function (value)
 {
   var v2 = (value % 1) * 4;
@@ -70,6 +75,8 @@ var CPlayerWorker = function()
         arp = 0,
         arpInterval = rowLen * Math.pow(2, 2 - 0);
 
+    signal_processor.knobs.env_curve = instr.i[18]  / 255.0;
+
     var noteBuf = new Int32Array(attack + sustain + release);
 
     // Re-trig oscillators
@@ -94,8 +101,13 @@ var CPlayerWorker = function()
       e = 1;
       if (j < attack) {
         e = j / attack;
+        var attack_t = j/attack;
+        var attack_force = attack_t;
+        e = e * Math.pow(attack_force,10 * signal_processor.knobs.env_curve)
       } else if (j >= attack + sustain) {
-        e -= (j - attack - sustain) * releaseInv;
+        var release_t = (j - attack - sustain)
+        var release_force = (1 - (release_t/release));
+        e = e * Math.pow(release_force,10 * signal_processor.knobs.env_curve);
       }
 
       // Oscillator 1
@@ -136,7 +148,8 @@ var CPlayerWorker = function()
     osc_sin,
     osc_square,
     osc_saw,
-    osc_tri
+    osc_tri,
+    osc_noise
   ];
 
   //----------------------------------------------------------------------------

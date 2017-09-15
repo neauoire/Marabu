@@ -45,6 +45,11 @@ var osc_tri = function (value)
   return 3 - v2;
 };
 
+var osc_noise = function(value)
+{
+  return (2 * Math.random() - 1);
+}
+
 var CJammer = function () 
 {
   var signal_processor = new Signal_Processor();
@@ -87,7 +92,8 @@ var CJammer = function ()
     osc_sin,
     osc_square,
     osc_saw,
-    osc_tri
+    osc_tri,
+    osc_noise
   ];
 
   // Fill the buffer with more audio, and advance state accordingly.
@@ -122,6 +128,8 @@ var CJammer = function ()
             releaseInv = 1 / release,
             arpInterval = mRowLen * Math.pow(2, 2 - 0);
 
+        signal_processor.knobs.env_curve = mInstr[18]  / 255.0;
+
         // Note frequencies (defined later) and arpeggio
         var o1f, o2f;
         var arp = note.arp, arpSamples = note.arpSamples;
@@ -155,8 +163,13 @@ var CJammer = function ()
           e = 1;
           if (j < attack) {
             e = j / attack;
+            var attack_t = j/attack;
+            var attack_force = attack_t;
+            e = e * Math.pow(attack_force,10 * signal_processor.knobs.env_curve)
           } else if (j >= attack + sustain) {
-            e -= (j - attack - sustain) * releaseInv;
+            var release_t = (j - attack - sustain)
+            var release_force = (1 - (release_t/release));
+            e = e * Math.pow(release_force,10 * signal_processor.knobs.env_curve);
           }
 
           // Oscillator 1

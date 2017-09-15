@@ -15,6 +15,7 @@ function Instrument()
       {id: "env_att", name: "ATK", min: 0, max: 255, control:0 },
       {id: "env_sust", name: "SUS", min: 0, max: 255, control:1 },
       {id: "env_rel", name: "REL", min: 0, max: 255, control:2 },
+      {id: "env_curve", name: "POW", min: 12, max: 255, control:3 },
 
       {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:5, center:true },
       {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
@@ -42,15 +43,16 @@ function Instrument()
         "SIN","SINSQR","SINSAW","SINTRI",
         "SQR","SQRSIN","SQRSAW","SQRTRI",
         "SAW","SAWSIN","SAWSQR","SAWTRI",
-        "TRI","TRISIN","TRISQR","TRISAW"
-      ], control:3},
+        "TRI","TRISIN","TRISQR","TRISAW",
+        "NOISE"
+      ], control:4},
       {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:8},
       {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:11},
       {id: "fx_dly_time", name: "DLY", choices: ["OFF","1/2","1/3","1/4","1/6","1/8","1/12","1/16"], control:14},
     ])
 
     this.setup_toggles([
-      {id: "osc1_xenv", name: "MOD", control:4},
+      {id: "osc1_xenv", name: "MOD", control:5},
     ]);
 
     this.uv.install();
@@ -110,7 +112,7 @@ function Instrument()
 
     else if (id == "lfo_amt")     { return 16; }
     else if (id == "lfo_freq")    { return 17; }
-    else if (id == "lfo_fxfreq") { return 18; } // Unused
+    else if (id == "env_curve") { return 18; }
     else if (id == "lfo_wave_select") { return 15; }
 
     else if (id == "fx_filter_select")   { return 19; }
@@ -171,6 +173,7 @@ function Instrument()
     html += "      <div id='env_att'></div>";
     html += "      <div id='env_sust'></div>";
     html += "      <div id='env_rel'></div>";
+    html += "      <div id='env_curve'></div>";
     html += "    </div>";
     html += "    <div class='osc' style='width:180px; margin-bottom:15px'><t id='osc1_wave_select'></t><t id='osc1_xenv'>X</t>";
     html += "      <div id='osc1_vol'></div>";

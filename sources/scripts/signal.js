@@ -1,6 +1,6 @@
 function Signal_Processor()
 {
-  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null,pan:null};
+  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null,pan:null,env_curve:null};
 
   this.step_last = 0;
   this.phase = 0;
@@ -113,5 +113,6 @@ function Signal_Processor()
     if(index == 13){ return [3,0]; } // TRISIN
     if(index == 14){ return [3,1]; } // TRISQR
     if(index == 15){ return [3,2]; } // TRISAW
+    if(index == 16){ return [4,4]; } // TRISAW
   }
 }
