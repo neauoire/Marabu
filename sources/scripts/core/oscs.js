@@ -15,7 +15,7 @@ var Oscs = function () {
     };
 
     this.osc_revsaw = function (value) {
-        return 2 * (1 - (value % 1));
+        return 1 - (2 *(x % 1));
     }
 
     this.osc_square = function (value) {
