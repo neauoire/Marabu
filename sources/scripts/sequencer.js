@@ -72,7 +72,7 @@ function Sequencer()
         o.className = t > t_length ? "fl" : "fm";
         o.textContent = pat ? to_hex(pat) : (t % 8 == 0 && i == 0 ? ">" : "-");
         // Selection
-        if(marabu.loop.is_active && i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width+1 && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_special f_special"; }
+        if(marabu.loop.is_active && i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width+1 && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_inv f_inv"; }
         else if(t == marabu.selection.track && i == marabu.selection.instrument){ o.className = "fh"; }
       }
     }

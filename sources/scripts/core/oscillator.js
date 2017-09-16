@@ -5,7 +5,7 @@ var Oscillator = function()
     return Math.sin(value * 2 * Math.PI);
   };
 
-  this.sin_absolute = function(value)
+  this.abs = function(value)
   {
     return 0.5 + Math.sin(value * 2 * Math.PI);
   }
@@ -19,9 +19,9 @@ var Oscillator = function()
     return 2 * (value % 1) - 1;
   };
 
-  this.saw_reverse = function(value)
+  this.rev = function(value)
   {
-    return 1 - (2 * (x % 1));
+    return 1 - (2 * (value % 1));
   }
 
   this.square = function(value)

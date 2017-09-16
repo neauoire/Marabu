@@ -207,12 +207,10 @@ theme: {
   f_med:"#0f0", 
   f_low:"#00f", 
   f_inv:"#00f", 
-  f_special:"#00f", 
   b_high:"#ff0", 
   b_med:"#f0f",
   b_low:"#0ff",
-  b_inv:"#00f", 
-  b_special:"#00f", 
+  b_inv:"#00f"
 }
 ```
 

@@ -211,7 +211,7 @@ var Song = function()
       }
       else{
         display_el.textContent = "00"+parseInt(progress * 100);
-        display_el.className = "b_special f_special";
+        display_el.className = "b_inv f_inv";
       }
     });
   };

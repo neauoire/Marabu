@@ -202,7 +202,7 @@ function Marabu()
       if(err) { alert("An error ocurred updating the file" + err.message); console.log(err); return; }
       console.log("saved",marabu.path);
       var el = document.getElementById("fxr31");
-      if(el){ el.className = "b_special f_special"; el.innerHTML = "--OK";  }
+      if(el){ el.className = "b_inv f_inv"; el.innerHTML = "--OK";  }
     });
   }
 
@@ -217,7 +217,7 @@ function Marabu()
         if(err){ alert("An error ocurred creating the file "+ err.message); return; }
         marabu.path = fileName;
         var el = document.getElementById("fxr31");
-        if(el){ el.className = "b_special f_special"; el.innerHTML = "--OK";  }
+        if(el){ el.className = "b_inv f_inv"; el.innerHTML = "--OK";  }
       });
     }); 
   }
@@ -276,6 +276,7 @@ function Marabu()
   {
     this.path = null;
     this.song = new Song();
+    this.theme.reset();
     this.song.init();
     this.update();
   }
