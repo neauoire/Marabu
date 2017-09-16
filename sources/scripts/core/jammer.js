@@ -26,7 +26,7 @@ var CJammer = function ()
   var signal_processor = new Signal_Processor();
 
   // Currently playing notes.
-  var MAX_POLYPHONY = 16;
+  var MAX_POLYPHONY = 2;
   var mPlayingNotes = [];
 
   // Current instrument.
