@@ -21,35 +21,6 @@
 
 "use strict";
 
-// OSCs
-
-var osc_sin = function (value)
-{
-  return Math.sin(value * 6.283184);
-};
-
-var osc_saw = function (value)
-{
-  return 2 * (value % 1) - 1;
-};
-
-var osc_square = function (value)
-{
-  return (value % 1) < 0.5 ? 1 : -1;
-};
-
-var osc_tri = function (value)
-{
-  var v2 = (value % 1) * 4;
-  if(v2 < 2) return v2 - 1;
-  return 3 - v2;
-};
-
-var osc_noise = function(value)
-{
-  return (2 * Math.random() - 1);
-}
-
 var CJammer = function () 
 {
   var signal_processor = new Signal_Processor();
@@ -88,12 +59,13 @@ var CJammer = function ()
   };
 
   // Array of oscillator functions.
-  var mOscillators = [
-    osc_sin,
-    osc_square,
-    osc_saw,
-    osc_tri,
-    osc_noise
+  var mOscillators = 
+  [
+    new Oscillator().sin,
+    new Oscillator().square,
+    new Oscillator().saw,
+    new Oscillator().tri,
+    new Oscillator().noise
   ];
 
   // Fill the buffer with more audio, and advance state accordingly.
