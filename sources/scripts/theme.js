@@ -54,7 +54,7 @@ function Theme()
     html += ".b_special { background:"+theme.b_special+" !important ; fill:"+theme.b_special+" !important }\n";
     html += "#editor { border-left-color: "+theme.b_low+" }\n";
     html += "#instrument { border-left-color: "+theme.b_low+" }\n";
-    html += "#scrollbar { background: "+theme.b_low+" }\n";
+    html += "#scrollbar { background: "+theme.b_med+" }\n";
     
     this.el.innerHTML = html;
     this.save();

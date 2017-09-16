@@ -7,7 +7,7 @@ function Track()
     // Settings
     song.artist = "Unknown";
     song.name = "Untitled";
-    song.theme = {background:"#000",f_high:"#fff",f_med:"#999",f_low:"#555",f_inv:"#000",f_special:"#000",b_high:"#000",b_med:"#555",b_low:"#222",b_inv:"#fff",b_special:"#72dec2"};
+    song.theme = {background:"#000",f_high:"#72dec2",f_med:"#999",f_low:"#555",f_inv:"#000",f_special:"#000",b_high:"#000",b_med:"#555",b_low:"#222",b_inv:"#fff",b_special:"#72dec2"};
     song.bpm = 120;
 
     // Automated

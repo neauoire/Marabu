@@ -1,17 +1,14 @@
 function Follower()
 {
   this.timer = -1;
-  this.first_row = 0;
-  this.last_row = 0;
-  this.first_col = 0;
-  this.last_col = 0;
-
   this.prev = -1;
+  this.offset = 0;
 
-  this.start = function()
+  this.start = function(offset = 0)
   {
     this.timer = setInterval(this.update, 16);
-    console.log("follower","start");
+    this.offset = offset;
+    console.log("follower","start -> "+this.offset);
   }
 
   this.update = function()
@@ -32,7 +29,7 @@ function Follower()
 
     if(n != this.prev){
       marabu.selection.row = r;
-      marabu.selection.track = parseInt(n/32);
+      marabu.selection.track = parseInt(n/32) + marabu.sequencer.follower.offset;
       marabu.update();
       this.prev = n;
     }

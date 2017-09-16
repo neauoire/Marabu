@@ -102,7 +102,6 @@ function Editor(t,b)
         if(i == marabu.selection.instrument){
           effect_el.textContent = effect_cmd > 0 ? (to_hex(effect_cmd,2) + "" + to_hex(effect_val,2)) : "0000";
           effect_el.className = effect_cmd > 0 ? "fh" : (r % 4 == 0 ? "fm" : "fl");
-
         }
       }
     }

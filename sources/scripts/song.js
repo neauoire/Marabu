@@ -259,10 +259,13 @@ var Song = function()
     stopAudio();
     updateSongRanges();
 
+    console.log(opts)
+    var offset = opts.firstRow;
+
     var doneFun = function(wave)
     {
-      console.log("playing..")
-      marabu.sequencer.follower.start();
+      console.log("playing..",offset)
+      marabu.sequencer.follower.start(offset);
       mAudio.src = URL.createObjectURL(new Blob([wave], {type: "audio/wav"}));
       mAudioTimer.reset();
       mAudio.play();

@@ -1,62 +1,63 @@
 function Loop()
 {
   this.is_active = false;
-  this.val = "";
 
   this.x = 0;
   this.width = 0;
   this.y = 0;
   this.height = 0;
 
+  this.reset = function()
+  {
+    this.x = 0;
+    this.width = 15;
+    this.y = marabu.selection.track;
+    this.height = 1;
+  }
+
   this.start = function()
   {
     marabu.cheatcode.stop();
     this.is_active = true;
-    this.x = marabu.selection.instrument;
-    this.width = 1;
-    this.y = 0;
-    this.height = 1;
+    this.reset();
     marabu.update();
   }
 
   this.stop = function()
   {
     this.is_active = false;
-    this.x = 0;
+    this.reset();
+    marabu.update();
+  }
+
+  this.solo = function()
+  {
+    this.x = marabu.selection.instrument;
     this.width = 0;
-    this.y = 0;
-    this.height = 0;
-    this.val = "";
+    this.y = marabu.selection.track;
+    this.height = 1;
     marabu.update();
   }
 
   this.input = function(e)
   {
     if(e.key == "Control" || e.key == "Meta"){ return; }
-    if(e.key == "Escape" || this.val.length > 4){ this.stop(); return; }
-
+    if(e.key == "Escape"){ this.stop(); return; }
+    if(e.key == "/"){ this.solo(); }
     if(e.key == "Enter"){ this.play(); return; }
-
-    this.val += e.key;
-
-    this.x = this.val.length > 0 ? hex_to_int(this.val.charAt(0)) : marabu.selection.instrument;
-    this.y = this.val.length > 1 ? hex_to_int(this.val.charAt(1)) : 0;
-    this.width = this.val.length > 2 ? hex_to_int(this.val.charAt(2)) : 1;
-    this.height = this.val.length > 3 ? hex_to_int(this.val.charAt(3)) : 1;
 
     marabu.update();
   }
 
   this.play = function()
   {
-    this.stop();
-
     var opts = {
-      firstRow: this.x,
-      lastRow: this.x + this.width,
-      firstCol: this.y,
-      lastCol: this.y + this.height
+      firstCol: this.x,
+      lastCol: this.x + this.width,
+      firstRow: this.y,
+      lastRow: this.y + this.height
     };
+    this.stop();
 
     marabu.song.play_loop(opts);
   }

@@ -193,9 +193,8 @@ Press `ctrl l` to activate loopmode.
 
 ### Selective play
 
-- `enter` Will loop current active pattern(only active instrument).
-- `00f enter` Will loop current active track(all instruments).
-- `2244 enter` Will loop instrument 2 to 4, from track 2 to 4.
+- `enter` Will play from current sequencer row.
+- `/ enter` Will play from current sequencer row, only active instrument.
 
 ## Themes
 

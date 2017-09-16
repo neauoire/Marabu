@@ -60,18 +60,18 @@ function Sequencer()
     for (var t = 0; t < this.length; ++t)
     {
       var tr = document.getElementById("spr" + t);
+      var t_length = marabu.song.song().endPattern-1;
       tr.className = t == marabu.selection.track ? "bl" : "";
 
       for (var i = 0; i < marabu.channels; ++i)
       {
         var o = document.getElementById("sc" + i + "t" + t);
         var pat = marabu.song.pattern_at(i,t);
-        var t_length = marabu.song.song().endPattern-1;
         // Default
         o.className = t > t_length ? "fl" : "fm";
         o.textContent = pat ? to_hex(pat) : (t % 8 == 0 && i == 0 ? ">" : "-");
         // Selection
-        if(i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_special f_special"; }
+        if(marabu.loop.is_active && i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width+1 && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_special f_special"; }
         else if(t == marabu.selection.track && i == marabu.selection.instrument){ o.className = "fh"; }
       }
     }
