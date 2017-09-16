@@ -226,6 +226,7 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 - Trim tracks on export.
 - Load trimmed track.
 - Do not display all 256 patterns.
+- Move knobs to instrument.
 
 ## License
 
