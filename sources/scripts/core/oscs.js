@@ -10,6 +10,10 @@ var Oscs = function () {
         return 0.5 + Math.sin(value * 2 * Math.PI);
     }
 
+    this.osc_sin2 = function (value) {
+        return Math.sin(2 * Math.PI * value) * Math.sin(4 * Math.PI * value);
+    }
+
     this.osc_saw = function (value) {
         return 2 * (value % 1) - 1;
     };
