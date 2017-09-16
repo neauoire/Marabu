@@ -22,6 +22,7 @@
 self.importScripts('signal.js');
 self.importScripts('oscillator.js');
 
+
 var CPlayerWorker = function()
 {
   var signal_processor = new Signal_Processor();
