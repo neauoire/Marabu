@@ -66,7 +66,8 @@ var CJammer = function ()
     new Oscillator().saw,
     new Oscillator().tri,
     new Oscillator().noise,
-    new Oscillator().rev
+    new Oscillator().rev,
+    new Oscillator().pulse_smooth
   ];
 
   // Fill the buffer with more audio, and advance state accordingly.
