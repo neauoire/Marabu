@@ -1,4 +1,4 @@
-var Oscillator = function ()
+var Oscillator = function()
 {
   this.sin = function(value)
   {
