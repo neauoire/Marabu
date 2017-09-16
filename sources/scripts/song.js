@@ -256,7 +256,7 @@ var Song = function()
     this.update_bpm(this.song().bpm);
     this.update_rpp(32);
 
-    stopAudio();
+    this.stop_song();
     updateSongRanges();
 
     console.log(opts)

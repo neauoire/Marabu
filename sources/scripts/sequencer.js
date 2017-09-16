@@ -52,6 +52,7 @@ function Sequencer()
 
     marabu.selection.instrument = i;
     marabu.selection.track = r;
+    marabu.sequencer.follower.stop();
     marabu.update();
   }
 

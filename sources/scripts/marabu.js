@@ -140,10 +140,14 @@ function Marabu()
 
   // Methods
 
+  this.is_playing = false;
+
   this.play = function()
   {
-    console.log("Play!")
+    if(this.selection.row > 0){ this.stop(); return; }
+    console.log("Play!");
     this.song.play_song();
+    this.is_playing = true;
   }
 
   this.stop = function()
@@ -151,6 +155,7 @@ function Marabu()
     console.log("Stop!")
     this.song.stop_song();
     this.instrument.uv.clear();
+    this.is_playing = false;
   }
 
   this.path = null;
@@ -282,7 +287,7 @@ function Marabu()
     if(marabu.cheatcode.is_active == true){ marabu.cheatcode.input(e); return; }
     if(marabu.loop.is_active == true){ marabu.loop.input(e); return; }
 
-    if(key == "Escape"){ marabu.song.stop_song(); return; }
+    if(key == "Escape"){ marabu.stop(); return; }
     if(key == " "){ marabu.play(); e.preventDefault(); return; }
 
     // Arrows

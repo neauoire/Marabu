@@ -48,13 +48,16 @@ function Editor(t,b)
 
     marabu.selection.instrument = i;
     marabu.selection.row = r;
+    marabu.sequencer.follower.stop();
     marabu.update();
+
   }
 
   this.effect_mouse_down = function(e)
   {
     var row = parseInt(e.target.id.slice(3,5));
     marabu.selection.row = row;
+    marabu.sequencer.follower.stop();
     marabu.update();
   }
 

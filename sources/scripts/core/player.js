@@ -54,35 +54,37 @@ var CPlayer = function ()
     };
 
     // Create a WAVE formatted Uint8Array from the generated audio data.
-    this.createWave = function() {
-        // Turn critical object properties into local variables (performance)
-        var mixBuf = mGeneratedBuffer,
-            waveWords = mixBuf.length;
+    this.createWave = function()
+    {
 
-        // Create WAVE header
-        var headerLen = 44;
-        var l1 = headerLen + waveWords * 2 - 8;
-        var l2 = l1 - 36;
-        var wave = new Uint8Array(headerLen + waveWords * 2);
-        wave.set(
-            [82,73,70,70,
-             l1 & 255,(l1 >> 8) & 255,(l1 >> 16) & 255,(l1 >> 24) & 255,
-             87,65,86,69,102,109,116,32,16,0,0,0,1,0,2,0,
-             68,172,0,0,16,177,2,0,4,0,16,0,100,97,116,97,
-             l2 & 255,(l2 >> 8) & 255,(l2 >> 16) & 255,(l2 >> 24) & 255]
-        );
+      // Turn critical object properties into local variables (performance)
+      var mixBuf = mGeneratedBuffer,
+          waveWords = mixBuf.length;
 
-        // Append actual wave data
-        for (var i = 0, idx = headerLen; i < waveWords; ++i) {
-            // Note: We clamp here
-            var y = mixBuf[i];
-            y = y < -32767 ? -32767 : (y > 32767 ? 32767 : y);
-            wave[idx++] = y & 255;
-            wave[idx++] = (y >> 8) & 255;
-        }
+      // Create WAVE header
+      var headerLen = 44;
+      var l1 = headerLen + waveWords * 2 - 8;
+      var l2 = l1 - 36;
+      var wave = new Uint8Array(headerLen + waveWords * 2);
+      wave.set(
+        [82,73,70,70,
+         l1 & 255,(l1 >> 8) & 255,(l1 >> 16) & 255,(l1 >> 24) & 255,
+         87,65,86,69,102,109,116,32,16,0,0,0,1,0,2,0,
+         68,172,0,0,16,177,2,0,4,0,16,0,100,97,116,97,
+         l2 & 255,(l2 >> 8) & 255,(l2 >> 16) & 255,(l2 >> 24) & 255]
+      );
 
-        // Return the WAVE formatted typed array
-        return wave;
+      // Append actual wave data
+      for (var i = 0, idx = headerLen; i < waveWords; ++i) {
+        // Note: We clamp here
+        var y = mixBuf[i];
+        y = y < -32767 ? -32767 : (y > 32767 ? 32767 : y);
+        wave[idx++] = y & 255;
+        wave[idx++] = (y >> 8) & 255;
+      }
+
+      // Return the WAVE formatted typed array
+      return wave;
     };
 
     // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
