@@ -19,8 +19,8 @@
 *
 */
 
-self.importScripts('../signal.js');
-self.importScripts('../oscillator.js');
+self.importScripts('signal.js');
+self.importScripts('oscillator.js');
 
 
 var CPlayerWorker = function()
@@ -117,7 +117,6 @@ var CPlayerWorker = function()
   //--------------------------------------------------------------------------
 
   // Array of oscillator functions
-<<<<<<< Updated upstream
   var mOscillators = 
   [
     new Oscillator().sin,
@@ -125,14 +124,6 @@ var CPlayerWorker = function()
     new Oscillator().saw,
     new Oscillator().tri,
     new Oscillator().noise
-=======
-  var mOscillators = [
-    Oscs.osc_sin,
-    Oscs.osc_square,
-    Oscs.osc_saw,
-    Oscs.osc_tri,
-    Oscs.osc_noise
->>>>>>> Stashed changes
   ];
 
   //----------------------------------------------------------------------------
