@@ -10,9 +10,10 @@ var Oscillator = function()
     return 0.5 + Math.sin(value * 2 * Math.PI);
   }
 
-  this.osc_sin2 = function (value) {
-    return Math.sin(2 * Math.PI * value) * Math.sin(4 * Math.PI * value);
-  }
+  // TODO: complete sin2 - clear idea what I want, but... maths.
+  // this.osc_sin2 = function (value) {
+  //   return Math.sin(2 * Math.PI * value) * Math.sin(4 * Math.PI * value);
+  // }
 
   this.saw = function(value)
   {
