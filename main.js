@@ -56,7 +56,8 @@ app.on('ready', () =>
     is_shown = true;
   })
   // Open the DevTools.
-  // win.webContents.openDevTools()
+  // TODO: comment out
+  win.webContents.openDevTools()
 })
 
 app.on('window-all-closed', () => 
