@@ -17,25 +17,25 @@ function Instrument()
       {id: "env_rel", name: "REL", min: 0, max: 255, control:2 },
       {id: "env_curve", name: "POW", min: 12, max: 255, control:3 },
 
-      {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:5, center:true },
-      {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:6 },
-      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true, control:7 },
+      {id: "osc1_vol", name: "MIX", min: 0, max: 255, control:6, center:true },
+      {id: "osc1_semi", name: "FRQ", min: 92, max: 164, control:7 },
+      {id: "osc2_det", name: "DET", min: 0, max: 255, nonLinear: true, control:8 },
 
-      {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:9 },
-      {id: "lfo_freq", name: "FRQ", min: 2, max: 10, control:10 },
+      {id: "lfo_amt", name: "AMT", min: 0, max: 255, control:10 },
+      {id: "lfo_freq", name: "FRQ", min: 2, max: 10, control:11 },
 
-      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:12 },
-      {id: "fx_res", name: "RES", min: 0, max: 254, control:13 },
+      {id: "fx_freq", name: "FRQ", min: 0, max: 255, nonLinear: true, control:13 },
+      {id: "fx_res", name: "RES", min: 0, max: 254, control:14 },
 
-      {id: "fx_dly_amt", name: "VOL", min: 0, max: 255, control:15 },
+      {id: "fx_dly_amt", name: "VOL", min: 0, max: 255, control:16 },
 
-      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:16 },
-      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:17 },
-      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:18 },
-      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:19 },
-      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:20 },
-      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:21 },
-      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:22, center:true },
+      {id: "noise_vol", name: "NOI", min: 0, max: 255, control:17 },
+      {id: "fx_bit", name: "BIT", min: 0, max: 255, control:18 },
+      {id: "fx_dist", name: "DIS", min: 0, max: 255, nonLinear: true, control:19 },
+      {id: "fx_pin", name: "PIN", min: 0, max: 255, control:20 },
+      {id: "fx_compressor", name: "CMP", min: 0, max: 255, control:21 },
+      {id: "fx_drive", name: "DRV", min: 0, max: 255, control:22 },
+      {id: "fx_pan_amt", name: "PAN", min: 0, max: 255, control:23, center:true },
     ]);
 
     this.setup_choices([
@@ -46,9 +46,9 @@ function Instrument()
         "TRI","TRISIN","TRISQR","TRISAW",
         "NOISE"
       ], control:4},
-      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:8},
-      {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:11},
-      {id: "fx_dly_time", name: "DLY", choices: ["OFF","1/2","1/3","1/4","1/6","1/8","1/12","1/16"], control:14},
+      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:9},
+      {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:12},
+      {id: "fx_dly_time", name: "DLY", choices: ["OFF","1/2","1/3","1/4","1/6","1/8","1/12","1/16"], control:15},
     ])
 
     this.setup_toggles([
