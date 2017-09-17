@@ -85,17 +85,13 @@ var CPlayerWorker = function()
 
       // Oscillator 1
       t = o1t;
-      if (o1xenv) {
-        t *= e * e;
-      }
+      t *= Math.pow(e,o1xenv);
       c1 += t;
       rsample = osc1(c1) * o1vol;
 
       // Oscillator 2
       t = o2t;
-      if (o2xenv) {
-        t *= e * e;
-      }
+      t *= Math.pow(e,o1xenv);
       c2 += t;
       rsample += osc2(c2) * o2vol;
 

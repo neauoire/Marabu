@@ -62,10 +62,10 @@ function Signal_Processor()
   this.effect_compressor = function(input,val)
   {
     var output = input;
-    if(input < this.average){
+    if(input > this.average){
       output *= 1 + val;
     }
-    else if(input > this.average){
+    else if(input < this.average){
       output *= 1 - val;
     }
     return output;

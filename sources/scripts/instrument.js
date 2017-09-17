@@ -10,7 +10,7 @@ function Instrument()
 
     this.controls = {
       envelope : {
-        type      : new UI_Choice({name: "ENV", choices: ["LINEAR","EXP"] }),
+        type      : new UI_Choice({name: "ENV", choices: ["LIN","QUA"] }),
         attack    : new UI_Slider({name: "ATK", min: 0,  max: 255 }),
         sustain   : new UI_Slider({name: "SUS", min: 0,  max: 255 }),
         release   : new UI_Slider({name: "REL", min: 0,  max: 255 }),

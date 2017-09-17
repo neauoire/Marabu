@@ -1,5 +1,7 @@
 var Oscillator = function()
 {
+  function clamp(v, min, max) { return v < min ? min : v > max ? max : v; }
+  
   this.sin = function (value)
   {
     return Math.sin(value * 2 * Math.PI);

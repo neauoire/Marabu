@@ -148,17 +148,13 @@ var CJammer = function ()
 
           // Oscillator 1
           t = o1f;
-          if (o1xenv) {
-            t *= e * e;
-          }
+          t *= Math.pow(e,o1xenv);
           o1t += t;
           rsample = osc1(o1t) * o1vol;
 
           // Oscillator 2
           t = o2f;
-          if (o2xenv) {
-              t *= e * e;
-          }
+          t *= Math.pow(e,o1xenv);
           o2t += t;
           rsample += osc2(o2t) * o2vol;
 
