@@ -44,9 +44,9 @@ function Instrument()
         "SQR","SQRSIN","SQRSAW","SQRTRI",
         "SAW","SAWSIN","SAWSQR","SAWTRI",
         "TRI","TRISIN","TRISQR","TRISAW",
-        "NOISE"
+        "NOISE","PULSE"
       ], control:4},
-      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI"], control:9},
+      {id: "lfo_wave_select", name: "LFO", choices: ["SIN","SQR","SAW","TRI","NOISE","REV","PULSE"], control:9},
       {id: "fx_filter_select", name: "EFX", choices: ["LP","HP","LP","BP"], control:12},
       {id: "fx_dly_time", name: "DLY", choices: ["OFF","1/2","1/3","1/4","1/6","1/8","1/12","1/16"], control:15},
     ])

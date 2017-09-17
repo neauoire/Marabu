@@ -98,7 +98,7 @@ function Editor(t,b)
 
         // Cheatcode Preview
         if(marabu.cheatcode.is_active && i == marabu.selection.instrument && marabu.cheatcode.selection[r]){ 
-          cell.className = "b_special f_special";  
+          cell.className = "b_inv f_inv";  
         }
 
         //Effect

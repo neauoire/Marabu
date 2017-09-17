@@ -123,7 +123,9 @@ var CPlayerWorker = function()
     new Oscillator().square,
     new Oscillator().saw,
     new Oscillator().tri,
-    new Oscillator().noise
+    new Oscillator().noise,
+    new Oscillator().rev,
+    new Oscillator().pulse_smooth
   ];
 
   //----------------------------------------------------------------------------

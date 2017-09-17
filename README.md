@@ -10,18 +10,21 @@ If this is your first time using a tracker, don't worry this quick introduction 
 
 The interface is divided into 3 columns, the *sequencer*, the *pattern editor* and the *instrument*. By default, the application launches with an active pattern, in the first instrument. There is a maximum of 16 instruments that can play at the same time. 
 
-To move the *pattern cursor*, use the arrow keys. Pressing the keyboard keys a,s,d,f,g,h & j will record a note in the first row of the first column. Pressing the ArrowDown and ArrowUp keys, will move the *cursor* up/down in the sequencer. Allowing you to fill `pattern #1` with notes. Pressing `space` will play the pattern, pressing `esc` will stop.
+To move the **pattern cursor**, use the arrow keys. Pressing the keyboard keys a,s,d,f,g,h & j will record a note in the first row of the first column. Pressing the ArrowDown and ArrowUp keys, will move the *cursor* up/down in the sequencer. Allowing you to fill `pattern #1` with notes. Pressing `space` will play the pattern, pressing `esc` will stop.
 
-To change the *sequencer patterns*, use the arrow keys while `holding alt`. To add notes to a second instrument, move to the second column and press `alt ArrowRight`, this will set the first row of the second instrument to 1, and allow you to record notes. Press `alt ArrowDown` to move to the second row, and press `alt ArrowRight` again twice, to extend the track to 2 rows, and begin adding notes to the second row of the second instrument.
+To change the **sequencer patterns**, use the arrow keys while `holding alt`. To add notes to a second instrument, move to the second column and press `alt ArrowRight`, this will set the first row of the second instrument to 1, and allow you to record notes. Press `alt ArrowDown` to move to the second row, and press `alt ArrowRight` again twice, to extend the track to 2 rows, and begin adding notes to the second row of the second instrument.
 
-To change the *instrument controls*, use the arrow keys while `holding shift`. To save your song, press `ctrl s`, to render an audio file(.wav) press `ctrl r`.
+To change the **instrument controls**, use the arrow keys while `holding shift`. To save your song, press `ctrl s`, to render an audio file(.wav) press `ctrl r`.
 
 ## Controls
 
-### General
+### Basics
 
 - `space` Play.
 - `esc` Stop.
+
+### General
+
 - `ctrl n` New.
 - `ctrl s` Save.
 - `ctrl S` Save as.
@@ -54,12 +57,12 @@ To change the *instrument controls*, use the arrow keys while `holding shift`. T
 
 #### Keys
 
-- `/` Add a Control Keyframe.
-- `Backspace` Erase Note in Row.
 - `)` Increment Note Value +12.
 - `(` Decrement Note Value -12.
 - `0` Increment Note Value +1.
 - `9` Decrement Note Value -1.
+- `Backspace` Erase Note in Row.
+- `/` Add a Control Keyframe.
 
 ### Instrument
 
@@ -207,12 +210,10 @@ theme: {
   f_med:"#0f0", 
   f_low:"#00f", 
   f_inv:"#00f", 
-  f_special:"#00f", 
   b_high:"#ff0", 
   b_med:"#f0f",
   b_low:"#0ff",
-  b_inv:"#00f", 
-  b_special:"#00f", 
+  b_inv:"#00f"
 }
 ```
 
@@ -227,6 +228,7 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 - Load trimmed track.
 - Do not display all 256 patterns.
 - Move knobs to instrument.
+- Refactor instrument data, remove unused values.
 
 ## License
 
