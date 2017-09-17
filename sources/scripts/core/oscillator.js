@@ -10,9 +10,15 @@ var Oscillator = function()
     return 0.5 + Math.sin(value * 2 * Math.PI);
   }
 
-  this.pulse_smooth = function(value)
-  {
-    return 0.05 / (Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value));
+  // TODO: complete sin2 - clear idea what I want, but... maths.
+  // this.osc_sin2 = function (value) {
+  //   return Math.sin(2 * Math.PI * value) * Math.sin(4 * Math.PI * value);
+  // }
+
+  this.pulse_smooth = function (value) {
+    var ret = 0.05 / (Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value));
+    ret = ret > 1.0 ? 1.0 : ret;
+    ret = ret < -1.0 ? -1.0 : ret;
   }
 
   this.saw = function(value)
