@@ -229,6 +229,7 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 - Do not display all 256 patterns.
 - Move knobs to instrument.
 - Refactor instrument data, remove unused values.
+- Combine ENV and VOL in UV.
 
 ## License
 

@@ -170,6 +170,7 @@ app { width: 870px; height: 480px }
 
 .tracks tr td { padding: 0 2.5px; color:#555}
 #instrument { width:120px; display:block; vertical-align:top; border-left:1px solid #333; padding-left:15px; margin-left:15px; line-height:15px; float:left }
+#instrument .family { margin-bottom:15px; }
 #sequencer { display:block; vertical-align:top; float:left; max-height: 480px; overflow:hidden; position: relative;}
 #sequencer tr td { padding:0px;}
 #sequencer tr td:first-child { padding-left:2.5px;}
@@ -183,3 +184,4 @@ app { width: 870px; height: 480px }
 .tracks td.selected { color:#fff}
 .tracks tr th { color:#555; font-family: 'input_mono_medium'; padding: 0 2.5px;}
 .tracks tr th:hover { cursor:pointer; color:#999}
+

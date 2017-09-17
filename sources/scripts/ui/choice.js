@@ -1,13 +1,13 @@
-function UI_Choice(id,name = "UNK",choices = [],control = null)
+function UI_Choice(data)
 {
-  var self = this;
+  this.family = null;
+  this.id = data.id;
+  this.name = data.name;
+  this.choices = data.choices;
 
-  this.id = id;
-  this.name = name;
-  this.choices = choices;
-  this.control = control;  
+  this.control = 0;
 
-  this.el = document.getElementById(id);
+  this.el = document.createElement("div");
   this.name_el = document.createElement("t");
   this.value_el = document.createElement("t");
 
@@ -15,7 +15,7 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
 
   var target = this;
 
-  this.install = function()
+  this.install = function(parent)
   {
     this.el.style.padding = "0px 2.5px";
     this.el.style.width = "80px";
@@ -32,6 +32,8 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
     this.el.appendChild(this.value_el);
 
     this.el.addEventListener("mousedown", this.mouse_down, false);
+
+    parent.appendChild(this.el);
   }
 
   this.mod = function(v)
@@ -44,6 +46,8 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
 
   this.override = function(v)
   {
+    if(v == null){ console.log("Missing control value",this.family+"."+this.id); return;}
+
     var v = v % this.choices.length;
     this.index = v;
     this.update();
@@ -51,10 +55,8 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
 
   this.save = function()
   {
-    var control_storage = marabu.instrument.get_storage(this.id);
-    var value = this.index;
-    
-    marabu.song.inject_control(marabu.selection.instrument,control_storage,value);
+    var storage_id = marabu.instrument.get_storage(this.family+"_"+this.id);
+    marabu.song.inject_control(marabu.selection.instrument,storage_id,this.index % this.choices.length);
   }
 
   this.update = function()
@@ -66,9 +68,9 @@ function UI_Choice(id,name = "UNK",choices = [],control = null)
     this.name_el.className = marabu.selection.control == this.control ? "fh" : "fm";
   }
 
-  this.mouse_down = function()
+  this.mouse_down = function(e)
   {
-    marabu.selection.control = self.control;
+    marabu.selection.control = target.control;
     marabu.update();
   }
 }

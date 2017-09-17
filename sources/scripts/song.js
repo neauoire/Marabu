@@ -120,9 +120,14 @@ var Song = function()
     this.song().songData[i].c[c].f[f+32] = val;
   }
 
-  this.inject_control = function(i,c,v)
+  this.control_at = function(i,s)
   {
-    this.song().songData[i].i[c] = v;
+    return this.song().songData[i].i[s];
+  }
+
+  this.inject_control = function(i,s,v)
+  {
+    this.song().songData[i].i[s] = v;
     this.mJammer_update();
   }
 

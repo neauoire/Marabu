@@ -1,21 +1,25 @@
-function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null,center = false)
+function UI_Slider(data)
 {
   var app = marabu;
   var self = this;
 
-  this.id = id;
-  this.name = name;
-  this.min = min;
-  this.max = max;
-  this.control = control;
-  this.center = center;
+  this.family = null;
+  this.id = data.id;
+  this.name = data.name;
+  this.min = data.min;
+  this.max = data.max;
+  
+  this.control = 0;
+  this.center = data.center;
 
-  this.el = document.getElementById(id);
+  this.value = this.min;
+
+  this.el = document.createElement("div");
   this.name_el = document.createElement("t");
   this.value_el = document.createElement("t");
   this.slide_el = document.createElement("div");
 
-  this.install = function()
+  this.install = function(parent)
   {
     this.el.className = "slider";
 
@@ -35,13 +39,15 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null,center = fal
     // Value Input
     this.value_el.className = "w2";
     this.value_el.style.marginLeft = "10px";
-    this.value_el.textContent = this.min+"/"+this.max;
+    this.value_el.textContent = "--";
 
     this.el.appendChild(this.name_el);
     this.el.appendChild(this.slide_el);
     this.el.appendChild(this.value_el);
 
     this.el.addEventListener("mousedown", this.mouse_down, false);
+
+    parent.appendChild(this.el);
   }
 
   this.mod = function(v,relative = false)
@@ -55,6 +61,8 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null,center = fal
 
   this.override = function(v)
   {
+    if(v == null){ console.log("Missing control value",this.family+"."+this.id); return;}
+
     this.value = parseInt(v);
     this.value = clamp(this.value,this.min,this.max);
     this.update();
@@ -62,11 +70,8 @@ function UI_Slider(id,name = "UNK",min = 0,max = 255,control = null,center = fal
 
   this.save = function()
   {
-    var value = this.value;
-    var instr = app.song.instrument();
-    var control_storage = app.instrument.get_storage(this.id);
-
-    app.song.inject_control(app.selection.instrument,control_storage,value);
+    var storage_id = marabu.instrument.get_storage(this.family+"_"+this.id);
+    marabu.song.inject_control(marabu.selection.instrument,storage_id,this.value);
   }
 
   this.update = function()

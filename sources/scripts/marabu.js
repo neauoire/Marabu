@@ -39,7 +39,7 @@ function Marabu()
 
     this.sequencer.update();
     this.editor.update();
-    this.instrument.update();  
+    this.instrument.update();
   }
 
   this.update = function()
@@ -154,7 +154,7 @@ function Marabu()
   {
     console.log("Stop!")
     this.song.stop_song();
-    this.instrument.uv.clear();
+    this.instrument.controls.uv.monitor.clear();
     this.is_playing = false;
   }
 

@@ -1,6 +1,6 @@
 function UI_Uv()
 {
-  this.el = null;
+  this.el = document.createElement("div");
 
   this.vol_el = document.createElement("div");
   this.vol_name_el = document.createElement("t");
@@ -17,19 +17,17 @@ function UI_Uv()
   var mFollowerLastVULeft = 0;
   var mFollowerLastVURight = 0;
 
-  this.install = function()
+  this.install = function(parent)
   {
-    this.el = document.getElementById("uv");
-
-    this.el.appendChild(this.vol_el);
     this.el.appendChild(this.env_el);
+    this.el.appendChild(this.vol_el);
     this.el.appendChild(this.wav_el);
-
-    this.vol_el.appendChild(this.vol_name_el);
-    this.vol_el.appendChild(this.vol_canvas);
 
     this.env_el.appendChild(this.env_name_el);
     this.env_el.appendChild(this.env_canvas);
+
+    this.vol_el.appendChild(this.vol_name_el);
+    this.vol_el.appendChild(this.vol_canvas);
 
     this.wav_el.appendChild(this.wav_name_el);
     this.wav_el.appendChild(this.wav_canvas);
@@ -37,6 +35,8 @@ function UI_Uv()
     this.vol_el.style.height = "15px";
     this.env_el.style.height = "15px";
     this.wav_el.style.height = "15px";
+
+    this.vol_el.style.marginTop = "-15px";
 
     this.vol_name_el.className = "name fl";
     this.vol_name_el.innerHTML = "VOL";
@@ -49,7 +49,7 @@ function UI_Uv()
     this.vol_canvas.height = this.size.height * 2;
 
     this.env_name_el.className = "name fl";
-    this.env_name_el.innerHTML = "ENV";
+    this.env_name_el.innerHTML = "";
     this.env_name_el.style.width = "30px";
     this.env_name_el.style.display = "inline-block";
 
@@ -83,6 +83,8 @@ function UI_Uv()
     wav_ctx.lineWidth = 2;
 
     this.clear();
+
+    parent.appendChild(this.el);
   }
 
   var getSamplesSinceNote = function (t, chan)
@@ -118,17 +120,21 @@ function UI_Uv()
     env_ctx.clearRect(0, 0, this.size.width * 2, this.size.height * 2);
     wav_ctx.clearRect(0, 0, this.size.width * 2, this.size.height * 2);
 
-    vol_ctx.strokeStyle = marabu.theme.active.f_low;
-    vol_ctx.beginPath();
-    vol_ctx.moveTo(0,15);
-    vol_ctx.lineTo(this.size.width * 2,15);
-    vol_ctx.stroke();
-
     env_ctx.strokeStyle = marabu.theme.active.f_low;
     env_ctx.beginPath();
     env_ctx.moveTo(0,15);
     env_ctx.lineTo(this.size.width * 2,15);
     env_ctx.stroke();
+  }
+
+  this.override = function()
+  {
+    
+  }
+
+  this.update = function()
+  {
+    this.draw(-1);
   }
 
   this.draw = function(t)
@@ -178,7 +184,6 @@ function UI_Uv()
       if(parseInt(x) != parseInt(last_x) && x < this.size.width * 2){
         var mod = ((l+r)/2.0) * 20;
         var y = this.size.height + mod;
-        // y = y * (i/parseFloat(this.width));
         y = clamp(y,0,this.size.height*2);
         wav_ctx.lineTo(x, y);
         last_x = x;
@@ -192,7 +197,7 @@ function UI_Uv()
     mFollowerLastVULeft = pl;
     mFollowerLastVURight = pr;
 
-    var index = ((pl+pr)/2) * 2.0;
+    var index = ((pl+pr)/2) * 4.0;
 
     vol_ctx.strokeStyle = marabu.theme.active.f_high;
     vol_ctx.beginPath();
@@ -218,7 +223,7 @@ function UI_Uv()
       if (numSamp >= 0 && numSamp < env_tot)
       {
         var alpha = (numSamp < env_a) ? alpha = numSamp / env_a : 1 - (numSamp - env_a) / env_r;
-        env_ctx.strokeStyle = marabu.theme.active.f_high;
+        env_ctx.strokeStyle = marabu.theme.active.f_med;
         env_ctx.beginPath();
         env_ctx.moveTo(0,15);
         env_ctx.lineTo((this.size.width * 2) * alpha,15);

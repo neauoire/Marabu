@@ -77,7 +77,7 @@ function Signal_Processor()
 
     var output = input;
     output *= val;
-    output = output < 1 ? output > -1 ? osc_sin(output*.25) : -1 : 1;
+    output = output < 1 ? output > -1 ? new Oscillator().sin(output*.25) : -1 : 1;
     output /= val;
     return output;
   }
