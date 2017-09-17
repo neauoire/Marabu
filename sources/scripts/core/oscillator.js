@@ -13,7 +13,10 @@ var Oscillator = function () {
   // }
 
   this.pulse_smooth = function (value) {
-    return 0.05 / (Math.sin(2 * Math.PI * x) * Math.tan(2 * Math.PI * x));
+    var ret = 0.05 / (Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value));
+    ret = ret > 1.0 ? 1.0 : ret;
+    ret = ret < -1.0 ? -1.0 : ret;
+    return ret;
   }
 
   this.saw = function (value) {
