@@ -10,21 +10,16 @@ var Oscillator = function()
     return 0.5 + Math.sin(value * 2 * Math.PI);
   }
 
-  // TODO: complete sin2 - clear idea what I want, but... maths.
-  // this.osc_sin2 = function (value) {
-  //   return Math.sin(2 * Math.PI * value) * Math.sin(4 * Math.PI * value);
-  // }
-
-  this.pulse_smooth = function (value) {
-    var ret = 0.05 / (Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value));
-    ret = ret > 1.0 ? 1.0 : ret;
-    ret = ret < -1.0 ? -1.0 : ret;
+  this.pulse_smooth = function (value)
+  {
+    value = 0.05 / (Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value));
+    return clamp(value,-1.0,1.0);
   }
 
   this.saw = function(value)
   {
     return 2 * (value % 1) - 1;
-  };
+  }
 
   this.rev = function(value)
   {
@@ -34,7 +29,7 @@ var Oscillator = function()
   this.square = function(value)
   {
     return (value % 1) < 0.5 ? 1 : -1;
-  };
+  }
 
   this.noise = function(value)
   {
@@ -46,7 +41,7 @@ var Oscillator = function()
     var v2 = (value % 1) * 4;
     if (v2 < 2) return v2 - 1;
     return 3 - v2;
-  };
+  }
 
   // generates waveform from custom text
   // e.g.: 'sin(x)'
