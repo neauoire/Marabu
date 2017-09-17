@@ -10,10 +10,9 @@ var Oscillator = function()
     return 0.5 + Math.sin(value * 2 * Math.PI);
   }
 
-  this.pulse_smooth = function (value)
+  this.pulse = function (value)
   {
-    value = 0.05 / (Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value));
-    return clamp(value,-1.0,1.0);
+    return clamp(0.05/(Math.sin(2 * Math.PI * value) * Math.tan(2 * Math.PI * value)),-1.0,1.0);
   }
 
   this.saw = function(value)

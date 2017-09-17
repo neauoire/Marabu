@@ -114,6 +114,7 @@ function Signal_Processor()
     if(index == 14){ return [3,1]; } // TRISQR
     if(index == 15){ return [3,2]; } // TRISAW
     if(index == 16){ return [4,4]; } // NOISE
-    if(index == 17){ return [6,6]; } // PULSE
+    if(index == 17){ return [6,0]; } // PULSE
+    if(index == 18){ return [6,2]; } // REVSAW
   }
 }
