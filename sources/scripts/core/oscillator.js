@@ -46,7 +46,10 @@ var Oscillator = function()
   // e.g.: 'sin(x)'
   this.custom = function(value, expression)
   {
-    return eval('var x=value;' + expression);
+    var ret = eval('var x=value;' + expression);
+    ret = ret > 1.0 ? 1.0 : ret;
+    ret = ret < -1.0 ? -1.0 : ret;
+    return ret;
   }
 
   // TODO: complete sin2 - clear idea what I want, but... maths.
