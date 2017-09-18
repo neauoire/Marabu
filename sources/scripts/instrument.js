@@ -10,7 +10,7 @@ function Instrument()
 
     this.controls = {
       envelope : {
-        type      : new UI_Choice({name: "ENV", choices: ["LIN","QUA"] }),
+        type      : new UI_Choice({name: "ENV", choices: ["NONE","WEAK","AVRG","HARD"] }),
         attack    : new UI_Slider({name: "ATK", min: 0,  max: 255 }),
         sustain   : new UI_Slider({name: "SUS", min: 0,  max: 255 }),
         release   : new UI_Slider({name: "REL", min: 0,  max: 255 }),
@@ -137,10 +137,6 @@ function Instrument()
 
   this.build = function()
   {
-    var html = "";
-    html += "  <div id='instrument'>";
-
-    html += "  </div>";
-    return html;
+    return "<div id='instrument'></div>";
   }
 }

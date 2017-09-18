@@ -61,7 +61,7 @@ function Cheatcode()
     if(e.key == "y"){ this.ins(8); return; }
     if(e.key == "u"){ this.ins(10); return; }
 
-    if(e.key.length > 1 || e.key == " "){ return; }
+    if(e.key.length > 1 || e.key == " "){ this.stop(); return; }
     this.val += e.key;
 
     this.rate = this.val.length > 0 ? this.val.charAt(0) == "/" ? 32 : hex_to_int(this.val.charAt(0)) : 0;

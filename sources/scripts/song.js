@@ -115,6 +115,7 @@ var Song = function()
 
   this.inject_effect_at = function(i,t,f,cmd,val)
   {
+    if(!cmd || val === undefined){ return; }
     var c = this.pattern_at(i,t)-1; if(c == -1){ return; }
     this.song().songData[i].c[c].f[f] = cmd;
     this.song().songData[i].c[c].f[f+32] = val;

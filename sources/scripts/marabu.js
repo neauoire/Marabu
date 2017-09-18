@@ -105,7 +105,7 @@ function Marabu()
   this.save_control_value = function()
   {
     var control = this.instrument.control_target(this.selection.control);
-    var control_storage = this.instrument.get_storage(control.id);
+    var control_storage = this.instrument.get_storage(control.family+"_"+control.id);
     var control_value = control.value;
 
     this.song.inject_effect_at(this.selection.instrument,this.selection.track,this.selection.row,control_storage+1,control_value);
@@ -443,7 +443,7 @@ var to_hex_val = function(num)
   return l[num % l.length];
 }
 
-var to_hex = function(num, count)
+var to_hex = function(num, count = 1)
 {
   var s = num.toString(16).toUpperCase();
   for (var i = 0; i < (count - s.length); ++i){
