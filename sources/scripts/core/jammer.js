@@ -89,6 +89,10 @@ var CJammer = function ()
     for (i = 0; i < MAX_POLYPHONY; ++i) {
       var note = mPlayingNotes[i];
       if (note != undefined) {
+
+        var envelope_shape = note.instr[3];
+        var envelope_curve = mInstr[18] / 255.0
+
         var osc1 = mOscillators[signal_processor.osc_to_waveform(note.instr[0])[0]],
             o1vol = 255 - note.instr[1],
             o1xenv = note.instr[3],
@@ -101,8 +105,6 @@ var CJammer = function ()
             release = Math.round(note.instr[12] * note.instr[12] * 4 * mRateScale),
             releaseInv = 1 / release,
             arpInterval = mRowLen * Math.pow(2, 2 - 0);
-
-        signal_processor.knobs.env_curve = mInstr[18]  / 255.0;
 
         // Note frequencies (defined later) and arpeggio
         var o1f, o2f;
@@ -139,22 +141,30 @@ var CJammer = function ()
             e = j / attack;
             var attack_t = j/attack;
             var attack_force = attack_t;
-            e = e * Math.pow(attack_force,10 * signal_processor.knobs.env_curve)
+            e = e * Math.pow(attack_force,10 * envelope_curve)
           } else if (j >= attack + sustain) {
             var release_t = (j - attack - sustain)
             var release_force = (1 - (release_t/release));
-            e = e * Math.pow(release_force,10 * signal_processor.knobs.env_curve);
+            e = e * Math.pow(release_force,10 * envelope_curve);
           }
 
           // Oscillator 1
           t = o1f;
-          t *= Math.pow(e,o1xenv);
+
+               if(envelope_shape == 1){ t *= e * e; }
+          else if(envelope_shape == 2){ t *= e * e * e; }
+          else if(envelope_shape == 3){ t *= e * e * e * e; }
+          
           o1t += t;
           rsample = osc1(o1t) * o1vol;
 
           // Oscillator 2
           t = o2f;
-          t *= Math.pow(e,o1xenv);
+
+               if(envelope_shape == 1){ t *= e * e; }
+          else if(envelope_shape == 2){ t *= e * e * e; }
+          else if(envelope_shape == 3){ t *= e * e * e * e; }
+
           o2t += t;
           rsample += osc2(o2t) * o2vol;
 

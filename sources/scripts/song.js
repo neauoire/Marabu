@@ -279,6 +279,37 @@ var Song = function()
     generateAudio(doneFun,opts);
   }
 
+  this.length = 0;
+
+  this.update = function()
+  {
+    this.validate();
+    this.update_length();
+  }
+
+  this.validate = function()
+  {
+    for(var i = 0; i < 16; ++i) {
+      var offset = (this.length+34) - mSong.songData[i].p.length;
+      if(offset < 0){ continue; }
+      // Fill
+      for(var fill = 0; fill < offset; ++fill){
+        mSong.songData[i].p.push(0);
+      }
+    }
+  }
+
+  this.update_length = function()
+  {
+    var l = 0;
+    for(var i = 0; i < 16; ++i) {
+      for(var p = 0; p < mSong.songData[i].p.length; ++p){
+        if(mSong.songData[i].p[p] > 0 && p > l){ l = p; }
+      }
+    }
+    this.length = l;
+  }
+
   //--------------------------------------------------------------------------
   // Initialization
   //--------------------------------------------------------------------------
@@ -348,7 +379,8 @@ var CAudioTimer = function ()
   this.reset = function ()
   {
     mStartT = (new Date()).getTime() * 0.001;
-    for (var i = 0; i < mErrHist.length; i++)
+    for (var i = 0; i < mErrHist.length; i++){
       mErrHist[i] = 0;
+    }
   };
 };

@@ -33,7 +33,11 @@ var CPlayerWorker = function()
     return 0.003959503758 * Math.pow(2, (n-128)/12);
   };
 
-  var createNote = function (instr, n, rowLen) {
+  var createNote = function (instr, n, rowLen) 
+  {
+    var envelope_shape = instr.i[3];
+    var envelope_curve = instr.i[18] / 255.0;
+
     var osc1 = mOscillators[signal_processor.osc_to_waveform(instr.i[0])[0]],
         o1vol = 255 - instr.i[1],
         o1xenv = instr.i[3],
@@ -47,8 +51,6 @@ var CPlayerWorker = function()
         releaseInv = 1 / release,
         arp = 0,
         arpInterval = rowLen * Math.pow(2, 2 - 0);
-
-    signal_processor.knobs.env_curve = instr.i[18]  / 255.0;
 
     var noteBuf = new Int32Array(attack + sustain + release);
 
@@ -76,27 +78,31 @@ var CPlayerWorker = function()
         e = j / attack;
         var attack_t = j/attack;
         var attack_force = attack_t;
-        e = e * Math.pow(attack_force,10 * signal_processor.knobs.env_curve)
+        e = e * Math.pow(attack_force,10 * envelope_curve)
       } else if (j >= attack + sustain) {
         var release_t = (j - attack - sustain)
         var release_force = (1 - (release_t/release));
-        e = e * Math.pow(release_force,10 * signal_processor.knobs.env_curve);
+        e = e * Math.pow(release_force,10 * envelope_curve);
       }
 
       // Oscillator 1
       t = o1t;
-      t *= Math.pow(e,o1xenv);
+           if(envelope_shape == 1){ t *= e * e; }
+      else if(envelope_shape == 2){ t *= e * e * e; }
+      else if(envelope_shape == 3){ t *= e * e * e * e; }
       c1 += t;
       rsample = osc1(c1) * o1vol;
 
       // Oscillator 2
       t = o2t;
-      t *= Math.pow(e,o1xenv);
+           if(envelope_shape == 1){ t *= e * e; }
+      else if(envelope_shape == 2){ t *= e * e * e; }
+      else if(envelope_shape == 3){ t *= e * e * e * e; }
       c2 += t;
       rsample += osc2(c2) * o2vol;
 
       // Noise oscillator
-      if (noiseVol) {
+      if(noiseVol){
         rsample += (2 * Math.random() - 1) * noiseVol;
       }
 

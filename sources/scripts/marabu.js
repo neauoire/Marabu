@@ -26,7 +26,7 @@ function Marabu()
 
   this.start = function()
   {
-    this.wrapper_el.innerHTML += this.sequencer.build();
+    this.wrapper_el.innerHTML += "<div id='sequencer'><table class='tracks' id='sequencer-table'></table></div><yu id='scrollbar'></yu>";
     this.wrapper_el.innerHTML += this.editor.build();
     this.wrapper_el.innerHTML += this.instrument.build();
 
@@ -37,6 +37,7 @@ function Marabu()
     this.editor.start();
     this.instrument.start();  
 
+    this.song.update();
     this.sequencer.update();
     this.editor.update();
     this.instrument.update();
@@ -45,11 +46,12 @@ function Marabu()
   this.update = function()
   {
     this.selection.instrument = clamp(this.selection.instrument,0,this.channels-1);
-    this.selection.track = clamp(this.selection.track,0,this.sequencer.length);
+    this.selection.track = clamp(this.selection.track,0,this.sequencer.length-1);
     this.selection.row = clamp(this.selection.row,0,31);
     this.selection.octave = clamp(this.selection.octave,3,8);
     this.selection.control = clamp(this.selection.control,0,23);
 
+    this.song.update();
     this.sequencer.update();
     this.editor.update();
     this.instrument.update();

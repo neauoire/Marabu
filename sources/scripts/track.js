@@ -1,6 +1,6 @@
 function Track()
 {
-  var MAX_SONG_ROWS = 32, MAX_PATTERNS = 32;
+  var MAX_SONG_ROWS = 32, MAX_PATTERNS = 32, MAX_INSTRUMENTS = 16;
 
   var song = {}, i, j, k, instr, col;
 
@@ -18,13 +18,13 @@ function Track()
 
   // All 8 instruments
   song.songData = [];
-  for (i = 0; i < marabu.channels; i++){
+  for (i = 0; i < MAX_INSTRUMENTS; i++){
     instr = {};
     instr.i = [15,67,111,0,0,100,111,6,0,0,0,0,153,0,20,0,0,8,64,2,205,90,0,63,127,0,0,0,190,0,0];
 
     // Sequence
     instr.p = [];
-    for (j = 0; j < marabu.sequencer.length; j++)
+    for (j = 0; j < MAX_SONG_ROWS; j++)
       instr.p[j] = 0;
 
     // Patterns

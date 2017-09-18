@@ -1,6 +1,6 @@
 function Signal_Processor()
 {
-  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null,pan:null,env_curve:null};
+  this.knobs = {distortion:null,pinking:null,compressor:null,drive:null,bit_phaser:null,bit_step:null,pan:null};
 
   this.step_last = 0;
   this.phase = 0;

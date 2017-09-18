@@ -37,6 +37,7 @@ function Follower()
 
   this.stop = function()
   {
+    if(this.timer == -1){ return; }
     console.log("follower","stop");
     clearInterval(this.timer);
     this.timer = -1;
