@@ -217,7 +217,7 @@ function Marabu()
       if (fileName === undefined){ return; }
       fs.writeFile(fileName+".mar", str, (err) => {
         if(err){ alert("An error ocurred creating the file "+ err.message); return; }
-        marabu.path = fileName;
+        marabu.path = fileName+".mar";
         var el = document.getElementById("fxr31");
         if(el){ el.className = "b_inv f_inv"; el.innerHTML = "--OK";  }
       });
