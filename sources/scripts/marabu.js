@@ -18,7 +18,7 @@ function Marabu()
   this.channels = 16;
 
   this.song = new Song();
-  this.sequencer = new Sequencer(120);
+  this.sequencer = new Sequencer();
   this.editor = new Editor(8,4);
   this.instrument = new Instrument();
   this.cheatcode = new Cheatcode();
@@ -154,10 +154,11 @@ function Marabu()
 
   this.stop = function()
   {
-    console.log("Stop!")
+    console.log("Stop!");
     this.song.stop_song();
     this.instrument.controls.uv.monitor.clear();
     this.is_playing = false;
+    this.selection.row = 0;  
   }
 
   this.path = null;
@@ -436,6 +437,23 @@ var hex_to_int = function(hex)
   if(hex == "e"){ return 14; }
   if(hex == "f"){ return 15; }
   return 0;
+}
+
+
+var prepend_to_length = function(str,length = 4,fill = "0")
+{
+  var str = str+"";
+
+  var offset = length - str.length;
+
+  console.log(offset, length, str.length, str);
+
+  if(offset == 1){ return fill+str; }
+  else if(offset == 2){ return fill+fill+str; }
+  else if(offset == 3){ return fill+fill+fill+str; }
+  else if(offset == 4){ return fill+fill+fill+fill+str; }
+
+  return str
 }
 
 var to_hex_val = function(num)

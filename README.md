@@ -144,8 +144,7 @@ Hold `shift`, while pressing a note, to make chords.
 
 ### UV
 
-- `VOL` UV Volume
-- `ENV` UV Envelope
+- `VOL` UV Volume/Envelope
 - `WAV` UV Wave shape
 
 ## Cheatmode
@@ -196,8 +195,14 @@ Press `ctrl l` to activate loopmode.
 
 ### Selective play
 
-- `enter` Will play from current sequencer row.
-- `/ enter` Will play from current sequencer row, only active instrument.
+- `enter` Will play from current sequencer row, for 1 track.
+- `/ enter` Will play from current sequencer row, only active instrument, for 1 track.
+- `4 enter` Will play from the current sequencer row, for 4 tracks.
+- `/ 4 enter` Will play from the current sequencer row, only active instrument, for 4 tracks.
+
+## Notes
+
+During render, the track time is displayed in the before-last row of the Editor in the `0252` format, or 2:52.
 
 ## Themes
 
@@ -223,13 +228,18 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 
 ### TODOs
 
-- Continuous follow instead of pageview.
+#### Optimisation
 - Trim tracks on export.
 - Load trimmed track.
-- Do not display all 256 patterns.
-- Move knobs to instrument.
-- Refactor instrument data, remove unused values.
-- Combine ENV and VOL in UV.
+#### Feature
+- Continuous follow instead of pageview.
+- copy paste in sequencer.
+- Template file of just sequencer sequences.
+#### Misc
+- Cancel render with escape
+#### Bug
+- add .wav to export(cannot replicate?)
+- Clicking icon on dock, shows the application. Replicate on Left.
 
 ## License
 

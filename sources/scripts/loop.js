@@ -46,6 +46,10 @@ function Loop()
     if(e.key == "/"){ this.solo(); }
     if(e.key == "Enter"){ this.play(); return; }
 
+    if(parseInt(e.key) > 0){
+      this.height = parseInt(e.key);
+    }
+
     marabu.update();
   }
 

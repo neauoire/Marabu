@@ -202,22 +202,39 @@ var Song = function()
     generateAudio(doneFun);
   };
 
-  var generateAudio = function (doneFun, opts)
+  this.calculate_time = function()
   {
-    var display_el = document.getElementById("fxr31");
+    var bpm = parseFloat(marabu.song.song().bpm);
+    var beats = 8 * (marabu.song.length+1);
+    var minutes = beats/bpm; 
+    var seconds = minutes * 60;
+
+    return seconds;
+  }
+
+  var generateAudio = function(doneFun, opts)
+  {
+    var display_time_el = document.getElementById("fxr30");
+    var display_progress_el = document.getElementById("fxr31");
+
+    var render_time = marabu.song.calculate_time();
+    var minutes = Math.floor(render_time/60.0);
+    var seconds = Math.floor(render_time % 60);
+
+    display_time_el.textContent = prepend_to_length(minutes,2,"0")+prepend_to_length(seconds,2,"0");
 
     var d1 = new Date();
     mPlayer = new CPlayer();
-    mPlayer.generate(mSong, opts, function (progress){
-      if (progress >= 1) {
+    mPlayer.generate(mSong, opts, function(progress){
+      if(progress >= 1){
         var wave = mPlayer.createWave();
         var d2 = new Date();
         doneFun(wave);
-        display_el.className = "fl";
+        display_progress_el.className = "fl";
       }
       else{
-        display_el.textContent = "00"+parseInt(progress * 100);
-        display_el.className = "b_inv f_inv";
+        display_progress_el.className = "b_inv f_inv";
+        display_progress_el.textContent = prepend_to_length(parseInt(progress * 100),4,"0");
       }
     });
   };
@@ -240,6 +257,7 @@ var Song = function()
 
   this.play_song = function()
   {
+    this.update();
     this.update_bpm(this.song().bpm);
     this.update_rpp(32);
 

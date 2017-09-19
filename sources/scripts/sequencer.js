@@ -80,7 +80,7 @@ function Sequencer()
         var o = document.getElementById("sc" + i + "t" + t);
         var pat = marabu.song.pattern_at(i,t);
         // Default
-        o.className = t > marabu.song.length ? "fl" : "fm";
+        o.className = i == marabu.selection.instrument && pat ? "fh" : (t > marabu.song.length ? "fl" : "fm");
         o.textContent = pat ? to_hex(pat) : (t % 8 == 0 && i == 0 ? ">" : "-");
         // Selection
         if(marabu.loop.is_active && i >= marabu.loop.x && i < marabu.loop.x + marabu.loop.width+1 && t >= marabu.loop.y && t < marabu.loop.y + marabu.loop.height){ o.className = "b_inv f_inv"; }
