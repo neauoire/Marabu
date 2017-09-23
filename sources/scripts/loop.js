@@ -12,7 +12,7 @@ function Loop()
     this.x = 0;
     this.width = 15;
     this.y = marabu.selection.track;
-    this.height = 1;
+    this.height = 0;
   }
 
   this.start = function()
@@ -30,12 +30,31 @@ function Loop()
     marabu.update();
   }
 
+  this.buffer = [];
+
+  this.copy = function()
+  {
+    this.buffer = [];
+    for(var i = 0; i < 16; i++){
+      this.buffer[i] = marabu.song.song().songData[i].p.slice(this.y,this.y+this.height+1);
+    }
+    this.stop();
+  }
+
+  this.paste = function()
+  {
+    for(var i = 0; i < 16; i++){
+      marabu.song.song().songData[i].p.splice(this.y, 0, ...this.buffer[i]);
+    }
+    this.stop();
+  }
+
   this.solo = function()
   {
     this.x = marabu.selection.instrument;
     this.width = 0;
     this.y = marabu.selection.track;
-    this.height = 1;
+    this.height = 0;
     marabu.update();
   }
 
@@ -45,9 +64,11 @@ function Loop()
     if(e.key == "Escape"){ this.stop(); return; }
     if(e.key == "/"){ this.solo(); }
     if(e.key == "Enter"){ this.play(); return; }
+    if(e.key == "c"){ this.copy(); return; }
+    if(e.key == "v"){ this.paste(); return; }
 
     if(parseInt(e.key) > 0){
-      this.height = parseInt(e.key);
+      this.height = parseInt(e.key)-1;
     }
 
     marabu.update();

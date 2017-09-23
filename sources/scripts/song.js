@@ -212,10 +212,13 @@ var Song = function()
     return seconds;
   }
 
-  var generateAudio = function(doneFun, opts)
+  var generateAudio = function(doneFun, opts, override_song = null)
   {
     var display_time_el = document.getElementById("fxr30");
     var display_progress_el = document.getElementById("fxr31");
+
+    console.log(override_song)
+    var song = mSong;
 
     var render_time = marabu.song.calculate_time();
     var minutes = Math.floor(render_time/60.0);
@@ -225,7 +228,7 @@ var Song = function()
 
     var d1 = new Date();
     mPlayer = new CPlayer();
-    mPlayer.generate(mSong, opts, function(progress){
+    mPlayer.generate(song, opts, function(progress){
       if(progress >= 1){
         var wave = mPlayer.createWave();
         var d2 = new Date();
@@ -255,8 +258,16 @@ var Song = function()
     marabu.update();
   }
 
+  this.start_over = function()
+  {
+    this.currentTime = 0; 
+    this.play();
+  }
+
   this.play_song = function()
   {
+    mAudio.removeEventListener('ended', marabu.song.start_over, false);
+
     this.update();
     this.update_bpm(this.song().bpm);
     this.update_rpp(32);
@@ -275,15 +286,16 @@ var Song = function()
     generateAudio(doneFun);
   }
 
-  this.play_loop = function(opts)
+  this.play_loop = function(opts,looped_song)
   {
+    mAudio.addEventListener('ended', marabu.song.start_over, false);
+
     this.update_bpm(this.song().bpm);
     this.update_rpp(32);
 
     this.stop_song();
     updateSongRanges();
 
-    console.log(opts)
     var offset = opts.firstRow;
 
     var doneFun = function(wave)
@@ -294,10 +306,11 @@ var Song = function()
       mAudioTimer.reset();
       mAudio.play();
     };
-    generateAudio(doneFun,opts);
+    generateAudio(doneFun,opts,looped_song);
   }
 
   this.length = 0;
+  this.is_looping = false;
 
   this.update = function()
   {
@@ -339,7 +352,7 @@ var Song = function()
     // Create audio element, and always play the audio as soon as it's ready
     mAudio = new Audio();
     mAudioTimer.setAudioElement(mAudio);
-    mAudio.addEventListener("canplay", function () { this.play(); }, true);
+    mAudio.addEventListener("canplay", function (){ this.play(); }, true);
 
     mSong = new Track();
 

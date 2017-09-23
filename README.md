@@ -200,6 +200,11 @@ Press `ctrl l` to activate loopmode.
 - `4 enter` Will play from the current sequencer row, for 4 tracks.
 - `/ 4 enter` Will play from the current sequencer row, only active instrument, for 4 tracks.
 
+### Copy/Paste
+
+- `c` To copy the selected sequence.
+- `v` To **insert** the selected sequence.
+
 ## Notes
 
 During render, the track time is displayed in the before-last row of the Editor in the `0252` format, or 2:52.

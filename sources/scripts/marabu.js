@@ -439,14 +439,11 @@ var hex_to_int = function(hex)
   return 0;
 }
 
-
 var prepend_to_length = function(str,length = 4,fill = "0")
 {
   var str = str+"";
 
   var offset = length - str.length;
-
-  console.log(offset, length, str.length, str);
 
   if(offset == 1){ return fill+str; }
   else if(offset == 2){ return fill+fill+str; }
