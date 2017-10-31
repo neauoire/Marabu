@@ -3,3 +3,4 @@ builds/
 *.wav
 
 *.wav
+.vscode/
