@@ -185,3 +185,8 @@ app { width: 870px; height: 480px }
 .tracks tr th { color:#555; font-family: 'input_mono_medium'; padding: 0 2.5px;}
 .tracks tr th:hover { cursor:pointer; color:#999}
 
+#editor.composer #composer-table { display: table; }
+#composer-table { width:100%; margin-top: -240px; transition: all 150ms; margin-bottom: 15px  }
+#composer-table tr td, #composer-table tr th { line-height: 15px; padding:0px; text-align: center }
+
+#editor.composer #composer-table { margin-top:0px; }

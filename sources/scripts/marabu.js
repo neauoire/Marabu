@@ -132,7 +132,7 @@ function Marabu()
     this.update();
   }
 
-  this.play_note = function(note,right_hand)
+  this.play_note = function(note,right_hand = true)
   {
     var note_value = note + (this.selection.octave * 12);
     this.song.play_note(note_value);
@@ -320,6 +320,7 @@ function Marabu()
     if(key == "+")         { marabu.move_pattern(1); e.preventDefault();return; }
     if(key == "-")         { marabu.move_pattern(-1); e.preventDefault();return; }
     if(key == "_")         { marabu.move_pattern(-1); e.preventDefault();return; }
+    if(key == "Tab")       { marabu.editor.toggle_composer(); e.preventDefault(); return; }
 
     // Editor
 

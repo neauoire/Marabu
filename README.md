@@ -63,6 +63,7 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 - `9` Decrement Note Value -1.
 - `Backspace` Erase Note in Row.
 - `/` Add a Control Keyframe.
+- `Tab` Toggle **Composition Mode**.
 
 ### Instrument
 
@@ -238,10 +239,9 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 - Load trimmed track.
 #### Feature
 - Continuous follow instead of pageview.
-- copy paste in sequencer.
 - Template file of just sequencer sequences.
 #### Misc
-- Cancel render with escape
+- Cancel render with escape.
 #### Bug
 - add .wav to export(cannot replicate?)
 - Clicking icon on dock, shows the application. Replicate on Left.
