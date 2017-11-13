@@ -107,7 +107,8 @@ function Editor(t,b)
   }
 
   // Parser
-  this.cell_data = function(i,t,r,pattern = null)
+
+  this.cell_data = function(i,t,r,pattern = null, note = null)
   {
     // Basics
     var left_val = marabu.song.note_at(i,t,r);
@@ -127,7 +128,7 @@ function Editor(t,b)
     var right_str = effect.cmd ? to_hex(effect.cmd,2) : "--";
     left_str = notes.left ? ((notes.left.sharp ? notes.left.note.toLowerCase() : notes.left.note)+""+notes.left.octave) : left_str;
     right_str = notes.right ? ((notes.right.sharp ? notes.right.note.toLowerCase() : notes.right.note)+""+notes.right.octave) : right_str;
-    var strings = {left:left_str,right:right_str};
+    var strings = {left:left_str,right:right_str,any:left_str};
 
     // Class
     var classes = {fg:"fl",bg:""};
@@ -138,10 +139,23 @@ function Editor(t,b)
     else if(values.left || values.right){ classes.fg = "fm"; }
     else if(pattern > 0 && r % 4 == 0){ classes.fg = "fm";}
 
+    // Compositor
+    if(note){
+      if(values.left == note || values.right == note){
+        strings.any = values.left == note ? strings.left : strings.right
+        classes.fg = r == marabu.selection.row ? "fh" : "fm"
+      }
+      else{
+        strings.any = r % 4 == 0 ? ">-" : "--";
+        classes.fg = r % 4 == 0 ? "fm" : "fl"
+      }
+    }
+
     return {notes:notes,effect:effect,values:values,strings:strings,classes:classes};
   }
 
   // Update
+  
   this.update = function()
   {
     // Editor
@@ -155,14 +169,15 @@ function Editor(t,b)
       }
     }
 
-    // Clean Composer
+    // Composer
     for(var r = 0; r < 32; r++){
       for(var n = 0; n < 15; n++){
-        var cmp_el = document.getElementById("cpm_"+r+"_"+n);
-        cmp_el.textContent = r % 4 == 0 ? ">-" : "--";
-        var c = n == 1 || n == 13 ? "fm" : "fl";
-        c += r == marabu.selection.row ? " bl" : "";
-        cmp_el.className = c;
+        var cell = document.getElementById("cpm_"+r+"_"+n);
+        var offset = (marabu.selection.octave * 12);
+        var note = -(n - offset - 87) + 13;
+        var c = marabu.editor.cell_data(marabu.selection.instrument,marabu.selection.track,r,pattern,note);
+        cell.textContent = c.strings.any;
+        cell.className = c.classes.fg+" "+c.classes.bg;
       }
     }
 
@@ -174,50 +189,5 @@ function Editor(t,b)
       cell.textContent = effect_cmd > 0 ? (to_hex(effect_cmd,2) + "" + to_hex(effect_val,2)) : "0000";
       cell.className = effect_cmd > 0 ? "fh" : (r % 4 == 0 ? "fm" : "fl");
     }
-
-    this.update_composer();
-  }
-
-  this.update_composer = function()
-  {
-    var note_offset = (marabu.selection.octave * 12) - 4;
-    var pattern = marabu.song.pattern_at(marabu.selection.instrument,marabu.selection.track);
-
-    for(var r = 0; r < 32; r++){
-
-      var left_note = marabu.song.note_at(marabu.selection.instrument,marabu.selection.track,r);
-      var right_note = marabu.song.note_at(marabu.selection.instrument,marabu.selection.track,r+32);
-      var left_string = pattern > 0 && r % 4 == 0 ? ">-" : "--";
-      var right_string = "--";
-
-      if(left_note > 0){
-        var n = parse_note(left_note); 
-        left_string = (n.sharp ? n.note.toLowerCase() : n.note)+""+n.octave;
-      }
-      if(right_note > 0){
-        var n = parse_note(right_note);
-        right_string = (n.sharp ? n.note.toLowerCase() : n.note)+""+n.octave;
-      }
-
-      if(left_note > 0){
-        var left_note_y = 17 - (left_note - note_offset - 87);
-        if(left_note_y < 0 || left_note_y > 17){ continue; }
-        var left_note_el = document.getElementById("cpm_"+r+"_"+left_note_y);
-        left_note_el.textContent = left_string;
-        if(r == marabu.selection.row){ left_note_el.className = "fh"; }
-        else if(left_note || right_note){ left_note_el.className = "fm"; }
-        else if(pattern > 0 && r % 4 == 0){ left_note_el.className = "fm";}
-      }
-
-      if(right_note > 0){
-        var right_note_y = 17 - (right_note - note_offset - 87);
-        if(right_note_y < 0 || right_note_y > 17){ continue; }
-        var right_note_el = document.getElementById("cpm_"+r+"_"+right_note_y);
-        right_note_el.textContent = right_string;
-        if(r == marabu.selection.row){ right_note_el.className = "fh"; }
-        else if(left_note || right_note){ right_note_el.className = "fm"; }
-        else if(pattern > 0 && r % 4 == 0){ right_note_el.className = "fm";}
-      }   
-    }     
   }
 }
