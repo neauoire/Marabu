@@ -53,7 +53,7 @@ function UI_Slider(data)
   this.mod = function(v,relative = false)
   {
     if(relative && this.max > 128){ v *= 10; }
-    if(this.max <= 64 && (v > 1 || v < 1)){ v = v/10;}
+    if(this.max <= 64 && (v > 1 || v < 1) && Math.abs(v) != 1){ v = v/10;}
     this.value += parseInt(v);
     this.value = clamp(this.value,this.min,this.max);
     this.update();    

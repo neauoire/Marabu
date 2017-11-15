@@ -94,7 +94,7 @@ function Editor(t,b)
 
     marabu.selection.row = row;
     marabu.sequencer.follower.stop();
-    marabu.play_note(note_val);
+    marabu.play_note(note_val,e.shiftKey);
     marabu.update();
   }
 
