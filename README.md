@@ -211,14 +211,8 @@ Press `ctrl l` to activate loopmode.
 
 During render, the track time is displayed in the before-last row of the Editor in the `0252` format, or 2:52.
 
-## Themes
+## Etc
 
-You can change the theme by dragging a [.thm](https://github.com/hundredrabbits/Themes) file onto the application.
-
-## Support
-
+- You can change the theme by dragging a [.thm](https://github.com/hundredrabbits/Themes) file onto the application.
 - You can support this project through [Patreon](https://patreon.com/100).
-
-## License
-
-See the [LICENSE](LICENSE.md) file for license rights and limitations (CC).
+- See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
