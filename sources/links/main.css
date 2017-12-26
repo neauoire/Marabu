@@ -149,7 +149,7 @@ b         { font-weight: normal; font-family: 'input_mono_medium'}
 
 app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto;}
 app { transition: background-color 150ms;}
-app .wrapper { overflow: hidden; height:100%; overflow: hidden;height: 100%}
+app .wrapper { overflow: hidden; height:100%; overflow: hidden;height: 100%; position: relative;}
 app.selected { z-index:8001; }
 app.dragged { background-color:RGBA(255,255,255,0.3) !important; z-index:8002;}
 
@@ -166,13 +166,13 @@ app.noir .cu:hover { background:#fff; color:#000; cursor:pointer;}
 
 /* Marabu */
 
-app { width: 870px; height: 480px }
+app { width: 870px; height: 480px; position: relative; }
 
 .tracks tr td { padding: 0 2.5px; color:#555}
 #instrument { width:120px; display:block; vertical-align:top; margin-left:15px; line-height:15px; float:left; overflow: hidden;}
 #instrument > div > * { width:100%; cursor:pointer; }
 #instrument .family { margin-bottom:15px; }
-#sequencer { display:block; vertical-align:top; float:left; max-height: 480px; overflow:hidden; position: relative;}
+#sequencer { display:block; vertical-align:top; float:left; max-height: 465px; overflow:hidden; position: relative;}
 #sequencer tr td { padding:0px;}
 #sequencer tr td:first-child { padding-left:2.5px;}
 #sequencer tr td:last-child { padding-right:2.5px;}
@@ -192,3 +192,9 @@ app { width: 870px; height: 480px }
 #composer-table tr td, #composer-table tr th { line-height: 15px; padding:0px; text-align: center }
 
 #editor.composer #composer-table { margin-top:0px; }
+
+#position { position: absolute;bottom: 0px;line-height: 15px;padding: 0px 2.5px;width: 110px;}
+
+
+
+

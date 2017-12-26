@@ -26,7 +26,7 @@ function Marabu()
 
   this.start = function()
   {
-    this.wrapper_el.innerHTML += "<div id='sequencer'><table class='tracks' id='sequencer-table'></table></div><yu id='scrollbar'></yu>";
+    this.wrapper_el.innerHTML += "<div id='sequencer'><table class='tracks' id='sequencer-table'></table></div><yu id='scrollbar'></yu><yu id='position'></yu>";
     this.wrapper_el.innerHTML += this.editor.build();
     this.wrapper_el.innerHTML += this.instrument.build();
 

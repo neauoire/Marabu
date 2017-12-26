@@ -6,6 +6,7 @@ function Sequencer()
 
   this.el = null;
   this.scrollbar_el = null;
+  this.position_el = null;
   this.follower = new Follower();
   this.length = 0;
 
@@ -15,6 +16,8 @@ function Sequencer()
 
     this.el = document.getElementById("sequencer");
     this.scrollbar_el = document.getElementById("scrollbar");
+    this.position_el = document.getElementById("position");
+    this.position_el.innerHTML = "Hello"; this.position_el.className = "fl"
 
     this.build(MIN_LENGTH);
 
@@ -86,5 +89,24 @@ function Sequencer()
         else if(t == marabu.selection.track && i == marabu.selection.instrument){ o.className = "fh"; }
       }
     }
+
+    // Position
+    var track_length = 100;
+    var track_position = (marabu.selection.track * 32)+parseInt(marabu.selection.row);
+    var track_time = parseInt(marabu.song.calculate_time(track_position/4));
+    var track_min = parseInt(track_time/60);
+    var track_sec = track_time % 60;
+    this.position_el.innerHTML = `${track_position}<span class='right'>${prepend(track_min,2)}:${prepend(track_sec,2)}</span>`;
+  }
+
+  function prepend(str,length,char = "0")
+  {
+    var fill = "";
+    var i = 0;
+    while(i < length - `${str}`.length){
+      fill += char;
+      i += 1
+    }
+    return `${fill}${str}`;
   }
 }

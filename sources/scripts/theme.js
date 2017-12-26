@@ -50,7 +50,8 @@ function Theme()
     html += ".bm { background:"+theme.b_med+" !important ; fill:"+theme.b_med+" !important }\n";
     html += ".bl { background:"+theme.b_low+" !important ; fill:"+theme.b_low+" !important }\n";
     html += ".b_inv { background:"+theme.b_inv+" !important ; fill:"+theme.b_inv+" !important }\n";
-    
+    html += ".b { background:"+theme.background+" !important }\n";
+
     this.el.innerHTML = html;
     this.save();
   }

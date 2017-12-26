@@ -209,10 +209,10 @@ var Song = function()
     generateAudio(doneFun);
   };
 
-  this.calculate_time = function()
+  this.calculate_time = function(pos = (8 * (marabu.song.length+1)))
   {
     var bpm = parseFloat(marabu.song.song().bpm);
-    var beats = 8 * (marabu.song.length+1);
+    var beats = pos;
     var minutes = beats/bpm; 
     var seconds = minutes * 60;
 
