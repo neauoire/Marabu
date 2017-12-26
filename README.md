@@ -40,6 +40,8 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 - `alt ArrowUp` Previous Sequence.
 - `alt ArrowRight` Increment Pattern Id +1.
 - `alt ArrowLeft` Decrement Pattern Id -1.
+- `>` Increment BPM Value +5.
+- `<` Increment BPM Value -5.
 
 #### Keys
 
@@ -237,7 +239,6 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 - Trim tracks on export.
 - Load trimmed track.
 #### Feature
-- Add track settings(BPM) in UI.
 - Template file of just sequencer sequences.
 #### Misc
 - Cancel render with escape.

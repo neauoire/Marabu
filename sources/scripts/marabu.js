@@ -97,6 +97,13 @@ function Marabu()
     this.update();
   }
 
+  this.move_bpm = function(mod)
+  {
+    this.song.song().bpm = this.song.get_bpm() + mod;
+    this.song.update_bpm(this.song.get_bpm() + mod);
+    this.update();
+  }
+
   this.move_control_value = function(mod,relative)
   {
     var control = this.instrument.control_target(this.selection.control);
@@ -350,6 +357,8 @@ function Marabu()
       if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
       return;
     }
+    if(key == ">") { marabu.move_bpm(5); e.preventDefault(); return; }
+    if(key == "<") { marabu.move_bpm(-5); e.preventDefault(); return; }
 
     // Keyboard
 
