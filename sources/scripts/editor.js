@@ -16,13 +16,11 @@ function Editor(t,b)
     for(var r = 0; r < 32; r++) {
       tr = document.createElement("tr");
       tr.id = "ppr"+r;
-      tr.style.lineHeight = "15px";
       tr.className = r % this.pattern.signature[1] == 0 ? " fm" : "";
       // Notes
       for (i = 0; i < marabu.channels; i++) {
         td = document.createElement("td");
         td.id = "i"+(i < 10 ? "0"+i : i)+"r"+r;
-        td.style.padding = "0 2.5px";
         td.textContent = "----";
         td.addEventListener("mousedown", this.pattern_mouse_down, false);
         tr.appendChild(td);
@@ -124,7 +122,7 @@ function Editor(t,b)
     var effect = {cmd:cmd,val:val}
 
     // Strings
-    var left_str = pattern && pattern > 0 && r % 4 == 0 ? ">-" : "--";
+    var left_str = r % 4 == 0 ? ">-" : "--";
     var right_str = effect.cmd ? to_hex(effect.cmd,2) : "--";
     left_str = notes.left ? ((notes.left.sharp ? notes.left.note.toLowerCase() : notes.left.note)+""+notes.left.octave) : left_str;
     right_str = notes.right ? ((notes.right.sharp ? notes.right.note.toLowerCase() : notes.right.note)+""+notes.right.octave) : right_str;

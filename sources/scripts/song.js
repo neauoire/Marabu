@@ -121,6 +121,13 @@ var Song = function()
     this.song().songData[i].c[c].f[f+32] = val;
   }
 
+  this.erase_effect_at = function(i,t,f)
+  {
+    var c = this.pattern_at(i,t)-1; if(c == -1){ return; }
+    this.song().songData[i].c[c].f[f] = 0;
+    this.song().songData[i].c[c].f[f+32] = 0;
+  }
+
   this.control_at = function(i,s)
   {
     return this.song().songData[i].i[s];

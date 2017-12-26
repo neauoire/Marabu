@@ -9,7 +9,7 @@ function Track()
   song.name = "Untitled";
   song.bpm = 120;
 
-  song.theme = new Theme().collection.noir;
+  song.theme = new Theme().default;
 
   // Automated
   song.rowLen = calcSamplesPerRow(song.bpm);
@@ -42,26 +42,6 @@ function Track()
     }
     song.songData[i] = instr;
   }
-
-  // Default instruments
-  song.songData[0].name = "SYN1";
-  song.songData[1].name = "SYN2";
-  song.songData[2].name = "CH02";
-  song.songData[3].name = "CH03";
-
-  song.songData[4].name = "CH04";
-  song.songData[5].name = "CH05";
-  song.songData[6].name = "CH06";
-  song.songData[7].name = "CH07";
-
-  song.songData[8].name = "CH08";
-  song.songData[9].name = "CH09";
-  song.songData[10].name = "CH10";
-  song.songData[11].name = "CH11";
-  song.songData[12].name = "CH12";
-  song.songData[13].name = "CH13";
-  song.songData[14].name = "CH14";
-  song.songData[15].name = "CH15";
   
   // Make a first empty pattern
   song.songData[0].p[0] = 1;

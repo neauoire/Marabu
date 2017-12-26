@@ -31,7 +31,6 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 - `ctrl o` Open.
 - `ctrl r` Export .wav.
 - `ctrl i` Export .ins(instrument).
-- `ctrl t` Export .thm(instrument).
 
 ### Sequencer
 
@@ -238,7 +237,7 @@ There are currently no means to change the `bpm`, to do so, update the `bpm` val
 - Trim tracks on export.
 - Load trimmed track.
 #### Feature
-- Continuous follow instead of pageview.
+- Add track settings(BPM) in UI.
 - Template file of just sequencer sequences.
 #### Misc
 - Cancel render with escape.

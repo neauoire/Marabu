@@ -3,10 +3,7 @@ function Theme()
   this.el = document.createElement("style");
   this.active = null;
 
-  this.collection = {};
-  this.collection.blanc = { background:"#eee",f_high:"#111",f_med:"#999",f_low:"#bbb",f_inv:"#fff",f_inv:"#000",b_high:"#000",b_med:"#999",b_low:"#ddd",b_inv:"#999",b_inv:"#72dec2" };
-  this.collection.noir = { background: "#000", f_high: "#fff", f_med: "#999", f_low: "#555", f_inv: "#000", f_inv: "#000", b_high: "#000", b_med: "#555", b_low: "#222", b_inv: "#fff", b_inv: "#72dec2" };
-  this.collection.pale = { background: "#555", f_high: "#fff", f_med: "#999", f_low: "#bbb", f_inv: "#555", f_inv: "#555", b_high: "#000", b_med: "#999", b_low: "#666", b_inv: "#fff", b_inv: "#ccc" };
+  this.default = { background: "#222", f_high: "#fff", f_med: "#777", f_low: "#444", f_inv: "#000", b_high: "#000", b_med: "#affec7", b_low: "#000", b_inv: "#affec7" }
 
   this.start = function()
   {
@@ -16,7 +13,7 @@ function Theme()
     }
     else{
       console.log("Theme","Creating new")
-      this.install(this.collection.noir);
+      this.install(this.default);
     }
   }
 
@@ -31,9 +28,6 @@ function Theme()
     if(is_json(theme_str)){
       this.install(JSON.parse(theme_str));
     }
-    else if(this.collection[theme_str]){
-      this.install(this.collection[theme_str]);
-    }
     console.log("Theme","Loaded");
   }
 
@@ -43,6 +37,7 @@ function Theme()
 
     this.active = theme;
 
+    // Save into song
     marabu.song.song().theme = theme;
 
     html += "body { background:"+theme.background+" !important }\n";
@@ -55,9 +50,6 @@ function Theme()
     html += ".bm { background:"+theme.b_med+" !important ; fill:"+theme.b_med+" !important }\n";
     html += ".bl { background:"+theme.b_low+" !important ; fill:"+theme.b_low+" !important }\n";
     html += ".b_inv { background:"+theme.b_inv+" !important ; fill:"+theme.b_inv+" !important }\n";
-    html += "#editor { border-left-color: "+theme.b_low+" }\n";
-    html += "#instrument { border-left-color: "+theme.b_low+" }\n";
-    html += "#scrollbar { background: "+theme.b_med+" }\n";
     
     this.el.innerHTML = html;
     this.save();
@@ -66,7 +58,7 @@ function Theme()
   this.reset = function()
   {
     console.log("Theme","reset");
-    this.install(this.collection.noir);
+    this.install(this.default);
   }
 
   function is_json(text)

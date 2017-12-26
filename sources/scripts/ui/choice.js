@@ -18,7 +18,6 @@ function UI_Choice(data)
   this.install = function(parent)
   {
     this.el.style.padding = "0px 2.5px";
-    this.el.style.width = "80px";
     // Name Span
     this.name_el.className = "name";
     this.name_el.innerHTML = this.name;

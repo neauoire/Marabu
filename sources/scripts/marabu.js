@@ -104,13 +104,23 @@ function Marabu()
     control.save();
   }
 
-  this.save_control_value = function()
+  this.add_control_value = function()
   {
     var control = this.instrument.control_target(this.selection.control);
     var control_storage = this.instrument.get_storage(control.family+"_"+control.id);
     var control_value = control.value;
 
     this.song.inject_effect_at(this.selection.instrument,this.selection.track,this.selection.row,control_storage+1,control_value);
+    this.update();
+  }
+
+  this.remove_control_value = function()
+  {
+    var control = this.instrument.control_target(this.selection.control);
+    var control_storage = this.instrument.get_storage(control.family+"_"+control.id);
+    var control_value = control.value;
+
+    this.song.erase_effect_at(this.selection.instrument,this.selection.track,this.selection.row);
     this.update();
   }
 
@@ -249,20 +259,6 @@ function Marabu()
     }); 
   }
 
-  this.export_theme = function()
-  {
-    var theme = marabu.song.song().theme;
-
-    var str = JSON.stringify(theme);
-
-    dialog.showSaveDialog((fileName) => {
-      if (fileName === undefined){ return; }
-      fs.writeFile(fileName+".thm", str, (err) => {
-        if(err){ alert("An error ocurred creating the file "+ err.message); return; }
-      });
-    }); 
-  }
-
   this.load_instrument = function(instr)
   {
     this.song.song().songData[this.selection.instrument].name = instr.name;
@@ -324,8 +320,8 @@ function Marabu()
 
     // Editor
 
-    if(key == "/")         { marabu.save_control_value(); e.preventDefault(); return; }
-    if(key == "Backspace" || key == "Delete") { marabu.set_note(0); e.preventDefault(); return; }
+    if(key == "/")         { marabu.add_control_value(); e.preventDefault(); return; }
+    if(key == "Backspace" || key == "Delete") { marabu.set_note(0); marabu.remove_control_value(0); e.preventDefault(); return; }
 
     // Instrument
 
@@ -349,7 +345,6 @@ function Marabu()
       if(key == "S"){ marabu.export(); e.preventDefault(); return; }
       if(key == "r"){ marabu.render(); e.preventDefault(); return; }
       if(key == "i"){ marabu.export_instrument(); e.preventDefault(); return; }
-      if(key == "t"){ marabu.export_theme(); e.preventDefault(); return; }
       
       if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
       if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
@@ -360,7 +355,7 @@ function Marabu()
 
     var note = null;
     var is_cap = key == key.toLowerCase();
-    switch (key.toLowerCase())
+    switch(key.toLowerCase())
     {
       case "a": marabu.play_note(0,is_cap); break;
       case "s": marabu.play_note(2,is_cap); break;

@@ -37,7 +37,6 @@ function Sequencer()
     for (var t = 0; t < this.length; t++) {
       var tr = document.createElement("tr");
       tr.id = "spr"+t;
-      tr.style.lineHeight = "15px";
       for (var i = 0; i < 16; i++) {
         var td = document.createElement("td");
         td.id = "sc" + i + "t" + t;
