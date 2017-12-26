@@ -6,7 +6,7 @@ let win
 
 app.on('ready', () => 
 {
-  win = new BrowserWindow({width: 900, height: 540, backgroundColor:"#000", minWidth: 930, minHeight: 540, frame:false, autoHideMenuBar: true, icon: __dirname + '/icon.ico'})
+  win = new BrowserWindow({width: 900, height: 540, backgroundColor:"#000", minWidth: 900, minHeight: 540, frame:false, autoHideMenuBar: true, icon: __dirname + '/icon.ico'})
 
   win.loadURL(`file://${__dirname}/sources/index.html`)
 
