@@ -213,44 +213,11 @@ During render, the track time is displayed in the before-last row of the Editor 
 
 ## Themes
 
-You can customize the look of your tracks by editing the .mar file and replacing the attributes' colors. 
-
-```
-theme: { 
-  background:"#fff", 
-  f_high:"#f00", 
-  f_med:"#0f0", 
-  f_low:"#00f", 
-  f_inv:"#00f", 
-  b_high:"#ff0", 
-  b_med:"#f0f",
-  b_low:"#0ff",
-  b_inv:"#00f"
-}
-```
-
-## Development
-
-There are currently no means to change the `bpm`, to do so, update the `bpm` value from the exported `.mar` file to an int between 50 and 450. Use `npm start` to develop locally.
-
-### TODOs
-
-#### Optimisation
-- Trim tracks on export.
-- Load trimmed track.
-#### Feature
-- Template file of just sequencer sequences.
-#### Misc
-- Cancel render with escape.
-#### Bug
-- add .wav to export(cannot replicate?)
-- Clicking icon on dock, shows the application. Replicate on Left.
+You can change the theme by dragging a [.thm](https://github.com/hundredrabbits/Themes) file onto the application.
 
 ## Support
 
-- You can support this project through [Patreon](https://patreon.com/100), or with:
-- **$ETH** `0x7a5f5d9B697F04f5deE82c81859F7cC4FDb6e990`
-- **$BTC** `1NU2Pso6nYbRpCAftX3yqQW9w2NSUxzsNa`. 
+- You can support this project through [Patreon](https://patreon.com/100).
 
 ## License
 
