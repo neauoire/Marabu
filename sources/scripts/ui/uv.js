@@ -19,6 +19,8 @@ function UI_Uv()
 
   this.install = function(parent)
   {
+    this.el.className = "control";
+
     this.el.appendChild(this.env_el);
     this.el.appendChild(this.vol_el);
     this.el.appendChild(this.wav_el);
@@ -40,8 +42,6 @@ function UI_Uv()
 
     this.vol_name_el.className = "name fl";
     this.vol_name_el.innerHTML = "VOL";
-    this.vol_name_el.style.width = "30px";
-    this.vol_name_el.style.display = "inline-block";
 
     this.vol_canvas.style.width = this.size.width+"px";
     this.vol_canvas.style.height = this.size.height+"px";
@@ -50,8 +50,6 @@ function UI_Uv()
 
     this.env_name_el.className = "name fl";
     this.env_name_el.innerHTML = "";
-    this.env_name_el.style.width = "30px";
-    this.env_name_el.style.display = "inline-block";
 
     this.env_canvas.style.width = this.size.width+"px";
     this.env_canvas.style.height = this.size.height+"px";
@@ -60,8 +58,6 @@ function UI_Uv()
 
     this.wav_name_el.className = "name fl lh15";
     this.wav_name_el.innerHTML = "WAV";
-    this.wav_name_el.style.width = "30px";
-    this.wav_name_el.style.display = "inline-block";
 
     this.wav_canvas.style.width = this.size.width+"px";
     this.wav_canvas.style.height = this.size.height+"px";
@@ -69,7 +65,6 @@ function UI_Uv()
     this.wav_canvas.height = this.size.height * 2;
 
     this.el.style.width = "120px";
-    this.el.style.padding = "0px 2.5px";
 
     var vol_ctx = this.vol_canvas.getContext("2d");
     var env_ctx = this.env_canvas.getContext("2d");

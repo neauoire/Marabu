@@ -122,8 +122,8 @@ function Editor(t,b)
     var effect = {cmd:cmd,val:val}
 
     // Strings
-    var left_str = r % 4 == 0 ? ">-" : "--";
-    var right_str = effect.cmd ? to_hex(effect.cmd,2) : "--";
+    var left_str = effect.cmd ? to_hex(effect.cmd,2) : (r % 4 == 0 ? ">-" : "--");
+    var right_str = effect.cmd ? to_hex(effect.val,2) : "--";
     left_str = notes.left ? ((notes.left.sharp ? notes.left.note.toLowerCase() : notes.left.note)+""+notes.left.octave) : left_str;
     right_str = notes.right ? ((notes.right.sharp ? notes.right.note.toLowerCase() : notes.right.note)+""+notes.right.octave) : right_str;
     var strings = {left:left_str,right:right_str,any:left_str};

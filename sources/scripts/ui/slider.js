@@ -5,10 +5,12 @@ function UI_Slider(data)
 
   this.family = null;
   this.id = data.id;
+  this.storage = 0;
+
   this.name = data.name;
   this.min = data.min;
   this.max = data.max;
-  
+
   this.control = 0;
   this.center = data.center;
 
@@ -21,13 +23,11 @@ function UI_Slider(data)
 
   this.install = function(parent)
   {
-    this.el.className = "slider";
+    this.el.className = "control slider";
 
     // Name Span
     this.name_el.className = "name";
     this.name_el.innerHTML = this.name;
-    this.name_el.style.width = "30px";
-    this.name_el.style.display = "inline-block";
 
     // Slide Div
     this.slide_el.className = "pointer";
@@ -48,6 +48,7 @@ function UI_Slider(data)
     this.el.addEventListener("mousedown", this.mouse_down, false);
 
     parent.appendChild(this.el);
+    this.storage = marabu.instrument.get_storage(this.family+"_"+this.id);
   }
 
   this.mod = function(v,relative = false)
@@ -70,14 +71,13 @@ function UI_Slider(data)
 
   this.save = function()
   {
-    var storage_id = marabu.instrument.get_storage(this.family+"_"+this.id);
-    marabu.song.inject_control(marabu.selection.instrument,storage_id,this.value);
+    marabu.song.inject_control(marabu.selection.instrument,this.storage,this.value);
   }
 
   this.update = function()
   {
-    this.el.className = app.selection.control == this.control ? "slider bl" : "slider";
-    this.name_el.className = app.selection.control == this.control ? "fh" : "fm";
+    this.el.className = app.selection.control == this.control ? "slider  control bl" : "slider control";
+    this.name_el.className = app.selection.control == this.control ? "name fh" : "name fm";
 
     var val = parseInt(this.value) - parseInt(this.min);
     var over = parseFloat(this.max) - parseInt(this.min);
@@ -89,6 +89,30 @@ function UI_Slider(data)
 
     if(this.value == this.min){ this.value_el.className = "fl "; }
     else if(this.value == this.max){ this.value_el.className = "fh "; }
+
+    // Keyframes
+    if(this.has_keyframes()){
+      this.name_el.className = "name b_inv f_inv";
+    }
+  }
+
+  this.has_keyframes = function()
+  {
+    var i = app.selection.instrument;
+    var t = 0;
+    var f = this.storage;
+    while(t <= app.selection.track){
+      var r = 0;
+      while(r < 32){
+        var cmd = app.song.effect_at(i,t,r)
+        if(cmd == f+1){
+          return app.song.effect_value_at(i,t,r);
+        }
+        r += 1;
+      }
+      t += 1;
+    }
+    return null;
   }
 
   this.mouse_down = function(e)

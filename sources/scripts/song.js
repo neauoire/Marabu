@@ -113,6 +113,12 @@ var Song = function()
     return this.song().songData[i].c[c].f[f];
   }
 
+  this.effect_value_at = function(i,t,f)
+  {
+    var c = this.pattern_at(i,t)-1; if(c == -1){ return; }
+    return this.song().songData[i].c[c].f[f+32];
+  }
+
   this.inject_effect_at = function(i,t,f,cmd,val)
   {
     if(!cmd || val === undefined){ return; }

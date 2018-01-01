@@ -17,12 +17,10 @@ function UI_Choice(data)
 
   this.install = function(parent)
   {
-    this.el.style.padding = "0px 2.5px";
+    this.el.className = "control choice";
     // Name Span
     this.name_el.className = "name";
     this.name_el.innerHTML = this.name;
-    this.name_el.style.width = "30px";
-    this.name_el.style.display = "inline-block";
 
     this.value_el.textContent = this.min+"/"+this.max;
     this.value_el.className = "fh";
@@ -63,8 +61,8 @@ function UI_Choice(data)
     var target = this.choices[this.index % this.choices.length];
     this.value_el.textContent = target;
     
-    this.el.className = marabu.selection.control == this.control ? "bl" : "";
-    this.name_el.className = marabu.selection.control == this.control ? "fh" : "fm";
+    this.el.className = marabu.selection.control == this.control ? "control choice bl" : "control choice ";
+    this.name_el.className = marabu.selection.control == this.control ? "name fh" : "name fm";
   }
 
   this.mouse_down = function(e)
