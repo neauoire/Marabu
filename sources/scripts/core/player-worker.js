@@ -185,8 +185,6 @@ var CPlayerWorker = function()
         bit_last: 0,
         bit_phaser: 0
       };
-      // Compressor
-      var compressor_average = 0;
 
       // Clear note cache.
       var noteCache = [];
@@ -263,7 +261,7 @@ var CPlayerWorker = function()
                 band += f * high;
                 rsample = fxFilter == 3 ? band : fxFilter == 1 ? high : low;
 
-                var signal = signal_processor.operate(rsample);
+                var signal = signal_processor.operate(rsample,true);
                 rsample = signal.right;
                 lsample = signal.left;
 

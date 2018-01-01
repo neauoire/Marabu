@@ -4,11 +4,13 @@ function Signal_Processor()
 
   this.step_last = 0;
   this.phase = 0;
-  this.average = 0;
+  this.is_export = false;
 
-  this.operate = function(input)
+  this.operate = function(input,is_export = false)
   {
     var output = input;
+
+    this.is_export = is_export;
 
     output = this.effect_bitcrusher(output);
 
@@ -16,8 +18,6 @@ function Signal_Processor()
     output = this.effect_pinking(output,this.knobs.pinking);
     output = this.effect_compressor(output,this.knobs.compressor);
     output = this.effect_drive(output,this.knobs.drive);
-
-    this.average = ((this.average * ((this.knobs.compressor) * 1000)) + output)/(((this.knobs.compressor) * 1000)+1);
 
     // Pan
     var left = output * (1 - this.knobs.pan);
@@ -61,14 +61,16 @@ function Signal_Processor()
 
   this.effect_compressor = function(input,val)
   {
-    var output = input;
-    if(input > this.average){
-      output *= 1 + val;
+    var output = this.is_export ? input/44100 : input;
+    var offset = 1 - Math.abs(output);
+
+    output = output * offset * offset;
+
+    if(this.is_export){
+      output *= 44100
     }
-    else if(input < this.average){
-      output *= 1 - val;
-    }
-    return output;
+
+    return (output * val) + (input * (1 - val));
   }
 
   this.effect_distortion = function(input,val)
@@ -117,4 +119,6 @@ function Signal_Processor()
     if(index == 17){ return [6,0]; } // PULSE
     if(index == 18){ return [6,2]; } // REVSAW
   }
+
+  function clamp(v, min, max) { return v < min ? min : v > max ? max : v; }
 }
