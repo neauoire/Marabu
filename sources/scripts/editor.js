@@ -132,10 +132,14 @@ function Editor(t,b)
     var classes = {fg:"fl",bg:""};
     if(marabu.cheatcode.is_active && i == marabu.selection.instrument && marabu.cheatcode.selection[r] || effect.cmd){ classes.bg = "b_inv f_inv";  }
     else if(r == marabu.selection.row){classes.bg = "bl";}
+
     if(marabu.cheatcode.is_active && i == marabu.selection.instrument && marabu.cheatcode.selection[r] || effect.cmd){ classes.fg = "f_inv";  }
     else if(i == marabu.selection.instrument && r == marabu.selection.row){ classes.fg = "fh"; }
     else if(values.left || values.right){ classes.fg = "fm"; }
     else if(pattern > 0 && r % 4 == 0){ classes.fg = "fm";}
+
+    // Highlights
+    if(r == marabu.selection.row && (values.left || values.right)){ classes.fg += " f_inv ";}
 
     // Compositor
     if(note){

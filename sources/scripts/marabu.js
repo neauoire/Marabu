@@ -3,7 +3,6 @@ function Marabu()
   this.theme = new Theme();
   
   this.el = document.createElement("app");
-  this.el.className = "noir";
   this.el.id = "marabu";
 
   this.wrapper_el = document.createElement("yu"); 
@@ -176,6 +175,7 @@ function Marabu()
     this.instrument.controls.uv.monitor.clear();
     this.is_playing = false;
     this.selection.row = 0;  
+    this.update();
   }
 
   this.path = null;

@@ -149,20 +149,6 @@ b         { font-weight: normal; font-family: 'input_mono_medium'}
 
 app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto;}
 app { transition: background-color 150ms;}
-app .wrapper { overflow: hidden; height:100%; overflow: hidden;height: 100%; position: relative;}
-app.selected { z-index:8001; }
-app.dragged { background-color:RGBA(255,255,255,0.3) !important; z-index:8002;}
-
-app.noir ::selection       { background: #888; opacity:1.0; color:#999; }
-app.noir     { color:white; }
-app.noir .fh { color:white; stroke:white; }
-app.noir .fm { color:#999; stroke:#999; }
-app.noir .fl { color:#555; stroke:#555; }
-app.noir .fi { color:black; stroke:black; }
-app.noir .bh { background:black;}
-app.noir .bl { background:#222;}
-app.noir .bi { background:#fff;}
-app.noir .cu:hover { background:#fff; color:#000; cursor:pointer;}
 
 /* Marabu */
 
