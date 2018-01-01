@@ -163,7 +163,7 @@ app { width: 870px; height: 480px; position: relative; }
 #sequencer tr td:first-child { padding-left:2.5px;}
 #sequencer tr td:last-child { padding-right:2.5px;}
 #scrollbar { background: #333;width: 1px;height: 0px;position: absolute;left: 161px;top: 30px; display: none }
-#editor { display:block; vertical-align:top; margin-left:15px; float:left; max-width: 571px  }
+#editor { display:block; vertical-align:top; margin-left:15px; float:left; max-width: 571px; overflow: hidden; height:480px; }
 .tracks * { line-height: 15px }
 .tracks tr:hover { color:#999}
 .tracks tr td { position:relative}
@@ -179,7 +179,7 @@ app { width: 870px; height: 480px; position: relative; }
 
 #editor.composer #composer-table { margin-top:0px; }
 
-#position { position: absolute;bottom: 0px;line-height: 15px;padding: 0px 2.5px;width: 110px;}
+#position { position: absolute;bottom: 30px;line-height: 15px;padding: 0px 2.5px;width: 110px;}
 
 
 
