@@ -138,6 +138,9 @@ function Editor(t,b)
     else if(values.left || values.right){ classes.fg = "fm"; }
     else if(pattern > 0 && r % 4 == 0){ classes.fg = "fm";}
 
+    // Highlights
+    if(r == marabu.selection.row && (values.left || values.right)){ classes.fg = "fh";}
+
     // Compositor
     if(note){
       if(values.left == note || values.right == note){

@@ -49,6 +49,14 @@ function Loop()
     this.stop();
   }
 
+  this.erase = function()
+  {
+    for(var i = 0; i < 16; i++){
+      marabu.song.song().songData[i].p[this.y] = 0;
+    }
+    this.stop();
+  }
+
   this.solo = function()
   {
     this.x = marabu.selection.instrument;
@@ -64,6 +72,7 @@ function Loop()
     if(e.key == "Escape"){ this.stop(); return; }
     if(e.key == "/"){ this.solo(); }
     if(e.key == "Enter"){ this.play(); return; }
+    if(e.key == "Backspace"){ this.erase(); return; }
     if(e.key == "c"){ this.copy(); return; }
     if(e.key == "v"){ this.paste(); return; }
 

@@ -206,6 +206,7 @@ Press `ctrl l` to activate loopmode.
 
 - `c` To copy the selected sequence.
 - `v` To **insert** the selected sequence.
+- `backspace` Delete selected sequence.
 
 ## Notes
 
