@@ -9,153 +9,27 @@ svg       { display: inline-block; vertical-align: top }
 textarea  { background:none; padding:px 0px; line-height: 15px; overflow: hidden}
 b         { font-weight: normal; font-family: 'input_mono_medium'}
 
-.di { display: inline-block; }
-.db { display: block; }
-
-.lh15 { line-height: 15px }
-.lh30 { line-height: 30px }
-
-.h1 { height:30px; }
-.h2 { height:60px; }
-.h4 { height:120px; }
-.h6 { height:180px; }
-.h7 { height:210px; }
-.h18 { height:540px; }
-
-.w01 { width:1px; }
-.w1 { width:30px; }
-.w2 { width:60px; }
-.w4 { width:120px; }
-.w6 { width:180px; }
-.w7 { width:210px; }
-.w18 { width:540px; }
-
-.wf { width: 100% }
-.wf_4 { width: calc(100% - 120px) }
-.wf_6 { width: calc(100% - 180px) }
-.wf_7 { width: calc(100% - 210px) }
-.wf_8 { width: calc(100% - 240px) }
-.wf_9 { width: calc(100% - 270px) }
-
-.hf   { height:100%; }
-.hf_1 { height: calc(100% - 30px) }
-.hf_2 { height: calc(100% - 60px) }
-.hf_3 { height: calc(100% - 90px) }
-.hf_4 { height: calc(100% - 120px) }
-
-/* Foreground */
-
-.fu { text-decoration: underline; }
-.f0 { color: #000; }
-.f1 { color: #111; }
-.f2 { color: #222; }
-.f3 { color: #333; }
-.f4 { color: #444; }
-.f5 { color: #555; }
-.f6 { color: #666; }
-.f7 { color: #777; }
-.f8 { color: #888; }
-.f9 { color: #999; }
-.ff { color:white; }
-.fc { color:#ccc; }
-.f_audio { color:#72dec2 !important; }
-.f_visual { color:#999; }
-.f_research { color:#333;  }
-.f_misc { text-decoration: underline;  }
-.f_red { color:#f00; }
-.f_white { color:#fff !important }
-
-.thin { font-family: "input_mono_thin" }
-.bold { font-family: "input_mono_medium" }
-.t45 { font-size:45px; }
-
-/* Background */
-
-.b_ { background: transparent; }
-.b0 { background: #000 }
-.bf { background: #fff }
-.b9 { background: #999; }
-.bc { background: #ccc; }
-.b_audio { background:#72dec2; }
-.b_visual { background:#000; }
-.b_research { background:#999;  }
-.b_misc { background:#f00;  }
-.b_red { background:red; }
-
-/* Strokes */
-
-.sb { border-bottom: 1px solid black; }
-.sr { border-bottom: 1px solid black; }
-
-/* Margins */
-
-.mb { margin-bottom:30px; }
-.mb30 { margin-bottom:30px; }
-.ml { margin-left:30px; }
-.ml30 { margin-left:30px; }
-.ml45 { margin-left:45px; }
-.ml90 { margin-left:90px; }
-.ml120 { margin-left:120px; }
-.ml150 { margin-left:150px; }
-.mr30 { margin-right: 30px }
-.mt { margin-top: 30px }
-.mb15 { margin-bottom:15px; }
-
-/* Positioning */
-
-.pa { position: absolute; }
-.pb { bottom:0px; }
-.pt { top:0px; }
-.pl { left:0px; }
-.pt30 { top:30px; }
-.pl30 { top:30px; }
-.pl5 { left:150px; }
-.pl6 { left:180px; }
-
-.rel { position: relative }
-
-.at { position:absolute; top:0px; }
-.al  { position:absolute; left:0px; }
-.al1 { position:absolute; left:30px; }
-.al2 { position:absolute; left:60px; }
-.al3 { position:absolute; left:90px; }
-.al4 { position:absolute; left:120px; }
-.al5 { position:absolute; left:150px; }
-.al6 { position:absolute; left:180px; }
-.al7 { position:absolute; left:210px; }
-.al8 { position:absolute; left:240px; }
-.ab { position:absolute; bottom:0px; }
-.ar { position:absolute; right:0px; }
-
-.pdl { padding-left:30px; }
-.pdl15 { padding-left:15px; }
-.pdb15 { padding-bottom: 15px }
-
-.oh { overflow: hidden }
-
 .right { float:right; }
 .left { float:left; }
 .hide { display: none }
 .pointer { cursor:pointer; }
 
-.slider { cursor: pointer; width:120px;display: block }
-.slider .name { color:#999; width:30px; display: inline-block; }
-.slider:hover .name { color:#fff; }
-.slider.selected .name { color:#fff; }
-.slider.selected { position: relative; }
-.slider.selected:before { content: ">"; position: absolute;left:-15px; }
-
-.control {}
+.control { height: 15px; overflow: hidden; }
 .control t.name { width:25px; display:inline-block; padding:0px 2.5px; margin-right:5px; text-align: center }
+
+.control.slider { cursor: pointer; width:120px;display: block }
+.control.slider.selected { position: relative; }
+.control.slider.selected:before { content: ">"; position: absolute;left:-15px; }
+
+.control.slider .slide { width:45px; height:15px; display: inline-block; }
+.control.slider .slide .bg { height:0px; margin-top:7px; border-top:1px dotted red; }
+.control.slider .slide .fg { background:blue; height:1px; margin-top:-1px;transition: width 150ms; width:0px; }
+
+.control.uv { height:60px; }
 
 /* HIGHLIGHTS/LOWLIGHTS */
 
-app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto;}
-app { transition: background-color 150ms;}
-
-/* Marabu */
-
-app { width: 870px; height: 480px; position: relative; }
+app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto; transition: background-color 150ms, opacity 350ms; width: 870px; height: 480px; position: relative; opacity:0; }
 
 .tracks tr td { padding: 0 2.5px; color:#555}
 #instrument { width:120px; display:block; vertical-align:top; margin-left:15px; line-height:15px; float:left; overflow: hidden;}
@@ -179,11 +53,5 @@ app { width: 870px; height: 480px; position: relative; }
 #editor.composer #composer-table { display: table; }
 #composer-table { width:100%; margin-top: -240px; transition: all 150ms; margin-bottom: 15px  }
 #composer-table tr td, #composer-table tr th { line-height: 15px; padding:0px; text-align: center }
-
 #editor.composer #composer-table { margin-top:0px; }
-
 #position { position: absolute;bottom: 30px;line-height: 15px;padding: 0px 2.5px;width: 110px;}
-
-
-
-

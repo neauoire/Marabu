@@ -52,6 +52,9 @@ function Theme()
     html += ".b_inv { background:"+theme.b_inv+" !important ; fill:"+theme.b_inv+" !important }\n";
     html += ".b { background:"+theme.background+" !important }\n";
 
+    html += ".slider .slide .fg { background:"+theme.f_med+" !important }\n";
+    html += ".slider .slide .bg { border-top-color:"+theme.f_low+" !important }\n";
+
     this.el.innerHTML = html;
     this.save();
   }

@@ -19,7 +19,7 @@ function UI_Uv()
 
   this.install = function(parent)
   {
-    this.el.className = "control";
+    this.el.className = "control uv";
 
     this.el.appendChild(this.env_el);
     this.el.appendChild(this.vol_el);

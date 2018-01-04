@@ -19,7 +19,9 @@ function UI_Slider(data)
   this.el = document.createElement("div");
   this.name_el = document.createElement("t");
   this.value_el = document.createElement("t");
-  this.slide_el = document.createElement("div");
+  this.slide_el = document.createElement("div");    this.slide_el.className = "slide";
+  this.slide_bg_el = document.createElement("div"); this.slide_bg_el.className = "bg";
+  this.slide_fg_el = document.createElement("div"); this.slide_fg_el.className = "fg";
 
   this.install = function(parent)
   {
@@ -29,19 +31,14 @@ function UI_Slider(data)
     this.name_el.className = "name";
     this.name_el.innerHTML = this.name;
 
-    // Slide Div
-    this.slide_el.className = "pointer";
-    this.slide_el.style.height = "15px";
-    this.slide_el.style.width = "45px";
-    this.slide_el.style.display = "inline-block";
-    this.slide_el.style.verticalAlign = "top";
-
     // Value Input
     this.value_el.className = "w2";
     this.value_el.style.marginLeft = "10px";
     this.value_el.textContent = "--";
 
     this.el.appendChild(this.name_el);
+    this.slide_el.appendChild(this.slide_bg_el);
+    this.slide_el.appendChild(this.slide_fg_el);
     this.el.appendChild(this.slide_el);
     this.el.appendChild(this.value_el);
 
@@ -83,7 +80,11 @@ function UI_Slider(data)
     var over = parseFloat(this.max) - parseInt(this.min);
     var perc = val/parseFloat(over);
 
-    this.slide_el.innerHTML = this.center ? "<svg class='fh' style='width:45px;height:15px; stroke-dasharray:1,1; fill:none; stroke-width:1px; stroke-linecap:butt;'><line x1='0' y1='7.5' x2='45' y2='7.5' class='fl'/><line style='stroke-dasharray:0' x1='"+parseInt(parseInt(perc * 45) - 0.5)+"' y1='5.5' x2='"+parseInt(parseInt(perc * 45) - 0.5)+"' y2='9.5' class='fh'/></svg>" : "<svg class='fh' style='width:45px;height:15px; stroke-dasharray:1,1; fill:none; stroke-width:1px; stroke-linecap:butt;'><line x1='0' y1='7.5' x2='45' y2='7.5' class='fl'/><line x1='0' y1='7.5' x2='"+parseInt(perc * 45)+"' y2='7.5' class='fh'/></svg>";
+    // parseInt(parseInt(perc * 45) - 0.5)
+    // parseInt(parseInt(perc * 45) - 0.5)
+    // parseInt(perc * 45)
+
+    this.slide_fg_el.style.width = parseInt(perc * 45)+"px";
     this.value_el.textContent = this.center ? this.value - Math.floor(this.max/2) : this.value;
     this.value_el.className = "fm ";
 

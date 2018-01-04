@@ -3,6 +3,7 @@ function Marabu()
   this.theme = new Theme();
   
   this.el = document.createElement("app");
+  this.el.style.opacity = 0;
   this.el.id = "marabu";
 
   this.wrapper_el = document.createElement("yu"); 
@@ -40,6 +41,8 @@ function Marabu()
     this.sequencer.update();
     this.editor.update();
     this.instrument.update();
+
+    setTimeout(marabu.show,250)
   }
 
   this.update = function()
@@ -285,6 +288,11 @@ function Marabu()
     this.theme.reset();
     this.song.init();
     this.update();
+  }
+
+  this.show = function()
+  {
+    marabu.el.style.opacity = 1;
   }
 
   this.when_key = function(e)
