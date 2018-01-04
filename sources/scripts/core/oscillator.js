@@ -40,8 +40,7 @@ var Oscillator = function()
   this.tri = function(value)
   {
     var v2 = (value % 1) * 4;
-    if (v2 < 2) return v2 - 1;
-    return 3 - v2;
+    return v2 < 2 ? v2 - 1 : 3 - v2;
   }
 
   // generates waveform from custom text
