@@ -1,6 +1,4 @@
 node_modules/
 builds/
 *.wav
-
-*.wav
 .vscode/

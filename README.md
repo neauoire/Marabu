@@ -202,11 +202,21 @@ Press `ctrl l` to activate loopmode.
 - `4 enter` Will play from the current sequencer row, for 4 tracks.
 - `/ 4 enter` Will play from the current sequencer row, only active instrument, for 4 tracks.
 
-### Copy/Paste
+### Extras
 
 - `c` To copy the selected sequence.
 - `v` To **insert** the selected sequence.
 - `backspace` Delete selected sequence.
+- `r` Render the selected loop.
+
+## Build
+
+Install [npm](https://docs.npmjs.com/getting-started/installing-node), download dependencies and start marabu with:
+
+```
+npm install
+npm start
+```
 
 ## Notes
 

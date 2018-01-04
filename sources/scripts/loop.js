@@ -66,6 +66,29 @@ function Loop()
     marabu.update();
   }
 
+  this.play = function()
+  {
+    this.stop();
+
+    marabu.song.play_loop(this.range());
+  }
+
+  this.range = function()
+  {
+    return {
+      firstCol: this.x,
+      lastCol: this.x + this.width,
+      firstRow: this.y,
+      lastRow: this.y + this.height
+    };
+  }
+
+  this.render = function()
+  {
+    this.stop();
+    marabu.song.export_wav(this.range());
+  }
+
   this.input = function(e)
   {
     if(e.key == "Control" || e.key == "Meta"){ return; }
@@ -75,24 +98,12 @@ function Loop()
     if(e.key == "Backspace"){ this.erase(); return; }
     if(e.key == "c"){ this.copy(); return; }
     if(e.key == "v"){ this.paste(); return; }
+    if(e.key == "r"){ this.render(); return; }
 
     if(parseInt(e.key) > 0){
       this.height = parseInt(e.key)-1;
     }
 
     marabu.update();
-  }
-
-  this.play = function()
-  {
-    var opts = {
-      firstCol: this.x,
-      lastCol: this.x + this.width,
-      firstRow: this.y,
-      lastRow: this.y + this.height
-    };
-    this.stop();
-
-    marabu.song.play_loop(opts);
   }
 }

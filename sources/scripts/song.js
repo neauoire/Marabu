@@ -203,7 +203,7 @@ var Song = function()
     }
   };
 
-  this.export_wav = function()
+  this.export_wav = function(opts = null)
   {
     updateSongRanges();
     
@@ -212,7 +212,7 @@ var Song = function()
       var blob = new Blob([wave], {type: "application/octet-stream"});
       saveAs(blob, "render.wav");
     };
-    generateAudio(doneFun);
+    generateAudio(doneFun,opts);
   };
 
   this.calculate_time = function(pos = (8 * (marabu.song.length+1)))
@@ -227,17 +227,11 @@ var Song = function()
 
   var generateAudio = function(doneFun, opts, override_song = null)
   {
-    var display_time_el = document.getElementById("fxr30");
     var display_progress_el = document.getElementById("fxr31");
-
-    console.log(override_song)
     var song = mSong;
-
     var render_time = marabu.song.calculate_time();
     var minutes = Math.floor(render_time/60.0);
     var seconds = Math.floor(render_time % 60);
-
-    display_time_el.textContent = prepend_to_length(minutes,2,"0")+prepend_to_length(seconds,2,"0");
 
     var d1 = new Date();
     mPlayer = new CPlayer();
