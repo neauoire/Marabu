@@ -80,10 +80,6 @@ function UI_Slider(data)
     var over = parseFloat(this.max) - parseInt(this.min);
     var perc = val/parseFloat(over);
 
-    // parseInt(parseInt(perc * 45) - 0.5)
-    // parseInt(parseInt(perc * 45) - 0.5)
-    // parseInt(perc * 45)
-
     this.slide_fg_el.style.width = parseInt(perc * 45)+"px";
     this.value_el.textContent = this.center ? this.value - Math.floor(this.max/2) : this.value;
     this.value_el.className = "fm ";
