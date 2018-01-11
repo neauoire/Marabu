@@ -12,7 +12,6 @@ function Marabu()
   this.el.appendChild(this.wrapper_el);
 
   document.body.appendChild(this.el);
-  document.body.appendChild(this.theme.el);
 
   this.selection = {instrument:0,track:0,row:0,octave:5,control:0};
   this.channels = 16;
@@ -213,7 +212,7 @@ function Marabu()
     }
     else if(file_type == "thm"){
       var o = JSON.parse(data);
-      marabu.theme.install(o);
+      marabu.theme.load(o);
     }
   }
 
@@ -247,7 +246,7 @@ function Marabu()
 
   this.load_file = function(track)
   {
-    if(track.theme){ this.theme.install(track.theme); }
+    if(track.theme){ this.theme.load(track.theme); }
 
     marabu.song.replace_song(track);
     marabu.update();

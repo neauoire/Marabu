@@ -9,26 +9,6 @@ svg       { display: inline-block; vertical-align: top }
 textarea  { background:none; padding:px 0px; line-height: 15px; overflow: hidden}
 b         { font-weight: normal; font-family: 'input_mono_medium'}
 
-.right { float:right; }
-.left { float:left; }
-.hide { display: none }
-.pointer { cursor:pointer; }
-
-.control { height: 15px; overflow: hidden; }
-.control t.name { width:25px; display:inline-block; padding:0px 2.5px; margin-right:5px; text-align: center }
-
-.control.slider { cursor: pointer; width:120px;display: block }
-.control.slider.selected { position: relative; }
-.control.slider.selected:before { content: ">"; position: absolute;left:-15px; }
-
-.control.slider .slide { width:45px; height:15px; display: inline-block; }
-.control.slider .slide .bg { height:0px; margin-top:7px; border-top:1px dotted red; }
-.control.slider .slide .fg { background:blue; height:1px; margin-top:-1px;transition: width 150ms; width:0px; }
-
-.control.uv { height:60px; }
-
-/* HIGHLIGHTS/LOWLIGHTS */
-
 app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto; transition: background-color 150ms, opacity 350ms; max-width: 820px; height: 480px; position: relative; opacity:0; width:calc(100% - 60px); }
 
 .tracks tr td { padding: 0 2.5px; color:#555}
@@ -57,3 +37,36 @@ app { display: block; width:30px; height:30px; padding:30px; color:black; overfl
 #composer-table tr td, #composer-table tr th { line-height: 15px; padding:0px; text-align: center }
 #editor.composer #composer-table { margin-top:0px; }
 #position { position: absolute;bottom: 30px;line-height: 15px;padding: 0px 2.5px;width: 110px;}
+
+.right { float:right; }
+.left { float:left; }
+.hide { display: none }
+.pointer { cursor:pointer; }
+
+.control { height: 15px; overflow: hidden; }
+.control t.name { width:25px; display:inline-block; padding:0px 2.5px; margin-right:5px; text-align: center }
+.control.slider { cursor: pointer; width:120px;display: block }
+.control.slider.selected { position: relative; }
+.control.slider.selected:before { content: ">"; position: absolute;left:-15px; }
+.control.slider .slide { width:45px; height:15px; display: inline-block; }
+.control.slider .slide .bg { height:0px; margin-top:7px; border-top:1px dotted red; }
+.control.slider .slide .fg { background:blue; height:1px; margin-top:-1px;transition: width 150ms; width:0px; }
+.control.uv { height:60px; }
+
+/* Theme Defaults */
+
+:root { --background: "#222"; --f_high: "#fff";--f_med: "#777";--f_low: "#444";--f_inv: "#000";--b_high: "#000";--b_med: "#affec7";--b_low: "#000";--b_inv: "#affec7"; }  
+
+body { background:var(--background) !important }
+.fh { color:var(--f_high) !important; stroke:var(--f_high) !important }
+.fm { color:var(--f_med) !important ; stroke:var(--f_med) !important }
+.fl { color:var(--f_low) !important ; stroke:var(--f_low) !important }
+.f_inv { color:var(--f_inv) !important ; stroke:var(--f_inv) !important }
+.f_inv { color:var(--f_inv) !important ; stroke:var(--f_inv) !important }
+.bh { background:var(--b_high) !important; fill:var(--b_high) !important }
+.bm { background:var(--b_med) !important ; fill:var(--b_med) !important }
+.bl { background:var(--b_low) !important ; fill:var(--b_low) !important }
+.b_inv { background:var(--b_inv) !important ; fill:var(--b_inv) !important }
+.b { background:var(--background) !important }
+.slider .slide .fg { background:var(--f_med) !important }
+.slider .slide .bg { border-top-color:var(--f_low) !important }
