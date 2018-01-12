@@ -210,10 +210,6 @@ function Marabu()
       var o = JSON.parse(data);
       marabu.load_instrument(o);
     }
-    else if(file_type == "thm"){
-      var o = JSON.parse(data);
-      marabu.theme.load(o);
-    }
   }
 
   this.save = function()
@@ -246,8 +242,6 @@ function Marabu()
 
   this.load_file = function(track)
   {
-    if(track.theme){ this.theme.load(track.theme); }
-
     marabu.song.replace_song(track);
     marabu.update();
   }
