@@ -20,6 +20,7 @@
     <script src="scripts/core/player.js"></script>
 
     <script src="scripts/theme.js"></script>
+    <script src="scripts/controller.js"></script>
 
     <script src="scripts/track.js"></script>
     <script src="scripts/song.js"></script>
@@ -35,7 +36,7 @@
   </head>
   <body>
     <script>
-      const {dialog} = require('electron').remote;
+      const {dialog,app} = require('electron').remote;
       const fs = require('fs');
 
       var marabu = new Marabu();
