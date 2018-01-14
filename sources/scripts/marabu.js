@@ -66,15 +66,20 @@ function Marabu()
     this.controller.add("default","Track","Next Track",() => { marabu.move_track(1); },"CmdOrCtrl+Down");
     this.controller.add("default","Track","Prev Track",() => { marabu.move_track(-1); },"CmdOrCtrl+Up");
     this.controller.add("default","Track","Next Pattern",() => { marabu.move_pattern(1); },"CmdOrCtrl+Right");
-    this.controller.add("default","Track","Prev Pattern",() => { marabu.move_pattern(-1); },"CmdOrCtrl+Left");      
+    this.controller.add("default","Track","Prev Pattern",() => { marabu.move_pattern(-1); },"CmdOrCtrl+Left");  
+    this.controller.add("default","Track","Keyframe",() => { marabu.add_control_value(); },"/");  
+    this.controller.add("default","Track","Delete",() => { marabu.set_note(0); marabu.remove_control_value(0); },"Backspace");  
+    this.controller.add("default","Track","Inc Note",() => { marabu.move_note_value(12); },"Plus");  
+    this.controller.add("default","Track","Dec Note",() => { marabu.move_note_value(12); },"-");  
     
     this.controller.add("default","Play","Track",() => { marabu.play(); },"Space");  
-    this.controller.add("default","Play","Row",() => { marabu.play(); },"CmdOrCtrl+Space");  
-    this.controller.add("default","Play","Stop",() => { marabu.play(); },"Esc");
+    this.controller.add("default","Play","Range",() => { marabu.loop.start(); },"Enter");  
+    this.controller.add("default","Play","Stop",() => { marabu.stop(); },"Esc");
 
-    this.controller.add("default","Mode","Cheatcode",() => {  },"CmdOrCtrl+K");
-    this.controller.add("default","Mode","Loop",() => {  },"CmdOrCtrl+L");
-
+    this.controller.add("default","Mode","Cheatcode",() => { marabu.cheatcode.start(); },"CmdOrCtrl+K");
+    this.controller.add("default","Mode","Loop",() => { marabu.loop.start(); },"CmdOrCtrl+L");
+    this.controller.add("default","Mode","Composer",() => { marabu.editor.toggle_composer(); },"M");
+    
     this.controller.add("default","Keyboard","Inc Octave",() => { marabu.move_octave(1); },"X");
     this.controller.add("default","Keyboard","Dec Octave",() => { marabu.move_octave(-1); },"Z");
     this.controller.add("default","Keyboard","C",() => { marabu.play_note(0,true); },"A");
@@ -110,6 +115,17 @@ function Marabu()
     this.controller.add("default","Instrument","Dec Control -1",() => { marabu.move_control_value(-1); },"{");
     this.controller.add("default","Instrument","Inc Control 10(alt)",() => { marabu.move_control_value(10); },"]");
     this.controller.add("default","Instrument","Dec Control -10(alt)",() => { marabu.move_control_value(-10); },"[");
+
+    this.controller.add("cheatcode","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
+    this.controller.add("cheatcode","Mode","Stop",() => { marabu.cheatcode.stop(); },"Esc");
+    this.controller.add("cheatcode","Mode","Copy",() => { marabu.cheatcode.copy(); },"CmdOrCtrl+C");
+    this.controller.add("cheatcode","Mode","Paste",() => { marabu.cheatcode.paste(); },"CmdOrCtrl+V");
+    this.controller.add("loop","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
+    this.controller.add("loop","Mode","Stop",() => { marabu.loop.stop(); },"Esc");
+    this.controller.add("loop","Mode","Copy",() => { marabu.loop.copy(); },"CmdOrCtrl+C");
+    this.controller.add("loop","Mode","Paste",() => { marabu.loop.paste(); },"CmdOrCtrl+V");
+    this.controller.add("loop","Mode","Paste",() => { marabu.loop.erase(); },"Backspace");
+    this.controller.add("loop","Mode","render",() => { marabu.loop.render(); },"CmdOrCtrl+R");
 
     this.controller.commit();
 
@@ -368,7 +384,6 @@ function Marabu()
     if(marabu.loop.is_active == true){ marabu.loop.input(e); return; }
 
     // Arrows
-
     if(e.shiftKey){ // Instrument
       if(key == "ArrowDown") { marabu.move_control(1); e.preventDefault(); return; }
       if(key == "ArrowUp")   { marabu.move_control(-1); e.preventDefault();return; }
@@ -386,33 +401,6 @@ function Marabu()
       if(key == "ArrowLeft") { marabu.move_inst(-1); e.preventDefault(); return; }
       if(key == "ArrowDown") { marabu.move_row(1); e.preventDefault(); return; }
       if(key == "ArrowUp")   { marabu.move_row(-1); e.preventDefault(); return; }
-    }
-    
-    // Sequencer
-
-    if(key == "+")         { marabu.move_pattern(1); e.preventDefault();return; }
-    if(key == "-")         { marabu.move_pattern(-1); e.preventDefault();return; }
-    if(key == "_")         { marabu.move_pattern(-1); e.preventDefault();return; }
-    if(key == "Tab")       { marabu.editor.toggle_composer(); e.preventDefault(); return; }
-
-    // Editor
-
-    if(key == "/")         { marabu.add_control_value(); e.preventDefault(); return; }
-    if(key == "Backspace" || key == "Delete") { marabu.set_note(0); marabu.remove_control_value(0); e.preventDefault(); return; }
-
-    // Instrument
-
-    if(key == ")") { marabu.move_note_value(12); return; }
-    if(key == "(") { marabu.move_note_value(-12); return; }
-    if(key == "0") { marabu.move_note_value(1); return; }
-    if(key == "9") { marabu.move_note_value(-1); return; }
-
-    // Global
-
-    if(e.ctrlKey || e.metaKey){
-      if(key == "k"){ marabu.cheatcode.start(); e.preventDefault(); return; }
-      if(key == "l"){ marabu.loop.start(); e.preventDefault(); return; }
-      return;
     }
   }
   window.addEventListener("keydown", this.when_key, false);

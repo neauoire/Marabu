@@ -21,6 +21,7 @@ function Loop()
     this.is_active = true;
     this.reset();
     marabu.update();
+    marabu.controller.set("loop");
   }
 
   this.stop = function()
@@ -28,6 +29,7 @@ function Loop()
     this.is_active = false;
     this.reset();
     marabu.update();
+    marabu.controller.set("default");
   }
 
   this.buffer = [];

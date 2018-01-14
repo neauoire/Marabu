@@ -17,7 +17,7 @@ function Controller()
     console.log(`${mode}/${cat}/${label} <${accelerator}>`);
   }
 
-  this.set = function(mode)
+  this.set = function(mode = "default")
   {
     this.mode = mode;
     this.commit();
@@ -97,7 +97,7 @@ function Controller()
     {x:540, y:0,   width:60,  height:60, name:"9"},
     {x:600, y:0,   width:60,  height:60, name:"0"},
     {x:660, y:0,   width:60,  height:60, name:"-"},
-    {x:720, y:0,   width:60,  height:60, name:"+"},
+    {x:720, y:0,   width:60,  height:60, name:"plus"},
     {x:780, y:0,   width:120, height:60, name:"backspace"},
     {x:0,   y:60,  width:90,  height:60, name:"tab"},
     {x:90,  y:60,  width:60,  height:60, name:"q"},

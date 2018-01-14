@@ -21,6 +21,7 @@ function Cheatcode()
     this.select();
     marabu.selection.row = 0;
     marabu.update();
+    marabu.controller.set("cheatcode");
   }
 
   this.stop = function()
@@ -32,6 +33,7 @@ function Cheatcode()
 
     this.val = "";
     marabu.update();
+    marabu.controller.set("default");
   }
 
   this.input = function(e)

@@ -17,7 +17,7 @@ function Sequencer()
     this.el = document.getElementById("sequencer");
     this.scrollbar_el = document.getElementById("scrollbar");
     this.position_el = document.getElementById("position");
-    this.position_el.innerHTML = "Hello"; this.position_el.className = "fl"
+    this.position_el.innerHTML = ""; this.position_el.className = "fl"
 
     this.build(MIN_LENGTH);
 
@@ -96,7 +96,7 @@ function Sequencer()
     var track_time = parseInt(marabu.song.calculate_time(track_position/4));
     var track_min = parseInt(track_time/60);
     var track_sec = track_time % 60;
-    this.position_el.innerHTML = `${track_position}@<b>${marabu.song.get_bpm()}</b><span class='right'>${prepend(track_min,2)}:${prepend(track_sec,2)}</span>`;
+    this.position_el.innerHTML = `${track_position}~<b>${marabu.song.get_bpm()}</b>+${marabu.selection.octave}<span class='right'>${prepend(track_min,2)}:${prepend(track_sec,2)}</span>`;
   }
 
   function prepend(str,length,char = "0")
