@@ -11,6 +11,7 @@ function Cheatcode()
 
   this.start = function()
   {
+    console.log("cheatcode","start")
     marabu.loop.stop();
 
     var active_pattern = marabu.song.pattern_at(marabu.selection.instrument,marabu.selection.track);
@@ -26,6 +27,7 @@ function Cheatcode()
 
   this.stop = function()
   {
+    console.log("cheatcode","stop")
     this.is_active = false;
     this.rate = 1;
     this.offset = 0;
@@ -36,42 +38,25 @@ function Cheatcode()
     marabu.controller.set("default");
   }
 
-  this.input = function(e)
+  this.set_rate = function(mod)
   {
-    if(e.key == "k"){ this.start(); return; }
-    if(e.key == "Control" || e.key == "Meta" || e.key == "Shift"){ return; }
-    if(e.key == "Escape" || this.val.length > 4){ this.stop(); return; }
-    if(e.key == "Backspace" || e.key == "Delete"){ this.del(); return; }
-    if(e.key == "+"){ this.mod(1); return; }
-    if(e.key == "-" || e.key == "_"){ this.mod(-1); return; }
-
-    // Copy/Paste
-    if(e.key == "c"){ this.copy(); return; }
-    if(e.key == "v"){ this.paste(); return; }
-
-    // Ins
-    if(e.key == "a"){ this.ins(0); return; }
-    if(e.key == "s"){ this.ins(2); return; }
-    if(e.key == "d"){ this.ins(4); return; }
-    if(e.key == "f"){ this.ins(5); return; }
-    if(e.key == "g"){ this.ins(7); return; }
-    if(e.key == "h"){ this.ins(9); return; }
-    if(e.key == "j"){ this.ins(11); return; }
-    if(e.key == "w"){ this.ins(1); return; }
-    if(e.key == "e"){ this.ins(3); return; }
-    if(e.key == "t"){ this.ins(6); return; }
-    if(e.key == "y"){ this.ins(8); return; }
-    if(e.key == "u"){ this.ins(10); return; }
-
-    if(e.key.length > 1 || e.key == " "){ this.stop(); return; }
-    this.val += e.key;
-
-    this.rate = this.val.length > 0 ? this.val.charAt(0) == "/" ? 32 : hex_to_int(this.val.charAt(0)) : 0;
-    this.length = this.val.length > 1 ? hex_to_int(this.val.charAt(1)) : 0;
-    this.offset = this.val.length > 2 ? hex_to_int(this.val.charAt(2)) : 0;
-
+    this.rate = mod;
     this.select();
+    marabu.update();
+  }
 
+  this.set_offset = function(mod)
+  {
+    this.offset += mod;
+    this.select();
+    marabu.update();
+  }
+
+  this.set_length = function(mod)
+  {
+    this.length = this.length == 0 ? 1 : this.length;
+    this.length += mod;
+    this.select();
     marabu.update();
   }
 
@@ -102,8 +87,9 @@ function Cheatcode()
 
   this.ins = function(mod)
   {
+    console.log("cheatcode","ins")
     for(var row = 0; row < 32; row++){
-      if(!this.selection[row]){ continue;}
+      if(!this.selection[row]){ continue; }
       var note = (marabu.selection.octave * 12)+mod;
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,note);
       this.selection[row] = 0;
@@ -112,11 +98,12 @@ function Cheatcode()
       if(this.selection_count() == 0){ this.stop(); }
       return;
     }
-    this.stop();
+    // this.stop();
   }
 
   this.del = function()
   {
+    console.log("cheatcode","del")
     for(var row = 0; row < 32; row++){
       if(!this.selection[row]){ continue;}
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,-87);
@@ -127,11 +114,12 @@ function Cheatcode()
 
   this.mod = function(mod)
   {
+    console.log("cheatcode","mod")
     for(var row = 0; row < 32; row++){
       if(!this.selection[row]){ continue;}
       var note = marabu.song.note_at(marabu.selection.instrument,marabu.selection.track,row);
       if(note == 0){ continue; }
-      note = mod == 1 ? this.next_major(note) : this.prev_major(note);
+      note += mod;
       marabu.selection.row = row;
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,note-87);
     }
@@ -142,6 +130,7 @@ function Cheatcode()
 
   this.copy = function()
   {
+    console.log("cheatcode","copy")
     var new_stash = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
     for(var row = 0; row < 32; row++){
@@ -155,6 +144,7 @@ function Cheatcode()
 
   this.paste = function()
   {
+    console.log("cheatcode","paste")
     for(var row = 0; row < 32; row++){
       var target_row = (row + marabu.selection.row) % 32;
       if(this.stash[row] == 0){ continue; }

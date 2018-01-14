@@ -71,6 +71,8 @@ function Loop()
 
   this.play = function()
   {
+    this.is_active = false;
+    
     marabu.song.play_loop(this.range());
   }
 
@@ -90,12 +92,9 @@ function Loop()
     marabu.song.export_wav(this.range());
   }
 
-  this.input = function(e)
+  this.set_height = function(mod)
   {
-    if(parseInt(e.key) > 0){
-      this.height = parseInt(e.key)-1;
-    }
-
+    this.height = mod;
     marabu.update();
   }
 }
