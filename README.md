@@ -18,7 +18,7 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 
 ## Controls
 
-<img src='https://cdn.rawgit.com/hundredrabbits/Donsol/master/LAYOUT.svg?v=1' width="600"/>
+<img src='https://cdn.rawgit.com/hundredrabbits/Marabu/master/LAYOUT.svg?v=1' width="600"/>
 
 
 ## Extras
