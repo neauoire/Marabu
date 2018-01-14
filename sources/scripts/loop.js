@@ -27,6 +27,7 @@ function Loop()
   this.stop = function()
   {
     this.is_active = false;
+    marabu.stop();
     this.reset();
     marabu.update();
     marabu.controller.set("default");
@@ -70,8 +71,6 @@ function Loop()
 
   this.play = function()
   {
-    this.stop();
-
     marabu.song.play_loop(this.range());
   }
 
@@ -93,15 +92,6 @@ function Loop()
 
   this.input = function(e)
   {
-    if(e.key == "Control" || e.key == "Meta"){ return; }
-    if(e.key == "Escape"){ this.stop(); return; }
-    if(e.key == "/"){ this.solo(); }
-    if(e.key == "Enter"){ this.play(); return; }
-    if(e.key == "Backspace"){ this.erase(); return; }
-    if(e.key == "c"){ this.copy(); return; }
-    if(e.key == "v"){ this.paste(); return; }
-    if(e.key == "r"){ this.render(); return; }
-
     if(parseInt(e.key) > 0){
       this.height = parseInt(e.key)-1;
     }

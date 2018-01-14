@@ -120,7 +120,10 @@ function Marabu()
     this.controller.add("cheatcode","Mode","Stop",() => { marabu.cheatcode.stop(); },"Esc");
     this.controller.add("cheatcode","Mode","Copy",() => { marabu.cheatcode.copy(); },"CmdOrCtrl+C");
     this.controller.add("cheatcode","Mode","Paste",() => { marabu.cheatcode.paste(); },"CmdOrCtrl+V");
+    this.controller.add("cheatcode","Mode","Erase",() => { marabu.cheatcode.del(); },"Backspace");
+
     this.controller.add("loop","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
+    this.controller.add("loop","Mode","Play",() => { marabu.loop.play(); },"Enter");
     this.controller.add("loop","Mode","Stop",() => { marabu.loop.stop(); },"Esc");
     this.controller.add("loop","Mode","Copy",() => { marabu.loop.copy(); },"CmdOrCtrl+C");
     this.controller.add("loop","Mode","Paste",() => { marabu.loop.paste(); },"CmdOrCtrl+V");
