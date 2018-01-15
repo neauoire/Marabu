@@ -54,8 +54,11 @@ function Loop()
 
   this.erase = function()
   {
-    for(var i = 0; i < 16; i++){
-      marabu.song.song().songData[i].p[this.y] = 0;
+    for(var y = this.y; y < this.y+(this.height+1); y++){
+      console.log("del",y,this.y,this.y+(this.height+1));
+      for(var i = 0; i < 16; i++){
+        marabu.song.song().songData[i].p[y] = 0;
+      }
     }
     this.stop();
   }
