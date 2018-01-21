@@ -20,7 +20,6 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 
 <img src='https://cdn.rawgit.com/hundredrabbits/Marabu/master/LAYOUT.svg?v=1' width="600"/>
 
-
 ## Extras
 
 - Download additional [themes](https://github.com/hundredrabbits/Themes).

@@ -52,12 +52,26 @@ function Loop()
     this.stop();
   }
 
-  this.erase = function()
+  this.cut = function()
   {
+    // Copy
+    this.buffer = [];
+    for(var i = 0; i < 16; i++){
+      this.buffer[i] = marabu.song.song().songData[i].p.slice(this.y,this.y+this.height+1);
+    }
+    // Erase
     for(var y = this.y; y < this.y+(this.height+1); y++){
       for(var i = 0; i < 16; i++){
         marabu.song.song().songData[i].p[y] = 0;
       }
+    }
+    this.stop();
+  }
+
+  this.erase = function()
+  {
+    for(var i = 0; i < 16; i++){
+      marabu.song.song().songData[i].p.splice(this.y,this.height+1);
     }
     this.stop();
   }

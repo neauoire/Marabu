@@ -145,6 +145,7 @@ function Marabu()
     this.controller.add("cheatcode","Keyboard","B",() => { marabu.cheatcode.ins(11); },"J");
 
     this.controller.add("loop","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
+    this.controller.add("loop","Edit","Clear",() => { marabu.loop.cut(); },"X");
     this.controller.add("loop","Edit","Copy",() => { marabu.loop.copy(); },"C");
     this.controller.add("loop","Edit","Paste",() => { marabu.loop.paste(); },"V");
     this.controller.add("loop","Edit","Delete",() => { marabu.loop.erase(); },"Backspace");
