@@ -46,5 +46,25 @@ function Track()
   // Make a first empty pattern
   song.songData[0].p[0] = 1;
 
+  song.songData[0].name = "SYN1"
+  song.songData[1].name = "SYN2"
+  song.songData[2].name = "PAD1"
+  song.songData[3].name = "PAD2"
+
+  song.songData[4].name = "IDM1"
+  song.songData[5].name = "IDM2"
+  song.songData[6].name = "TXT1"
+  song.songData[7].name = "TXT2"
+
+  song.songData[8].name  = "SNAR"
+  song.songData[9].name  = "CLAP"
+  song.songData[10].name = "BASS"
+  song.songData[11].name = "KICK"
+
+  song.songData[12].name  = "INST"
+  song.songData[13].name  = "INST"
+  song.songData[14].name = "INST"
+  song.songData[15].name = "INST"
+
   return song;
 };

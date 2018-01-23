@@ -13,6 +13,7 @@ function UI_Slider(data)
 
   this.control = 0;
   this.center = data.center;
+  this.percent = data.percent;
 
   this.value = this.min;
 
@@ -22,10 +23,11 @@ function UI_Slider(data)
   this.slide_el = document.createElement("div");    this.slide_el.className = "slide";
   this.slide_bg_el = document.createElement("div"); this.slide_bg_el.className = "bg";
   this.slide_fg_el = document.createElement("div"); this.slide_fg_el.className = "fg";
+  this.center_el = document.createElement("div"); this.center_el.className = "center";
 
   this.install = function(parent)
   {
-    this.el.className = "control slider";
+    this.el.className = `control slider ${this.center ? 'center' : ''}`;
 
     // Name Span
     this.name_el.className = "name";
@@ -39,6 +41,7 @@ function UI_Slider(data)
     this.el.appendChild(this.name_el);
     this.slide_el.appendChild(this.slide_bg_el);
     this.slide_el.appendChild(this.slide_fg_el);
+    this.slide_el.appendChild(this.center_el);
     this.el.appendChild(this.slide_el);
     this.el.appendChild(this.value_el);
 
@@ -73,15 +76,24 @@ function UI_Slider(data)
 
   this.update = function()
   {
-    this.el.className = app.selection.control == this.control ? "slider  control bl" : "slider control";
+    this.el.className = app.selection.control == this.control ? `slider  control ${this.center ? 'center' : ''} bl` : `slider control ${this.center ? 'center' : ''}`;
     this.name_el.className = app.selection.control == this.control ? "name fh" : "name fm";
 
     var val = parseInt(this.value) - parseInt(this.min);
     var over = parseFloat(this.max) - parseInt(this.min);
     var perc = val/parseFloat(over);
+    var val_mod = this.center ? this.value - Math.floor(this.max/2) : this.value
 
-    this.slide_fg_el.style.width = parseInt(perc * 45)+"px";
-    this.value_el.textContent = this.center ? this.value - Math.floor(this.max/2) : this.value;
+    if(this.center){
+      this.slide_fg_el.style.left = val_mod < 0 ? `${perc * 100}%` : `50%`;
+      this.slide_fg_el.style.width = val_mod < 0 ? `calc(50% - ${perc*100}%)` : `calc(${perc * 100}% - 50%)`;
+      this.center_el.style.left = `${perc * 100}%`;
+    }
+    else{
+      this.slide_fg_el.style.width = `${perc * 100}%`;  
+    }
+    
+    this.value_el.textContent = val_mod;
     this.value_el.className = "fm ";
 
     if(this.value == this.min){ this.value_el.className = "fl "; }

@@ -9,10 +9,10 @@ svg       { display: inline-block; vertical-align: top }
 textarea  { background:none; padding:px 0px; line-height: 15px; overflow: hidden}
 b         { font-weight: normal; font-family: 'input_mono_medium'}
 
-app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto; transition: background-color 150ms, opacity 350ms; max-width: 820px; height: 480px; position: relative; opacity:0; width:calc(100% - 60px); }
+app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto; transition: background-color 150ms, opacity 350ms; max-width: 830px; height: 480px; position: relative; opacity:0; width:calc(100% - 60px); }
 
 .tracks tr td { padding: 0 2.5px; color:#555}
-#instrument { width:120px; display:block; vertical-align:top; margin-left:15px; line-height:15px; overflow: hidden; position: absolute; right:30px;}
+#instrument { width:130px; display:block; vertical-align:top; margin-left:15px; line-height:15px; overflow: hidden; position: absolute; right:25px;}
 #instrument > div > * { width:100%; cursor:pointer; }
 #instrument .family { margin-bottom:15px; }
 #sequencer { display:block; vertical-align:top; float:left; max-height: 465px; overflow:hidden; position: relative;}
@@ -45,12 +45,14 @@ app { display: block; width:30px; height:30px; padding:30px; color:black; overfl
 
 .control { height: 15px; overflow: hidden; }
 .control t.name { width:25px; display:inline-block; padding:0px 2.5px; margin-right:5px; text-align: center }
-.control.slider { cursor: pointer; width:120px;display: block }
+.control.slider { cursor: pointer; width:120px;display: block; position:relative; }
 .control.slider.selected { position: relative; }
 .control.slider.selected:before { content: ">"; position: absolute;left:-15px; }
-.control.slider .slide { width:45px; height:15px; display: inline-block; }
+.control.slider .slide { width:45px; height:15px; display: inline-block; position:relative; }
 .control.slider .slide .bg { height:0px; margin-top:7px; border-top:1px dotted red; }
-.control.slider .slide .fg { background:blue; height:1px; margin-top:-1px;transition: width 150ms; width:0px; }
+.control.slider .slide .fg { height:1px; margin-top:-1px;transition: width 150ms; width:0px; position:relative; }
+.control.slider .slide .center { display:none; width:1px; position: absolute;left:calc(50% - 1px); top:5px; height:5px;transition: left 150ms; }
+.control.slider.center .slide .center { display: block }
 .control.uv { height:60px; }
 
 /* Theme Defaults */
@@ -69,4 +71,5 @@ body { background:var(--background) !important }
 .b_inv { background:var(--b_inv) !important ; fill:var(--b_inv) !important }
 .b { background:var(--background) !important }
 .slider .slide .fg { background:var(--f_med) !important }
+.slider .slide .center { background:var(--f_med) !important }
 .slider .slide .bg { border-top-color:var(--f_low) !important }
