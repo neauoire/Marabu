@@ -352,7 +352,7 @@ function Marabu()
     this.song.update_ranges();
     var str = this.song.to_string();
 
-    dialog.showSaveDialog((fileName) => {
+    dialog.showSaveDialog({filters:[{name:'Marabu',extensions:['mar']}]},(fileName) => {
       if (fileName === undefined){ return; }
       fs.writeFile(`${fileName.substr(-4,4) != ".mar" ? fileName+".mar" : fileName}`, str, (err) => {
         if(err){ alert("An error ocurred creating the file "+ err.message); return; }
@@ -377,9 +377,9 @@ function Marabu()
     instr_obj.i = instr.i;
     var str = JSON.stringify(instr_obj);
 
-    dialog.showSaveDialog((fileName) => {
+    dialog.showSaveDialog({filters:[{name:"Instrument",extensions:['ins']}]},(fileName) => {
       if (fileName === undefined){ return; }
-      fs.writeFile(fileName+".ins", str, (err) => {
+      fs.writeFile(`${fileName.substr(-4,4) != ".ins" ? fileName+".ins" : fileName}`, str, (err) => {
         if(err){ alert("An error ocurred creating the file "+ err.message); return; }
       });
     }); 
