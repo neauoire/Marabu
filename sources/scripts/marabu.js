@@ -52,7 +52,7 @@ function Marabu()
     this.controller.add("default","File","New",() => { marabu.reset(); },"CmdOrCtrl+N");
     this.controller.add("default","File","Open",() => { marabu.open(); },"CmdOrCtrl+O");
     this.controller.add("default","File","Save",() => { marabu.save(); },"CmdOrCtrl+S");
-    this.controller.add("default","File","Save As",() => { marabu.export(); },"CmdOrCtrl+E");
+    this.controller.add("default","File","Save As",() => { marabu.export(); },"CmdOrCtrl+Shift+S");
     this.controller.add("default","File","Render",() => { marabu.render(); },"CmdOrCtrl+R");
     this.controller.add("default","File","Export Ins",() => { marabu.export_instrument(); },"CmdOrCtrl+I");
     this.controller.add("default","Track","Next Inst",() => { marabu.move_inst(1); },"Right");
@@ -354,9 +354,9 @@ function Marabu()
 
     dialog.showSaveDialog((fileName) => {
       if (fileName === undefined){ return; }
-      fs.writeFile(fileName+".mar", str, (err) => {
+      fs.writeFile(`${fileName.substr(-4,4) != ".mar" ? fileName+".mar" : fileName}`, str, (err) => {
         if(err){ alert("An error ocurred creating the file "+ err.message); return; }
-        marabu.path = fileName+".mar";
+        marabu.path = fileName;
         var el = document.getElementById("fxr31");
         if(el){ el.className = "b_inv f_inv"; el.innerHTML = "--OK";  }
       });
@@ -525,7 +525,7 @@ var to_hex_val = function(num)
 {
   if(num < 10){ return ""+num; }
   var l = ["a","b","c","d","e","f"];
-  return l[num % l.length];
+  return l[(num-10) % l.length];
 }
 
 var to_hex = function(num, count = 1)

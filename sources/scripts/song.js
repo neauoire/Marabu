@@ -68,6 +68,12 @@ var Song = function()
     this.update_bpm(mSong.bpm ? mSong.bpm : 120);
     this.update_rpp(32);
 
+    // Inject names
+    for(id in this.song().songData){
+      var ins = this.song().songData[id];
+      ins.name = ins.name && ins.name.length > 3 ? ins.name.substr(0,4) : `INS${to_hex_val(id).toUpperCase()}`
+    }
+
     updateSongRanges();
   }
 
