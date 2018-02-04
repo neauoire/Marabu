@@ -49,6 +49,7 @@ function Loop()
     for(var i = 0; i < 16; i++){
       marabu.song.song().songData[i].p.splice(this.y, 0, ...this.buffer[i]);
     }
+    marabu.history.push(marabu.song.song());
     this.stop();
   }
 
@@ -65,6 +66,7 @@ function Loop()
         marabu.song.song().songData[i].p[y] = 0;
       }
     }
+    marabu.history.push(marabu.song.song());
     this.stop();
   }
 
@@ -73,6 +75,7 @@ function Loop()
     for(var i = 0; i < 16; i++){
       marabu.song.song().songData[i].p.splice(this.y,this.height+1);
     }
+    marabu.history.push(marabu.song.song());
     this.stop();
   }
 

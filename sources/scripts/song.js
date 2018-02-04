@@ -61,6 +61,7 @@ var Song = function()
 
   this.replace_song = function(new_song)
   {
+    if(!new_song.name){ return; }
     stopAudio();
 
     mSong = new_song;

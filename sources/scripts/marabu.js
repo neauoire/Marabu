@@ -1,5 +1,6 @@
 function Marabu()
 {
+  this.history = new History();
   this.theme = new Theme();
   this.controller = new Controller();
   
@@ -49,26 +50,25 @@ function Marabu()
     this.controller.add("default","*","Documentation",() => { marabu.controller.docs(); },"CmdOrCtrl+Esc");
     this.controller.add("default","*","Reset",() => { marabu.theme.reset(); },"CmdOrCtrl+Backspace");
     this.controller.add("default","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
-    this.controller.add("default","File","New",() => { marabu.reset(); },"CmdOrCtrl+N");
+    this.controller.add("default","File","New",() => { marabu.new(); },"CmdOrCtrl+N");
     this.controller.add("default","File","Open",() => { marabu.open(); },"CmdOrCtrl+O");
     this.controller.add("default","File","Save",() => { marabu.save(); },"CmdOrCtrl+S");
     this.controller.add("default","File","Save As",() => { marabu.export(); },"CmdOrCtrl+Shift+S");
     this.controller.add("default","File","Render",() => { marabu.render(); },"CmdOrCtrl+R");
     this.controller.add("default","File","Export Ins",() => { marabu.export_instrument(); },"CmdOrCtrl+I");
+    this.controller.add("default","Edit","Inc BPM",() => { marabu.move_bpm(5) },">");
+    this.controller.add("default","Edit","Dec BPM",() => { marabu.move_bpm(-5) },"<");
+    this.controller.add("default","Edit","Delete",() => { marabu.set_note(0); marabu.remove_control_value(0); },"Backspace");  
+    this.controller.add("default","Edit","Undo",() => { marabu.undo(); },"CmdOrCtrl+Z");
+    this.controller.add("default","Edit","Redo",() => { marabu.redo(); },"CmdOrCtrl+Shift+Z");
     this.controller.add("default","Track","Next Inst",() => { marabu.move_inst(1); },"Right");
     this.controller.add("default","Track","Prev Inst",() => { marabu.move_inst(-1) },"Left");
     this.controller.add("default","Track","Next Row",() => { marabu.move_row(1); },"Down");
     this.controller.add("default","Track","Prev Row",() => { marabu.move_row(-1) },"Up");
-    this.controller.add("default","Track","Inc BPM",() => { marabu.move_bpm(5) },">");
-    this.controller.add("default","Track","Dec BPM",() => { marabu.move_bpm(-5) },"<");
     this.controller.add("default","Track","Next Track",() => { marabu.move_track(1); },"CmdOrCtrl+Down");
     this.controller.add("default","Track","Prev Track",() => { marabu.move_track(-1); },"CmdOrCtrl+Up");
     this.controller.add("default","Track","Next Pattern",() => { marabu.move_pattern(1); },"CmdOrCtrl+Right");
     this.controller.add("default","Track","Prev Pattern",() => { marabu.move_pattern(-1); },"CmdOrCtrl+Left");  
-    this.controller.add("default","Track","Keyframe",() => { marabu.add_control_value(); },"/");  
-    this.controller.add("default","Track","Delete",() => { marabu.set_note(0); marabu.remove_control_value(0); },"Backspace");  
-    this.controller.add("default","Track","Inc Note",() => { marabu.move_note_value(12); },"Plus");  
-    this.controller.add("default","Track","Dec Note",() => { marabu.move_note_value(12); },"-");  
     this.controller.add("default","Play","Track",() => { marabu.play(); },"Space");  
     this.controller.add("default","Play","Range",() => { marabu.loop.start(); },"Enter");  
     this.controller.add("default","Play","Stop",() => { marabu.stop(); },"Esc");
@@ -109,6 +109,7 @@ function Marabu()
     this.controller.add("default","Instrument","Dec Control -1",() => { marabu.move_control_value(-1); },"{");
     this.controller.add("default","Instrument","Inc Control 10(alt)",() => { marabu.move_control_value(10); },"]");
     this.controller.add("default","Instrument","Dec Control -10(alt)",() => { marabu.move_control_value(-10); },"[");
+    this.controller.add("default","Instrument","Keyframe",() => { marabu.add_control_value(); },"/");  
 
     this.controller.add("cheatcode","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
     this.controller.add("cheatcode","Mode","Stop",() => { marabu.cheatcode.stop(); },"Esc");
@@ -181,6 +182,18 @@ function Marabu()
     this.instrument.update();
   }
 
+  this.undo = function()
+  {
+    this.song.replace_song(this.history.prev());
+    this.update();
+  }
+
+  this.redo = function()
+  {
+    this.song.replace_song(this.history.next());
+    this.update();
+  }
+
   // Controls
 
   this.move_inst = function(mod)
@@ -225,6 +238,7 @@ function Marabu()
   {
     this.song.song().bpm = this.song.get_bpm() + mod;
     this.song.update_bpm(this.song.get_bpm() + mod);
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -232,6 +246,7 @@ function Marabu()
   {
     var control = this.instrument.control_target(this.selection.control);
     control.mod(mod,relative);
+    this.history.push(this.song.song());
     control.save();
   }
 
@@ -242,6 +257,7 @@ function Marabu()
     var control_value = control.value;
 
     this.song.inject_effect_at(this.selection.instrument,this.selection.track,this.selection.row,control_storage+1,control_value);
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -252,6 +268,7 @@ function Marabu()
     var control_value = control.value;
 
     this.song.erase_effect_at(this.selection.instrument,this.selection.track,this.selection.row);
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -262,6 +279,7 @@ function Marabu()
     if(val == 0){
       this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row+32,val-87);
     }
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -270,6 +288,7 @@ function Marabu()
     var note = marabu.song.note_at(this.selection.instrument,this.selection.track,this.selection.row);
 
     this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row,note+mod-87);
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -278,6 +297,7 @@ function Marabu()
     var note_value = note + (this.selection.octave * 12);
     this.song.play_note(note_value);
     this.song.inject_note_at(this.selection.instrument,this.selection.track,this.selection.row+(right_hand ? 0 : 32),note_value);
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -287,7 +307,7 @@ function Marabu()
 
   this.play = function()
   {
-    if(this.selection.row > 0){ this.stop(); return; }
+    if(this.selection.row > 0 || this.is_playing){ this.stop(); return; }
     console.log("Play!");
     this.song.play_song();
     this.is_playing = true;
@@ -300,6 +320,15 @@ function Marabu()
     this.instrument.controls.uv.monitor.clear();
     this.is_playing = false;
     this.selection.row = 0;  
+    this.update();
+  }
+
+  this.new = function()
+  {
+    this.history.clear();
+    this.path = null;
+    this.song = new Song();
+    this.song.init();
     this.update();
   }
 
@@ -316,6 +345,7 @@ function Marabu()
 
       marabu.load(data,filepath[0]);
     });
+    this.history.clear();
   }
 
   this.load = function(data,path = "")
@@ -333,6 +363,7 @@ function Marabu()
       var o = JSON.parse(data);
       marabu.load_instrument(o);
     }
+    this.history.clear();
   }
 
   this.save = function()
@@ -366,6 +397,7 @@ function Marabu()
   this.load_file = function(track)
   {
     marabu.song.replace_song(track);
+    this.history.clear();
     marabu.update();
   }
 
@@ -389,6 +421,7 @@ function Marabu()
   {
     this.song.song().songData[this.selection.instrument].name = instr.name;
     this.song.song().songData[this.selection.instrument].i = instr.i;
+    this.history.push(this.song.song());
     this.update();
   }
 
@@ -399,6 +432,7 @@ function Marabu()
 
   this.reset = function()
   {
+    this.history.clear();
     this.path = null;
     this.song = new Song();
     this.theme.reset();

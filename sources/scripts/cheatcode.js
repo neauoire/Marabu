@@ -98,7 +98,7 @@ function Cheatcode()
       if(this.selection_count() == 0){ this.stop(); }
       return;
     }
-    // this.stop();
+    marabu.history.push(marabu.song.song());
   }
 
   this.del = function()
@@ -109,6 +109,7 @@ function Cheatcode()
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,-87);
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row+32,-87);
     }
+    marabu.history.push(marabu.song.song());
     this.stop();
   }
 
@@ -123,6 +124,7 @@ function Cheatcode()
       marabu.selection.row = row;
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,row,note-87);
     }
+    marabu.history.push(marabu.song.song());
     marabu.update();
   } 
 
@@ -150,6 +152,7 @@ function Cheatcode()
       if(this.stash[row] == 0){ continue; }
       marabu.song.inject_note_at(marabu.selection.instrument,marabu.selection.track,target_row,this.stash[row]-87);
     }
+    marabu.history.push(marabu.song.song());
     this.stop();
   }
 
