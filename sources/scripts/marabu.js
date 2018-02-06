@@ -22,8 +22,10 @@ function Marabu()
   this.sequencer = new Sequencer();
   this.editor = new Editor(8,4);
   this.instrument = new Instrument();
+
   this.cheatcode = new Cheatcode();
   this.loop = new Loop();
+  this.arp = new Arp();
 
   this.start = function()
   {
@@ -74,6 +76,7 @@ function Marabu()
     this.controller.add("default","Play","Stop",() => { marabu.stop(); },"Esc");
     this.controller.add("default","Mode","Cheatcode",() => { marabu.cheatcode.start(); },"CmdOrCtrl+K");
     this.controller.add("default","Mode","Loop",() => { marabu.loop.start(); },"CmdOrCtrl+L");
+    this.controller.add("default","Mode","Arp",() => { marabu.arp.start(); },"CmdOrCtrl+M");
     this.controller.add("default","Mode","Composer",() => { marabu.editor.toggle_composer(); },"M");
     this.controller.add("default","Keyboard","Inc Octave",() => { marabu.move_octave(1); },"X");
     this.controller.add("default","Keyboard","Dec Octave",() => { marabu.move_octave(-1); },"Z");
@@ -162,6 +165,21 @@ function Marabu()
     this.controller.add("loop","Selection","6 Rows",() => { marabu.loop.set_height(5); },"6");
     this.controller.add("loop","Selection","7 Rows",() => { marabu.loop.set_height(6); },"7");
     this.controller.add("loop","Selection","8 Rows",() => { marabu.loop.set_height(7); },"8");
+
+    this.controller.add("arp","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
+    this.controller.add("arp","Mode","Pause/Stop",() => { marabu.arp.stop(); },"Esc");
+    this.controller.add("arp","Keyboard","C",() => { marabu.arp.ins(0); },"A");
+    this.controller.add("arp","Keyboard","C#",() => { marabu.arp.ins(1); },"W");
+    this.controller.add("arp","Keyboard","D",() => { marabu.arp.ins(2); },"S");
+    this.controller.add("arp","Keyboard","D#",() => { marabu.arp.ins(3); },"E");
+    this.controller.add("arp","Keyboard","E",() => { marabu.arp.ins(4); },"D");
+    this.controller.add("arp","Keyboard","F",() => { marabu.arp.ins(5); },"F");
+    this.controller.add("arp","Keyboard","F#",() => { marabu.arp.ins(6); },"T");
+    this.controller.add("arp","Keyboard","G",() => { marabu.arp.ins(7); },"G");
+    this.controller.add("arp","Keyboard","G#",() => { marabu.arp.ins(8); },"Y");
+    this.controller.add("arp","Keyboard","A",() => { marabu.arp.ins(9); },"H");
+    this.controller.add("arp","Keyboard","A#",() => { marabu.arp.ins(10); },"U");
+    this.controller.add("arp","Keyboard","B",() => { marabu.arp.ins(11); },"J");
 
     this.controller.commit();
 
@@ -520,12 +538,15 @@ window.onbeforeunload = function(e)
 var parse_note = function(val)
 {
   val -= 87;
+  if(val < 0){ val += 87; }
+  var keyboard = ['C','D','E','F','G','A','B'];
   var notes = ['C-', 'C#', 'D-', 'D#', 'E-', 'F-', 'F#', 'G-', 'G#', 'A-', 'A#', 'B-'];
   var octave = Math.floor((val)/12);
   var key = notes[(val) % 12];
   var key_sharp = key.substr(1,1) == "#" ? true : false;
   var key_note = key.substr(0,1);
-  return {octave:octave,sharp:key_sharp,note:key_note};
+  var offset = keyboard.indexOf(key_note);
+  return {id:key,octave:octave,sharp:key_sharp,note:key_note,offset:offset};
 }
 
 var hex_to_int = function(hex)
