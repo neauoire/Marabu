@@ -546,7 +546,8 @@ var parse_note = function(val)
   var key_sharp = key.substr(1,1) == "#" ? true : false;
   var key_note = key.substr(0,1);
   var offset = keyboard.indexOf(key_note);
-  return {id:key,octave:octave,sharp:key_sharp,note:key_note,offset:offset};
+  var distance = (keyboard.length*octave) + offset;
+  return {id:val,octave:octave,sharp:key_sharp,note:key_note,offset:offset,distance:distance};
 }
 
 var hex_to_int = function(hex)

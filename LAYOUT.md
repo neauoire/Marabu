@@ -4,25 +4,26 @@
 - New: `CmdOrCtrl+N`
 - Open: `CmdOrCtrl+O`
 - Save: `CmdOrCtrl+S`
-- Save As: `CmdOrCtrl+E`
+- Save As: `CmdOrCtrl+Shift+S`
 - Render: `CmdOrCtrl+R`
 - Export Ins: `CmdOrCtrl+I`
+
+### Edit
+- Inc BPM: `>`
+- Dec BPM: `<`
+- Delete: `Backspace`
+- Undo: `CmdOrCtrl+Z`
+- Redo: `CmdOrCtrl+Shift+Z`
 
 ### Track
 - Next Inst: `Right`
 - Prev Inst: `Left`
 - Next Row: `Down`
 - Prev Row: `Up`
-- Inc BPM: `>`
-- Dec BPM: `<`
 - Next Track: `CmdOrCtrl+Down`
 - Prev Track: `CmdOrCtrl+Up`
 - Next Pattern: `CmdOrCtrl+Right`
 - Prev Pattern: `CmdOrCtrl+Left`
-- Keyframe: `/`
-- Delete: `Backspace`
-- Inc Note: `Plus`
-- Dec Note: `-`
 
 ### Play
 - Track: `Space`
@@ -32,6 +33,7 @@
 ### Mode
 - Cheatcode: `CmdOrCtrl+K`
 - Loop: `CmdOrCtrl+L`
+- Arp: `CmdOrCtrl+M`
 - Composer: `M`
 
 ### Keyboard
@@ -71,6 +73,7 @@
 - Dec Control -1: `{`
 - Inc Control 10(alt): `]`
 - Dec Control -10(alt): `[`
+- Keyframe: `/`
 
 
 ## cheatcode Mode
@@ -139,5 +142,26 @@
 - 6 Rows: `6`
 - 7 Rows: `7`
 - 8 Rows: `8`
+
+
+## arp Mode
+
+### Mode
+- Pause/Stop: `Esc`
+
+### Keyboard
+- C: `A`
+- C#: `W`
+- D: `S`
+- D#: `E`
+- E: `D`
+- F: `F`
+- F#: `T`
+- G: `G`
+- G#: `Y`
+- A: `H`
+- A#: `U`
+- B: `J`
+- Silence: `Space`
 
 

@@ -155,16 +155,4 @@ function Cheatcode()
     marabu.history.push(marabu.song.song());
     this.stop();
   }
-
-  this.next_major = function(note)
-  {
-    var n = parse_note(note+1);
-    return n.sharp ? note+2 : note+1;
-  }
-
-  this.prev_major = function(note)
-  {
-    var n = parse_note(note-1);
-    return n.sharp ? note-2 : note-1;
-  }
 }
