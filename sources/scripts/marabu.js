@@ -180,6 +180,7 @@ function Marabu()
     this.controller.add("arp","Keyboard","A",() => { marabu.arp.ins(9); },"H");
     this.controller.add("arp","Keyboard","A#",() => { marabu.arp.ins(10); },"U");
     this.controller.add("arp","Keyboard","B",() => { marabu.arp.ins(11); },"J");
+    this.controller.add("arp","Keyboard","Skip",() => { marabu.arp.ins(-99); },"Space");
 
     this.controller.commit();
 

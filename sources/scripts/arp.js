@@ -25,9 +25,14 @@ function Arp()
 
   this.ins = function(mod)
   {
+    if(mod == -99){
+      this.record(null);
+      return
+    }
+
     var note = (marabu.selection.octave * 12)+mod;
 
-    if(this.is_recording && mod){
+    if(this.is_recording && mod != null){
       this.record(note);
       return;
     }
@@ -51,7 +56,7 @@ function Arp()
 
   this.record = function(note)
   {
-    this.memory.push(note ? parse_note(note) : null);
+    this.memory.push(note ? parse_note(note) : 0);
     console.log("record",this.memory)
     marabu.update();
   }
