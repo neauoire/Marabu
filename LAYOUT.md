@@ -15,6 +15,16 @@
 - Undo: `CmdOrCtrl+Z`
 - Redo: `CmdOrCtrl+Shift+Z`
 
+### Select
+- 1st Row: `1`
+- 4th Row: `2`
+- 8th Row: `3`
+- 12th Row: `4`
+- 16th Row: `5`
+- 20th Row: `6`
+- 24th Row: `7`
+- 28th Row: `8`
+
 ### Track
 - Next Inst: `Right`
 - Prev Inst: `Left`
@@ -73,6 +83,8 @@
 - Dec Control -1: `{`
 - Inc Control 10(alt): `]`
 - Dec Control -10(alt): `[`
+- Min: `9`
+- Max: `0`
 - Keyframe: `/`
 
 
@@ -162,6 +174,6 @@
 - A: `H`
 - A#: `U`
 - B: `J`
-- Silence: `Space`
+- Skip: `Space`
 
 

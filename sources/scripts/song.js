@@ -216,8 +216,12 @@ var Song = function()
     
     var doneFun = function(wave)
     {
-      var blob = new Blob([wave], {type: "application/octet-stream"});
-      saveAs(blob, "render.wav");
+      dialog.showSaveDialog({filters:[{name:'Audio File',extensions:['wav']}]},(fileName) => {
+        if (fileName === undefined){ return; }
+        fs.writeFile(`${fileName.substr(-4,4) != ".wav" ? fileName+".wav" : fileName}`, new Buffer(wave), (err) => {
+          if(err){ alert("An error ocurred creating the file "+ err.message); return; }
+        });
+      }); 
     };
     generateAudio(doneFun,opts);
   };

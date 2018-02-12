@@ -63,6 +63,14 @@ function Marabu()
     this.controller.add("default","Edit","Delete",() => { marabu.set_note(0); marabu.remove_control_value(0); },"Backspace");  
     this.controller.add("default","Edit","Undo",() => { marabu.undo(); },"CmdOrCtrl+Z");
     this.controller.add("default","Edit","Redo",() => { marabu.redo(); },"CmdOrCtrl+Shift+Z");
+    this.controller.add("default","Select","1st Row",() => { marabu.select_row(0); },"1");
+    this.controller.add("default","Select","4th Row",() => { marabu.select_row(4); },"2");
+    this.controller.add("default","Select","8th Row",() => { marabu.select_row(8); },"3");
+    this.controller.add("default","Select","12th Row",() => { marabu.select_row(12); },"4");
+    this.controller.add("default","Select","16th Row",() => { marabu.select_row(16); },"5");
+    this.controller.add("default","Select","20th Row",() => { marabu.select_row(20); },"6");
+    this.controller.add("default","Select","24th Row",() => { marabu.select_row(24); },"7");
+    this.controller.add("default","Select","28th Row",() => { marabu.select_row(28); },"8");
     this.controller.add("default","Track","Next Inst",() => { marabu.move_inst(1); },"Right");
     this.controller.add("default","Track","Prev Inst",() => { marabu.move_inst(-1) },"Left");
     this.controller.add("default","Track","Next Row",() => { marabu.move_row(1); },"Down");
@@ -112,6 +120,8 @@ function Marabu()
     this.controller.add("default","Instrument","Dec Control -1",() => { marabu.move_control_value(-1); },"{");
     this.controller.add("default","Instrument","Inc Control 10(alt)",() => { marabu.move_control_value(10); },"]");
     this.controller.add("default","Instrument","Dec Control -10(alt)",() => { marabu.move_control_value(-10); },"[");
+    this.controller.add("default","Instrument","Min",() => { marabu.move_control_min(); },"9");
+    this.controller.add("default","Instrument","Max",() => { marabu.move_control_max(); },"0");
     this.controller.add("default","Instrument","Keyframe",() => { marabu.add_control_value(); },"/");  
 
     this.controller.add("cheatcode","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
@@ -229,6 +239,12 @@ function Marabu()
     this.update();
   }
 
+  this.select_row = function(row)
+  {
+    this.selection.row = row;
+    this.update();    
+  }
+
   this.move_row = function(mod)
   {
     this.selection.row += mod;
@@ -267,6 +283,24 @@ function Marabu()
     control.mod(mod,relative);
     this.history.push(this.song.song());
     control.save();
+  }
+
+  this.move_control_min = function()
+  {
+    var control = this.instrument.control_target(this.selection.control);
+    control.value = control.min;
+    this.history.push(this.song.song());
+    control.save();
+    control.update();
+  }
+
+  this.move_control_max = function()
+  {
+    var control = this.instrument.control_target(this.selection.control);
+    control.value = control.max;
+    this.history.push(this.song.song());
+    control.save();
+    control.update();
   }
 
   this.add_control_value = function()

@@ -35,6 +35,16 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 - Undo: `CmdOrCtrl+Z`
 - Redo: `CmdOrCtrl+Shift+Z`
 
+### Select
+- 1st Row: `1`
+- 4th Row: `2`
+- 8th Row: `3`
+- 12th Row: `4`
+- 16th Row: `5`
+- 20th Row: `6`
+- 24th Row: `7`
+- 28th Row: `8`
+
 ### Track
 - Next Inst: `Right`
 - Prev Inst: `Left`
@@ -93,8 +103,9 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 - Dec Control -1: `{`
 - Inc Control 10(alt): `]`
 - Dec Control -10(alt): `[`
+- Min: `9`
+- Max: `0`
 - Keyframe: `/`
-
 
 ## cheatcode Mode
 
@@ -180,6 +191,7 @@ To change the **instrument controls**, use the arrow keys while `holding shift`.
 - A: `H`
 - A#: `U`
 - B: `J`
+- Skip: `Space`
 
 <img src='https://cdn.rawgit.com/hundredrabbits/Marabu/master/LAYOUT.svg?v=1' width="600"/>
 
