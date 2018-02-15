@@ -163,18 +163,21 @@ function Marabu()
     this.controller.add("loop","Edit","Copy",() => { marabu.loop.copy(); },"C");
     this.controller.add("loop","Edit","Paste",() => { marabu.loop.paste(); },"V");
     this.controller.add("loop","Edit","Delete",() => { marabu.loop.erase(); },"Backspace");
+    this.controller.add("loop","Select","Solo",() => { marabu.loop.solo(); },"/");
+    this.controller.add("loop","Select","1 Row",() => { marabu.loop.set_height(0); },"1");
+    this.controller.add("loop","Select","2 Rows",() => { marabu.loop.set_height(1); },"2");
+    this.controller.add("loop","Select","3 Rows",() => { marabu.loop.set_height(2); },"3");
+    this.controller.add("loop","Select","4 Rows",() => { marabu.loop.set_height(3); },"4");
+    this.controller.add("loop","Select","5 Rows",() => { marabu.loop.set_height(4); },"5");
+    this.controller.add("loop","Select","6 Rows",() => { marabu.loop.set_height(5); },"6");
+    this.controller.add("loop","Select","7 Rows",() => { marabu.loop.set_height(6); },"7");
+    this.controller.add("loop","Select","8 Rows",() => { marabu.loop.set_height(7); },"8");
+    this.controller.add("loop","Select","Inc",() => { marabu.loop.mod(1); },"Down");
+    this.controller.add("loop","Select","Dec",() => { marabu.loop.mod(-1); },"Up");
     this.controller.add("loop","Mode","Play",() => { marabu.loop.play(); },"Enter");
     this.controller.add("loop","Mode","Stop",() => { marabu.loop.stop(); },"Esc");
     this.controller.add("loop","Mode","render",() => { marabu.loop.render(); },"CmdOrCtrl+R");
-    this.controller.add("loop","Selection","Solo",() => { marabu.loop.solo(); },"/");
-    this.controller.add("loop","Selection","1 Row",() => { marabu.loop.set_height(0); },"1");
-    this.controller.add("loop","Selection","2 Rows",() => { marabu.loop.set_height(1); },"2");
-    this.controller.add("loop","Selection","3 Rows",() => { marabu.loop.set_height(2); },"3");
-    this.controller.add("loop","Selection","4 Rows",() => { marabu.loop.set_height(3); },"4");
-    this.controller.add("loop","Selection","5 Rows",() => { marabu.loop.set_height(4); },"5");
-    this.controller.add("loop","Selection","6 Rows",() => { marabu.loop.set_height(5); },"6");
-    this.controller.add("loop","Selection","7 Rows",() => { marabu.loop.set_height(6); },"7");
-    this.controller.add("loop","Selection","8 Rows",() => { marabu.loop.set_height(7); },"8");
+    
 
     this.controller.add("arp","*","Quit",() => { app.exit(); },"CmdOrCtrl+Q");
     this.controller.add("arp","Mode","Pause/Stop",() => { marabu.arp.stop(); },"Esc");

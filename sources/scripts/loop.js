@@ -33,6 +33,12 @@ function Loop()
     marabu.controller.set("default");
   }
 
+  this.mod = function(m)
+  {
+    this.height = clamp(this.height+m,0,(marabu.song.length-this.y)+3);
+    marabu.update();
+  }
+
   this.buffer = [];
 
   this.copy = function()
