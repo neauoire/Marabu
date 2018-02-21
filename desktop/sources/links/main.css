@@ -1,6 +1,6 @@
 body      { background:#000; -webkit-user-select: none;-webkit-app-region: drag; overflow: hidden; transition: background-color 500ms }
-yu        { display: block; font-family: 'input_mono_regular'; font-size:11px; line-height: 30px; vertical-align: top}
-list      { display: block }
+yu        { display: block; font-family: 'input_mono_regular'; font-size:11px; line-height: 30px; vertical-align: top; -webkit-app-region: no-drag; }
+yu:after  { display: table; content: ""; clear: both; }
 ln        { display: block;}
 ln i      { color:#999; }
 hl        { line-height: 29px; font-family: 'input_mono_medium'; display: block; border-bottom:1px solid black; }
