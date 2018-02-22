@@ -15,7 +15,7 @@ function Follower()
   {
     var t = marabu.song.mAudio_timer().currentTime();
 
-    if (marabu.song.mAudio().ended || (marabu.song.mAudio().duration && ((marabu.song.mAudio().duration - t) < 0.1))) {
+    if (marabu.song.mAudio().ended || (marabu.song.mAudio().duration && ((marabu.song.mAudio().duration - t) < 0.001))) {
       clearInterval(this.timer);
       this.timer = -1;
       marabu.instrument.controls.uv.monitor.draw(-1);
