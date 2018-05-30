@@ -20,10 +20,7 @@ function UI_Slider(data)
   this.el = document.createElement("div");
   this.name_el = document.createElement("t");
   this.value_el = document.createElement("t");
-  this.slide_el = document.createElement("div");    this.slide_el.className = "slide";
-  this.slide_bg_el = document.createElement("div"); this.slide_bg_el.className = "bg";
-  this.slide_fg_el = document.createElement("div"); this.slide_fg_el.className = "fg";
-  this.center_el = document.createElement("div"); this.center_el.className = "center";
+  this.slide_el = document.createElement("div"); this.slide_el.className = "slide";
 
   this.install = function(parent)
   {
@@ -34,14 +31,10 @@ function UI_Slider(data)
     this.name_el.innerHTML = this.name;
 
     // Value Input
-    this.value_el.className = "w2";
-    this.value_el.style.marginLeft = "10px";
+    this.value_el.className = "value";
     this.value_el.textContent = "--";
 
     this.el.appendChild(this.name_el);
-    this.slide_el.appendChild(this.slide_bg_el);
-    this.slide_el.appendChild(this.slide_fg_el);
-    this.slide_el.appendChild(this.center_el);
     this.el.appendChild(this.slide_el);
     this.el.appendChild(this.value_el);
 
@@ -76,52 +69,57 @@ function UI_Slider(data)
 
   this.update = function()
   {
-    this.el.className = app.selection.control == this.control ? `slider  control ${this.center ? 'center' : ''} bl` : `slider control ${this.center ? 'center' : ''}`;
-    this.name_el.className = app.selection.control == this.control ? "name fh" : "name fm";
-
     var val = parseInt(this.value) - parseInt(this.min);
     var over = parseFloat(this.max) - parseInt(this.min);
     var perc = val/parseFloat(over);
     var val_mod = this.center ? this.value - Math.floor(this.max/2) : this.value
+    var keyframe = this.last_keyframe();
 
-    if(this.center){
-      this.slide_fg_el.style.left = val_mod < 0 ? `${perc * 100}%` : `50%`;
-      this.slide_fg_el.style.width = val_mod < 0 ? `calc(50% - ${perc*100}%)` : `calc(${perc * 100}% - 50%)`;
-      this.center_el.style.left = `${perc * 100}%`;
-    }
-    else{
-      this.slide_fg_el.style.width = `${perc * 100}%`;  
-    }
-    
-    this.value_el.textContent = val_mod;
-    this.value_el.className = "fm ";
+    var c = ""
+    c = 'slider control '
+    c += app.selection.control == this.control ? 'selected ' : '';
+    c += keyframe ? 'keyframed ' : '';
+    c += this.value == this.min ? 'min ' : ''
+    c += this.value == this.max ? 'max ' : ''
 
-    if(this.value == this.min){ this.value_el.className = "fl "; }
-    else if(this.value == this.max){ this.value_el.className = "fh "; }
-
-    // Keyframes
-    if(this.has_keyframes()){
-      this.name_el.className = "name b_inv f_inv";
-    }
+    this.el.className = c;
+    this.value_el.textContent = app.selection.control != this.control && keyframe ? '$'+keyframe : (keyframe ? '$' : '')+val_mod;
+    this.update_display(perc);
   }
 
-  this.has_keyframes = function()
+  this.last_keyframe = function()
   {
     var i = app.selection.instrument;
-    var t = 0;
+    var t = app.selection.track;
     var f = this.storage;
-    while(t <= app.selection.track){
-      var r = 0;
-      while(r < 32){
+    while(t >= 0){
+      var r = app.selection.track == t ? app.selection.row : 32;
+      while(r >= 0){
         var cmd = app.song.effect_at(i,t,r)
         if(cmd == f+1){
           return app.song.effect_value_at(i,t,r);
         }
-        r += 1;
+        r -= 1;
       }
-      t += 1;
+      t -= 1;
     }
     return null;
+  }
+
+  this.update_display = function(perc)
+  {
+    var html = ""
+    var c = 0;
+    while(c < perc*80){
+      html += "-"
+      c += 10;
+    }
+    html = `<t class='fg'>${html}</t>`
+    while(c < 80){
+      html += "-"
+      c += 10
+    }
+    this.slide_el.innerHTML = `${html}`
   }
 
   this.mouse_down = function(e)
