@@ -16,7 +16,6 @@ function Editor(t,b)
     for(var r = 0; r < 32; r++) {
       tr = document.createElement("tr");
       tr.id = "ppr"+r;
-      tr.className = r % this.pattern.signature[1] == 0 ? " fm" : "";
       // Notes
       for (i = 0; i < marabu.channels; i++) {
         td = document.createElement("td");
@@ -134,17 +133,15 @@ function Editor(t,b)
     if(marabu.cheatcode.is_active && i == marabu.selection.instrument && marabu.cheatcode.selection[r] || effect.cmd){ classes.bg = "b_inv f_inv";  }
     else if(marabu.arp.is_active && marabu.arp.is_recording && i == marabu.selection.instrument && r >= marabu.selection.row && r <= marabu.selection.row+marabu.arp.memory.length){ classes.bg = "b_inv";  }
     else if(marabu.arp.is_active && !marabu.arp.is_recording && i == marabu.selection.instrument && r == marabu.selection.row){ classes.bg = "b_inv f_inv";  }
-    else if(r == marabu.selection.row){classes.bg = "bl";}
 
     if(marabu.cheatcode.is_active && i == marabu.selection.instrument && marabu.cheatcode.selection[r] || effect.cmd){ classes.fg = "f_inv";  }
     else if(marabu.arp.is_active && marabu.arp.is_recording && i == marabu.selection.instrument && r >= marabu.selection.row && r <= marabu.selection.row+marabu.arp.memory.length){ classes.fg = "f_inv";  }
     else if(marabu.arp.is_active && !marabu.arp.is_recording && i == marabu.selection.instrument && r == marabu.selection.row){ classes.fg = "b_inv f_inv";  }
-    else if(i == marabu.selection.instrument && r == marabu.selection.row){ classes.fg = "fh"; }
     else if(values.left || values.right){ classes.fg = "fm"; }
     else if(pattern > 0 && r % 4 == 0){ classes.fg = "fm";}
 
     // Highlights
-    if(r == marabu.selection.row && (values.left || values.right)){ classes.fg = "fh";}
+    if(r == marabu.selection.row && i == marabu.selection.instrument){ classes.fg = "selected";}
 
     // Compositor
     if(note){
@@ -154,7 +151,7 @@ function Editor(t,b)
       }
       else{
         strings.any = r % 4 == 0 ? ">-" : "--";
-        classes.fg = r % 4 == 0 ? "fm" : "fl"
+        classes.fg = r % 4 == 0 ? "beat" : ""
       }
     }
 
@@ -166,6 +163,10 @@ function Editor(t,b)
   this.update = function()
   {
     // Editor
+    for(var r = 0; r < 32; r++){
+      var row = document.getElementById("ppr"+r);
+      row.className = marabu.selection.row == r ? "selected" : ""
+    }
     for(var i = 0; i < marabu.channels; i++){
       var pattern = marabu.song.pattern_at(i,marabu.selection.track);
       for(var r = 0; r < 32; r++){

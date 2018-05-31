@@ -27,8 +27,7 @@ app { display: block; width:30px; height:30px; padding:30px; color:black; overfl
 .tracks tr:hover { color:#999}
 .tracks tr td { position:relative}
 .tracks td:hover { cursor:pointer}
-.tracks tr td:hover { cursor:pointer; color:#fff}
-.tracks td.selected { color:#fff}
+.tracks tr td:hover { cursor:pointer; }
 .tracks tr th { color:#555; font-family: 'input_mono_regular'; padding: 0 2.5px;}
 .tracks tr th:hover { cursor:pointer; color:#999}
 
@@ -45,6 +44,7 @@ app { display: block; width:30px; height:30px; padding:30px; color:black; overfl
 
 .control { height: 15px; overflow: hidden; }
 .control t.name { width:25px; display:inline-block; padding:0px 2.5px;text-align: center }
+.control t.value { display:inline-block; padding:0px 2.5px; }
 .control.slider { cursor: pointer; display: block; position:relative; }
 .control.slider.selected { position: relative; }
 .control.slider .slide { width:60px; height:15px; display: inline-block; position:relative; padding:0px 2.5px;}
@@ -65,8 +65,14 @@ body { background:var(--background) !important }
 .bl { background:var(--b_low) !important ; fill:var(--b_low) !important }
 .b_inv { background:var(--b_inv) !important ; fill:var(--b_inv) !important }
 .b { background:var(--background) !important }
-.control.slider .name { color:var(--f_med) !important; }
-.control.slider .value { color:var(--f_med) !important ; }
+
+#editor table tr.selected { background:var(--b_low) !important ; }
+#editor table tr.selected td { color:var(--f_med) !important; }
+#editor table tr.selected td.selected { color:var(--f_high) !important ; }
+#editor table td.beat { color:var(--f_med) !important; }
+
+.control .name { color:var(--f_med) !important; }
+.control .value { color:var(--f_med) !important ; }
 .control.slider.min .value { color:var(--f_low) !important ; }
 .control.slider.max .value { color:var(--f_high) !important ; }
 .control.slider.keyframed .name { background: var(--b_inv) !important; color: var(--f_inv) !important; }

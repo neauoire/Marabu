@@ -23,7 +23,7 @@ function UI_Choice(data)
     this.name_el.innerHTML = this.name;
 
     this.value_el.textContent = this.min+"/"+this.max;
-    this.value_el.className = "fh";
+    this.value_el.className = "value";
 
     this.el.appendChild(this.name_el);
     this.el.appendChild(this.value_el);
