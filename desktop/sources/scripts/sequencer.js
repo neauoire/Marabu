@@ -29,7 +29,7 @@ function Sequencer (terminal) {
   this.drawNotes = function () {
     let html = ''
     for (var i = 0; i < 16; i++) {
-      html += `<span class='note ${i === terminal.cursor.pos.y ? 'selected' : ''}'><span class='track ${i === terminal.cursor.track ? 'selected' : ''}'>0</span>--</span>`
+      html += `<span class='note ${i === terminal.cursor.pos.y ? 'selected' : ''}'><span class='track ${i === terminal.cursor.pos.t ? 'selected' : ''}'>0</span>--</span>`
     }
     return html
   }
