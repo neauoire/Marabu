@@ -1,81 +1,9 @@
-body      { background:#000; -webkit-user-select: none;-webkit-app-region: drag; overflow: hidden; transition: background-color 500ms }
-yu        { display: block; font-family: 'input_mono_regular'; font-size:11px; line-height: 30px; vertical-align: top; -webkit-app-region: no-drag; }
-yu:after  { display: table; content: ""; clear: both; }
-ln        { display: block;}
-ln i      { color:#999; }
-hl        { line-height: 29px; font-family: 'input_mono_medium'; display: block; border-bottom:1px solid black; }
-t         { vertical-align: top; display: inline-block; }
-svg       { display: inline-block; vertical-align: top }
-textarea  { background:none; padding:px 0px; line-height: 15px; overflow: hidden}
-b         { font-weight: normal; font-family: 'input_mono_medium'}
+body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-size: 11px; line-height: 15px; -webkit-app-region: drag; transition: background-color 500ms; overflow: hidden; color:white;}
 
-app { display: block; width:30px; height:30px; padding:30px; color:black; overflow: hidden; z-index:20; margin: calc(50vh - 270px) auto; transition: background-color 150ms, opacity 350ms; max-width: 830px; height: 480px; position: relative; opacity:0; width:calc(100% - 60px); }
+#terminal #sequencer { height: calc(100vh - 60px); position: absolute; left:30px; top:30px; }
+#terminal #sequencer .channel { float:left; height: calc(100vh - 60px); margin-right:2px; }
+#terminal #sequencer .channel .note { display: block }
 
-.tracks tr td { padding: 0 2.5px; color:#555}
-#instrument { width:130px; display:block; vertical-align:top; margin-left:15px; line-height:15px; overflow: hidden; position: absolute; right:25px;}
-#instrument > div > * { width:100%; cursor:pointer; }
-#instrument .family { margin-bottom:15px; }
-#sequencer { display:block; vertical-align:top; float:left; max-height: 465px; overflow:hidden; position: relative;}
-#sequencer tr td { padding:0px;}
-#sequencer tr td:first-child { padding-left:2.5px;}
-#sequencer tr td:last-child { padding-right:2.5px;}
-#scrollbar { background: #333;width: 1px;height: 0px;position: absolute;left: 161px;top: 30px; display: none }
-#editor { display:block; vertical-align:top; margin-left:15px; float:left; max-width: 571px; overflow: hidden; height:480px; max-width:calc(100% - 270px);}
-#editor #composer-table { width:550px; }
-#editor #pattern-table { width:550px; }
-.tracks * { line-height: 15px }
-.tracks tr:hover { color:#999}
-.tracks tr td { position:relative}
-.tracks td:hover { cursor:pointer}
-.tracks tr td:hover { cursor:pointer; }
-.tracks tr th { color:#555; font-family: 'input_mono_regular'; padding: 0 2.5px;}
-.tracks tr th:hover { cursor:pointer; color:#999}
+#terminal #commander { height: calc(100vh - 60px); position: absolute; left:440px; top:30px; }
+#terminal #commander .command {  }
 
-#editor.composer #composer-table { display: table; }
-#composer-table { width:100%; margin-top: -240px; transition: all 150ms; margin-bottom: 15px  }
-#composer-table tr td, #composer-table tr th { line-height: 15px; padding:0px; text-align: center }
-#editor.composer #composer-table { margin-top:0px; }
-#position { position: absolute;bottom: 30px;line-height: 15px;padding: 0px 2.5px;width: 110px;}
-
-.right { float:right; }
-.left { float:left; }
-.hide { display: none }
-.pointer { cursor:pointer; }
-
-.control { height: 15px; overflow: hidden; }
-.control t.name { width:25px; display:inline-block; padding:0px 2.5px;text-align: center }
-.control t.value { display:inline-block; padding:0px 2.5px; }
-.control.slider { cursor: pointer; display: block; position:relative; }
-.control.slider.selected { position: relative; }
-.control.slider .slide { width:60px; height:15px; display: inline-block; position:relative; padding:0px 2.5px;}
-.control.uv { height:60px; }
-
-/* Theme Defaults */
-
-:root { --background: "#222"; --f_high: "#fff";--f_med: "#777";--f_low: "#444";--f_inv: "#000";--b_high: "#000";--b_med: "#affec7";--b_low: "#000";--b_inv: "#affec7"; }  
-
-body { background:var(--background) !important }
-.fh { color:var(--f_high) !important; stroke:var(--f_high) !important }
-.fm { color:var(--f_med) !important ; stroke:var(--f_med) !important }
-.fl { color:var(--f_low) !important ; stroke:var(--f_low) !important }
-.f_inv { color:var(--f_inv) !important ; stroke:var(--f_inv) !important }
-.f_inv { color:var(--f_inv) !important ; stroke:var(--f_inv) !important }
-.bh { background:var(--b_high) !important; fill:var(--b_high) !important }
-.bm { background:var(--b_med) !important ; fill:var(--b_med) !important }
-.bl { background:var(--b_low) !important ; fill:var(--b_low) !important }
-.b_inv { background:var(--b_inv) !important ; fill:var(--b_inv) !important }
-.b { background:var(--background) !important }
-
-#editor table tr.selected { background:var(--b_low) !important ; }
-#editor table tr.selected td { color:var(--f_med) !important; }
-#editor table tr.selected td.selected { color:var(--f_high) !important ; }
-#editor table td.beat { color:var(--f_med) !important; }
-
-.control .name { color:var(--f_med) !important; }
-.control .value { color:var(--f_med) !important ; }
-.control.slider.min .value { color:var(--f_low) !important ; }
-.control.slider.max .value { color:var(--f_high) !important ; }
-.control.slider.keyframed .name { background: var(--b_inv) !important; color: var(--f_inv) !important; }
-.control.slider .slide { color:var(--f_low) !important; }
-.control.slider .slide .fg { color:var(--f_high) !important }
-.control.slider.selected { background:var(--b_low) !important; }
