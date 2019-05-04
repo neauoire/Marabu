@@ -103,12 +103,12 @@ function Cursor (terminal) {
   }
 
   this.getLoop = function () {
-    return terminal.track.get(this.pos.x, this.pos.t)
+    return terminal.track.getLoop(this.pos.x, this.pos.t)
   }
 
   this.loopMod = function (mod) {
     this.pos.t = this.pos.y
-    terminal.track.set(this.pos.x, this.pos.y, terminal.track.get(this.pos.x, this.pos.y) + mod)
+    terminal.track.setLoop(this.pos.x, this.pos.y, terminal.track.getLoop(this.pos.x, this.pos.y) + mod)
     terminal.update()
   }
 

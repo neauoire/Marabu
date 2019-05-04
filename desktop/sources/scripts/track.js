@@ -23,11 +23,15 @@ function Track (terminal) {
 
   // Loop
 
-  this.get = function (channel, loop) {
+  this.getLoop = function (channel, loop) {
+    if (this.data.channels[channel] === null) { console.warn(`Unknown channel ${channel}`); return }
+    if (this.data.channels[channel].loops[loop] === null) { console.warn(`Unknown channel ${channel}`); return }
     return this.data.channels[channel].loops[loop]
   }
 
-  this.set = function (channel, loop, val) {
+  this.setLoop = function (channel, loop, val) {
+    if (this.data.channels[channel] === null) { console.warn(`Unknown channel ${channel}`); return }
+    if (this.data.channels[channel].loops[loop] === null) { console.warn(`Unknown channel ${channel}`); return }
     this.data.channels[channel].loops[loop] = clamp(val, 0, 15)
   }
 
@@ -65,8 +69,8 @@ function Track (terminal) {
 
   this.stack = function () {
     const a = []
-    for (const channel in this.data) {
-      const loop = this.get(channel, terminal.cursor.pos.t)
+    for (const channel in this.data.channels) {
+      const loop = this.getLoop(channel, terminal.cursor.pos.t)
       const data = this.read(channel, loop, terminal.cursor.pos.y)
       const octave = data.substr(0, 1)
       const note = data.substr(1, 1)
