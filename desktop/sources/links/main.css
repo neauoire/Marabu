@@ -5,6 +5,7 @@ body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-
 #terminal #sequencer .channel.selected { color:#ccc; }
 #terminal #sequencer .channel .note { display: block }
 #terminal #sequencer .channel.selected .note.selected { color:red; }
+#terminal #sequencer .channel .track.selected { color:yellow; }
 
 #terminal #commander { height: calc(100vh - 60px); position: absolute; left:440px; top:30px; }
 #terminal #commander .command {  }
