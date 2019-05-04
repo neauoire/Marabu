@@ -82,6 +82,8 @@ function Terminal () {
     if (event.keyCode === 37) { this.onArrowLeft(event.shiftKey, (event.metaKey || event.ctrlKey), event.altKey); event.preventDefault(); return }
     if (event.keyCode === 39) { this.onArrowRight(event.shiftKey, (event.metaKey || event.ctrlKey), event.altKey); event.preventDefault(); return }
 
+    if (event.keyCode === 27) { this.cursor.reset(); this.cursor.stop() }
+
     // Write mode
     if (this.cursor.mode === 0) {
       if (event.keyCode === 65) { this.cursor.inject('C'); event.preventDefault() }
@@ -104,7 +106,6 @@ function Terminal () {
       if (event.keyCode === 221) { this.cursor.loopMod(1); event.preventDefault() }
       if (event.keyCode === 219) { this.cursor.loopMod(-1); event.preventDefault() }
 
-      if (event.keyCode === 27) { this.cursor.reset(); this.cursor.stop(); event.preventDefault() }
       if (event.keyCode === 8) { this.cursor.erase(); event.preventDefault() }
     }
 
