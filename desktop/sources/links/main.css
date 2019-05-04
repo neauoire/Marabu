@@ -2,9 +2,8 @@ body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-
 
 #terminal #sequencer { height: calc(100vh - 60px); display: inline-block; vertical-align: top; }
 #terminal #sequencer .channel { float:left; height: calc(100vh - 60px); margin-right:2px; }
-#terminal #sequencer .channel.sel .name { font-family: 'input_mono_medium'; }
+#terminal #sequencer .channel .name { color:#666; font-family: 'input_mono_medium';}
 #terminal #sequencer .channel.sel .name.sel { color:white; }
-#terminal #sequencer .channel .name { color:#666; }
 #terminal #sequencer .channel .note { display: block }
 #terminal #sequencer .channel .note.empty { color:#666; }
 #terminal #sequencer .channel .note.head { color:#fff; }
@@ -12,5 +11,5 @@ body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-
 #terminal #sequencer .channel .track.sel { color:#fff; }
 
 #terminal #commander { height: calc(100vh - 60px); display: inline-block; vertical-align: top; margin-left:5px; }
-#terminal #commander .name { color:#666; }
+#terminal #commander .name { color:#666; font-family: 'input_mono_medium';}
 #terminal #commander .command.empty { color:#666; }

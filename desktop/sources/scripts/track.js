@@ -19,7 +19,6 @@ function Track (terminal) {
     if (this.data[channel] === null) { console.warn(`Unknown channel ${channel}`); return }
     if (this.data[channel].tracks[loop] === null) { console.warn(`Unknown loop ${loop}`); return }
     if (this.data[channel].tracks[loop][cell] === null) { console.warn(`Unknown cell ${cell}`); return }
-    console.log('Track', `${channel}/${loop} ${cell} -> ${val}`)
     this.data[channel].tracks[loop][cell] = val
   }
 

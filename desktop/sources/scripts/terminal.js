@@ -4,8 +4,10 @@ const Cursor = require('./cursor')
 const Track = require('./track')
 const Sequencer = require('./sequencer')
 const Commander = require('./commander')
+
 const Udp = require('./lib/udp')
 const Controller = require('./lib/controller')
+const Theme = require('./lib/theme')
 
 function Terminal () {
   this.cursor = new Cursor(this)
@@ -15,6 +17,8 @@ function Terminal () {
   this.udp = new Udp(this)
   this.controller = new Controller()
 
+  this.theme = new Theme({ background: '#000000', f_high: '#ffffff', f_med: '#777777', f_low: '#444444', f_inv: '#000000', b_high: '#eeeeee', b_med: '#72dec2', b_low: '#444444', b_inv: '#ffb545' })
+
   this.el = document.createElement('div')
   this.el.id = 'terminal'
 
@@ -23,10 +27,12 @@ function Terminal () {
     this.sequencer.install(this.el)
     this.commander.install(this.el)
     host.appendChild(this.el)
+    this.theme.install(host)
   }
 
   this.start = function () {
     console.info('Terminal', 'Starting..')
+    this.theme.start()
     this.track.new()
 
     this.sequencer.start()

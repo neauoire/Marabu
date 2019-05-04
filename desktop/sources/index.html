@@ -12,8 +12,46 @@
       const app = require('electron').remote.app
       const Terminal = require('./scripts/terminal')
       const terminal = new Terminal()
+
       terminal.install()
-      terminal.start()
+
+      terminal.controller.add("default","*","About",() => { require('electron').shell.openExternal('https://github.com/hundredrabbits/Marabu') },"CmdOrCtrl+,")
+      terminal.controller.add("default","*","Fullscreen",() => { app.toggleFullscreen() },"CmdOrCtrl+Enter")
+      terminal.controller.add("default","*","Hide",() => { app.toggleVisible() },"CmdOrCtrl+H")
+      terminal.controller.add("default","*","Toggle Menubar",() => { app.toggleMenubar() },"Alt+H")
+      terminal.controller.add("default","*","Inspect",() => { app.inspect() },"CmdOrCtrl+.")
+      terminal.controller.add("default","*","Reset",() => { terminal.reset() },"CmdOrCtrl+Backspace")
+      terminal.controller.add("default","*","Quit",() => { app.exit() },"CmdOrCtrl+Q")
+
+      terminal.controller.add("default","File","New",() => { terminal.source.new() },"CmdOrCtrl+N")
+      terminal.controller.add("default","File","Save",() => { terminal.source.save() },"CmdOrCtrl+S")
+      terminal.controller.add("default","File","Save As",() => { terminal.source.saveAs() },"CmdOrCtrl+Shift+S")
+      terminal.controller.add("default","File","Open",() => { terminal.source.open() },"CmdOrCtrl+O")
+      terminal.controller.add("default","File","Resume",() => { terminal.source.resume() })
+      terminal.controller.add("default","File","Revert",() => { terminal.source.revert() },"CmdOrCtrl+W")
+
+      terminal.controller.add("default","Edit","Toggle Insert Mode",() => { terminal.cursor.toggleMode(1) },"CmdOrCtrl+I")
+      terminal.controller.add("default","Edit","Select All",() => { terminal.cursor.selectAll() },"CmdOrCtrl+A")
+      terminal.controller.add("default","Edit","Erase Selection",() => { terminal.cursor.erase() },"Backspace")
+      terminal.controller.add("default","Edit","Copy Selection",() => { terminal.cursor.copy() },"CmdOrCtrl+C")
+      terminal.controller.add("default","Edit","Cut Selection",() => { terminal.cursor.cut() },"CmdOrCtrl+X")
+      terminal.controller.add("default","Edit","Paste Selection",() => { terminal.cursor.paste() },"CmdOrCtrl+V")
+
+      terminal.controller.add("default","Clock","Play/Pause",() => { terminal.cursor.togglePlay() },"Space")
+      
+      terminal.controller.add("default","View","Toggle Commander",() => { terminal.commander.select() },"CmdOrCtrl+K")
+      terminal.controller.add("default","View","Run Commander",() => { terminal.commander.run() },"Enter")
+
+      terminal.controller.add("default","UDP","Default")
+
+      terminal.controller.add("default","Theme","Open Theme",() => { terminal.theme.open() },"CmdOrCtrl+Shift+O")
+      terminal.controller.add("default","Theme","Reset Theme",() => { terminal.theme.reset() },"CmdOrCtrl+Shift+Backspace")
+      terminal.controller.addSpacer('default', 'Theme', 'Download')
+      terminal.controller.add("default","Theme","Download Themes..",() => { require('electron').shell.openExternal('https://github.com/hundredrabbits/Themes') })
+
+      terminal.controller.commit()
+
+      window.addEventListener('load', () => { terminal.start(); })
     </script>
   </body>
 </html>
