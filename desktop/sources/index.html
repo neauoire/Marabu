@@ -6,40 +6,14 @@
     <link rel="stylesheet" href="links/reset.css"/>
     <link rel="stylesheet" href="links/fonts.css"/>
     <link rel="stylesheet" href="links/main.css"/>
-
-    <script src="scripts/ui/slider.js"></script>
-    <script src="scripts/ui/choice.js"></script>
-    <script src="scripts/ui/uv.js"></script>
-
-    <script src="scripts/core/oscillator.js"></script>
-    <script src="scripts/core/signal.js"></script>
-    <script src="scripts/core/jammer.js"></script>
-    <script src="scripts/core/player.js"></script>
-
-    <script src="scripts/lib/theme.js"></script>
-    <script src="scripts/lib/controller.js"></script>
-    <script src="scripts/lib/history.js"></script>
-
-    <script src="scripts/track.js"></script>
-    <script src="scripts/song.js"></script>
-    <script src="scripts/instrument.js"></script>
-    <script src="scripts/editor.js"></script>
-    <script src="scripts/sequencer.js"></script>
-
-    <script src="scripts/follower.js"></script>
-    <script src="scripts/cheatcode.js"></script>
-    <script src="scripts/loop.js"></script>
-    <script src="scripts/arp.js"></script>
-
-    <script src="scripts/marabu.js"></script>
   </head>
   <body>
     <script>
-      const {dialog,app} = require('electron').remote;
-      const fs = require('fs');
-
-      var marabu = new Marabu();
-      marabu.start();
+      const app = require('electron').remote.app
+      const Terminal = require('./scripts/terminal')
+      const terminal = new Terminal()
+      terminal.install()
+      terminal.start()
     </script>
   </body>
 </html>
