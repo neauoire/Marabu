@@ -20,16 +20,18 @@ function Sequencer (terminal) {
 
   this.drawChannels = function () {
     let html = ''
-    for (var i = 0; i < 16; i++) {
-      html += `<div class='channel ${i === terminal.cursor.pos.x ? 'selected' : ''}'>${i.toString(16).toUpperCase()}${this.drawNotes()}</div>`
+    for (var channel = 0; channel < 16; channel++) {
+      html += `<div class='channel ${channel === terminal.cursor.pos.x ? 'selected' : ''}'>${channel.toString(16).toUpperCase()}${this.drawNotes(channel)}</div>`
     }
     return html
   }
 
-  this.drawNotes = function () {
+  this.drawNotes = function (channel) {
     let html = ''
-    for (var i = 0; i < 16; i++) {
-      html += `<span class='note ${i === terminal.cursor.pos.y ? 'selected' : ''}'><span class='track ${i === terminal.cursor.pos.t ? 'selected' : ''}'>0</span>--</span>`
+    for (var cell = 0; cell < 16; cell++) {
+      const loop = 0
+      const note = terminal.track.read(channel, loop, cell)
+      html += `<span class='note ${cell === terminal.cursor.pos.y ? 'selected' : ''}'><span class='track ${cell === terminal.cursor.pos.t ? 'selected' : ''}'>${loop}</span>${note ? note : cell % 4 === 0 ? '--' : '..'}</span>`
     }
     return html
   }

@@ -32,7 +32,7 @@ function Cursor (terminal) {
   }
 
   this.inject = function (note, octave = this.octave) {
-    terminal.track.write(this.pos.x, this.pos.y, this.pos.t, `${octave}${note}`)
+    terminal.track.write(this.pos.x, 0, this.pos.y, `${octave}${note}`)
     terminal.update()
   }
 
