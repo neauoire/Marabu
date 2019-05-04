@@ -16,6 +16,7 @@ function Cursor (terminal) {
 
   this.reset = function () {
     if (this.pos.y === 0) { this.pos.t = 0 } else { this.pos.y = 0 }
+    this.mode = 0)
     terminal.update()
   }
 

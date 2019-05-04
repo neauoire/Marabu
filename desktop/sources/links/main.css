@@ -13,3 +13,4 @@ body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-
 #terminal #commander { height: calc(100vh - 60px); display: inline-block; vertical-align: top; margin-left:5px; }
 #terminal #commander .name { color:#666; font-family: 'input_mono_medium';}
 #terminal #commander .command.empty { color:#666; }
+#terminal #commander .command.sel { color:#fff; }
