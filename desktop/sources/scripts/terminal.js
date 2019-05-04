@@ -107,6 +107,8 @@ function Terminal () {
       if (event.keyCode === 219) { this.cursor.loopMod(-1); event.preventDefault() }
 
       if (event.keyCode === 8) { this.cursor.erase(); event.preventDefault() }
+    } else if (this.cursor.mode === 1) {
+      this.commander.inject(event.key)
     }
 
     if (event.keyCode === 32) { this.cursor.togglePlay(); event.preventDefault() }
