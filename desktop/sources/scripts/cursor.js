@@ -40,6 +40,12 @@ function Cursor (terminal) {
     this.octave = clamp(this.octave + mod, 0, 8)
   }
 
+  this.loopMod = function (mod) {
+    const loop = terminal.track.get(this.pos.x, this.pos.x)
+    terminal.track.set(this.pos.x, this.pos.y, loop + mod)
+    terminal.update()
+  }
+
   function clamp (v, min, max) { return v < min ? min : v > max ? max : v }
 }
 

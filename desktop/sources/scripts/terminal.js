@@ -68,6 +68,7 @@ function Terminal () {
     if (event.keyCode === 37) { this.onArrowLeft(event.shiftKey, (event.metaKey || event.ctrlKey), event.altKey); return }
     if (event.keyCode === 39) { this.onArrowRight(event.shiftKey, (event.metaKey || event.ctrlKey), event.altKey); return }
 
+    // Write mode
     if (this.cursor.mode === 0) {
       if (event.keyCode === 65) { this.cursor.inject('C') }
       if (event.keyCode === 83) { this.cursor.inject('D') }
@@ -85,8 +86,11 @@ function Terminal () {
 
       if (event.keyCode === 88) { this.cursor.octaveMod(1) }
       if (event.keyCode === 90) { this.cursor.octaveMod(-1) }
+
+      if (event.keyCode === 221) { this.cursor.loopMod(1) }
+      if (event.keyCode === 219) { this.cursor.loopMod(-1) }
     }
-    console.log(event.keyCode)
+    // console.log(event.keyCode)
   }
 
   document.onkeydown = (event) => { this.onKeyDown(event) }

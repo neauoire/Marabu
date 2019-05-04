@@ -7,6 +7,14 @@ function Track (terminal) {
     this.clear()
   }
 
+  this.get = function (channel, loop) {
+    return this.data[channel].loops[loop]
+  }
+
+  this.set = function (channel, loop, val) {
+    this.data[channel].loops[loop] = clamp(val, 0, 15)
+  }
+
   this.write = function (channel, loop, cell, val) {
     if (this.data[channel] === null) { console.warn(`Unknown channel ${channel}`); return }
     if (this.data[channel].tracks[loop] === null) { console.warn(`Unknown loop ${loop}`); return }
@@ -18,7 +26,7 @@ function Track (terminal) {
   this.read = function (channel, loop, cell) {
     if (this.data[channel] === null) { console.warn(`Unknown channel ${channel}`); return }
     if (this.data[channel].tracks[loop] === null) { console.warn(`Unknown loop ${loop}`); return }
-    if (this.data[channel].tracks[loop][cell] === null) { console.warn(`Unknown cell ${cell}`, this.data[channel].tracks[loop][cell]); return }
+    if (this.data[channel].tracks[loop][cell] === null) { console.warn(`Unknown cell ${cell}`); return }
     return this.data[channel].tracks[loop][cell]
   }
 
@@ -33,6 +41,8 @@ function Track (terminal) {
     }
     this.data = channels
   }
+
+  function clamp (v, min, max) { return v < min ? min : v > max ? max : v }
 }
 
 module.exports = Track

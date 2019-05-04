@@ -30,7 +30,7 @@ function Sequencer (terminal) {
   this.drawNotes = function (channel) {
     let html = ''
     for (var cell = 0; cell < 16; cell++) {
-      const loop = 0
+      const loop = terminal.track.get(channel, cell)
       const note = terminal.track.read(channel, loop, cell)
       const isEmpty = !note
       const isSelected = cell === terminal.cursor.pos.y && channel === terminal.cursor.pos.x
