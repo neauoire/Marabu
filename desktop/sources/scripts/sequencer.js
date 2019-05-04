@@ -1,6 +1,6 @@
 'use strict'
 
-function Sequencer () {
+function Sequencer (terminal) {
   this.el = document.createElement('div')
   this.el.id = 'sequencer'
 
@@ -21,7 +21,7 @@ function Sequencer () {
   this.drawChannels = function () {
     let html = ''
     for (var i = 0; i < 16; i++) {
-      html += `<div class='channel'>${i.toString(16).toUpperCase()}${this.drawNotes()}</div>`
+      html += `<div class='channel ${i === terminal.cursor.pos.x ? 'selected' : ''}'>${i.toString(16).toUpperCase()}${this.drawNotes()}</div>`
     }
     return html
   }
@@ -29,7 +29,7 @@ function Sequencer () {
   this.drawNotes = function () {
     let html = ''
     for (var i = 0; i < 16; i++) {
-      html += `<span class='note'>0--</span>`
+      html += `<span class='note ${i === terminal.cursor.pos.y ? 'selected' : ''}'>0--</span>`
     }
     return html
   }
