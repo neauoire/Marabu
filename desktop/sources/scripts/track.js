@@ -69,13 +69,24 @@ function Track (terminal) {
 
   this.stack = function () {
     const a = []
+
+    // command
+    const command = this.getCommand(terminal.cursor.pos.t,terminal.cursor.pos.y)
+    if(command){
+      a.push(command)
+    }
+
+    // Notes
     for (const channel in this.data.channels) {
       const loop = this.getLoop(channel, terminal.cursor.pos.t)
       const data = this.read(channel, loop, terminal.cursor.pos.y)
+      if(!data){ continue }
       const octave = data.substr(0, 1)
       const note = data.substr(1, 1)
-      a.push(`${channel}${octave}${note}`)
+      const msg = `${parseInt(channel).toString(16).toUpperCase()}${octave}${note}`
+      a.push(msg)
     }
+
     return a
   }
 
