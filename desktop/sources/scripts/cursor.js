@@ -68,6 +68,7 @@ function Cursor (terminal) {
   this.play = function () {
     this.isPlaying = true
     this.setTimer(this.speed)
+    terminal.udp.play(`bpm${this.speed}`)
   }
 
   this.stop = function () {
