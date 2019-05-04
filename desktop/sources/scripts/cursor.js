@@ -70,6 +70,7 @@ function Cursor (terminal) {
 
   this.stop = function () {
     this.isPlaying = false
+    this.clearTimer()
   }
 
   this.run = function () {
