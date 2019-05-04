@@ -91,6 +91,7 @@ function Terminal () {
       if (event.keyCode === 219) { this.cursor.loopMod(-1) }
 
       if (event.keyCode === 27) { this.cursor.reset() }
+      if (event.keyCode === 8) { this.cursor.erase() }
     }
     console.log(event.keyCode)
   }

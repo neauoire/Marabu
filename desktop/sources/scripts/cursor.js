@@ -45,6 +45,11 @@ function Cursor (terminal) {
     terminal.update()
   }
 
+  this.erase = function () {
+    terminal.track.write(this.pos.x, 0, this.pos.y, '')
+    terminal.update()
+  }
+
   this.octaveMod = function (mod) {
     this.octave = clamp(this.octave + mod, 0, 8)
   }
