@@ -19,9 +19,9 @@ function Commander () {
   }
 
   this.drawCommands = function () {
-    let html = `<div class='command'>CMD</div>`
+    let html = `<div class='name'>CMD</div>`
     for (var i = 0; i < 16; i++) {
-      html += `<div class='command'>----</div>`
+      html += `<div class='command empty'>----</div>`
     }
     return html
   }
