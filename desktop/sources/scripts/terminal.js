@@ -48,6 +48,7 @@ function Terminal () {
     } else {
       this.cursor.move(0, -1)
     }
+    this.cursor.stop()
   }
 
   this.onArrowDown = function (mod = false, skip = false, drag = false) {
@@ -56,6 +57,7 @@ function Terminal () {
     } else {
       this.cursor.move(0, 1)
     }
+    this.cursor.stop()
   }
 
   this.onArrowLeft = function (mod = false, skip = false, drag = false) {

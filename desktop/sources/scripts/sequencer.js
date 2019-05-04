@@ -37,7 +37,8 @@ function Sequencer (terminal) {
       const isEmpty = !note
       const isSelected = cell === terminal.cursor.pos.y && channel === terminal.cursor.pos.x
       const content = isEmpty && isSelected ? '> ' : note || ((cell % 4 === 0) ? '--' : '..')
-      html += `<span class='note ${!note ? 'empty' : ''} ${cell === terminal.cursor.pos.y ? 'sel' : ''}'><span class='track ${cell === terminal.cursor.pos.t || isSelected ? 'sel' : ''}'>${terminal.track.get(channel, cell).toString(16).toUpperCase()}</span>${content}</span>`
+      const isHead = terminal.cursor.isPlaying === true && terminal.cursor.pos.y === cell
+      html += `<span class='note ${isHead ? 'head' : ''} ${!note ? 'empty' : ''} ${cell === terminal.cursor.pos.y ? 'sel' : ''}'><span class='track ${cell === terminal.cursor.pos.t || isSelected ? 'sel' : ''}'>${terminal.track.get(channel, cell).toString(16).toUpperCase()}</span>${content}</span>`
     }
     return html
   }

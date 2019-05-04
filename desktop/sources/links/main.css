@@ -7,6 +7,7 @@ body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-
 #terminal #sequencer .channel .name { color:#666; }
 #terminal #sequencer .channel .note { display: block }
 #terminal #sequencer .channel .note.empty { color:#666; }
+#terminal #sequencer .channel .note.head { color:#fff; }
 #terminal #sequencer .channel .track { font-family: 'input_mono_medium'; color:#666;}
 #terminal #sequencer .channel .track.sel { color:#fff; }
 

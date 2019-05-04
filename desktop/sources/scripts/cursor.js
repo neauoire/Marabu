@@ -71,6 +71,7 @@ function Cursor (terminal) {
   this.stop = function () {
     this.isPlaying = false
     this.clearTimer()
+    terminal.update()
   }
 
   this.run = function () {
