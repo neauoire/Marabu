@@ -11,6 +11,15 @@ function Cursor (terminal) {
   this.start = function () {
   }
 
+  this.reset = function () {
+    if (this.pos.y === 0) { this.pos.y = 0 } else { this.pos.y = 0 }
+    terminal.update()
+  }
+
+  this.goto = function (x = this.pos.x, y = this.pos.y) {
+    this.pos = { x: clamp(x, 0, 15), y: clamp(y, 0, 15), t: clamp(this.pos.t, 0, 15) }
+  }
+
   this.move = function (x = 0, y = 0, track = 0) {
     if (track !== 0) {
       this.pos.t += track

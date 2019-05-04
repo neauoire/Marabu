@@ -5,6 +5,7 @@ body { background:black; padding: 30px; font-family: 'input_mono_regular'; font-
 #terminal #sequencer .channel.selected .name { font-family: 'input_mono_medium'; }
 #terminal #sequencer .channel .note { display: block }
 #terminal #sequencer .channel .note.empty { color:#666; }
+#terminal #sequencer .channel.selected .note.selected { color:#fff; }
 #terminal #sequencer .channel .track { font-family: 'input_mono_medium'; color:#666;}
 #terminal #sequencer .channel .track.selected { color:#fff; }
 

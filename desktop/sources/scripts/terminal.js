@@ -89,8 +89,10 @@ function Terminal () {
 
       if (event.keyCode === 221) { this.cursor.loopMod(1) }
       if (event.keyCode === 219) { this.cursor.loopMod(-1) }
+
+      if (event.keyCode === 27) { this.cursor.reset() }
     }
-    // console.log(event.keyCode)
+    console.log(event.keyCode)
   }
 
   document.onkeydown = (event) => { this.onKeyDown(event) }
