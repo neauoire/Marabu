@@ -43,7 +43,7 @@ function Commander (terminal) {
   }
 
   this.drawCommands = function () {
-    let html = `<div class='name'>CMD</div>`
+    let html = `<div class='name'>CMD ${terminal.cursor.speed}</div>`
     for (var i = 0; i < 16; i++) {
       const content = terminal.track.getCommand(terminal.cursor.pos.t, i)
       html += `<div class='command empty ${i === terminal.cursor.pos.y && terminal.cursor.mode === 1 ? 'sel' : ''}'>${content || '-'}</div>`

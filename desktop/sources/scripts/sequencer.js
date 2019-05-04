@@ -36,7 +36,7 @@ function Sequencer (terminal) {
       const note = terminal.track.read(channel, loop, cell)
       const isEmpty = !note
       const isSelected = cell === terminal.cursor.pos.y && channel === terminal.cursor.pos.x
-      const content = isEmpty && isSelected ? '> ' : note || ((cell % 4 === 0) ? '--' : '..')
+      const content = isEmpty && isSelected ? '>.' : note || ((cell % 4 === 0) ? '--' : '..')
       const isHead = terminal.cursor.isPlaying === true && terminal.cursor.pos.y === cell
       html += `<span class='note ${isHead ? 'head' : ''} ${!note ? 'empty' : ''} ${cell === terminal.cursor.pos.y ? 'sel' : ''}'><span class='track ${cell === terminal.cursor.pos.t || isSelected ? 'sel' : ''}'>${terminal.track.getLoop(channel, cell).toString(16).toUpperCase()}</span>${content}</span>`
     }

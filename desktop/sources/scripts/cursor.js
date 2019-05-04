@@ -7,6 +7,7 @@ function Cursor (terminal) {
 
   this.isPlaying = false
   this.timer = null
+  this.speed = 120
 
   this.install = function (host = document.body) {
   }
@@ -66,7 +67,7 @@ function Cursor (terminal) {
 
   this.play = function () {
     this.isPlaying = true
-    this.setTimer(120)
+    this.setTimer(this.speed)
   }
 
   this.stop = function () {
@@ -107,8 +108,13 @@ function Cursor (terminal) {
   }
 
   this.loopMod = function (mod) {
-    this.pos.t = this.pos.y
+    this.pos.y = this.pos.t
     terminal.track.setLoop(this.pos.x, this.pos.y, terminal.track.getLoop(this.pos.x, this.pos.y) + mod)
+    terminal.update()
+  }
+
+  this.speedMod = function (mod) {
+    this.speed += mod
     terminal.update()
   }
 
