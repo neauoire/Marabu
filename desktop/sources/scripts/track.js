@@ -42,6 +42,18 @@ function Track (terminal) {
     this.data = channels
   }
 
+  this.stack = function () {
+    const a = []
+    for (const channel in this.data) {
+      const loop = this.get(channel, terminal.cursor.pos.t)
+      const data = this.read(channel, loop, terminal.cursor.pos.y)
+      const octave = data.substr(0, 1)
+      const note = data.substr(1, 1)
+      a.push(`${channel}${octave}${note}`)
+    }
+    return a
+  }
+
   function clamp (v, min, max) { return v < min ? min : v > max ? max : v }
 }
 

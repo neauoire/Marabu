@@ -5,6 +5,9 @@ function Cursor (terminal) {
   this.pos = { x: 0, y: 0, t: 0 }
   this.octave = 3
 
+  this.isPlaying = false
+  this.timer = null
+
   this.install = function (host = document.body) {
   }
 
@@ -18,6 +21,16 @@ function Cursor (terminal) {
 
   this.goto = function (x = this.pos.x, y = this.pos.y) {
     this.pos = { x: clamp(x, 0, 15), y: clamp(y, 0, 15), t: clamp(this.pos.t, 0, 15) }
+  }
+
+  this.inject = function (note, octave = this.octave) {
+    terminal.track.write(this.pos.x, this.getLoop(), this.pos.y, `${octave}${note}`)
+    terminal.update()
+  }
+
+  this.erase = function () {
+    terminal.track.write(this.pos.x, 0, this.pos.y, '')
+    terminal.update()
   }
 
   this.move = function (x = 0, y = 0, track = 0) {
@@ -40,15 +53,47 @@ function Cursor (terminal) {
     terminal.update()
   }
 
-  this.inject = function (note, octave = this.octave) {
-    terminal.track.write(this.pos.x, this.getLoop(), this.pos.y, `${octave}${note}`)
-    terminal.update()
+  // Playing
+
+  this.togglePlay = function () {
+    if (this.isPlaying === true) {
+      this.stop()
+    } else {
+      this.play()
+    }
   }
 
-  this.erase = function () {
-    terminal.track.write(this.pos.x, 0, this.pos.y, '')
-    terminal.update()
+  this.play = function () {
+    this.isPlaying = true
+    this.setTimer(120)
   }
+
+  this.stop = function () {
+    this.isPlaying = false
+  }
+
+  this.run = function () {
+    terminal.udp.clear()
+    terminal.udp.stack = terminal.track.stack()
+    terminal.udp.run()
+    this.move(0, 1)
+  }
+
+  // Timers
+
+  this.clearTimer = function () {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  }
+
+  this.setTimer = function (bpm) {
+    console.log('Clock', `Setting new ${bpm} timer..`)
+    this.clearTimer()
+    this.timer = setInterval(() => { this.run() }, (60000 / bpm) / 4)
+  }
+
+  // tools
 
   this.octaveMod = function (mod) {
     this.octave = clamp(this.octave + mod, 0, 8)

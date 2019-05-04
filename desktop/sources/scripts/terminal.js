@@ -4,12 +4,16 @@ const Cursor = require('./cursor')
 const Track = require('./track')
 const Sequencer = require('./sequencer')
 const Commander = require('./commander')
+const Udp = require('./lib/udp')
+const Controller = require('./lib/controller')
 
 function Terminal () {
   this.cursor = new Cursor(this)
   this.sequencer = new Sequencer(this)
   this.commander = new Commander(this)
   this.track = new Track(this)
+  this.udp = new Udp(this)
+  this.controller = new Controller()
 
   this.el = document.createElement('div')
   this.el.id = 'terminal'
@@ -27,6 +31,8 @@ function Terminal () {
 
     this.sequencer.start()
     this.commander.start()
+
+    this.udp.start()
   }
 
   this.update = function () {
@@ -90,10 +96,12 @@ function Terminal () {
       if (event.keyCode === 221) { this.cursor.loopMod(1) }
       if (event.keyCode === 219) { this.cursor.loopMod(-1) }
 
-      if (event.keyCode === 27) { this.cursor.reset() }
+      if (event.keyCode === 27) { this.cursor.reset(); this.cursor.stop() }
       if (event.keyCode === 8) { this.cursor.erase() }
     }
-    console.log(event.keyCode)
+
+    if (event.keyCode === 32) { this.cursor.togglePlay() }
+    // console.log(event.keyCode)
   }
 
   document.onkeydown = (event) => { this.onKeyDown(event) }
