@@ -41,7 +41,7 @@ function Cursor (terminal) {
   }
 
   this.inject = function (note, octave = this.octave) {
-    terminal.track.write(this.pos.x, 0, this.pos.y, `${octave}${note}`)
+    terminal.track.write(this.pos.x, this.getLoop(), this.pos.y, `${octave}${note}`)
     terminal.update()
   }
 
@@ -54,9 +54,13 @@ function Cursor (terminal) {
     this.octave = clamp(this.octave + mod, 0, 8)
   }
 
+  this.getLoop = function () {
+    return terminal.track.get(this.pos.x, this.pos.y)
+  }
+
   this.loopMod = function (mod) {
-    const loop = terminal.track.get(this.pos.x, this.pos.x)
-    terminal.track.set(this.pos.x, this.pos.y, loop + mod)
+    this.pos.t = this.pos.y
+    terminal.track.set(this.pos.x, this.pos.y, this.getLoop() + mod)
     terminal.update()
   }
 
